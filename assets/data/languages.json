@@ -1,0 +1,682 @@
+[
+    {
+        "dilId": 1,
+        "kod": "kullaniciGirisi",
+        "deger": "Kullanıcı Girişi"
+    },
+    {
+        "dilId": 1,
+        "kod": "kullaniciAdi",
+        "deger": "Kullanıcı Adı"
+    },
+    {
+        "dilId": 1,
+        "kod": "parola",
+        "deger": "Parola"
+    },
+    {
+        "dilId": 1,
+        "kod": "giris",
+        "deger": "Giriş"
+    },
+    {
+        "dilId": 1,
+        "kod": "turkce",
+        "deger": "Türkçe"
+    },
+    {
+        "dilId": 1,
+        "kod": "ingilizce",
+        "deger": "İngilizce"
+    },
+    {
+        "dilId": 1,
+        "kod": "arapca",
+        "deger": "Arapça"
+    },
+    {
+        "dilId": 1,
+        "kod": "rusca",
+        "deger": "Rusça"
+    },
+    {
+        "dilId": 1,
+        "kod": "versiyon",
+        "deger": "Versiyon"
+    },
+    {
+        "dilId": 1,
+        "kod": "magaza",
+        "deger": "Mağaza"
+    },
+    {
+        "dilId": 1,
+        "kod": "anasayfa",
+        "deger": "Anasayfa"
+    },
+    {
+        "dilId": 1,
+        "kod": "kapasite",
+        "deger": "Kapasite"
+    },
+    {
+        "dilId": 1,
+        "kod": "satis",
+        "deger": "Satış"
+    },
+    {
+        "dilId": 1,
+        "kod": "magazaKarne",
+        "deger": "Mağaza Karne"
+    },
+    {
+        "dilId": 1,
+        "kod": "magazaSec",
+        "deger": "Mağaza Seç"
+    },
+    {
+        "dilId": 1,
+        "kod": "ayarlar",
+        "deger": "Ayarlar"
+    },
+    {
+        "dilId": 1,
+        "kod": "cikis",
+        "deger": "Çıkış"
+    },
+    {
+        "dilId": 1,
+        "kod": "magazaSatisIstatistikleri",
+        "deger": "Mağaza Satış İstatistikleri"
+    },
+    {
+        "dilId": 1,
+        "kod": "kumulatifSatis",
+        "deger": "Kümülatif Satış"
+    },
+    {
+        "dilId": 1,
+        "kod": "barkodIleSorgulama",
+        "deger": "Barkod İle Sorgulama"
+    },
+    {
+        "dilId": 1,
+        "kod": "barkodNumarasiGirin",
+        "deger": "Barkod Numarası Girin"
+    },
+    {
+        "dilId": 1,
+        "kod": "urunVerRenkKodIleSorgula",
+        "deger": "Ürün ve Renk Kod İle sorgulama"
+    },
+    {
+        "dilId": 1,
+        "kod": "urunKodunuGirin",
+        "deger": "Ürün Kodu Girin"
+    },
+    {
+        "dilId": 1,
+        "kod": "renkKodunuGirin",
+        "deger": "Renk Kodu Girin"
+    },
+    {
+        "dilId": 1,
+        "kod": "barkodTara",
+        "deger": "Barkod Tara"
+    },
+    {
+        "dilId": 1,
+        "kod": "kameraIleTaratarakAramaYapabilirsiniz",
+        "deger": "Kamera İle Taratarak Arama Yapabilirsiniz"
+    },
+    {
+        "dilId": 1,
+        "kod": "urun",
+        "deger": "Urun"
+    },
+    {
+        "dilId": 1,
+        "kod": "detaylar",
+        "deger": "Detaylar"
+    },
+    {
+        "dilId": 1,
+        "kod": "feedbackIslemleri",
+        "deger": "Feedback Islemleri"
+    },
+    {
+        "dilId": 1,
+        "kod": "feedBackGirin",
+        "deger": "FeedBack Girin"
+    },
+    {
+        "dilId": 1,
+        "kod": "gonder",
+        "deger": "Gönder"
+    },
+    {
+        "dilId": 1,
+        "kod": "magazaIsimKoduGirin",
+        "deger": "Mağaza İsim-Kodu Girin"
+    },
+    {
+        "dilId": 1,
+        "kod": "magazaKodu",
+        "deger": "Mağaza Kodu"
+    },
+    {
+        "dilId": 1,
+        "kod": "magazaAdi",
+        "deger": "Mağaza Adı"
+    },
+    {
+        "dilId": 2,
+        "kod": "kullaniciGirisi",
+        "deger": "User Entry"
+    },
+    {
+        "dilId": 2,
+        "kod": "kullaniciAdi",
+        "deger": "User Name"
+    },
+    {
+        "dilId": 2,
+        "kod": "parola",
+        "deger": "Password"
+    },
+    {
+        "dilId": 2,
+        "kod": "giris",
+        "deger": "Entry"
+    },
+    {
+        "dilId": 2,
+        "kod": "turkce",
+        "deger": "Turkish"
+    },
+    {
+        "dilId": 2,
+        "kod": "ingilizce",
+        "deger": "English"
+    },
+    {
+        "dilId": 2,
+        "kod": "arapca",
+        "deger": "Arabic"
+    },
+    {
+        "dilId": 2,
+        "kod": "rusca",
+        "deger": "Russian"
+    },
+    {
+        "dilId": 2,
+        "kod": "versiyon",
+        "deger": "Version"
+    },
+    {
+        "dilId": 2,
+        "kod": "magaza",
+        "deger": "Store"
+    },
+    {
+        "dilId": 2,
+        "kod": "anasayfa",
+        "deger": "MainPage"
+    },
+    {
+        "dilId": 2,
+        "kod": "kapasite",
+        "deger": "Capacity"
+    },
+    {
+        "dilId": 2,
+        "kod": "satis",
+        "deger": "Sales"
+    },
+    {
+        "dilId": 2,
+        "kod": "magazaKarne",
+        "deger": "Capacity Journal"
+    },
+    {
+        "dilId": 2,
+        "kod": "magazaSec",
+        "deger": "Choose Capacity"
+    },
+    {
+        "dilId": 2,
+        "kod": "ayarlar",
+        "deger": "Settings"
+    },
+    {
+        "dilId": 2,
+        "kod": "cikis",
+        "deger": "Exit"
+    },
+    {
+        "dilId": 2,
+        "kod": "magazaSatisIstatistikleri",
+        "deger": "Store Sales Statistics"
+    },
+    {
+        "dilId": 2,
+        "kod": "kumulatifSatis",
+        "deger": "Cumulative Sales"
+    },
+    {
+        "dilId": 2,
+        "kod": "barkodIleSorgulama",
+        "deger": "Queries with barcodes"
+    },
+    {
+        "dilId": 2,
+        "kod": "barkodNumarasiGirin",
+        "deger": "Write Barcode Number"
+    },
+    {
+        "dilId": 2,
+        "kod": "urunVerRenkKodIleSorgula",
+        "deger": "Queries with Product And Color "
+    },
+    {
+        "dilId": 2,
+        "kod": "urunKodunuGirin",
+        "deger": "Enter Product Code"
+    },
+    {
+        "dilId": 2,
+        "kod": "renkKodunuGirin",
+        "deger": "Enter Color Code"
+    },
+    {
+        "dilId": 2,
+        "kod": "barkodTara",
+        "deger": "Scan Barcode"
+    },
+    {
+        "dilId": 2,
+        "kod": "kameraIleTaratarakAramaYapabilirsiniz",
+        "deger": "Search by Camera"
+    },
+    {
+        "dilId": 2,
+        "kod": "urun",
+        "deger": "Product"
+    },
+    {
+        "dilId": 2,
+        "kod": "detaylar",
+        "deger": "Details"
+    },
+    {
+        "dilId": 2,
+        "kod": "feedbackIslemleri",
+        "deger": "Feedback Operations"
+    },
+    {
+        "dilId": 2,
+        "kod": "feedBackGirin",
+        "deger": "Enter Feedback"
+    },
+    {
+        "dilId": 2,
+        "kod": "gonder",
+        "deger": "Send"
+    },
+    {
+        "dilId": 2,
+        "kod": "magazaIsimKoduGirin",
+        "deger": "Enter Store Name-Code"
+    },
+    {
+        "dilId": 2,
+        "kod": "magazaKodu",
+        "deger": "Store Code"
+    },
+    {
+        "dilId": 2,
+        "kod": "magazaAdi",
+        "deger": "Store Name"
+    },
+    {
+        "dilId": 3,
+        "kod": "kullaniciGirisi",
+        "deger": "دخول المستخدم"
+    },
+    {
+        "dilId": 3,
+        "kod": "kullaniciAdi",
+        "deger": "اسم المستخدم"
+    },
+    {
+        "dilId": 3,
+        "kod": "parola",
+        "deger": "كلمه السر"
+    },
+    {
+        "dilId": 3,
+        "kod": "giris",
+        "deger": "دخول"
+    },
+    {
+        "dilId": 3,
+        "kod": "turkce",
+        "deger": "اللغة التركية"
+    },
+    {
+        "dilId": 3,
+        "kod": "ingilizce",
+        "deger": "الإنجليزية"
+    },
+    {
+        "dilId": 3,
+        "kod": "arapca",
+        "deger": "عربى"
+    },
+    {
+        "dilId": 3,
+        "kod": "rusca",
+        "deger": "الروسية"
+    },
+    {
+        "dilId": 3,
+        "kod": "versiyon",
+        "deger": "الإصدار"
+    },
+    {
+        "dilId": 3,
+        "kod": "magaza",
+        "deger": "متجر"
+    },
+    {
+        "dilId": 3,
+        "kod": "anasayfa",
+        "deger": "الصفحة الرئيسية"
+    },
+    {
+        "dilId": 3,
+        "kod": "kapasite",
+        "deger": "سعة"
+    },
+    {
+        "dilId": 3,
+        "kod": "satis",
+        "deger": "مبيعات"
+    },
+    {
+        "dilId": 3,
+        "kod": "magazaKarne",
+        "deger": "مجلة القدرات"
+    },
+    {
+        "dilId": 3,
+        "kod": "magazaSec",
+        "deger": "اختر السعة"
+    },
+    {
+        "dilId": 3,
+        "kod": "ayarlar",
+        "deger": "الإعدادات"
+    },
+    {
+        "dilId": 3,
+        "kod": "cikis",
+        "deger": "ىخرج"
+    },
+    {
+        "dilId": 3,
+        "kod": "magazaSatisIstatistikleri",
+        "deger": "إحصائيات مبيعات المتجر"
+    },
+    {
+        "dilId": 3,
+        "kod": "kumulatifSatis",
+        "deger": "المبيعات التراكمية"
+    },
+    {
+        "dilId": 3,
+        "kod": "barkodIleSorgulama",
+        "deger": "استعلامات مع الباركود"
+    },
+    {
+        "dilId": 3,
+        "kod": "barkodNumarasiGirin",
+        "deger": "اكتب رقم الباركود"
+    },
+    {
+        "dilId": 3,
+        "kod": "urunVerRenkKodIleSorgula",
+        "deger": "استعلامات مع المنتج واللون"
+    },
+    {
+        "dilId": 3,
+        "kod": "urunKodunuGirin",
+        "deger": "أدخل رمز المنتج"
+    },
+    {
+        "dilId": 3,
+        "kod": "renkKodunuGirin",
+        "deger": "أدخل رمز اللون"
+    },
+    {
+        "dilId": 3,
+        "kod": "barkodTara",
+        "deger": "مسح الرمز الشريطى"
+    },
+    {
+        "dilId": 3,
+        "kod": "kameraIleTaratarakAramaYapabilirsiniz",
+        "deger": "البحث عن طريق الكاميرا"
+    },
+    {
+        "dilId": 3,
+        "kod": "urun",
+        "deger": "المنتج"
+    },
+    {
+        "dilId": 3,
+        "kod": "detaylar",
+        "deger": "تفاصيل"
+    },
+    {
+        "dilId": 3,
+        "kod": "feedbackIslemleri",
+        "deger": "ردود الفعل العمليات"
+    },
+    {
+        "dilId": 3,
+        "kod": "feedBackGirin",
+        "deger": "أدخل ملاحظاتك"
+    },
+    {
+        "dilId": 3,
+        "kod": "gonder",
+        "deger": "إرسال"
+    },
+    {
+        "dilId": 3,
+        "kod": "magazaIsimKoduGirin",
+        "deger": "أدخل رمز متجر الاسم"
+    },
+    {
+        "dilId": 3,
+        "kod": "magazaKodu",
+        "deger": "رمز المتجر"
+    },
+    {
+        "dilId": 3,
+        "kod": "magazaAdi",
+        "deger": "اسم المتجر"
+    },
+    {
+        "dilId": 4,
+        "kod": "kullaniciGirisi",
+        "deger": "Вход пользователя"
+    },
+    {
+        "dilId": 4,
+        "kod": "kullaniciAdi",
+        "deger": "Имя пользователя"
+    },
+    {
+        "dilId": 4,
+        "kod": "parola",
+        "deger": "пароль"
+    },
+    {
+        "dilId": 4,
+        "kod": "giris",
+        "deger": "запись"
+    },
+    {
+        "dilId": 4,
+        "kod": "turkce",
+        "deger": "турецкий"
+    },
+    {
+        "dilId": 4,
+        "kod": "ingilizce",
+        "deger": "английский"
+    },
+    {
+        "dilId": 4,
+        "kod": "arapca",
+        "deger": "арабский"
+    },
+    {
+        "dilId": 4,
+        "kod": "rusca",
+        "deger": "русский"
+    },
+    {
+        "dilId": 4,
+        "kod": "versiyon",
+        "deger": "Версия"
+    },
+    {
+        "dilId": 4,
+        "kod": "magaza",
+        "deger": "хранить"
+    },
+    {
+        "dilId": 4,
+        "kod": "anasayfa",
+        "deger": "Главная страница"
+    },
+    {
+        "dilId": 4,
+        "kod": "kapasite",
+        "deger": "Вместимость"
+    },
+    {
+        "dilId": 4,
+        "kod": "satis",
+        "deger": "Продажи"
+    },
+    {
+        "dilId": 4,
+        "kod": "magazaKarne",
+        "deger": "Журнал мощности"
+    },
+    {
+        "dilId": 4,
+        "kod": "magazaSec",
+        "deger": "Выберите Емкость"
+    },
+    {
+        "dilId": 4,
+        "kod": "ayarlar",
+        "deger": "настройки"
+    },
+    {
+        "dilId": 4,
+        "kod": "cikis",
+        "deger": "Выход"
+    },
+    {
+        "dilId": 4,
+        "kod": "magazaSatisIstatistikleri",
+        "deger": "Сохранять статистику продаж"
+    },
+    {
+        "dilId": 4,
+        "kod": "kumulatifSatis",
+        "deger": "Совокупный объем продаж"
+    },
+    {
+        "dilId": 4,
+        "kod": "barkodIleSorgulama",
+        "deger": "Запросы со штрих-кодами"
+    },
+    {
+        "dilId": 4,
+        "kod": "barkodNumarasiGirin",
+        "deger": "Введите номер штрих-кода"
+    },
+    {
+        "dilId": 4,
+        "kod": "urunVerRenkKodIleSorgula",
+        "deger": "Запросы с продуктом и цветом"
+    },
+    {
+        "dilId": 4,
+        "kod": "urunKodunuGirin",
+        "deger": "Введите код продукта"
+    },
+    {
+        "dilId": 4,
+        "kod": "renkKodunuGirin",
+        "deger": "Введите цветовой код"
+    },
+    {
+        "dilId": 4,
+        "kod": "barkodTara",
+        "deger": "Сканирование штрих-кода"
+    },
+    {
+        "dilId": 4,
+        "kod": "kameraIleTaratarakAramaYapabilirsiniz",
+        "deger": "Поиск по фотоаппаратам"
+    },
+    {
+        "dilId": 4,
+        "kod": "urun",
+        "deger": "Товар"
+    },
+    {
+        "dilId": 4,
+        "kod": "detaylar",
+        "deger": "подробности"
+    },
+    {
+        "dilId": 4,
+        "kod": "feedbackIslemleri",
+        "deger": "Обратная связь"
+    },
+    {
+        "dilId": 4,
+        "kod": "feedBackGirin",
+        "deger": "Введите обратную связь"
+    },
+    {
+        "dilId": 4,
+        "kod": "gonder",
+        "deger": "послать"
+    },
+    {
+        "dilId": 4,
+        "kod": "magazaIsimKoduGirin",
+        "deger": "Введите имя магазина"
+    },
+    {
+        "dilId": 4,
+        "kod": "magazaKodu",
+        "deger": "Код магазина"
+    },
+    {
+        "dilId": 4,
+        "kod": "magazaAdi",
+        "deger": "Название магазина"
+    }
+]
