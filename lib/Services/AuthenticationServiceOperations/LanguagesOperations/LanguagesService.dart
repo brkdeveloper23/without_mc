@@ -10,8 +10,9 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:localstorage/localstorage.dart';
 
 class LanguagesService{
-  LanguagesService(){}
+  LanguagesService(){
 
+  }
 
 Future setCurrentLanguage(int dilId) async{
 
@@ -253,7 +254,8 @@ currentLanguage.setM2Verimlilik = currentLanguageRawData.firstWhere((i)=>i.kod =
 currentLanguage.setbeden = currentLanguageRawData.firstWhere((i)=>i.kod == "beden").deger;
 currentLanguage.setmerkezDepoStokAdet = currentLanguageRawData.firstWhere((i)=>i.kod == "merkezDepoStokAdet").deger;
 currentLanguage.setyuzdeSTR = currentLanguageRawData.firstWhere((i)=>i.kod == "yuzdeSTR").deger;
-  
+currentLanguage.sethosgeldiniz = currentLanguageRawData.firstWhere((i)=>i.kod == "hosgeldiniz").deger;
+
 return currentLanguage;
   }
 

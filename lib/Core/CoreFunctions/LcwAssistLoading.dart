@@ -1,9 +1,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:lcwassist/Core/GlobalWidget/LoadingOperations/LoaderDesign.dart';
+import 'package:lcwassist/LcwAssistBase/LcwAssistApplicationManager.dart';
 import 'package:lcwassist/Style/LcwAssistColor.dart';
 
 class LcwAssistLoading{
+LcwAssistApplicationManager applicationManager = new LcwAssistApplicationManager();
+
 
 static void showAlert(BuildContext context){
 

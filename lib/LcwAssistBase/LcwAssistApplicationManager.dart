@@ -13,14 +13,17 @@ import 'package:lcwassist/Services/LcwAssistUIServiceOperations/StoreReportOpera
 
 class LcwAssistApplicationManager{
 
-Future onReady;
+//Future onReadyLanguage;
 
 LcwAssistApplicationManager() {
 
-  onReady = new Future(() async {
-      setCurrentLanguage = await languagesService.currentLanguage();
-    });
+  // onReadyLanguage = new Future(() async {
+  //     setCurrentLanguage = await languagesService.currentLanguage();
+  //   });
 }
+
+
+
 
 
 // Future _init() async {

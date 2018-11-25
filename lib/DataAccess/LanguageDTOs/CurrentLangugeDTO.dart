@@ -216,6 +216,8 @@ String _m2Verimlilik="";
 String _beden="";
 String _merkezDepoStokAdet="";
 String _yuzdeSTR="";
+String _hosgeldiniz="";
+
 
   // CurrentLangugeDTO(
   //   this._dilId,
@@ -387,6 +389,7 @@ set setM2Verimlilik(String m2Verimlilik) {_m2Verimlilik = m2Verimlilik;}
 set setbeden(String beden) {_beden = beden;}
 set setmerkezDepoStokAdet(String merkezDepoStokAdet) {_merkezDepoStokAdet = merkezDepoStokAdet;}
 set setyuzdeSTR(String yuzdeSTR) {_yuzdeSTR = yuzdeSTR;}
+set sethosgeldiniz(String hosgeldiniz) {_hosgeldiniz = hosgeldiniz;}
 
 
   String get getkullaniciGirisi => _kullaniciGirisi;
@@ -522,6 +525,8 @@ set setyuzdeSTR(String yuzdeSTR) {_yuzdeSTR = yuzdeSTR;}
   String get getbeden => _beden;
   String get getmerkezDepoStokAdet => _merkezDepoStokAdet;
   String get getyuzdeSTR => _yuzdeSTR;
+  String get gethosgeldiniz => _hosgeldiniz;
+  
   //LcwAssistLanguagesDTO
 
 //   CurrentLangugeDTO toFill(List<LcwAssistLanguagesDTO> currentLanguageRawData){
@@ -700,6 +705,7 @@ map["M2Verimlilik"] = _m2Verimlilik;
 map["beden"] = _beden;
 map["merkezDepoStokAdet"] = _merkezDepoStokAdet;
 map["yuzdeSTR"] = _yuzdeSTR;
+map["hosgeldiniz"] = _hosgeldiniz;
 
     return map;
   }

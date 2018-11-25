@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:lcwassist/Core/Abstracts/IsLcwAssistUIPage.dart';
 
 import 'package:lcwassist/Core/BaseConst/LcwAssistEnumType.dart';
 import 'package:lcwassist/Core/CoreFunctions/LcwAssistLoading.dart';
@@ -54,7 +55,6 @@ class HomePage extends StatefulWidget {
 class HomePageState extends State<HomePage> {
   int _selectedDrawerIndex = 0;
 LcwAssistApplicationManager applicationManager = new LcwAssistApplicationManager();
-
 StoreChooseService storeChooseService = new StoreChooseService();
 StoreChooseResponeDTO storesResponse = new StoreChooseResponeDTO();
 String selectedStoreName = "";
@@ -82,10 +82,6 @@ super.initState();
  WidgetsBinding.instance
         .addPostFrameCallback((_) => loadPage(context));
 
-
-
-
-
 currentStore().then((result) {
             // If we need to rebuild the widget with the resulting data,
             // make sure to use `setState`
@@ -96,10 +92,17 @@ currentStore().then((result) {
         });
   }
 
-    loadPage(BuildContext context) async{
+    loadPage(BuildContext context) async
+    
+    {
+//await applicationManager.onReadyLanguage;
+
 storeResponse = await storeChooseService.getCurrentStore();
 applicationManager.setCurrentLanguage = await applicationManager.languagesService.currentLanguage();
   }
+
+
+
 
  void loadCurrentUser() async{
 currentUserResult = await loginPageService.getCurrentUser();
@@ -107,10 +110,10 @@ currentUserResult = await loginPageService.getCurrentUser();
 
 Future<void> executeAfterBuild() async {
 
-applicationManager.setCurrentLanguage = await applicationManager.languagesService.currentLanguage();
+
 
 drawerItems = [
-    new DrawerItem(applicationManager.currentLanguage.getkapasite, Icons.home),
+    new DrawerItem(applicationManager.currentLanguage.getanasayfa, Icons.home),
     new DrawerItem(applicationManager.currentLanguage.getkapasite, Icons.table_chart),//domain
     new DrawerItem(applicationManager.currentLanguage.getsatis, Icons.payment),
     new DrawerItem(applicationManager.currentLanguage.getmagazaKarne, Icons.store),
@@ -224,14 +227,14 @@ ClipOval(
 ),
 
 Container(padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),child: new Text(currentUserResult.firstName + ' ' + currentUserResult.lastName,style: TextStyle(fontSize: 15.0,color: Colors.white,fontFamily: LcwAssistTextStyle.currentTextFontFamily)),),
-Container(padding: EdgeInsets.fromLTRB(0.0, 7.0, 0.0, 0.0),child: new Text('Hoş Geldiniz',style: TextStyle(fontSize: 15.0,color: Colors.white,fontFamily: LcwAssistTextStyle.currentTextFontFamily),),),
+Container(padding: EdgeInsets.fromLTRB(0.0, 7.0, 0.0, 0.0),child: new Text(applicationManager.currentLanguage.gethosgeldiniz,style: TextStyle(fontSize: 15.0,color: Colors.white,fontFamily: LcwAssistTextStyle.currentTextFontFamily),),),
 
 GestureDetector(
   onTap: (){_openStoreCard();},
      child: 
      Row(  children: <Widget>[
   Padding(padding: EdgeInsets.fromLTRB(0.0, 7.0, 0.0, 0.0),
-  child: Text(applicationManager.currentLanguage.getmagaza+ " " + selectedStoreName ,style: TextStyle(color: Colors.white,fontSize: 15.0,fontFamily: LcwAssistTextStyle.currentTextFontFamily)),),
+  child: Text(applicationManager.currentLanguage.getmagaza+ ": " + selectedStoreName ,style: TextStyle(color: Colors.white,fontSize: 15.0,fontFamily: LcwAssistTextStyle.currentTextFontFamily)),),
   Icon(Icons.touch_app,color: Colors.white,size: 18.0),
  ],)
    ),
@@ -343,6 +346,8 @@ void logOut(){
     Navigator.of(context).push(route);
 
 }
+
+
 
 
 }

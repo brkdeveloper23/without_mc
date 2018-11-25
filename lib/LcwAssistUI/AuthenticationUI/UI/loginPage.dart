@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:lcwassist/Core/Abstracts/IsLcwAssistUIPage.dart';
 import 'package:lcwassist/Core/BaseConst/LcwAssistEnumType.dart';
 import 'package:lcwassist/Core/BaseConst/SharedPreferencesConstant.dart';
 import 'package:lcwassist/Core/CoreFunctions/LcwAssistLoading.dart';
@@ -31,9 +32,9 @@ class LoginPage extends StatefulWidget{
   LoginPageState createState() => new LoginPageState();
 }
 
-class LoginPageState extends State<LoginPage>{
+class LoginPageState extends State<LoginPage> implements IsLcwAssistUIPage{
 
-LcwAssistApplicationManager applicationManager;
+LcwAssistApplicationManager applicationManager = new LcwAssistApplicationManager();
 LoginPageEntryRequestDTO loginRequest  = new LoginPageEntryRequestDTO();
 LoginPageEntryResponseDTO responseDTO;
 CurrentLangugeDTO currentLangugeDTO = new CurrentLangugeDTO();
@@ -68,9 +69,9 @@ setState(() {});
   }
 
 Future<void> executeAfterBuild() async {
-  applicationManager = new LcwAssistApplicationManager();
-await applicationManager.onReady;
-//applicationManager.setCurrentLanguage = await applicationManager.languagesService.currentLanguage();
+
+//await applicationManager.onReadyLanguage;
+applicationManager.setCurrentLanguage = await applicationManager.languagesService.currentLanguage();
 
 final prefs = await SharedPreferences.getInstance();
 

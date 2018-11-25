@@ -74,10 +74,6 @@ LcwAssistApplicationManager applicationManager = new LcwAssistApplicationManager
  WidgetsBinding.instance
         .addPostFrameCallback((_) => loaded(context));
 
-
-
-//dris();
-
     super.initState();
   }
 
