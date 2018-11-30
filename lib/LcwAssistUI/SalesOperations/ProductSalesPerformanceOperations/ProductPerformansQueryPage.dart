@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:lcwassist/Core/Abstracts/IsLcwAssistUIPage.dart';
 import 'package:lcwassist/Core/BaseConst/LcwAssistEnumType.dart';
 import 'package:lcwassist/Core/BaseConst/LcwAssistPageDrawerNumberConst.dart';
 import 'package:lcwassist/Core/CoreFunctions/LcwAssistLoading.dart';
@@ -32,7 +33,7 @@ class ProductPerformansQueryPage extends StatefulWidget{
   ProductPerformansQueryPageState createState() => new ProductPerformansQueryPageState();
 }
 
-class ProductPerformansQueryPageState extends State<ProductPerformansQueryPage>{
+class ProductPerformansQueryPageState extends State<ProductPerformansQueryPage> implements IsLcwAssistUIPage{
 
 LcwAssistApplicationManager applicationManager = new LcwAssistApplicationManager();
 
@@ -49,22 +50,14 @@ FocusNode _textColorCodeFocus = new FocusNode();
 
 final controllerModelCode = TextEditingController();
 final controllerColorCode = TextEditingController();
-
-
-
-
-
+bool sayfaYuklendiMi = false;
 
 @override
 void initState() {
 super.initState();
 
-currentStore().then((result) {
-            setState(() {
-                selectedStore = result;
-            });
-        });
-
+ WidgetsBinding.instance
+        .addPostFrameCallback((_) => loaded(context));
 
 controllerBarcode.text = '8681363743975';
 //controllerModelCode.text = '8SJ450Z1';
@@ -78,26 +71,43 @@ controllerColorCode.addListener(onModelColorChange);
 _textModelCodeFocus.addListener(onModelColorChange);
 _textColorCodeFocus.addListener(onModelColorChange);
 
-
-
-
-    
   }
 
-  @override
-  Widget build(BuildContext context) {
+Future loaded(BuildContext context) async{
+applicationManager.setCurrentLanguage = await applicationManager.languagesService.currentLanguage();
 
-// setState(() {
-//    currentStore();
-// });
+sayfaYuklendiMi = false;
 
+setState(() { 
+    });
+
+currentStore().then((result) {
+             setState(() {
+              selectedStore = result;
+             });
+        });
+
+sayfaYuklendiMi = true;
+setState(() { 
+    });
+}
+
+Future<void> executeAfterBuild() async {
+//applicationManager.setCurrentLanguage = await applicationManager.languagesService.currentLanguage();
+}
+
+
+@override
+Widget build(BuildContext context) {
+
+executeAfterBuild();
     return new Scaffold(
       resizeToAvoidBottomPadding: false,
        //appBar: AppBar(title: Text('Ürün Sorgulama'),),
       //drawer: DrawerOnly.leftSideMenuDiz(LcwAssistPageDrawerNumberConst.satis,context),
       key: scaffoldState,
       backgroundColor: LcwAssistColor.backGroundColor,
-      body: ekranYerlesim(),
+      body: sayfaYuklendiMi == true ? pageBody() : Container(child: Text(''),),
     );
     }
 
@@ -121,7 +131,7 @@ this.productMetricsRequest.setBarcode = qrResult;
 
 
   setState(() {
-LcwAssistLoading.showAlert(context);
+LcwAssistLoading.showAlert(context,applicationManager.currentLanguage.getyukleniyor);
 });
 
 ProductMetricsResponse result = await ProductSalesPerformanceService.productSalesPerformanceMetrics(fillToModel(type));
@@ -162,7 +172,7 @@ this.productMetricsRequest.setCountryRef = selectedStore.countryRef.toString();
 return this.productMetricsRequest;
 }
 
-Widget ekranYerlesim(){
+Widget pageBody(){
   return SingleChildScrollView(child: Column(
 
     children: <Widget>[
@@ -182,7 +192,7 @@ Widget barkodIleSorgulamaCard(){
       child: Column(
         children: <Widget>[
           
-          Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Container(padding: EdgeInsets.all(5.0), child: Text('Barkod ile sorgula'),)]),
+          Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Container(padding: EdgeInsets.all(5.0), child: Text(applicationManager.currentLanguage.getbarkodNumarasiGirin),)]),
           Row(
         children: <Widget>[
           Expanded(
@@ -195,12 +205,12 @@ Widget barkodIleSorgulamaCard(){
            focusNode: _textBarcodeFocus,
               validator: (value) {
               if (value.isEmpty) {
-                return 'Boş Geçemezsiniz.';
+                return applicationManager.currentLanguage.getbosGecemezsiniz;
               }
             },
       controller: controllerBarcode,
               decoration: InputDecoration(
-                hintText: 'Barkod numarasını girin'
+                hintText: applicationManager.currentLanguage.getbarkodNumarasiGirin
               ),
               keyboardType: TextInputType.number,
               maxLength: 13,
@@ -234,7 +244,7 @@ Widget urunKoduIleSorgulamaCard(){
       child: Column(
         children: <Widget>[
           
-          Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Container(padding: EdgeInsets.all(5.0), child: Text('Barkod ile sorgula'),)]),
+          Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Container(padding: EdgeInsets.all(5.0), child: Text(applicationManager.currentLanguage.getbarkodIleSorgulama),)]),
           Row(
         children: <Widget>[
           Expanded(
@@ -249,13 +259,13 @@ Widget urunKoduIleSorgulamaCard(){
                 focusNode: _textModelCodeFocus,
                  validator: (value) {
               if (value.isEmpty) {
-                return 'Boş Geçemezsiniz.';
+                return applicationManager.currentLanguage.getbosGecemezsiniz;
               }
             },
       controller: controllerModelCode,
               decoration: InputDecoration(
                 
-                hintText: 'Ürün kodunu girin',
+                hintText: applicationManager.currentLanguage.geturunKodunuGirin,
 
               ),
                //textCapitalization: TextCapitalization.sentences,
@@ -265,13 +275,13 @@ Widget urunKoduIleSorgulamaCard(){
               focusNode: _textColorCodeFocus,
                validator: (value) {
               if (value.isEmpty) {
-                return 'Boş Geçemezsiniz.';
+                return applicationManager.currentLanguage.getbosGecemezsiniz;
               }
             },
       controller: controllerColorCode,
               decoration: InputDecoration(
                 
-                hintText: 'Renk kodunu girin'
+                hintText: applicationManager.currentLanguage.getrenkKodunuGirin,
               ),
               maxLength: 4,
             ),
@@ -301,7 +311,7 @@ Widget barkodTaraSorgulamaCard(){
       child: Column(
         children: <Widget>[
           
-          Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Container(padding: EdgeInsets.all(5.0), child: Text('Barkod Tara'),)]),
+          Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Container(padding: EdgeInsets.all(5.0), child: Text(applicationManager.currentLanguage.getbarkodTara),)]),
           Row(
         children: <Widget>[
           Expanded(
@@ -310,7 +320,7 @@ Widget barkodTaraSorgulamaCard(){
           ),
           Expanded(
             flex: 3,
-            child: new Text('Kamera ile taratarak arama yapabilirsiniz.'),
+            child: new Text(applicationManager.currentLanguage.getkameraIleTaratarakAramaYapabilirsiniz),
           ),
           Expanded(
             flex: 1,
@@ -349,6 +359,8 @@ selectedStoreName = stores.storeName;
 
 return stores;
     }
+
+
 
 }
 

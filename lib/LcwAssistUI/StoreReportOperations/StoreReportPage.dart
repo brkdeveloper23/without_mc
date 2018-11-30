@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lcwassist/Core/Abstracts/IsLcwAssistUIPage.dart';
 import 'package:lcwassist/Core/BaseConst/LcwAssistEnumType.dart';
 import 'package:lcwassist/Core/CoreFunctions/LcwAssistLoading.dart';
 import 'package:lcwassist/Core/CoreFunctions/LcwAssistMessageDialogs/LcwAssistAlertDialogInfo.dart';
@@ -28,7 +29,7 @@ class StoreReportPage extends StatefulWidget{
   StoreReportPageState createState() => new StoreReportPageState();
 }
 
-class StoreReportPageState extends State<StoreReportPage>  with TickerProviderStateMixin{
+class StoreReportPageState extends State<StoreReportPage>  with TickerProviderStateMixin implements IsLcwAssistUIPage{
 
 LcwAssistApplicationManager applicationManager = new LcwAssistApplicationManager();
 Stores currentStore;
@@ -58,15 +59,25 @@ super.initState();
 
 
   }
-
+Future<void> executeAfterBuild() async {
+  
+}
 
 
 Future loaded(BuildContext context) async{
 
  //await new Future.delayed(const Duration(seconds: 2 ));
+ applicationManager.setCurrentLanguage = await applicationManager.languagesService.currentLanguage();
    setState(() {
-LcwAssistLoading.showAlert(context);
+LcwAssistLoading.showAlert(context,applicationManager.currentLanguage.getyukleniyor);
 });
+
+
+
+
+
+
+
 
  currentStore = await applicationManager.serviceManager.storeChooseService.getCurrentStore();
  
@@ -129,13 +140,13 @@ Container(
     Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
-      Padding(padding: EdgeInsets.fromLTRB(5.0, 10.0, 5.0, 10.0),child: Text('Mağaza Kodu: ',style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 15.0,fontWeight: FontWeight.bold),),),
+      Padding(padding: EdgeInsets.fromLTRB(5.0, 10.0, 5.0, 10.0),child: Text(applicationManager.currentLanguage.getmagazaKodu+ ' : ',style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 15.0,fontWeight: FontWeight.bold),),),
       Padding(padding: EdgeInsets.fromLTRB(0.0, 10.0, 10.0, 10.0),child: Text(currentStore.storeCode,style: TextStyle(color: LcwAssistColor.reportCardSubHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 15.0,fontWeight: FontWeight.bold),),)
     ],),
     Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
-      Padding(padding: EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 10.0),child: Text('Mağaza Adı: ',style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 15.0,fontWeight: FontWeight.bold),),),
+      Padding(padding: EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 10.0),child: Text(applicationManager.currentLanguage.getmagazaAdi+' : ',style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 15.0,fontWeight: FontWeight.bold),),),
       Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 10.0),child: Text(currentStore.storeName,style: TextStyle(color: LcwAssistColor.reportCardSubHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 15.0,fontWeight: FontWeight.bold),),)
     ],),
     
@@ -179,14 +190,14 @@ Widget sayfa(List<Widget> satirlar){
 Widget buildPageView() {
 
 List<UcluCardTextDTO> sayfaBirSatir1 = new List<UcluCardTextDTO>();
-sayfaBirSatir1.add(new UcluCardTextDTO('Satış Tutar(KDVsiz)',raporResult.bY_SatisTutar_KDVsiz));
-sayfaBirSatir1.add(new UcluCardTextDTO('Tutar Büyüme',raporResult.tutarBuyume));
-sayfaBirSatir1.add(new UcluCardTextDTO('Satış Tutar GY(KDVsiz)',raporResult.gY_SatisTutar_KDVsiz));
+sayfaBirSatir1.add(new UcluCardTextDTO(applicationManager.currentLanguage.getsatisTutarKDVsiz,raporResult.bY_SatisTutar_KDVsiz));
+sayfaBirSatir1.add(new UcluCardTextDTO(applicationManager.currentLanguage.gettutarBuyume,raporResult.tutarBuyume));
+sayfaBirSatir1.add(new UcluCardTextDTO(applicationManager.currentLanguage.getsatisTutarGY_KDVsiz,raporResult.gY_SatisTutar_KDVsiz));
 
 List<UcluCardTextDTO> sayfaBirSatir3 = new List<UcluCardTextDTO>();
-sayfaBirSatir3.add(new UcluCardTextDTO('Satış Adet',raporResult.bY_SatisAdet));
-sayfaBirSatir3.add(new UcluCardTextDTO('Adet Büyüme',raporResult.adetBuyume));
-sayfaBirSatir3.add(new UcluCardTextDTO('Satış Adet GY',raporResult.gY_SatisAdet));
+sayfaBirSatir3.add(new UcluCardTextDTO(applicationManager.currentLanguage.getsatisAdet,raporResult.bY_SatisAdet));
+sayfaBirSatir3.add(new UcluCardTextDTO(applicationManager.currentLanguage.getadetBuyume,raporResult.adetBuyume));
+sayfaBirSatir3.add(new UcluCardTextDTO(applicationManager.currentLanguage.getsatisAdetGY,raporResult.gY_SatisAdet));
 
 List<Widget> sayfa1 = new List<Widget>();
 sayfa1.add(Row (children: <Widget>[Expanded(child :LcwAssistCustomWidgets.tutarUcluCardYanYana(sayfaBirSatir1,false))],));
@@ -194,8 +205,8 @@ sayfa1.add(Row (children: <Widget>[Expanded(child :LcwAssistCustomWidgets.tutarU
 sayfa1.add(Row (children: <Widget>[Expanded(child :LcwAssistCustomWidgets.tutarUcluCardYanYana(sayfaBirSatir3,false))],));
 
 sayfa1.add(Row (children: <Widget>[
-  Expanded(child :LcwAssistCustomWidgets.tutarCardDikey('Hedef Tutar',raporResult.bY_HedefTutar,false)),
-  Expanded(child :LcwAssistCustomWidgets.tutarCardDikey('Hedef Tut. Yüz',raporResult.magazaHedefTutturmaYuzdesi,false))],));
+  Expanded(child :LcwAssistCustomWidgets.tutarCardDikey(applicationManager.currentLanguage.gethedefTutar,raporResult.bY_HedefTutar,false)),
+  Expanded(child :LcwAssistCustomWidgets.tutarCardDikey(applicationManager.currentLanguage.gethedefTutarYuzdesi,raporResult.magazaHedefTutturmaYuzdesi,false))],));
 
 
 //SAYFA 2
@@ -203,14 +214,14 @@ sayfa1.add(Row (children: <Widget>[
 List<Widget> sayfa2 = new List<Widget>();
 
 sayfa2.add(Row (children: <Widget>[
-  Expanded(child :LcwAssistCustomWidgets.tutarCardDikey('Conversion Rate',raporResult.conversionRate,false)),
-  Expanded(child :LcwAssistCustomWidgets.tutarCardDikey('Müş. Ziy. Say',raporResult.magazaTrafik,false))],));
+  Expanded(child :LcwAssistCustomWidgets.tutarCardDikey(applicationManager.currentLanguage.getconversionRate,raporResult.conversionRate,false)),
+  Expanded(child :LcwAssistCustomWidgets.tutarCardDikey(applicationManager.currentLanguage.getmusteriZiyareySayisi,raporResult.magazaTrafik,false))],));
 sayfa2.add(Row (children: <Widget>[
-  Expanded(child :LcwAssistCustomWidgets.tutarCardDikey('Sep Büy.Adet',raporResult.sepetBuyukAdet,false)),
-  Expanded(child :LcwAssistCustomWidgets.tutarCardDikey('Sepet Büy. Tutar(KDVsiz)',raporResult.sepetBuyukTutarKDVsiz,false))],));
+  Expanded(child :LcwAssistCustomWidgets.tutarCardDikey(applicationManager.currentLanguage.getsepetBuyukluguAdet,raporResult.sepetBuyukAdet,false)),
+  Expanded(child :LcwAssistCustomWidgets.tutarCardDikey(applicationManager.currentLanguage.getsepetBuyukluguTutarKDVsiz,raporResult.sepetBuyukTutarKDVsiz,false))],));
 sayfa2.add(Row (children: <Widget>[
-  Expanded(child :LcwAssistCustomWidgets.tutarCardDikey('Stok Devir Hızı',raporResult.stokDevirHizi,false)),
-  Expanded(child :LcwAssistCustomWidgets.tutarCardDikey('M2 Verimlilik',raporResult.m2Verimlilik,false))],));
+  Expanded(child :LcwAssistCustomWidgets.tutarCardDikey(applicationManager.currentLanguage.getstokDevirHizi,raporResult.stokDevirHizi,false)),
+  Expanded(child :LcwAssistCustomWidgets.tutarCardDikey(applicationManager.currentLanguage.getM2Verimlilik,raporResult.m2Verimlilik,false))],));
 
 
 

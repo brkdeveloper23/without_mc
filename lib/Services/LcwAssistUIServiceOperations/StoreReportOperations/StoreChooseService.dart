@@ -2,11 +2,13 @@
 import 'dart:async';
 import 'package:lcwassist/Core/BaseConst/SharedPreferencesConstant.dart';
 import 'package:lcwassist/Core/BaseConst/UrlConst.dart';
+import 'package:lcwassist/DataAccess/LanguageDTOs/CurrentLangugeDTO.dart';
 import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreChooseResponeDTO.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreReportRequestDTO.dart';
 import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreReportResponseDTO.dart';
+import 'package:lcwassist/LcwAssistBase/LcwAssistApplicationManager.dart';
 import 'package:lcwassist/Services/AuthenticationServiceOperations/TokenOperations/TokenService.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -20,6 +22,10 @@ StoreChooseService(){
 Future<StoreChooseResponeDTO> storeListRequest() async {
 
 StoreChooseResponeDTO userResponse ;
+LcwAssistApplicationManager applicationManager = new LcwAssistApplicationManager();
+CurrentLangugeDTO currentLanguage = new CurrentLangugeDTO();
+
+currentLanguage = await applicationManager.languagesService.currentLanguage();
 
 String token =  await TokenService.getAuthToken();
     var response = await http.post(
@@ -39,7 +45,7 @@ String token =  await TokenService.getAuthToken();
 //StoreChooseResponeDTO
  userResponse = StoreChooseResponeDTO.fromJson(json.decode(response.body));
 userResponse.stores.insert(0, 
-setTumMagazalar()
+setTumMagazalar(currentLanguage.gettumMagazalar)
 );
  
   } else {
@@ -108,9 +114,9 @@ ss = Stores.fromJson((json.decode(currentStore)));
 return ss; 
 }
 
-Stores setTumMagazalar(){
+Stores setTumMagazalar(String tumMagazalarText){
   return Stores(countryRef: 48,depoRef: 0,depoYerlesimTip: "",isOutlet: 0,magazaMudur1: "",magazaMudur2: "",
-  musteriProfil: "",operasyonelBolgeTanim: "",personelSayisi: 0,storeCode: "0",storeName: "TÜM MAĞAZALAR",toplamM2: 0);
+  musteriProfil: "",operasyonelBolgeTanim: "",personelSayisi: 0,storeCode: "0",storeName: tumMagazalarText,toplamM2: 0);
 }
 
 }

@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:lcwassist/Core/Abstracts/IsLcwAssistUIPage.dart';
 import 'dart:async';
 import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreChooseResponeDTO.dart';
 import 'package:lcwassist/LcwAssistBase/LcwAssistApplicationManager.dart';
@@ -19,7 +20,7 @@ class StoreCardPage extends StatefulWidget{
   StoreCardPageState createState() => new StoreCardPageState();
 }
 
-class StoreCardPageState extends State<StoreCardPage>{
+class StoreCardPageState extends State<StoreCardPage>  implements IsLcwAssistUIPage{
 
   LcwAssistApplicationManager applicationManager = new LcwAssistApplicationManager();
 final GlobalKey<ScaffoldState> scaffoldState = new GlobalKey<ScaffoldState>();
@@ -32,6 +33,9 @@ String selectedStoreName="";
 void initState() {
 super.initState();
 
+  WidgetsBinding.instance
+        .addPostFrameCallback((_) => loaded(context));
+
 currentStore().then((result) {
             setState(() {
                 selectedStore = result;
@@ -39,6 +43,14 @@ currentStore().then((result) {
         });
    
   }
+
+    Future loaded(BuildContext context) async{
+applicationManager.setCurrentLanguage = await applicationManager.languagesService.currentLanguage();
+}
+
+Future<void> executeAfterBuild() async {
+  
+}
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +61,7 @@ currentStore().then((result) {
 
     return new Scaffold(
       resizeToAvoidBottomPadding: false, 
-       appBar: AppBar(title: Text('Mağaza Bilgisi'),),
+       appBar: AppBar(title: Text(applicationManager.currentLanguage.getmagazaKimlik),),
       //drawer: DrawerOnly.leftSideMenuDiz(LcwAssistPageDrawerNumberConst.satis,context),
       key: scaffoldState,
       backgroundColor: LcwAssistColor.backGroundColor,
@@ -79,7 +91,7 @@ Card(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
         //Icon(Icons.store,color: Colors.grey[700]),
-        Padding(padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),child: Text('Adı',style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 18.0,fontWeight: FontWeight.bold),),)
+        Padding(padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),child: Text(applicationManager.currentLanguage.getadi,style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 18.0,fontWeight: FontWeight.bold),),)
         
         ],),
         Padding(padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 10.0),child: Text(selectedStore.storeName,style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 18.0,),)),
@@ -104,7 +116,7 @@ Expanded(flex: 1,child: Card(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
    
-        Padding(padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),child: Text('Kodu',style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 16.0,fontWeight: FontWeight.bold),),),
+        Padding(padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),child: Text(applicationManager.currentLanguage.getkodu,style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 16.0,fontWeight: FontWeight.bold),),),
         
         Padding(padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 10.0),child: Text(selectedStore.storeCode,style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 16.0,),)),
         ],
@@ -125,7 +137,7 @@ Expanded(flex: 1,child: Card(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
    
-        Padding(padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),child: Text('Personel Sayısı',style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 16.0,fontWeight: FontWeight.bold),),),
+        Padding(padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),child: Text(applicationManager.currentLanguage.getpersonelSayisi,style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 16.0,fontWeight: FontWeight.bold),),),
         
         Padding(padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 10.0),child: Text(selectedStore.personelSayisi.toString(),style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 16.0,),)),
         ],
@@ -150,7 +162,7 @@ Expanded(flex: 1,child: Card(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
    
-        Padding(padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),child: Text('Müşteri Profili',style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 16.0,fontWeight: FontWeight.bold),),),
+        Padding(padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),child: Text(applicationManager.currentLanguage.getmusteriProfili,style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 16.0,fontWeight: FontWeight.bold),),),
         
         Padding(padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 10.0),child: Text(selectedStore.musteriProfil.toString(),style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 16.0,),)),
         ],
@@ -169,7 +181,7 @@ Expanded(flex: 1,child: Card(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
    
-        Padding(padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),child: Text('M2',style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 16.0,fontWeight: FontWeight.bold),),),
+        Padding(padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),child: Text(applicationManager.currentLanguage.getmetrekare,style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 16.0,fontWeight: FontWeight.bold),),),
         
         Padding(padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 10.0),child: Text(selectedStore.toplamM2.toString(),style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 16.0,),)),
         ],
@@ -194,7 +206,7 @@ Expanded(flex: 1,child: Card(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
    
-        Padding(padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),child: Text('Tipi',style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 16.0,fontWeight: FontWeight.bold),),),
+        Padding(padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),child: Text(applicationManager.currentLanguage.gettipi,style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 16.0,fontWeight: FontWeight.bold),),),
         
         Padding(padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 10.0),child: Text(selectedStore.depoYerlesimTip,style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 16.0,),)),
         ],
@@ -213,9 +225,9 @@ Expanded(flex: 1,child: Card(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
    
-        Padding(padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),child: Text('Sezon',style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 16.0,fontWeight: FontWeight.bold),),),
+        Padding(padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),child: Text(applicationManager.currentLanguage.getsezon,style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 16.0,fontWeight: FontWeight.bold),),),
         
-        Padding(padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 10.0),child: Text(selectedStore.isOutlet == 1 ? "Outlet" : "Inlet",style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 16.0,),)),
+        Padding(padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 10.0),child: Text(selectedStore.isOutlet == 1 ? applicationManager.currentLanguage.getoutlet : applicationManager.currentLanguage.getinlet,style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 16.0,),)),
         ],
       ),),
     )),
@@ -241,7 +253,7 @@ Card(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
         //Icon(Icons.store,color: Colors.grey[700]),
-        Padding(padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),child: Text('Operasyonel Bölge',style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 16.0,fontWeight: FontWeight.bold),),)
+        Padding(padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),child: Text(applicationManager.currentLanguage.getoperasyonelBolge,style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 16.0,fontWeight: FontWeight.bold),),)
         
         ],),
         Padding(padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 10.0),child: Text(selectedStore.operasyonelBolgeTanim,style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 16.0,),)),
@@ -268,7 +280,7 @@ Card(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
         //Icon(Icons.store,color: Colors.grey[700]),
-        Padding(padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),child: Text('Mağaza 1.Müdür',style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 16.0,fontWeight: FontWeight.bold),),)
+        Padding(padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),child: Text(applicationManager.currentLanguage.getmagazaBirinciMudur,style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 16.0,fontWeight: FontWeight.bold),),)
         
         ],),
         Padding(padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 10.0),child: Text(selectedStore.magazaMudur1,style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 16.0,),)),
@@ -295,7 +307,7 @@ Card(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
         //Icon(Icons.store,color: Colors.grey[700]),
-        Padding(padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),child: Text('Mağaza 2. Müdür',style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 16.0,fontWeight: FontWeight.bold),),)
+        Padding(padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),child: Text(applicationManager.currentLanguage.getmagazaIkinciMudur,style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 16.0,fontWeight: FontWeight.bold),),)
         
         ],),
         Padding(padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 10.0),child: Text(selectedStore.magazaMudur2,style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 16.0,),)),

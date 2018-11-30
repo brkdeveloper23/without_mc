@@ -255,6 +255,13 @@ currentLanguage.setbeden = currentLanguageRawData.firstWhere((i)=>i.kod == "bede
 currentLanguage.setmerkezDepoStokAdet = currentLanguageRawData.firstWhere((i)=>i.kod == "merkezDepoStokAdet").deger;
 currentLanguage.setyuzdeSTR = currentLanguageRawData.firstWhere((i)=>i.kod == "yuzdeSTR").deger;
 currentLanguage.sethosgeldiniz = currentLanguageRawData.firstWhere((i)=>i.kod == "hosgeldiniz").deger;
+currentLanguage.setmagazaSatisIstatistikleri = currentLanguageRawData.firstWhere((i)=>i.kod == "magazaSatisIstatistikleri").deger;
+currentLanguage.setkapasiteFiltre = currentLanguageRawData.firstWhere((i)=>i.kod == "kapasiteFiltre").deger;
+currentLanguage.settemizle = currentLanguageRawData.firstWhere((i)=>i.kod == "temizle").deger;
+currentLanguage.setfiltrele = currentLanguageRawData.firstWhere((i)=>i.kod == "filtrele").deger;
+currentLanguage.setbirFeedBackBirak = currentLanguageRawData.firstWhere((i)=>i.kod == "birFeedBackBirak").deger;
+currentLanguage.seturunBagimsizFeedbackGonder = currentLanguageRawData.firstWhere((i)=>i.kod == "urunBagimsizFeedbackGonder").deger;
+currentLanguage.seturunBagimliBagimsizFeedbackGonder = currentLanguageRawData.firstWhere((i)=>i.kod == "urunBagimliBagimsizFeedbackGonder").deger;
 
 return currentLanguage;
   }

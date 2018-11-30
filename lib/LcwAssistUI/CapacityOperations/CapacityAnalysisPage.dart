@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:lcwassist/Core/Abstracts/IsLcwAssistUIPage.dart';
+import 'package:lcwassist/Core/BaseConst/LcwAssistEnumType.dart';
 
 import 'package:lcwassist/Core/CoreFunctions/LcwAssistLoading.dart';
+import 'package:lcwassist/Core/CoreFunctions/LcwAssistSnackBarDialogs/LcwAssistSnackBarDialogInfo.dart';
 import 'package:lcwassist/DataAccess/CapacityAnaliysisDTOs/CapacityAnaliysisReportRequestDTO.dart';
 import 'package:lcwassist/DataAccess/CapacityAnaliysisDTOs/CapacityAnaliysisReportResponseDTO.dart';
 import 'package:lcwassist/DataAccess/CapacityAnaliysisDTOs/CapacityAnalysisMetricsFilterDTO.dart';
@@ -24,11 +27,12 @@ class CapacityAnalysisPage extends StatefulWidget{
   CapacityAnalysisPageState createState() => new CapacityAnalysisPageState();
 }
 
-class CapacityAnalysisPageState extends State<CapacityAnalysisPage>  with TickerProviderStateMixin{
+class CapacityAnalysisPageState extends State<CapacityAnalysisPage>  with TickerProviderStateMixin implements IsLcwAssistUIPage{
 
 LcwAssistApplicationManager applicationManager = new LcwAssistApplicationManager();
 Stores currentStore;
 bool sayfaYuklendiMi = false;
+final GlobalKey<ScaffoldState> scaffoldState = new GlobalKey<ScaffoldState>();
 
 CapacityAnaliysisReportResponseDTO raporResult;
 CapacityAnalysisMetricsFilterDTO raporFilterList;
@@ -56,13 +60,16 @@ super.initState();
         .addPostFrameCallback((_) => loaded(context));
   }
 
+Future<void> executeAfterBuild() async {
+  
+}
 
 
 Future loaded(BuildContext context) async{
-
+applicationManager.setCurrentLanguage = await applicationManager.languagesService.currentLanguage();
  //await new Future.delayed(const Duration(seconds: 2 ));
    setState(() {
-LcwAssistLoading.showAlert(context);
+LcwAssistLoading.showAlert(context,applicationManager.currentLanguage.getyukleniyor);
 });
 
  currentStore = await applicationManager.serviceManager.storeChooseService.getCurrentStore();
@@ -71,7 +78,7 @@ LcwAssistLoading.showAlert(context);
 
 parameter.setAksesuarUrun = "";
 parameter.setBuyerGrupTanim = "";
-parameter.setMagazaKod = "";
+parameter.setMagazaKod = currentStore.storeCode;
 parameter.setMerchAltGrupKod = "";
 parameter.setMerchYasGrupKod = "";
 
@@ -85,7 +92,6 @@ sayfaYuklendiMi = true;
 
  });
 
-
     }
 
 
@@ -94,6 +100,7 @@ sayfaYuklendiMi = true;
 
     return new Scaffold(
       body: sayfaYuklendiMi == true ? storeReportPageBody() : Container(child: Text(''),),
+      key: scaffoldState,
       floatingActionButtonLocation:
       FloatingActionButtonLocation.endDocked,
     floatingActionButton: Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 20.0),child: thisFloatActionButton(),),//thisFloatActionButton(),
@@ -131,13 +138,13 @@ Container(
     Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
-      Padding(padding: EdgeInsets.fromLTRB(5.0, 10.0, 5.0, 10.0),child: Text('Mağaza Kodu: ',style: TextStyle(color: Colors.white,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 15.0,fontWeight: FontWeight.bold),),),
+      Padding(padding: EdgeInsets.fromLTRB(5.0, 10.0, 5.0, 10.0),child: Text(applicationManager.currentLanguage.getmagazaKodu+ " : ",style: TextStyle(color: Colors.white,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 15.0,fontWeight: FontWeight.bold),),),
       Padding(padding: EdgeInsets.fromLTRB(0.0, 10.0, 10.0, 10.0),child: Text(currentStore.storeCode,style: TextStyle(color: Colors.white,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 15.0,fontWeight: FontWeight.bold),),)
     ],),
     Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
-      Padding(padding: EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 10.0),child: Text('Mağaza Adı: ',style: TextStyle(color: Colors.white,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 15.0,fontWeight: FontWeight.bold),),),
+      Padding(padding: EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 10.0),child: Text(applicationManager.currentLanguage.getmagazaAdi+' : ',style: TextStyle(color: Colors.white,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 15.0,fontWeight: FontWeight.bold),),),
       Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 10.0),child: Text(currentStore.storeName,style: TextStyle(color: Colors.white,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 15.0,fontWeight: FontWeight.bold),),)
     ],),
 
@@ -230,19 +237,19 @@ List<Widget> sayfa1 = new List<Widget>();
 sayfa1.add(Row (children: <Widget>[
   Expanded(child :
   
-  LcwAssistCustomWidgets.tutarCardDikey('Top.Fiili Dol.(BD Hariç)',raporResult.toplamFiiliDolulukLCM,false)
+  LcwAssistCustomWidgets.tutarCardDikey(applicationManager.currentLanguage.gettoplamFiiliDolulukBDHaric,raporResult.toplamFiiliDolulukLCM,false)
   
   ),
-  Expanded(child :LcwAssistCustomWidgets.tutarCardDikey('Net Nihai LCM Dol.',raporResult.netNihaiLCMDoluluk,false))],));
+  Expanded(child :LcwAssistCustomWidgets.tutarCardDikey(applicationManager.currentLanguage.getnetNihaiLCMDoluluk,raporResult.netNihaiLCMDoluluk,false))],));
 
 sayfa1.add(Row (children: <Widget>[
-  Expanded(child :LcwAssistCustomWidgets.tutarCardDikey('Reyon Doluluk LCM',raporResult.reyonDolulukLCM,false)),
-  Expanded(child :LcwAssistCustomWidgets.tutarCardDikey('Depo Nihai LCM Dol.',raporResult.depoDolulukLCM,false))],));
+  Expanded(child :LcwAssistCustomWidgets.tutarCardDikey(applicationManager.currentLanguage.getreyonDolulukLCM,raporResult.reyonDolulukLCM,false)),
+  Expanded(child :LcwAssistCustomWidgets.tutarCardDikey(applicationManager.currentLanguage.getdepoDolulukLCM,raporResult.depoDolulukLCM,false))],));
 
 
 sayfa1.add(Row (children: <Widget>[
-  Expanded(child :LcwAssistCustomWidgets.tutarCardDikey('Onay Limiti',raporResult.onayLimiti,false)),
-  Expanded(child :LcwAssistCustomWidgets.tutarCardDikey('Toplam Kap.LCM(BD Hariç)/Net Nihai Kap.LCM',raporResult.toplamKapOverNetNihai,false))],));
+  Expanded(child :LcwAssistCustomWidgets.tutarCardDikey(applicationManager.currentLanguage.getonayLimiti,raporResult.onayLimiti,false)),
+  Expanded(child :LcwAssistCustomWidgets.tutarCardDikey(applicationManager.currentLanguage.gettoplamKapLCMNetNihaiKapLCM,raporResult.toplamKapOverNetNihai,false))],));
 
 
 //SAYFA 2
@@ -250,13 +257,13 @@ sayfa1.add(Row (children: <Widget>[
 List<Widget> sayfa2 = new List<Widget>();
 
 sayfa2.add(Row (children: <Widget>[
-  Expanded(child :LcwAssistCustomWidgets.tutarCardDikey("Reyon Stok",raporResult.reyonStokAdet,false)),
-  Expanded(child :LcwAssistCustomWidgets.tutarCardDikey("Depo Stok",raporResult.depoStokAdet,false))],));
+  Expanded(child :LcwAssistCustomWidgets.tutarCardDikey(applicationManager.currentLanguage.getreyonStokAdet,raporResult.reyonStokAdet,false)),
+  Expanded(child :LcwAssistCustomWidgets.tutarCardDikey(applicationManager.currentLanguage.getdepoStokAdet,raporResult.depoStokAdet,false))],));
 sayfa2.add(Row (children: <Widget>[
-  Expanded(child :LcwAssistCustomWidgets.tutarCardDikey('Toplam Stok',raporResult.toplamStokAdet,false)),
-  Expanded(child :LcwAssistCustomWidgets.tutarCardDikey('Son 7 Gün Satış',raporResult.sonYediGunSatis,false))],));
+  Expanded(child :LcwAssistCustomWidgets.tutarCardDikey(applicationManager.currentLanguage.gettoplamStokAdet,raporResult.toplamStokAdet,false)),
+  Expanded(child :LcwAssistCustomWidgets.tutarCardDikey(applicationManager.currentLanguage.getson7gunSatisAdet,raporResult.sonYediGunSatis,false))],));
 sayfa2.add(Row (children: <Widget>[
-  Expanded(child :LcwAssistCustomWidgets.tutarCardDikey('Fiili Cover',raporResult.fiiliCover,false)),
+  Expanded(child :LcwAssistCustomWidgets.tutarCardDikey(applicationManager.currentLanguage.getfiiliCover,raporResult.fiiliCover,false)),
   Expanded(child :Text(''))],));
 
 
@@ -264,10 +271,10 @@ sayfa2.add(Row (children: <Widget>[
 List<Widget> sayfa3 = new List<Widget>();
 
 sayfa3.add(Row (children: <Widget>[
-  Expanded(child :LcwAssistCustomWidgets.tutarCardDikey('Yol Stok Adet',raporResult.yolStokAdet,false)),
-  Expanded(child :LcwAssistCustomWidgets.tutarCardDikey('Onaylı/Onaysız Rezerve Adet',raporResult.onayliOnaysizRezerveAdet,false))],));
+  Expanded(child :LcwAssistCustomWidgets.tutarCardDikey(applicationManager.currentLanguage.getyolStokAdet,raporResult.yolStokAdet,false)),
+  Expanded(child :LcwAssistCustomWidgets.tutarCardDikey(applicationManager.currentLanguage.getonayliOnyasizRezerveAdet,raporResult.onayliOnaysizRezerveAdet,false))],));
 sayfa3.add(Row (children: <Widget>[
-  Expanded(child :LcwAssistCustomWidgets.tutarCardDikey('Transfer IN/OUT',raporResult.transferInOut,false)),
+  Expanded(child :LcwAssistCustomWidgets.tutarCardDikey(applicationManager.currentLanguage.gettransferINOUT,raporResult.transferInOut,false)),
   Expanded(child :Text(''))],));
 
 sayfa3.add(Row (children: <Widget>[
@@ -389,14 +396,30 @@ Widget buildFloatingButtonHasSub() {
       );
   }
 
-void _openFilterDialog() {
-  Navigator.of(context).push(new MaterialPageRoute<Null>(
-      builder: (BuildContext context) {
-        return new CapacityFilterPage(storesResponse:this.raporFilterList);
-      },
-    fullscreenDialog: true
-  ));
+void _openFilterDialog() async{
+//  CapacityAnaliysisReportRequestDTO  result = await  Navigator.of(context).push(new MaterialPageRoute<Null>(
+//       builder: (BuildContext context) {
+//         return new CapacityFilterPage(storesResponse:this.raporFilterList);
+//       },
+//     fullscreenDialog: true
+//   ));
+
+CapacityAnaliysisReportRequestDTO result = await Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => CapacityFilterPage(storesResponse:this.raporFilterList)),
+  );
+  //String assas = result.getAksesuarUrun;
+
+  result.setMagazaKod = currentStore.storeCode;
+
+await loadCapacityReport(result);
+setState(() {  
+});
+
+  //LcwAssistSnackBarDialogInfo(result.getAksesuarUrun,scaffoldState,LcwAssistSnagitType.info).snackbarShow();
 }
+
+
 
 }
 

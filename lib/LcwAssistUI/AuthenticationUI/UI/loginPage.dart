@@ -80,8 +80,8 @@ selectedLanguages = languagesForCombo.where((i)=>i.dilId == int.parse(prefs.getS
 setState(() {});
 }
 
-Future loaded(BuildContext context) async{
-//applicationManager.setCurrentLanguage = await applicationManager.languagesService.currentLanguage();
+loaded(BuildContext context) {
+
 }
 
 @override
@@ -118,7 +118,7 @@ return;
  return;
 
   setState(() {
-LcwAssistLoading.showAlert(context);
+LcwAssistLoading.showAlert(context,applicationManager.currentLanguage.getyukleniyor);
 });
 
  await new Future.delayed(const Duration(seconds: 1 ));
@@ -134,7 +134,7 @@ LcwAssistLoading.showAlert(context);
 
 //await LcwAssistAlertDialogInfo('Uyarı','Yanlış kullanıcı adı yda şifre.','Tamam',context).showAlert();
 //LcwAssistSnackBarDialogInfo('Yanlış kullanıcı adı yada şifre.',scaffoldState,LcwAssistSnagitType.warning).snackbarShow();
-  LcwAssistAlertDialogInfo('Hata','Girdiğiniz bilgiler hatalıdır. Kontrol edip tekrar deneyiniz.','Tamam',context,LcwAssistDialogType.error).show();
+  LcwAssistAlertDialogInfo(applicationManager.currentLanguage.gethata,applicationManager.currentLanguage.getmsg01,applicationManager.currentLanguage.gettamam,context,LcwAssistDialogType.error).show();
 
 
 return;
@@ -146,7 +146,7 @@ return;
 
  await TokenService.saveAuthToken(responseDTO.authToken);
  await applicationManager.serviceManager.loginService.saveCurrentUser(responseDTO);
- await applicationManager.serviceManager.storeChooseService.saveCurrentStore(applicationManager.serviceManager.storeChooseService.setTumMagazalar());
+ await applicationManager.serviceManager.storeChooseService.saveCurrentStore(applicationManager.serviceManager.storeChooseService.setTumMagazalar(applicationManager.currentLanguage.gettumMagazalar));
 
  setState(() {
   Navigator.pop(context);
@@ -167,7 +167,14 @@ Widget  loginPageBody()
         children: <Widget>[
          
           Container(child: Column(children: <Widget>[
-          Expanded(flex: 2,child: Container(color: LcwAssistColor.secondaryColor,
+          Expanded(flex: 2,child: Container(//color: LcwAssistColor.secondaryColor,
+decoration: new BoxDecoration(
+          image: new DecorationImage(
+            image: new AssetImage("assets/splas.png"),
+            fit: BoxFit.cover,
+          ),
+        ),
+
           child: Row( mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),

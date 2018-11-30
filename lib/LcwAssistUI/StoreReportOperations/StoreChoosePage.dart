@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:lcwassist/Core/Abstracts/IsLcwAssistUIPage.dart';
 import 'package:lcwassist/Core/BaseConst/LcwAssistEnumType.dart';
 import 'package:lcwassist/Core/CoreFunctions/LcwAssistLoading.dart';
 import 'package:lcwassist/Core/CoreFunctions/LcwAssistSnackBarDialogs/LcwAssistSnackBarDialogInfo.dart';
@@ -18,9 +19,9 @@ void main() => runApp(new MaterialApp(
 ));
 
 class StoreChoosePage extends StatefulWidget {
+final LcwAssistApplicationManager applicationManager = new LcwAssistApplicationManager();
 
-
-final StoreChooseResponeDTO storesResponse;
+  final StoreChooseResponeDTO storesResponse;
   StoreChoosePage({Key key, @required this.storesResponse}) : super(key: key);
 
   @override
@@ -28,40 +29,73 @@ final StoreChooseResponeDTO storesResponse;
   _StoreChoosePageState createState() => new _StoreChoosePageState();
 }
 
-
-
-
-class _StoreChoosePageState extends State<StoreChoosePage> with WidgetsBindingObserver {
+class _StoreChoosePageState extends State<StoreChoosePage> with WidgetsBindingObserver implements IsLcwAssistUIPage{
 
 // final StoreChooseResponeDTO storesResponse;
 //   _StoreChoosePageState({Key key, @required this.storesResponse});
+// _StoreChoosePageState()
+// {
+//    WidgetsBinding.instance
+//         .addPostFrameCallback((_) => executeAfterBuild());
+// }
+
+
 
 LcwAssistApplicationManager applicationManager = new LcwAssistApplicationManager();
 TextEditingController controller = new TextEditingController();
 final GlobalKey<ScaffoldState> scaffoldState = new GlobalKey<ScaffoldState>();
-
 StoreChooseResponeDTO storesResponse = new StoreChooseResponeDTO();
-
 List<Stores> storesResponseSearchResult= [];
-
+bool sayfaYuklendiMi = false;
 
   @override
   void initState() {
-super.initState();
+    super.initState();
+
+     WidgetsBinding.instance
+        .addPostFrameCallback((_) => 
+        loaded(context)
+        );
+
 storesResponseSearchResult = [];
 
- WidgetsBinding.instance
-        .addPostFrameCallback((_) => getStoretoreList(context));
+
   }
 
- 
+
+
+Future<void> executeAfterBuild() async {
+//applicationManager.setCurrentLanguage = await applicationManager.languagesService.currentLanguage();
+}
+
+
+Future loaded(BuildContext context) async{
+  applicationManager.setCurrentLanguage = await applicationManager.languagesService.currentLanguage();
+ setState(() {
+LcwAssistLoading.showAlert(context,applicationManager.currentLanguage.getyukleniyor);
+});
+
+  storesResponse = await applicationManager.serviceManager.storeChooseService.storeListRequest();
+
+sayfaYuklendiMi = true;
+ setState(() {
+  Navigator.pop(context);
+ });
+}
 
   @override
   Widget build(BuildContext context) {
+   
     return new Scaffold(
       key: scaffoldState,
       resizeToAvoidBottomPadding: false,
-      body: new Column(
+      body: sayfaYuklendiMi == true ? pageBody() : Container(child: Text(''),)
+    );
+  }
+
+  Widget pageBody(){
+    return 
+    new Column(
         children: <Widget>[
           new Container(
             color: Theme.of(context).primaryColor,
@@ -73,7 +107,7 @@ storesResponseSearchResult = [];
                   title: new TextField(
                     controller: controller,
                     decoration: new InputDecoration(
-                        hintText: 'Magaza İsim-Kodu Girin...', border: InputBorder.none),
+                        hintText: applicationManager.currentLanguage.getmagazaIsimKoduGirin, border: InputBorder.none),
                     onChanged: onSearchTextChanged,
                   ),
                   trailing: new IconButton(icon: new Icon(Icons.cancel), onPressed: () {
@@ -92,21 +126,21 @@ storesResponseSearchResult = [];
                 return  new Card(
                   child: new ListTile(
                     //  storeChooseService  leading: new CircleAvatar(backgroundImage: new NetworkImage(_userDetails[index].profileUrl,),),
-                    title: 
-                    
+                    title:
+
                    Row(
                      mainAxisSize: MainAxisSize.max,
                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                      children: <Widget>[
                       Container(
                       padding: EdgeInsets.fromLTRB(7.0, 0.0, 0.0, 0.0),
-                      child: 
+                      child:
                       Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                       new Text(storesResponseSearchResult[i].storeCode,style: TextStyle(fontWeight:  FontWeight.bold,fontFamily: LcwAssistTextStyle.currentTextFontFamily),),
                       new Text(storesResponseSearchResult[i].storeName,style: TextStyle(fontFamily: LcwAssistTextStyle.currentTextFontFamily)),
-                      
+
                     ],)
                       ,),
 
@@ -127,23 +161,23 @@ storesResponseSearchResult = [];
                     //  storeChooseService  leading: new CircleAvatar(backgroundImage: new NetworkImage(_userDetails[index].profileUrl,),),
                     //LcwAssistSnackBarDialogInfo('this.message',context,LcwAssistSnagitType.info);
                     onTap: (){listViewClick(storesResponse.stores[index]);},
-                    title:                     
+                    title:
                    Row(
                      mainAxisSize: MainAxisSize.max,
                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                      children: <Widget>[
                       Container(
                       padding: EdgeInsets.fromLTRB(7.0, 0.0, 0.0, 0.0),
-                      child: 
+                      child:
                       Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
 
-                  storesResponse.stores[index].storeCode != "0" ? 
+                  storesResponse.stores[index].storeCode != "0" ?
                   new Text(storesResponse.stores[index].storeCode,style: TextStyle(fontWeight:  FontWeight.bold,fontFamily: LcwAssistTextStyle.currentTextFontFamily),)
                    : Text(''),
                       new Text(storesResponse.stores[index].storeName,style: TextStyle(fontFamily: LcwAssistTextStyle.currentTextFontFamily)),
-                      
+
                     ],)
                       ,),
 
@@ -158,14 +192,13 @@ storesResponseSearchResult = [];
             ),
           ),
         ],
-      ),
-    );
+      );
   }
 
   void listViewClick(Stores store) async{
-    
-//LcwAssistSnackBarDialogInfo( store.storeCode+' - '+ store.storeName,scaffoldState,LcwAssistSnagitType.successful).snackbarShow();    
-    
+
+//LcwAssistSnackBarDialogInfo( store.storeCode+' - '+ store.storeName,scaffoldState,LcwAssistSnagitType.successful).snackbarShow();
+
     await applicationManager.serviceManager.storeChooseService.saveCurrentStore(store);
  //await new Future.delayed(const Duration(seconds: 2 ));
  setState(() {
@@ -199,18 +232,5 @@ storesResponseSearchResult = [];
     setState(() {});
   }
 
-  Future getStoretoreList(BuildContext context) async{
-  setState(() {
-LcwAssistLoading.showAlert(context);
-});
-
-  storesResponse = await applicationManager.serviceManager.storeChooseService.storeListRequest();
-
- setState(() {
-  Navigator.pop(context);
- });
-
-
-}
 
 }

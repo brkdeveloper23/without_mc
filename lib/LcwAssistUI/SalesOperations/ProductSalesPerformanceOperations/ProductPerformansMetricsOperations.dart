@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lcwassist/Core/Abstracts/IsLcwAssistUIPage.dart';
 import 'package:lcwassist/Core/BaseConst/LcwAssistPageDrawerNumberConst.dart';
 import 'package:lcwassist/DataAccess/ProductPerformanceMetricsDTOs/UcluCardTextDTO.dart';
 import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreChooseResponeDTO.dart';
@@ -24,7 +25,7 @@ ProductPerformansMetricsOperations({Key key, @required this.productMetricsRespon
   @override
   ProductPerformansMetricsState createState() => new ProductPerformansMetricsState(productMetricsResponse: productMetricsResponse);
 }
-class ProductPerformansMetricsState extends State<ProductPerformansMetricsOperations> with TickerProviderStateMixin{
+class ProductPerformansMetricsState extends State<ProductPerformansMetricsOperations> with TickerProviderStateMixin implements IsLcwAssistUIPage{ 
 
 final ProductMetricsResponse productMetricsResponse;
   ProductPerformansMetricsState({Key key, @required this.productMetricsResponse});
@@ -32,7 +33,7 @@ final ProductMetricsResponse productMetricsResponse;
 LcwAssistApplicationManager applicationManager = new LcwAssistApplicationManager();
 
 Stores storesResponse = new Stores();
-
+bool sayfaYuklendiMi = false;
 //Floating buton için
     static const List<IconData> icons = const [  Icons.thumb_up, Icons.thumb_down ];
     static const List<Color> iconColors = const [ Colors.green,Colors.red ];
@@ -47,7 +48,10 @@ void initState() {
     );
 ///////////////////////
     super.initState();
+sayfaYuklendiMi = false;
 
+ WidgetsBinding.instance
+        .addPostFrameCallback((_) => loaded(context));
 
     currentStore().then((result) {
             // If we need to rebuild the widget with the resulting data,
@@ -58,15 +62,25 @@ void initState() {
         });
   }
 
+
+  Future loaded(BuildContext context) async{
+applicationManager.setCurrentLanguage = await applicationManager.languagesService.currentLanguage();
+sayfaYuklendiMi = true;
+}
+
+Future<void> executeAfterBuild() async {
+  
+}
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       resizeToAvoidBottomPadding: false,
       //key: scaffoldState,
-      appBar: AppBar(title: Text('Ürün Performans Metricleri'),),
+      appBar: AppBar(title: Text(applicationManager.currentLanguage.geturunPerformansAnaliz),),
       //drawer: DrawerOnly.leftSideMenuDiz(LcwAssistPageDrawerNumberConst.satis,context),
       backgroundColor: LcwAssistColor.backGroundColor,
-      body: ekranYerlesim(),
+      body: sayfaYuklendiMi == true ? ekranYerlesim() : Container(child: Text(''),),
       floatingActionButtonLocation: 
       FloatingActionButtonLocation.endDocked,
     floatingActionButton: Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 20.0),child: buildFloatingButtonHasSub(),),//thisFloatActionButton(),
@@ -152,8 +166,8 @@ Widget magazaCardDetay(){
        mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
 
-  Row(children: <Widget>[Text('Magaza : ',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17.0,fontFamily: LcwAssistTextStyle.currentTextFontFamily,color: Colors.white)),Text(storesResponse.storeName,style: TextStyle(fontSize: 17.0,color: Colors.white))]),
-        Row(children: <Widget>[Text('Ürün : ',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17.0,fontFamily: LcwAssistTextStyle.currentTextFontFamily,color: Colors.white)),
+  Row(children: <Widget>[Text( applicationManager.currentLanguage.getmagaza+' : ',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17.0,fontFamily: LcwAssistTextStyle.currentTextFontFamily,color: Colors.white)),Text(storesResponse.storeName,style: TextStyle(fontSize: 17.0,color: Colors.white))]),
+        Row(children: <Widget>[Text(applicationManager.currentLanguage.geturun+' : ',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17.0,fontFamily: LcwAssistTextStyle.currentTextFontFamily,color: Colors.white)),
         Text(this.productMetricsResponse.product.barkod.toString(),style: TextStyle(fontSize: 17.0,color: Colors.white,fontFamily: LcwAssistTextStyle.currentTextFontFamily),)]),
         Row(children: <Widget>
         [
@@ -249,7 +263,7 @@ Column(
   child: new Card(
     color: LcwAssistColor.yellowGreen,//color: LcwAssistColor.specialOrange,
     child: Row(children: <Widget>[Icon(Icons.more_horiz,color: Colors.white,),
-    Text('Detaylar',style: TextStyle(color: Colors.white,fontFamily: LcwAssistTextStyle.currentTextFontFamily),),
+    Text(applicationManager.currentLanguage.getdetaylar,style: TextStyle(color: Colors.white,fontFamily: LcwAssistTextStyle.currentTextFontFamily),),
     Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 2.0, 0.0),)],)    
     ,),
 )
@@ -294,7 +308,7 @@ Column(children: <Widget>[
   child: new Card(
     color: LcwAssistColor.yellowGreen,//LcwAssistColor.specialOrange,
     child: Row(children: <Widget>[Icon(Icons.more_horiz,color: Colors.white,),
-    Text('Detaylar',style: TextStyle(color: Colors.white,fontFamily: LcwAssistTextStyle.currentTextFontFamily),),
+    Text(applicationManager.currentLanguage.getdetaylar,style: TextStyle(color: Colors.white,fontFamily: LcwAssistTextStyle.currentTextFontFamily),),
     Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 2.0, 0.0),)],)    
     ,),
 )
@@ -310,53 +324,53 @@ Column(children: <Widget>[
 Widget buildPageView() {
 
 List<UcluCardTextDTO> sayfaBirSatir1 = new List<UcluCardTextDTO>();
-sayfaBirSatir1.add(new UcluCardTextDTO('Küm.Satış Tutar',productMetricsResponse.productPerformansResultDTO.kumulatifSatisTutar));
-sayfaBirSatir1.add(new UcluCardTextDTO('Ort. PSF',productMetricsResponse.productPerformansResultDTO.ortalamaPSF));
-sayfaBirSatir1.add(new UcluCardTextDTO('Küm. Satış Adet',productMetricsResponse.productPerformansResultDTO.kumulatifSatisAdet));
+sayfaBirSatir1.add(new UcluCardTextDTO(applicationManager.currentLanguage.getkumulatifSatisTutar,productMetricsResponse.productPerformansResultDTO.kumulatifSatisTutar));
+sayfaBirSatir1.add(new UcluCardTextDTO(applicationManager.currentLanguage.getortalamaPSF,productMetricsResponse.productPerformansResultDTO.ortalamaPSF));
+sayfaBirSatir1.add(new UcluCardTextDTO(applicationManager.currentLanguage.getkumulatifSatisAdet,productMetricsResponse.productPerformansResultDTO.kumulatifSatisAdet));
 
 
 List<UcluCardTextDTO> sayfaBirSatir3 = new List<UcluCardTextDTO>();
-sayfaBirSatir3.add(new UcluCardTextDTO('İlk PSF',productMetricsResponse.productPerformansResultDTO.ilkPesinFiyat));
-sayfaBirSatir3.add(new UcluCardTextDTO('İnd. Oranı',productMetricsResponse.productPerformansResultDTO.indirimOrani));
-sayfaBirSatir3.add(new UcluCardTextDTO('Son PSF',productMetricsResponse.productPerformansResultDTO.sonPesitFiyat));
+sayfaBirSatir3.add(new UcluCardTextDTO(applicationManager.currentLanguage.getilkPSF,productMetricsResponse.productPerformansResultDTO.ilkPesinFiyat));
+sayfaBirSatir3.add(new UcluCardTextDTO(applicationManager.currentLanguage.getindirimOrani,productMetricsResponse.productPerformansResultDTO.indirimOrani));
+sayfaBirSatir3.add(new UcluCardTextDTO(applicationManager.currentLanguage.getsonPSF,productMetricsResponse.productPerformansResultDTO.sonPesitFiyat));
 
 List<Widget> sayfa1 = new List<Widget>();
 sayfa1.add(Row (children: <Widget>[Expanded(child :tutarUcluCard(Colors.white,sayfaBirSatir1,true))],));
 
 
 sayfa1.add(Row (children: <Widget>[
-  Expanded(child :tutarCard(Colors.white,'Küm. Sevk Adet',productMetricsResponse.productPerformansResultDTO.kumulatifSevkAdet,true)),
-  Expanded(child :tutarCard(Colors.white,'STR',productMetricsResponse.productPerformansResultDTO.str,true))],));
+  Expanded(child :tutarCard(Colors.white,applicationManager.currentLanguage.getkumulatifSevkAdet,productMetricsResponse.productPerformansResultDTO.kumulatifSevkAdet,true)),
+  Expanded(child :tutarCard(Colors.white,applicationManager.currentLanguage.getstr,productMetricsResponse.productPerformansResultDTO.str,true))],));
 sayfa1.add(Row (children: <Widget>[Expanded(child :tutarUcluCard(Colors.white,sayfaBirSatir3,false))],));
 
 
 //SAYFA 2
 List<UcluCardTextDTO> sayfaIkiSatir2 = new List<UcluCardTextDTO>();
-sayfaIkiSatir2.add(new UcluCardTextDTO('Son 7 Gün Satış',productMetricsResponse.productPerformansResultDTO.son7GunSatisAdet));
-sayfaIkiSatir2.add(new UcluCardTextDTO('Fiili Cover',productMetricsResponse.productPerformansResultDTO.fiiliCover));
-sayfaIkiSatir2.add(new UcluCardTextDTO('Yol Stok',productMetricsResponse.productPerformansResultDTO.yolStok));
+sayfaIkiSatir2.add(new UcluCardTextDTO(applicationManager.currentLanguage.getson7gunSatisAdet,productMetricsResponse.productPerformansResultDTO.son7GunSatisAdet));
+sayfaIkiSatir2.add(new UcluCardTextDTO(applicationManager.currentLanguage.getfiiliCover,productMetricsResponse.productPerformansResultDTO.fiiliCover));
+sayfaIkiSatir2.add(new UcluCardTextDTO(applicationManager.currentLanguage.getyolStokAdet,productMetricsResponse.productPerformansResultDTO.yolStok));
 
 
 
 List<Widget> sayfa2 = new List<Widget>();
 
 sayfa2.add(Row (children: <Widget>[
-  Expanded(child :tutarCard(Colors.white,'Reyon Stok',productMetricsResponse.productPerformansResultDTO.reyonStok,true)),
-  Expanded(child :tutarCard(Colors.white,'Depo Stok',productMetricsResponse.productPerformansResultDTO.depoStok,true))],));
+  Expanded(child :tutarCard(Colors.white,applicationManager.currentLanguage.getreyonStokAdet,productMetricsResponse.productPerformansResultDTO.reyonStok,true)),
+  Expanded(child :tutarCard(Colors.white,applicationManager.currentLanguage.getdepoStokAdet,productMetricsResponse.productPerformansResultDTO.depoStok,true))],));
 sayfa2.add(Row (children: <Widget>[Expanded(child :tutarUcluCard(Colors.white,sayfaIkiSatir2,true))],));
 sayfa2.add(Row (children: <Widget>[
-  Expanded(child :tutarCard(Colors.white,'Onaylı/Onaysız Rezerve',productMetricsResponse.productPerformansResultDTO.onayliOnaysizRezerve,true)),
-  Expanded(child :tutarCard(Colors.white,'Merkez Depo Stok',productMetricsResponse.productPerformansResultDTO.merkezDepoStokAdet,false))],));
+  Expanded(child :tutarCard(Colors.white,applicationManager.currentLanguage.getonayliOnyasizRezerveAdet,productMetricsResponse.productPerformansResultDTO.onayliOnaysizRezerve,true)),
+  Expanded(child :tutarCard(Colors.white,applicationManager.currentLanguage.getmerkezDepoStok,productMetricsResponse.productPerformansResultDTO.merkezDepoStokAdet,false))],));
 
 
 List<Widget> sayfa3 = new List<Widget>();
 sayfa3.add(Row (children: <Widget>[
-  Expanded(child :tutarCard(Colors.white,'Bulunurluk',productMetricsResponse.productPerformansResultDTO.bulunurluk,false)),
-  Expanded(child :tutarCard(Colors.white,'Derinlik',productMetricsResponse.productPerformansResultDTO.derinlik,false))],));
+  Expanded(child :tutarCard(Colors.white,applicationManager.currentLanguage.getbulunurluk,productMetricsResponse.productPerformansResultDTO.bulunurluk,false)),
+  Expanded(child :tutarCard(Colors.white,applicationManager.currentLanguage.getderinlik,productMetricsResponse.productPerformansResultDTO.derinlik,false))],));
 
 
 sayfa3.add(Row (children: <Widget>[
-  Expanded(child :tutarCard(Colors.white,'Raf Ömrü',productMetricsResponse.productPerformansResultDTO.rafOmru,false)),
+  Expanded(child :tutarCard(Colors.white,applicationManager.currentLanguage.getrafOmru,productMetricsResponse.productPerformansResultDTO.rafOmru,false)),
   Expanded(child :Text(''))],));
 
 sayfa3.add(Row (children: <Widget>[

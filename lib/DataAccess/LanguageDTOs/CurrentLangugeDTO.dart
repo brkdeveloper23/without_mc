@@ -217,7 +217,12 @@ String _beden="";
 String _merkezDepoStokAdet="";
 String _yuzdeSTR="";
 String _hosgeldiniz="";
-
+String _kapasiteFiltre="";
+String _temizle="";
+String _filtrele="";
+String _birFeedBackBirak="";
+String _urunBagimsizFeedbackGonder="";
+String _urunBagimliBagimsizFeedbackGonder="";
 
   // CurrentLangugeDTO(
   //   this._dilId,
@@ -390,7 +395,12 @@ set setbeden(String beden) {_beden = beden;}
 set setmerkezDepoStokAdet(String merkezDepoStokAdet) {_merkezDepoStokAdet = merkezDepoStokAdet;}
 set setyuzdeSTR(String yuzdeSTR) {_yuzdeSTR = yuzdeSTR;}
 set sethosgeldiniz(String hosgeldiniz) {_hosgeldiniz = hosgeldiniz;}
-
+set setkapasiteFiltre(String kapasiteFiltre) {_kapasiteFiltre = kapasiteFiltre;}
+set settemizle(String temizle) {_temizle = temizle;}
+set setfiltrele(String filtrele) {_filtrele = filtrele;}
+set setbirFeedBackBirak(String birFeedBackBirak) {_birFeedBackBirak = birFeedBackBirak;}
+set seturunBagimsizFeedbackGonder(String urunBagimsizFeedbackGonder) {_urunBagimsizFeedbackGonder = urunBagimsizFeedbackGonder;}
+set seturunBagimliBagimsizFeedbackGonder(String urunBagimliBagimsizFeedbackGonder) {_urunBagimliBagimsizFeedbackGonder = urunBagimliBagimsizFeedbackGonder;}
 
   String get getkullaniciGirisi => _kullaniciGirisi;
   String get getkullaniciAdi => _kullaniciAdi;
@@ -526,6 +536,12 @@ set sethosgeldiniz(String hosgeldiniz) {_hosgeldiniz = hosgeldiniz;}
   String get getmerkezDepoStokAdet => _merkezDepoStokAdet;
   String get getyuzdeSTR => _yuzdeSTR;
   String get gethosgeldiniz => _hosgeldiniz;
+  String get getkapasiteFiltre => _kapasiteFiltre;
+  String get gettemizle => _temizle;
+  String get getfiltrele => _filtrele;
+    String get getbirFeedBackBirak => _birFeedBackBirak;
+  String get geturunBagimsizFeedbackGonder => _urunBagimsizFeedbackGonder;
+  String get geturunBagimliBagimsizFeedbackGonder => _urunBagimliBagimsizFeedbackGonder;
   
   //LcwAssistLanguagesDTO
 
@@ -706,6 +722,12 @@ map["beden"] = _beden;
 map["merkezDepoStokAdet"] = _merkezDepoStokAdet;
 map["yuzdeSTR"] = _yuzdeSTR;
 map["hosgeldiniz"] = _hosgeldiniz;
+map["kapasiteFiltre"] = _kapasiteFiltre;
+map["temizle"] = _temizle;
+map["filtrele"] = _filtrele;
+map["birFeedBackBirak"] = _birFeedBackBirak;
+map["urunBagimsizFeedbackGonder"] = _urunBagimsizFeedbackGonder;
+map["urunBagimliBagimsizFeedbackGonder"] = _urunBagimliBagimsizFeedbackGonder;
 
     return map;
   }

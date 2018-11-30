@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lcwassist/Core/Abstracts/IsLcwAssistUIPage.dart';
 
 import 'package:lcwassist/Core/CoreFunctions/LcwAssistLoading.dart';
 import 'package:lcwassist/DataAccess/CapacityAnaliysisDTOs/CapacityAnaliysisReportRequestDTO.dart';
@@ -27,15 +28,12 @@ class CapacityFilterPage extends StatefulWidget{
   CapacityFilterPageState createState() => new CapacityFilterPageState(storesResponse:storesResponse);
 }
 
-class CapacityFilterPageState extends State<CapacityFilterPage>  with TickerProviderStateMixin{
+class CapacityFilterPageState extends State<CapacityFilterPage>  with TickerProviderStateMixin  implements IsLcwAssistUIPage{
 
 final CapacityAnalysisMetricsFilterDTO storesResponse;
 CapacityFilterPageState({Key key, @required this.storesResponse});
 
 LcwAssistApplicationManager applicationManager = new LcwAssistApplicationManager();
-
-
-
 
 List<String> aksesuarUrunList = new List<String>();
 String aksesuarUrun="";
@@ -59,7 +57,7 @@ merchMarkaYasGrupKodList = storesResponse.merchHierarchiesList.map((f)=> f.merch
 
  int count = 0;
 
- listMerchMarkaYasGrupDTO.add(MerchMarkaYasGrupDTO(kod: count,tanim: "TÜMÜ"));
+ listMerchMarkaYasGrupDTO.add(MerchMarkaYasGrupDTO(kod: count,tanim: applicationManager.currentLanguage.gettumu));
  listSelectedMerchMarkaYasGrupDTO = listMerchMarkaYasGrupDTO[0];
  count++;
 for(final i in merchMarkaYasGrupKodList)
@@ -81,7 +79,7 @@ merchAltGrupKodList = storesResponse.merchHierarchiesList.map((f)=> f.merchAltGr
 
  int count = 0;
 
- listMerchAltGroupDTO.add(MerchAltGroupDTO(kod: count,tanim: "TÜMÜ"));
+ listMerchAltGroupDTO.add(MerchAltGroupDTO(kod: count,tanim: applicationManager.currentLanguage.gettumu));
  listSelectedMerchAltGroupDTO = listMerchAltGroupDTO[0];
  count++;
 for(final i in merchAltGrupKodList)
@@ -103,7 +101,7 @@ buyerGrupTanimList = storesResponse.merchHierarchiesList.map((f)=> f.buyerGrupTa
 
  int count = 0;
 
- listBuyerGrupTanimDTO.add(BuyerGrupTanimDTO(kod: count,tanim: "TÜMÜ"));
+ listBuyerGrupTanimDTO.add(BuyerGrupTanimDTO(kod: count,tanim: applicationManager.currentLanguage.gettumu));
  listSelectedBuyerGrupTanimDTO = listBuyerGrupTanimDTO[0];
  count++;
 for(final i in buyerGrupTanimList)
@@ -125,10 +123,10 @@ aksesuarUrunList = storesResponse.merchHierarchiesList.map((f)=> f.aksesuarUrun.
 
  int count = 0;
 
- listAksesuarUrunDTO.add(AksesuarUrunDTO(kod: count,tanim: "TÜMÜ"));
+ listAksesuarUrunDTO.add(AksesuarUrunDTO(kod: count,tanim: applicationManager.currentLanguage.gettumu));
  listSelectedAksesuarUrunDTO = listAksesuarUrunDTO[0];
  count++;
-for(final i in buyerGrupTanimList)
+for(final i in aksesuarUrunList)
 {
   //Distinct yaptık.
   if(!listAksesuarUrunDTO.map((f)=> f.tanim.toString()).toList().contains(i))
@@ -144,27 +142,34 @@ for(final i in buyerGrupTanimList)
   void initState() {
 super.initState();
 
+ WidgetsBinding.instance
+        .addPostFrameCallback((_) => loaded(context));
+
+  }
+
+Future loaded(BuildContext context) async{
+applicationManager.setCurrentLanguage = await applicationManager.languagesService.currentLanguage();
 loadMerchMarkaYasGrupKodList();
 loadMerchAltGrupKodList();
 loadBuyerGrupTanimList();
 loadAksesuarUrunList();
-
- WidgetsBinding.instance
-        .addPostFrameCallback((_) => loaded(context));
-  }
-
-Future loaded(BuildContext context) async{
-
     }
+
+Future<void> executeAfterBuild() async {
+  applicationManager.setCurrentLanguage = await applicationManager.languagesService.currentLanguage();
+  setState(() {
+      
+    });
+}
 
 
   @override
   Widget build(BuildContext context) {
-
+executeAfterBuild();
     return new Scaffold(
       backgroundColor: LcwAssistColor.backGroundColor,
       appBar: new AppBar(
-        title: const Text('Kapasite Filtre'),
+        title: Text(applicationManager.currentLanguage.getkapasiteFiltre),
      
       ),
       body: filterBody()
@@ -190,102 +195,12 @@ Column(
   crossAxisAlignment: CrossAxisAlignment.stretch,
   children: <Widget>[
 
-Card(child: 
-Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),child:
-
-
-DropdownButtonHideUnderline(
-        child: ButtonTheme(
-          alignedDropdown: true,
-          child: 
-
- new DropdownButton<MerchMarkaYasGrupDTO>(
-            //hint: new Text(""),
-            value: listSelectedMerchMarkaYasGrupDTO,
-            onChanged: (MerchMarkaYasGrupDTO newValue) {
-              setState(() {
-                listSelectedMerchMarkaYasGrupDTO = newValue;
-                chan(newValue.kod);
-              });
-            },
-            items: listMerchMarkaYasGrupDTO.map((MerchMarkaYasGrupDTO user) {
-              return new DropdownMenuItem<MerchMarkaYasGrupDTO>(
-                value: user,
-                child: new Text(
-                  user.tanim,
-                  style: new TextStyle(color: Colors.black),
-                ),
-              );
-            }).toList(),
-            ),
-        )
-    ),
-)
-,),
-
-Card(child: 
-Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),child:
-
-
-DropdownButtonHideUnderline(
-        child: ButtonTheme(
-          alignedDropdown: true,
-          child: 
-
- new DropdownButton<MerchAltGroupDTO>(
-            //hint: new Text(""),
-            value: listSelectedMerchAltGroupDTO,
-            onChanged: (MerchAltGroupDTO newValue) {
-              setState(() {
-                listSelectedMerchAltGroupDTO = newValue;
-                chan(newValue.kod);
-              });
-            },
-            items: listMerchAltGroupDTO.map((MerchAltGroupDTO user) {
-              return new DropdownMenuItem<MerchAltGroupDTO>(
-                value: user,
-                child: new Text(
-                  user.tanim,
-                  style: new TextStyle(color: Colors.black),
-                ),
-              );
-            }).toList(),
-            ),
-        )
-    ),
-)
-,),
-
-Card(child: 
-Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),child:
-DropdownButtonHideUnderline(
-        child: ButtonTheme(
-          alignedDropdown: true,
-          child: 
-
- new DropdownButton<BuyerGrupTanimDTO>(
-            //hint: new Text(""),
-            value: listSelectedBuyerGrupTanimDTO,
-            onChanged: (BuyerGrupTanimDTO newValue) {
-              setState(() {
-                listSelectedBuyerGrupTanimDTO = newValue;
-                chan(newValue.kod);
-              });
-            },
-            items: listBuyerGrupTanimDTO.map((BuyerGrupTanimDTO user) {
-              return new DropdownMenuItem<BuyerGrupTanimDTO>(
-                value: user,
-                child: new Text(
-                  user.tanim,
-                  style: new TextStyle(color: Colors.black),
-                ),
-              );
-            }).toList(),
-            ),
-        )
-    ),
-)
-,),
+Card(
+child:
+Column(
+  crossAxisAlignment: CrossAxisAlignment.stretch,
+  children: <Widget>[
+Padding(child: Text(applicationManager.currentLanguage.getAUTSecin,style: TextStyle(fontSize: 15.0,color: LcwAssistColor.primaryColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily)),padding: EdgeInsets.fromLTRB(3, 3, 3, 3),),
 
 Card(child: 
 Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),child:
@@ -320,11 +235,155 @@ DropdownButtonHideUnderline(
 )
 ,),
 
+],)
+),
+
+
+
+Card(
+child:
+Column(
+  crossAxisAlignment: CrossAxisAlignment.stretch,
+  children: <Widget>[
+Padding(child: Text(applicationManager.currentLanguage.getmerchMarkaYasGrupSecin,style: TextStyle(fontSize: 15.0,color: LcwAssistColor.primaryColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily)),padding: EdgeInsets.fromLTRB(3, 3, 3, 3),),
+Card(child: 
+Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),child:
+
+
+DropdownButtonHideUnderline(
+        child: ButtonTheme(
+          alignedDropdown: true,
+          child: 
+
+ new DropdownButton<MerchMarkaYasGrupDTO>(
+            //hint: new Text(""),
+            value: listSelectedMerchMarkaYasGrupDTO,
+            onChanged: (MerchMarkaYasGrupDTO newValue) {
+              setState(() {
+                listSelectedMerchMarkaYasGrupDTO = newValue;
+                chan(newValue.kod);
+              });
+            },
+            items: listMerchMarkaYasGrupDTO.map((MerchMarkaYasGrupDTO user) {
+              return new DropdownMenuItem<MerchMarkaYasGrupDTO>(
+                value: user,
+                child: new Text(
+                  user.tanim,
+                  style: new TextStyle(color: Colors.black),
+                ),
+              );
+            }).toList(),
+            ),
+        )
+    ),
+)
+,),
+
+
+],)
+
+
+),
+
+
+
+Card(
+child:
+Column(
+  crossAxisAlignment: CrossAxisAlignment.stretch,
+  children: <Widget>[
+Padding(child: Text(applicationManager.currentLanguage.getmerchAltGrupSecin,style: TextStyle(fontSize: 15.0,color: LcwAssistColor.primaryColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily)),padding: EdgeInsets.fromLTRB(3, 3, 3, 3),),
+
+Card(child: 
+Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),child:
+
+
+DropdownButtonHideUnderline(
+        child: ButtonTheme(
+          alignedDropdown: true,
+          child: 
+
+ new DropdownButton<MerchAltGroupDTO>(
+            //hint: new Text(""),
+            value: listSelectedMerchAltGroupDTO,
+            onChanged: (MerchAltGroupDTO newValue) {
+              setState(() {
+                listSelectedMerchAltGroupDTO = newValue;
+                chan(newValue.kod);
+              });
+            },
+            items: listMerchAltGroupDTO.map((MerchAltGroupDTO user) {
+              return new DropdownMenuItem<MerchAltGroupDTO>(
+                value: user,
+                child: new Text(
+                  user.tanim,
+                  style: new TextStyle(color: Colors.black),
+                ),
+              );
+            }).toList(),
+            ),
+        )
+    ),
+)
+,),
+
+],)
+
+
+),
+
+
+Card(
+child:
+Column(
+  crossAxisAlignment: CrossAxisAlignment.stretch,
+  children: <Widget>[
+Padding(child: Text(applicationManager.currentLanguage.getbuyerGrupSecin,style: TextStyle(fontSize: 15.0,color: LcwAssistColor.primaryColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily)),padding: EdgeInsets.fromLTRB(3, 3, 3, 3),),
+
+Card(child: 
+Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),child:
+DropdownButtonHideUnderline(
+        child: ButtonTheme(
+          alignedDropdown: true,
+          child: 
+
+ new DropdownButton<BuyerGrupTanimDTO>(
+            //hint: new Text(""),
+            value: listSelectedBuyerGrupTanimDTO,
+            onChanged: (BuyerGrupTanimDTO newValue) {
+              setState(() {
+                listSelectedBuyerGrupTanimDTO = newValue;
+                chan(newValue.kod);
+              });
+            },
+            items: listBuyerGrupTanimDTO.map((BuyerGrupTanimDTO user) {
+              return new DropdownMenuItem<BuyerGrupTanimDTO>(
+                value: user,
+                child: new Text(
+                  user.tanim,
+                  style: new TextStyle(color: Colors.black),
+                ),
+              );
+            }).toList(),
+            ),
+        )
+    ),
+)
+,),
+
+],)
+),
+
+
+
 Padding(padding: EdgeInsets.all(4.0),child: Row(children: <Widget>[
   
-  Expanded(flex: 7,child: RaisedButton(onPressed: ()=>{},color: LcwAssistColor.thirdColor,child: Row(children: <Widget>[Icon(Icons.done,color: Colors.white,),Text('FİLTRELE',style: TextStyle(color: Colors.white,fontFamily: LcwAssistTextStyle.currentTextFontFamily),)],),),),
-Padding(padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0)),
-  Expanded(flex: 5,child: RaisedButton(onPressed: ()=>{},color: LcwAssistColor.thirdColor,child: Row(children: <Widget>[Icon(Icons.clear_all,color: Colors.white),Text('TEMİZLE',style: TextStyle(color: Colors.white,fontFamily: LcwAssistTextStyle.currentTextFontFamily))],),),)
+  Expanded(flex: 7,child: RaisedButton(onPressed: ()=>
+  btnfilterClick(),
+  
+  color: LcwAssistColor.thirdColor,child: Row(children: <Widget>[Icon(Icons.done,color: Colors.white,),Text(applicationManager.currentLanguage.getfiltrele,style: TextStyle(fontSize: 18.0,color: Colors.white,fontFamily: LcwAssistTextStyle.currentTextFontFamily),)],),),),
+  Padding(padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0)),
+  Expanded(flex: 5,child: RaisedButton(onPressed: ()=>{},color: LcwAssistColor.thirdColor,child: Row(children: <Widget>[Icon(Icons.clear_all,color: Colors.white),Text(applicationManager.currentLanguage.gettemizle,style: TextStyle(fontSize: 18.0,color: Colors.white,fontFamily: LcwAssistTextStyle.currentTextFontFamily))],),),)
 
 ],)
 
@@ -342,6 +401,18 @@ void chan(int value){
   setState(() {
     });
 
+}
+
+
+void btnfilterClick(){
+
+CapacityAnaliysisReportRequestDTO asas = new CapacityAnaliysisReportRequestDTO();
+asas.setAksesuarUrun = listSelectedAksesuarUrunDTO.tanim == listAksesuarUrunDTO[0].tanim ? "" : listSelectedAksesuarUrunDTO.tanim;
+asas.setBuyerGrupTanim =listSelectedBuyerGrupTanimDTO.tanim == listBuyerGrupTanimDTO[0].tanim ? "" : listSelectedBuyerGrupTanimDTO.tanim;
+asas.setMerchAltGrupKod = listSelectedMerchAltGroupDTO.tanim == listMerchAltGroupDTO[0].tanim ? "" : listSelectedMerchAltGroupDTO.tanim;
+asas.setMerchYasGrupKod = listSelectedMerchMarkaYasGrupDTO.tanim == listMerchMarkaYasGrupDTO[0].tanim ? "" : listSelectedMerchMarkaYasGrupDTO.tanim;
+
+Navigator.pop(context, asas);
 }
 
 }

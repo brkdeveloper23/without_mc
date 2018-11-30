@@ -22,7 +22,7 @@ dependencies:
   sqflite : any
   http: 
   localstorage: ^1.0.0
-
+  
 
   
 
@@ -70,6 +70,16 @@ flutter:
     - assets/chart_6.png
     - assets/chart_7.png
     - assets/data/languages.json
+    - assets/splas.png
+    - assets/drawerSplash.png
+    - assets/homepageFeedback_128.png
+    - assets/homepageFeedback_256.png
+    - assets/homepageFeedback_512.png
+    - assets/homepageFeedback_32.png
+    - assets/homepageFeedback_48.png
+    - assets/star_40.png
+    - assets/right_oval_40.png
+    - assets/message_balon_40.png
     
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.

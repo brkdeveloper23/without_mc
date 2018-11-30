@@ -236,7 +236,8 @@ Column(
              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
               Container(padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
-              child: Text(masterText,textAlign: TextAlign.center,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14.0,fontFamily: 'Ubuntu',color: LcwAssistColor.reportCardHeaderColor)),)            ],),
+              child: Text(masterText,textAlign: TextAlign.center,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14.0,fontFamily: 'Ubuntu',color: LcwAssistColor.reportCardHeaderColor)),)            ],
+              ),
               Container(padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
               child: Text(subText,textAlign: TextAlign.center,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20.0,fontFamily: 'Ubuntu',color: LcwAssistColor.reportCardSubHeaderColor)))
              ],),
@@ -258,7 +259,10 @@ Column(
 
     ],)
 
-  ));
+  )
+  
+  
+  );
 }
 
 }

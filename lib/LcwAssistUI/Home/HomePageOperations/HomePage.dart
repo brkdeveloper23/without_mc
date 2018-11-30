@@ -11,6 +11,7 @@ import 'package:lcwassist/LcwAssistBase/LcwAssistApplicationManager.dart';
 import 'package:lcwassist/LcwAssistUI/AuthenticationUI/UI/loginPage.dart';
 import 'package:lcwassist/LcwAssistUI/AuthenticationUI/UI/ChartPage.dart';
 import 'package:lcwassist/LcwAssistUI/CapacityOperations/CapacityAnalysisPage.dart';
+import 'package:lcwassist/LcwAssistUI/Home/HomePageOperations/HomeFeedBack.dart';
 import 'package:lcwassist/LcwAssistUI/SalesOperations/ProductSalesPerformanceOperations/ProductPerformansMetricsOperations.dart';
 import 'package:lcwassist/LcwAssistUI/SalesOperations/ProductSalesPerformanceOperations/ProductPerformansQueryPage.dart';
 import 'package:lcwassist/LcwAssistUI/SettingsPages/LcwAssistTema.dart';
@@ -118,7 +119,9 @@ drawerItems = [
     new DrawerItem(applicationManager.currentLanguage.getsatis, Icons.payment),
     new DrawerItem(applicationManager.currentLanguage.getmagazaKarne, Icons.store),
     new DrawerItem(applicationManager.currentLanguage.getmagazaSec, Icons.location_on),
+    new DrawerItem(applicationManager.currentLanguage.getkumulatifSatis, Icons.multiline_chart),
     new DrawerItem(applicationManager.currentLanguage.getayarlar, Icons.settings)
+    
   ];
 
 setState(() {});
@@ -129,10 +132,10 @@ setState(() {});
 // setState(() {
 //   currentStore();
 // });
-
+//HomeFeedBack
     switch (pos) {
       case 0:
-        return new ChartPage();
+        return new HomeFeedBack();
       case 1:
         return new CapacityAnalysisPage();
       case 2:
@@ -142,6 +145,8 @@ setState(() {});
         case 4:
         return new StoreChoosePage(storesResponse: storesResponse);
         case 5:
+        return new ChartPage();
+        case 6:
         return new LcvAssistTema();
 
       default:
@@ -153,7 +158,7 @@ setState(() {});
 
 if(index == 3){
   if(storeResponse.depoRef == 0){
-  LcwAssistAlertDialogInfo('Uyarı','Mağaza seçimi yapmalısınız.','Tamam',context,LcwAssistDialogType.error).show();
+  LcwAssistAlertDialogInfo(applicationManager.currentLanguage.getuyari,applicationManager.currentLanguage.getlutfenBirMagazaSecin,applicationManager.currentLanguage.gettamam,context,LcwAssistDialogType.error).show();
 return;
 }
 }
@@ -179,10 +184,13 @@ Container(
  // padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0,10.0),
       decoration:  BoxDecoration(
          border:  Border(
-      top:  BorderSide(width: 0.0, color:  LcwAssistColor.secondaryColor),
-      left:  BorderSide(width: 6.0, color: i == _selectedDrawerIndex ? LcwAssistColor.selectedColor : LcwAssistColor.secondaryColor),
-      right:  BorderSide(width: 0.0, color:  LcwAssistColor.secondaryColor),
-      bottom:  BorderSide(width: 0.0, color:  LcwAssistColor.secondaryColor)//Color.fromRGBO(182,0,62, 1.0))
+      //top:  BorderSide(width: 0.0, color:  LcwAssistColor.secondaryColor),
+
+      left:  BorderSide(width: 6.0, color: i == _selectedDrawerIndex ? LcwAssistColor.selectedColor : Colors.transparent),
+
+      //left: i == _selectedDrawerIndex ? BorderSide(width: 6.0, color: i == _selectedDrawerIndex ? LcwAssistColor.selectedColor : LcwAssistColor.secondaryColor) : BorderSide(width: 6.0,color: Colors.transparent),
+      //right:  BorderSide(width: 0.0, color:  LcwAssistColor.secondaryColor),
+      //bottom:  BorderSide(width: 0.0, color:  LcwAssistColor.secondaryColor)//Color.fromRGBO(182,0,62, 1.0))
     )),
     child: 
   new ListTile(
@@ -205,7 +213,20 @@ Container(
       drawer: new Drawer(
         child: Container(
           color:LcwAssistColor.secondaryColor,//.withOpacity(0.9),
-          //color: Colors.black.withOpacity(0.8),
+          
+// decoration: new BoxDecoration(
+//           image: new DecorationImage(
+//             image: new AssetImage("assets/drawerSplash.png"),
+//             fit: BoxFit.cover,
+//           ),
+//         ),
+
+
+
+
+
+
+
           child:
          new Column(
           children: <Widget>[
@@ -238,12 +259,8 @@ GestureDetector(
   Icon(Icons.touch_app,color: Colors.white,size: 18.0),
  ],)
    ),
-          
-
-// Container(padding: EdgeInsets.fromLTRB(0.0, 7.0, 0.0, 0.0),child: 
-// FlatButton(child: Text('Mağaza',style: TextStyle(fontSize: 15.0,color: Colors.white,fontFamily: LcwAssistTextStyle.currentTextFontFamily),),),)
             ],),decoration: new BoxDecoration(
-  color: LcwAssistColor.primaryColor
+//  color: LcwAssistColor.primaryColor
 ) ,),
 
             new Column(children: drawerOptions),
@@ -268,7 +285,20 @@ GestureDetector(
                 child: 
               Container(
                 //alignment: Alignment.centerRight,
-                color:Colors.blue[900],child: 
+                //color:Colors.blue[900],
+
+decoration:  BoxDecoration(
+  color:Color.fromRGBO(0, 88, 175, 1.0),
+         border:  Border(
+            top:  BorderSide(width: 2.0, color:  Colors.white),
+
+    )),
+
+
+
+              //color:Color.fromRGBO(0, 88, 175, 1.0),
+
+               child: 
               
               FlatButton(onPressed: (){logOut();},child: Row(
                 children: <Widget>[
@@ -276,21 +306,21 @@ GestureDetector(
                   Text(applicationManager.currentLanguage.getcikis,style: TextStyle(color: Colors.white,fontSize: 15.0,fontFamily: LcwAssistTextStyle.currentTextFontFamily),)
                 ],
               ),)
-              
+               
               ,)
 
               ,)
-
+  
               //Text('dataa',style: TextStyle(color: Colors.white),)
             ],),),)
 
             //Align(alignment: Alignment.bottomCenter,child: Text('data',style: TextStyle(color: Colors.white),),)
-          ],
+          ], 
         ),)
       ),
       body: _getDrawerItemWidget(_selectedDrawerIndex),
     );
-  }
+  }   
 
 StoreChoosePage asas() {
 //   setState(() {
@@ -325,7 +355,7 @@ return storesResponse;
 void _openStoreCard() async{
 
 if(storeResponse.depoRef == 0){
- await LcwAssistAlertDialogInfo('Uyarı','Mağaza seçimi yapmalısınız.','Tamam',context,LcwAssistDialogType.error).show();
+ await LcwAssistAlertDialogInfo(applicationManager.currentLanguage.getuyari,applicationManager.currentLanguage.getlutfenBirMagazaSecin,applicationManager.currentLanguage.gettamam,context,LcwAssistDialogType.error).show();
 return;
 }
 
