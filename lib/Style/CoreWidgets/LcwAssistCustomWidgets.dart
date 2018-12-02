@@ -236,6 +236,7 @@ Column(
              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
               Container(padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
+
               child: Text(masterText,textAlign: TextAlign.center,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14.0,fontFamily: 'Ubuntu',color: LcwAssistColor.reportCardHeaderColor)),)            ],
               ),
               Container(padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
@@ -264,5 +265,146 @@ Column(
   
   );
 }
+
+
+static Widget tutarCardDikey2(String masterText,String subText, bool isThereDetail,BuildContext context){
+
+  return Card(
+    child:
+    Container(
+      width: MediaQuery.of(context).size.width*0.1,
+      padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
+      decoration:  BoxDecoration(
+    border:  Border(
+      bottom:  BorderSide(width: 3.0, color:  LcwAssistColor.cardLineColor)
+    )),
+      child:
+    Column(
+ mainAxisAlignment: MainAxisAlignment.spaceBetween,
+ crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: <Widget>[
+Column(
+  children: <Widget>[
+
+    new Wrap(
+          spacing: 2.0, // gap between adjacent chips
+  runSpacing: 2.0, // gap between lines 
+  direction: Axis.horizontal,
+                children: <Widget>[
+            Column(
+             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+              Container(
+                
+                padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
+decoration:  BoxDecoration(
+    border:  Border(
+      bottom:  BorderSide(width: 2.0, color:  Colors.grey[300])
+    )),
+              
+              child:  
+              Row(
+                children: <Widget>[
+                
+                Icon(Icons.assessment,color:  Colors.grey[500]),                
+                Text(masterText,textAlign: TextAlign.center,style: TextStyle(fontWeight: FontWeight.bold,fontFamily: 'Ubuntu',color: LcwAssistColor.reportCardHeaderColor)),
+             
+              ],)
+              )],
+              ),
+
+
+]),
+
+
+
+
+              Container(padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
+              child: Text(subText,textAlign: TextAlign.center,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20.0,fontFamily: 'Ubuntu',color: LcwAssistColor.reportCardSubHeaderColor)))
+
+
+
+
+             ],),
+             isThereDetail == true ? Row(
+   mainAxisAlignment: MainAxisAlignment.end,
+  children: <Widget>[
+    new GestureDetector(
+  onTap: ()=>{},
+  child: new Card(
+    color: LcwAssistColor.yellowGreen,//LcwAssistColor.specialOrange,
+    child: Row(children: <Widget>[Icon(Icons.more_horiz,color: Colors.white,),
+    Text('Detaylar',style: TextStyle(color: Colors.white,fontFamily: LcwAssistTextStyle.currentTextFontFamily),),
+    Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 2.0, 0.0),)],)
+    ,),
+)
+  ],
+): Row()
+
+
+    ],)
+
+  )
+  
+  
+  );
+}
+
+
+static Widget tutarCardDikey3(String masterText,String subText, bool isThereDetail,BuildContext context){
+
+  return Card(
+    child:
+    Container(
+      width: (MediaQuery.of(context).size.width/2)*0.5,
+      child: 
+      Row(
+mainAxisSize: MainAxisSize.max,
+crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                Icon(Icons.assessment,color:  Colors.grey[500]),    
+          //       new Wrap(
+          // spacing: 4.0,
+          //       runSpacing: 4.0,
+          //       children: <Widget>[            
+          //       Text(masterText,textAlign: TextAlign.center,
+          //       style: TextStyle(fontWeight: FontWeight.bold,fontFamily: 'Ubuntu',
+          //       color: LcwAssistColor.reportCardHeaderColor)),
+          //       ])
+
+  Container(
+          width: (MediaQuery.of(context).size.width/2)*0.6,
+          child: 
+        new Wrap(
+          spacing: 6.0,
+                runSpacing: 6.0,
+                children: <Widget>[
+
+Text(masterText,textAlign: TextAlign.center,
+                style: TextStyle(fontWeight: FontWeight.bold,fontFamily: 'Ubuntu',
+                color: LcwAssistColor.reportCardHeaderColor))
+
+                ])),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              ],),
+    )
+  
+  );
+}
+
 
 }

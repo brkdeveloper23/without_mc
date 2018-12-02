@@ -116,7 +116,7 @@ return ss;
 
 Stores setTumMagazalar(String tumMagazalarText){
   return Stores(countryRef: 48,depoRef: 0,depoYerlesimTip: "",isOutlet: 0,magazaMudur1: "",magazaMudur2: "",
-  musteriProfil: "",operasyonelBolgeTanim: "",personelSayisi: 0,storeCode: "0",storeName: tumMagazalarText,toplamM2: 0);
+  musteriProfil: "",operasyonelBolgeTanim: "",personelSayisi: 0,storeCode: "",storeName: tumMagazalarText,toplamM2: 0);
 }
 
 }

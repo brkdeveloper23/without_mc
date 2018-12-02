@@ -22,8 +22,8 @@ dependencies:
   sqflite : any
   http: 
   localstorage: ^1.0.0
-  
-
+  # flutter_secure_storage: ^3.1.2
+  # path_provider: ^0.4.1
   
 
   # The following adds the Cupertino Icons font to your application.

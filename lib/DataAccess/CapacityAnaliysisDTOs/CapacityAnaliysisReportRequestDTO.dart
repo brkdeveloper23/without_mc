@@ -44,4 +44,17 @@ String _aksesuarUrun;
     return map;
   }
 
+
+   static fromJson(Map<String, dynamic> json) {
+  
+   CapacityAnaliysisReportRequestDTO adf = new CapacityAnaliysisReportRequestDTO();
+    adf._aksesuarUrun = json['AksesuarUrun'];
+    adf._buyerGrupTanim =  json['BuyerGrupTanim']; 
+    adf._magazaKod =  json['MagazaKod'];
+    adf._merchAltGrupKod = json['MerchAltGrupKod'];
+    adf._merchYasGrupKod = json['MerchYasGrupKod'];
+
+return adf;
+}
+
 }

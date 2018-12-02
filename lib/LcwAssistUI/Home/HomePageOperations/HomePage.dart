@@ -212,7 +212,7 @@ Container(
       key: scaffoldState,
       drawer: new Drawer(
         child: Container(
-          color:LcwAssistColor.secondaryColor,//.withOpacity(0.9),
+          color:LcwAssistColor.drawerColor,//.withOpacity(0.9),
           
 // decoration: new BoxDecoration(
 //           image: new DecorationImage(
@@ -288,7 +288,7 @@ GestureDetector(
                 //color:Colors.blue[900],
 
 decoration:  BoxDecoration(
-  color:Color.fromRGBO(0, 88, 175, 1.0),
+  color:LcwAssistColor.drawerSubMenuColor,
          border:  Border(
             top:  BorderSide(width: 2.0, color:  Colors.white),
 

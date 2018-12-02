@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lcwassist/Core/Abstracts/IsLcwAssistUIPage.dart';
+import 'package:lcwassist/Core/BaseConst/SharedPreferencesConstant.dart';
 
 import 'package:lcwassist/Core/CoreFunctions/LcwAssistLoading.dart';
 import 'package:lcwassist/DataAccess/CapacityAnaliysisDTOs/CapacityAnaliysisReportRequestDTO.dart';
@@ -11,6 +12,8 @@ import 'package:lcwassist/LcwAssistBase/LcwAssistApplicationManager.dart';
 import 'package:lcwassist/Style/CoreWidgets/LcwAssistCustomWidgets.dart';
 import 'package:lcwassist/Style/LcwAssistColor.dart';
 import 'package:lcwassist/Style/LcwAssistTextStyle.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 
 
 void main(){
@@ -22,21 +25,26 @@ void main(){
 class CapacityFilterPage extends StatefulWidget{
 
   final CapacityAnalysisMetricsFilterDTO storesResponse;
-  CapacityFilterPage({Key key, @required this.storesResponse}) : super(key: key);
+  final CapacityAnaliysisReportRequestDTO capacityParameter;
+
+  CapacityFilterPage({Key key, @required this.storesResponse,@required this.capacityParameter}) : super(key: key);
 
   @override
-  CapacityFilterPageState createState() => new CapacityFilterPageState(storesResponse:storesResponse);
+  CapacityFilterPageState createState() => new CapacityFilterPageState(storesResponse:storesResponse,capacityParameter: capacityParameter);
 }
 
 class CapacityFilterPageState extends State<CapacityFilterPage>  with TickerProviderStateMixin  implements IsLcwAssistUIPage{
 
 final CapacityAnalysisMetricsFilterDTO storesResponse;
-CapacityFilterPageState({Key key, @required this.storesResponse});
+final CapacityAnaliysisReportRequestDTO capacityParameter;
+CapacityFilterPageState({Key key, @required this.storesResponse,@required this.capacityParameter});
 
 LcwAssistApplicationManager applicationManager = new LcwAssistApplicationManager();
 
 List<String> aksesuarUrunList = new List<String>();
 String aksesuarUrun="";
+
+Color cardBackColor = Colors.grey[100];
 
 List<MerchMarkaYasGrupDTO> listMerchMarkaYasGrupDTO = new List<MerchMarkaYasGrupDTO>();
 MerchMarkaYasGrupDTO listSelectedMerchMarkaYasGrupDTO;
@@ -148,18 +156,30 @@ super.initState();
   }
 
 Future loaded(BuildContext context) async{
+  
 applicationManager.setCurrentLanguage = await applicationManager.languagesService.currentLanguage();
-loadMerchMarkaYasGrupKodList();
-loadMerchAltGrupKodList();
-loadBuyerGrupTanimList();
-loadAksesuarUrunList();
-    }
+loadAllCombo();
+}
+
+
 
 Future<void> executeAfterBuild() async {
   applicationManager.setCurrentLanguage = await applicationManager.languagesService.currentLanguage();
   setState(() {
       
     });
+}
+
+void loadAllCombo(){
+loadMerchMarkaYasGrupKodList();
+loadMerchAltGrupKodList();
+loadBuyerGrupTanimList();
+loadAksesuarUrunList();
+listSelectedAksesuarUrunDTO = capacityParameter.getAksesuarUrun != "" ? listAksesuarUrunDTO.where((i) => i.tanim == capacityParameter.getAksesuarUrun).first : listAksesuarUrunDTO[0];
+listSelectedBuyerGrupTanimDTO = capacityParameter.getBuyerGrupTanim != "" ? listBuyerGrupTanimDTO.where((i) => i.tanim == capacityParameter.getBuyerGrupTanim).first : listBuyerGrupTanimDTO[0];
+listSelectedMerchAltGroupDTO = capacityParameter.getMerchAltGrupKod != "" ? listMerchAltGroupDTO.where((i) => i.tanim == capacityParameter.getMerchAltGrupKod).first : listMerchAltGroupDTO[0];
+listSelectedMerchMarkaYasGrupDTO = capacityParameter.getMerchYasGrupKod != "" ? listMerchMarkaYasGrupDTO.where((i) => i.tanim == capacityParameter.getMerchYasGrupKod).first : listMerchMarkaYasGrupDTO[0];
+
 }
 
 
@@ -196,6 +216,7 @@ Column(
   children: <Widget>[
 
 Card(
+  color: cardBackColor,
 child:
 Column(
   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -238,9 +259,8 @@ DropdownButtonHideUnderline(
 ],)
 ),
 
-
-
 Card(
+  color: cardBackColor,
 child:
 Column(
   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -285,9 +305,8 @@ DropdownButtonHideUnderline(
 
 ),
 
-
-
 Card(
+color: cardBackColor,
 child:
 Column(
   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -332,8 +351,8 @@ DropdownButtonHideUnderline(
 
 ),
 
-
 Card(
+  color: cardBackColor,
 child:
 Column(
   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -374,8 +393,6 @@ DropdownButtonHideUnderline(
 ],)
 ),
 
-
-
 Padding(padding: EdgeInsets.all(4.0),child: Row(children: <Widget>[
   
   Expanded(flex: 7,child: RaisedButton(onPressed: ()=>
@@ -383,7 +400,8 @@ Padding(padding: EdgeInsets.all(4.0),child: Row(children: <Widget>[
   
   color: LcwAssistColor.thirdColor,child: Row(children: <Widget>[Icon(Icons.done,color: Colors.white,),Text(applicationManager.currentLanguage.getfiltrele,style: TextStyle(fontSize: 18.0,color: Colors.white,fontFamily: LcwAssistTextStyle.currentTextFontFamily),)],),),),
   Padding(padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0)),
-  Expanded(flex: 5,child: RaisedButton(onPressed: ()=>{},color: LcwAssistColor.thirdColor,child: Row(children: <Widget>[Icon(Icons.clear_all,color: Colors.white),Text(applicationManager.currentLanguage.gettemizle,style: TextStyle(fontSize: 18.0,color: Colors.white,fontFamily: LcwAssistTextStyle.currentTextFontFamily))],),),)
+  Expanded(flex: 5,child: RaisedButton(onPressed: ()=>
+  btnClean(),color: LcwAssistColor.thirdColor,child: Row(children: <Widget>[Icon(Icons.clear_all,color: Colors.white),Text(applicationManager.currentLanguage.gettemizle,style: TextStyle(fontSize: 18.0,color: Colors.white,fontFamily: LcwAssistTextStyle.currentTextFontFamily))],),),)
 
 ],)
 
@@ -404,16 +422,42 @@ void chan(int value){
 }
 
 
-void btnfilterClick(){
+void btnfilterClick() async{
 
-CapacityAnaliysisReportRequestDTO asas = new CapacityAnaliysisReportRequestDTO();
-asas.setAksesuarUrun = listSelectedAksesuarUrunDTO.tanim == listAksesuarUrunDTO[0].tanim ? "" : listSelectedAksesuarUrunDTO.tanim;
-asas.setBuyerGrupTanim =listSelectedBuyerGrupTanimDTO.tanim == listBuyerGrupTanimDTO[0].tanim ? "" : listSelectedBuyerGrupTanimDTO.tanim;
-asas.setMerchAltGrupKod = listSelectedMerchAltGroupDTO.tanim == listMerchAltGroupDTO[0].tanim ? "" : listSelectedMerchAltGroupDTO.tanim;
-asas.setMerchYasGrupKod = listSelectedMerchMarkaYasGrupDTO.tanim == listMerchMarkaYasGrupDTO[0].tanim ? "" : listSelectedMerchMarkaYasGrupDTO.tanim;
+//CapacityAnaliysisReportRequestDTO asas= new CapacityAnaliysisReportRequestDTO();
+capacityParameter.setAksesuarUrun = listSelectedAksesuarUrunDTO.tanim == listAksesuarUrunDTO[0].tanim ? "" : listSelectedAksesuarUrunDTO.tanim;
+capacityParameter.setBuyerGrupTanim =listSelectedBuyerGrupTanimDTO.tanim == listBuyerGrupTanimDTO[0].tanim ? "" : listSelectedBuyerGrupTanimDTO.tanim;
+capacityParameter.setMerchAltGrupKod = listSelectedMerchAltGroupDTO.tanim == listMerchAltGroupDTO[0].tanim ? "" : listSelectedMerchAltGroupDTO.tanim;
+capacityParameter.setMerchYasGrupKod = listSelectedMerchMarkaYasGrupDTO.tanim == listMerchMarkaYasGrupDTO[0].tanim ? "" : listSelectedMerchMarkaYasGrupDTO.tanim;
+capacityParameter.setMagazaKod = "";
 
-Navigator.pop(context, asas);
+
+//final aa = await SharedPreferences.getInstance();
+
+//aa.setString(SharedPreferencesConstant.capacityFilter, json.encode(asas.toMap()));
+
+Navigator.pop(context, capacityParameter);
 }
+
+void btnClean(){
+
+capacityParameter.setAksesuarUrun =   ""; 
+capacityParameter.setBuyerGrupTanim = ""; 
+capacityParameter.setMerchAltGrupKod =""; 
+capacityParameter.setMerchYasGrupKod ="";
+
+loadAllCombo();
+
+
+setState(() {
+});
+
+
+}
+
+
+
+
 
 }
 

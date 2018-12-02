@@ -121,7 +121,7 @@ return;
 LcwAssistLoading.showAlert(context,applicationManager.currentLanguage.getyukleniyor);
 });
 
- await new Future.delayed(const Duration(seconds: 1 ));
+
 
  responseDTO = await applicationManager.serviceManager.loginService.loginEntryRequest(fillToModel());
 
@@ -167,13 +167,13 @@ Widget  loginPageBody()
         children: <Widget>[
          
           Container(child: Column(children: <Widget>[
-          Expanded(flex: 2,child: Container(//color: LcwAssistColor.secondaryColor,
-decoration: new BoxDecoration(
-          image: new DecorationImage(
-            image: new AssetImage("assets/splas.png"),
-            fit: BoxFit.cover,
-          ),
-        ),
+          Expanded(flex: 2,child: Container(color: LcwAssistColor.secondaryColor,
+// decoration: new BoxDecoration(
+//           image: new DecorationImage(
+//             image: new AssetImage("assets/splas.png"),
+//             fit: BoxFit.cover,
+//           ),
+//         ),
 
           child: Row( mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[

@@ -116,4 +116,5 @@ int kod;
 String tanim;
 
 AksesuarUrunDTO({this.kod,this.tanim});
+
 }

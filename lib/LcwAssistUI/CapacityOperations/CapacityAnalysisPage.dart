@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lcwassist/Core/Abstracts/IsLcwAssistUIPage.dart';
 import 'package:lcwassist/Core/BaseConst/LcwAssistEnumType.dart';
+import 'package:lcwassist/Core/BaseConst/SharedPreferencesConstant.dart';
 
 import 'package:lcwassist/Core/CoreFunctions/LcwAssistLoading.dart';
 import 'package:lcwassist/Core/CoreFunctions/LcwAssistSnackBarDialogs/LcwAssistSnackBarDialogInfo.dart';
@@ -13,6 +14,8 @@ import 'package:lcwassist/LcwAssistUI/CapacityOperations/CapacityFilterPage.dart
 import 'package:lcwassist/Style/CoreWidgets/LcwAssistCustomWidgets.dart';
 import 'package:lcwassist/Style/LcwAssistColor.dart';
 import 'package:lcwassist/Style/LcwAssistTextStyle.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 
 
 void main(){
@@ -29,6 +32,7 @@ class CapacityAnalysisPage extends StatefulWidget{
 
 class CapacityAnalysisPageState extends State<CapacityAnalysisPage>  with TickerProviderStateMixin implements IsLcwAssistUIPage{
 
+CapacityAnaliysisReportRequestDTO capacityParameter = new CapacityAnaliysisReportRequestDTO();
 LcwAssistApplicationManager applicationManager = new LcwAssistApplicationManager();
 Stores currentStore;
 bool sayfaYuklendiMi = false;
@@ -74,15 +78,15 @@ LcwAssistLoading.showAlert(context,applicationManager.currentLanguage.getyukleni
 
  currentStore = await applicationManager.serviceManager.storeChooseService.getCurrentStore();
 
- CapacityAnaliysisReportRequestDTO parameter = new CapacityAnaliysisReportRequestDTO();
+ 
 
-parameter.setAksesuarUrun = "";
-parameter.setBuyerGrupTanim = "";
-parameter.setMagazaKod = currentStore.storeCode;
-parameter.setMerchAltGrupKod = "";
-parameter.setMerchYasGrupKod = "";
+capacityParameter.setAksesuarUrun = "";
+capacityParameter.setBuyerGrupTanim = "";
+capacityParameter.setMagazaKod = currentStore.storeCode;
+capacityParameter.setMerchAltGrupKod = "";
+capacityParameter.setMerchYasGrupKod = "";
 
-await loadCapacityReport(parameter);
+await loadCapacityReport(capacityParameter);
 
 //await new Future.delayed(const Duration(seconds: 2 ));
 
@@ -222,9 +226,11 @@ Container(
     //padding: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
     child: Column(
     children: <Widget>[
-      Expanded(child: satirlar[0]),
-      Expanded(child: satirlar[1]),
-      Expanded(child: satirlar[2]),
+      Expanded(child: Padding(child: satirlar[0],padding: EdgeInsets.all(10.0),)),
+      Expanded(child: Padding(child: satirlar[1],padding: EdgeInsets.all(10.0),)),
+      Expanded(child: Padding(child: satirlar[2],padding: EdgeInsets.all(10.0),)),
+      //Expanded(child: satirlar[1]),
+      //Expanded(child: satirlar[2]),
     ],
   ));
 }
@@ -237,7 +243,7 @@ List<Widget> sayfa1 = new List<Widget>();
 sayfa1.add(Row (children: <Widget>[
   Expanded(child :
   
-  LcwAssistCustomWidgets.tutarCardDikey(applicationManager.currentLanguage.gettoplamFiiliDolulukBDHaric,raporResult.toplamFiiliDolulukLCM,false)
+  LcwAssistCustomWidgets.tutarCardDikey3(applicationManager.currentLanguage.gettoplamFiiliDolulukBDHaric,raporResult.toplamFiiliDolulukLCM,false,context)
   
   ),
   Expanded(child :LcwAssistCustomWidgets.tutarCardDikey(applicationManager.currentLanguage.getnetNihaiLCMDoluluk,raporResult.netNihaiLCMDoluluk,false))],));
@@ -404,15 +410,22 @@ void _openFilterDialog() async{
 //     fullscreenDialog: true
 //   ));
 
-CapacityAnaliysisReportRequestDTO result = await Navigator.push(
+capacityParameter = await Navigator.push(
     context,
-    MaterialPageRoute(builder: (context) => CapacityFilterPage(storesResponse:this.raporFilterList)),
+    MaterialPageRoute(builder: (context) => CapacityFilterPage(storesResponse:this.raporFilterList,capacityParameter:this.capacityParameter)),
   );
-  //String assas = result.getAksesuarUrun;
+  
+  capacityParameter.setMagazaKod = currentStore.storeCode;
 
-  result.setMagazaKod = currentStore.storeCode;
+//final aa = await SharedPreferences.getInstance();
 
-await loadCapacityReport(result);
+//String asd = aa.getString(SharedPreferencesConstant.capacityFilter);
+
+//var result2 =  CapacityAnaliysisReportRequestDTO.fromJson(json.decode(asd));
+
+
+
+await loadCapacityReport(capacityParameter);
 setState(() {  
 });
 

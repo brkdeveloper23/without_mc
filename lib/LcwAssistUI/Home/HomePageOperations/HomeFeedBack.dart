@@ -126,11 +126,11 @@ padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 10.0)),
 
          Container(padding: EdgeInsets.fromLTRB(0.0, 0.0, 5.0, 0.0),child: Image.asset('assets/homepageFeedback_48.png'),),
         Container(
-          width: MediaQuery.of(context).size.width*0.85,
+          width: MediaQuery.of(context).size.width*0.5,
           child: 
         new Wrap(
-          spacing: 4.0,
-                runSpacing: 4.0,
+          spacing: 2.0,
+                runSpacing: 2.0,
                 children: <Widget>[
 
         Text(applicationManager.currentLanguage.geturunBagimliBagimsizFeedbackGonder,
