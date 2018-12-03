@@ -116,7 +116,94 @@ sayfaYuklendiMi = true;
 
     }
 
-  Widget storeReportPageBody(){
+Widget resimYukle(){
+ return Container(
+    decoration: new BoxDecoration(
+          image: new DecorationImage(
+            image: new AssetImage("assets/deneme_rapor.png"),
+            fit: BoxFit.fill,
+          ),
+        )
+  );
+}
+
+
+Widget satir(Color lineColor,String masterText,String subText,){
+
+return Padding(
+  padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+  child: 
+  Container(
+  padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+  decoration:  BoxDecoration(
+        //borderRadius: BorderRadius.circular(10.0),
+    border:  Border(
+      // top:  BorderSide(width: 1.0, color:  Color(0xFFFFFFFFFF)),
+       left:  BorderSide(width: 6.0, color:  lineColor),
+      // right:  BorderSide(width: 1.0, color:  Color(0xFFFFFFFFFF)),
+      //bottom:  BorderSide(width: 3.0, color:  LcwAssistColor.cardLineColor)//Color.fromRGBO(182,0,62, 1.0))
+    )),
+  child: Column(
+    mainAxisSize: MainAxisSize.max,
+    crossAxisAlignment: CrossAxisAlignment.stretch,
+    children: <Widget>[
+      Text(masterText,style: TextStyle(fontSize: 20.0,fontFamily: 'Ubuntu',color: LcwAssistColor.reportCardHeaderColor))
+      ,Padding(padding: EdgeInsets.fromLTRB(10, 10, 10, 10),)
+      ,Text(subText,style: TextStyle(fontSize: 20.0,fontFamily: 'Ubuntu',color: LcwAssistColor.reportCardSubHeaderColor))
+
+    ],
+  ),
+),
+);
+
+}
+
+Widget storeReportPageBody(){
+
+return 
+new Column(
+  children: <Widget>[
+    Expanded(flex: 1,child: Card(child: Row(children: <Widget>[
+      
+      Padding(padding: EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 0.0),child: Icon(Icons.store,color: LcwAssistColor.primaryColor,size: 30,),),
+      Padding(padding: EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 0.0),child: Text(applicationManager.currentLanguage.getmagazaAdi+' : ',style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 20.0,fontWeight: FontWeight.bold),),),
+      Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),child: Text(currentStore.storeName,style: TextStyle(color: LcwAssistColor.reportCardSubHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 19.0,fontWeight: FontWeight.bold),),)
+
+      ],),),),
+    Expanded(flex: 10,child: 
+      SingleChildScrollView(
+                child:
+Column(children: <Widget>[
+satir(Color.fromRGBO(54,163,247, 1.0),applicationManager.currentLanguage.gettoplamFiiliDolulukBDHaric,raporResult.toplamFiiliDolulukLCM),
+satir(Color.fromRGBO(0,116,198, 1.0),applicationManager.currentLanguage.getnetNihaiLCMDoluluk,raporResult.netNihaiLCMDoluluk),
+satir(Color.fromRGBO(239,138,14, 1.0),applicationManager.currentLanguage.getreyonDolulukLCM,raporResult.reyonDolulukLCM),
+satir(Color.fromRGBO(100,105,188, 1.0),applicationManager.currentLanguage.getdepoDolulukLCM,raporResult.depoDolulukLCM),
+satir(Color.fromRGBO(196,66,88, 1.0),applicationManager.currentLanguage.getonayLimiti,raporResult.onayLimiti),
+satir(Color.fromRGBO(38,137,116, 1.0),applicationManager.currentLanguage.gettoplamKapLCMNetNihaiKapLCM,raporResult.toplamKapOverNetNihai),
+satir(Color.fromRGBO(0,162,181, 1.0),applicationManager.currentLanguage.getreyonStokAdet,raporResult.reyonStokAdet),
+satir(Color.fromRGBO(54,163,247, 1.0),applicationManager.currentLanguage.getdepoStokAdet,raporResult.depoStokAdet),
+satir(Color.fromRGBO(0,116,198, 1.0),applicationManager.currentLanguage.gettoplamStokAdet,raporResult.toplamStokAdet),
+satir(Color.fromRGBO(239,138,14, 1.0),applicationManager.currentLanguage.getson7gunSatisAdet,raporResult.sonYediGunSatis),
+satir(Color.fromRGBO(100,105,188, 1.0),applicationManager.currentLanguage.getfiiliCover,raporResult.fiiliCover),
+satir(Color.fromRGBO(196,66,88, 1.0),applicationManager.currentLanguage.getyolStokAdet,raporResult.yolStokAdet),
+satir(Color.fromRGBO(38,137,116, 1.0),applicationManager.currentLanguage.getonayliOnyasizRezerveAdet,raporResult.onayliOnaysizRezerveAdet),
+satir(Color.fromRGBO(0,162,181, 1.0),applicationManager.currentLanguage.gettransferINOUT,raporResult.transferInOut),
+
+// Container(
+//   decoration:  BoxDecoration(
+//     border:  Border(
+//       bottom:  BorderSide(width: 3.0, color:  LcwAssistColor.cardLineColor)//Color.fromRGBO(182,0,62, 1.0))
+//     )) 
+// ),
+],)
+
+  ),)
+  ],
+);
+}
+
+
+  Widget storeReportPageBody2(){
       return
 
        Container(
@@ -243,7 +330,7 @@ List<Widget> sayfa1 = new List<Widget>();
 sayfa1.add(Row (children: <Widget>[
   Expanded(child :
   
-  LcwAssistCustomWidgets.tutarCardDikey3(applicationManager.currentLanguage.gettoplamFiiliDolulukBDHaric,raporResult.toplamFiiliDolulukLCM,false,context)
+  LcwAssistCustomWidgets.tutarCardDikey(applicationManager.currentLanguage.gettoplamFiiliDolulukBDHaric,raporResult.toplamFiiliDolulukLCM,false),//,false,context)
   
   ),
   Expanded(child :LcwAssistCustomWidgets.tutarCardDikey(applicationManager.currentLanguage.getnetNihaiLCMDoluluk,raporResult.netNihaiLCMDoluluk,false))],));

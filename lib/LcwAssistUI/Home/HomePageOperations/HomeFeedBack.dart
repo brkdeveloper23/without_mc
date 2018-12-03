@@ -92,7 +92,7 @@ sayfaYuklendiMi = true;
 
     return new Scaffold(
        key: scaffoldState,
-      body: sayfaYuklendiMi == true ? pageBody() : Container(child: Text(''),),
+      body: sayfaYuklendiMi == true ? Text('') : Container(child: Text(''),),//sayfaYuklendiMi == true ? pageBody() : Container(child: Text(''),),
     );
     
     

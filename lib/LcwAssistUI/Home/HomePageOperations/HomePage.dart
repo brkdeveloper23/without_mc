@@ -205,27 +205,21 @@ Container(
     return new Scaffold(
       appBar: new AppBar(
         // here we display the title corresponding to the fragment
-        // you can instead choose to have a static title
+        // you can instead choose to have a static title 
         title: new Text(drawerItems[_selectedDrawerIndex].title,
         style: TextStyle(fontFamily: LcwAssistTextStyle.currentTextFontFamily),),
       ),
       key: scaffoldState,
       drawer: new Drawer(
         child: Container(
-          color:LcwAssistColor.drawerColor,//.withOpacity(0.9),
+          //color:LcwAssistColor.drawerColor,//.withOpacity(0.9),
           
-// decoration: new BoxDecoration(
-//           image: new DecorationImage(
-//             image: new AssetImage("assets/drawerSplash.png"),
-//             fit: BoxFit.cover,
-//           ),
-//         ),
-
-
-
-
-
-
+decoration: new BoxDecoration(
+          image: new DecorationImage(
+            image: new AssetImage("assets/drawerSplash.png"), 
+            fit: BoxFit.cover,
+          ),
+        ),
 
           child:
          new Column(

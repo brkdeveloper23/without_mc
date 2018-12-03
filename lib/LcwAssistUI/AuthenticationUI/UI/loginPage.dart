@@ -167,13 +167,13 @@ Widget  loginPageBody()
         children: <Widget>[
          
           Container(child: Column(children: <Widget>[
-          Expanded(flex: 2,child: Container(color: LcwAssistColor.secondaryColor,
-// decoration: new BoxDecoration(
-//           image: new DecorationImage(
-//             image: new AssetImage("assets/splas.png"),
-//             fit: BoxFit.cover,
-//           ),
-//         ),
+          Expanded(flex: 2,child: Container(//color: LcwAssistColor.secondaryColor,
+decoration: new BoxDecoration(
+          image: new DecorationImage(
+            image: new AssetImage("assets/login.png"),
+            fit: BoxFit.fill,
+          ),
+        ),
 
           child: Row( mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[

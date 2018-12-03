@@ -80,6 +80,9 @@ flutter:
     - assets/star_40.png
     - assets/right_oval_40.png
     - assets/message_balon_40.png
+    - assets/subHeader.png
+    - assets/login.png
+    - assets/deneme_rapor.png
     
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
