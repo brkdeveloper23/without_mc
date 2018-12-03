@@ -7,6 +7,7 @@ import 'package:lcwassist/LcwAssistUI/Home/HomePageOperations/HomePage.dart';
 import 'package:lcwassist/LcwAssistBase/LcwAssistApplicationManager.dart';
 import 'package:lcwassist/LcwAssistUI/SalesOperations/ProductSalesPerformanceOperations/ProductPerformansMetricFeedBackDialog.dart';
 import 'package:lcwassist/Services/LcwAssistUIServiceOperations/StoreReportOperations/StoreChooseService.dart';
+import 'package:lcwassist/Style/CoreWidgets/LcwAssistCustomWidgets.dart';
 import 'package:lcwassist/Style/LcwAssistColor.dart';
 import 'package:lcwassist/Style/LcwAssistTextStyle.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
@@ -31,6 +32,9 @@ final ProductMetricsResponse productMetricsResponse;
   ProductPerformansMetricsState({Key key, @required this.productMetricsResponse});
 
 LcwAssistApplicationManager applicationManager = new LcwAssistApplicationManager();
+
+Icon currentPageStyleIcon;
+bool currentPageStyle;
 
 Stores storesResponse = new Stores();
 bool sayfaYuklendiMi = false;
@@ -64,8 +68,11 @@ sayfaYuklendiMi = false;
 
 
   Future loaded(BuildContext context) async{
-applicationManager.setCurrentLanguage = await applicationManager.languagesService.currentLanguage();
-sayfaYuklendiMi = true;
+    currentPageStyleIcon = Icon(Icons.view_module);
+    currentPageStyle = true;
+
+    applicationManager.setCurrentLanguage = await applicationManager.languagesService.currentLanguage();
+    sayfaYuklendiMi = true;
 }
 
 Future<void> executeAfterBuild() async {
@@ -77,10 +84,16 @@ Future<void> executeAfterBuild() async {
     return new Scaffold(
       resizeToAvoidBottomPadding: false,
       //key: scaffoldState,
-      appBar: AppBar(title: Text(applicationManager.currentLanguage.geturunPerformansAnaliz),),
+      appBar: AppBar(title: Text(applicationManager.currentLanguage.geturunPerformansAnaliz),actions: <Widget>[
+
+        new IconButton(
+  icon: new Icon(currentPageStyleIcon.icon, color: Colors.white,size: 30, ),
+  onPressed: () => changePageStyle(),
+)
+      ],),
       //drawer: DrawerOnly.leftSideMenuDiz(LcwAssistPageDrawerNumberConst.satis,context),
       backgroundColor: LcwAssistColor.backGroundColor,
-      body: sayfaYuklendiMi == true ? ekranYerlesim() : Container(child: Text(''),),
+      body: sayfaYuklendiMi == true ? (currentPageStyle == true ? storeReportPageBody() : ekranYerlesim()) : Container(child: Text(''),),//sayfaYuklendiMi == true ? ekranYerlesim() : Container(child: Text(''),),
       floatingActionButtonLocation: 
       FloatingActionButtonLocation.endDocked,
     floatingActionButton: Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 20.0),child: buildFloatingButtonHasSub(),),//thisFloatActionButton(),
@@ -89,7 +102,50 @@ Future<void> executeAfterBuild() async {
     }
 
 
+Widget storeReportPageBody(){
 
+return 
+new Column(
+  children: <Widget>[
+    Expanded(flex: 3,child: Card(child: Column(
+      children: <Widget>[
+        magazaCardDetay2()
+      ],
+    )),),
+    Expanded(flex: 10,child: 
+      SingleChildScrollView(
+                child:
+Column(children: <Widget>[
+LcwAssistCustomWidgets.satir(Color.fromRGBO(54,163,247, 1.0),  applicationManager.currentLanguage.getkumulatifSatisTutar,productMetricsResponse.productPerformansResultDTO.kumulatifSatisTutar),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(0,116,198, 1.0),   applicationManager.currentLanguage.getortalamaPSF,productMetricsResponse.productPerformansResultDTO.ortalamaPSF),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(239,138,14, 1.0),  applicationManager.currentLanguage.getkumulatifSatisAdet,productMetricsResponse.productPerformansResultDTO.kumulatifSatisAdet),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(100,105,188, 1.0), applicationManager.currentLanguage.getkumulatifSevkAdet,productMetricsResponse.productPerformansResultDTO.kumulatifSevkAdet),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(196,66,88, 1.0),   applicationManager.currentLanguage.getstr,productMetricsResponse.productPerformansResultDTO.str),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(38,137,116, 1.0),  applicationManager.currentLanguage.getilkPSF,productMetricsResponse.productPerformansResultDTO.ilkPesinFiyat),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(0,162,181, 1.0),   applicationManager.currentLanguage.getindirimOrani,productMetricsResponse.productPerformansResultDTO.indirimOrani),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(54,163,247, 1.0),  applicationManager.currentLanguage.getsonPSF,productMetricsResponse.productPerformansResultDTO.sonPesitFiyat),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(0,116,198, 1.0),   applicationManager.currentLanguage.getreyonStokAdet,productMetricsResponse.productPerformansResultDTO.reyonStok),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(239,138,14, 1.0),  applicationManager.currentLanguage.getdepoStokAdet,productMetricsResponse.productPerformansResultDTO.depoStok),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(100,105,188, 1.0), applicationManager.currentLanguage.getson7gunSatisAdet,productMetricsResponse.productPerformansResultDTO.son7GunSatisAdet),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(196,66,88, 1.0),   applicationManager.currentLanguage.getfiiliCover,productMetricsResponse.productPerformansResultDTO.fiiliCover),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(38,137,116, 1.0),  applicationManager.currentLanguage.getyolStokAdet,productMetricsResponse.productPerformansResultDTO.yolStok),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(0,162,181, 1.0),   applicationManager.currentLanguage.getonayliOnyasizRezerveAdet,productMetricsResponse.productPerformansResultDTO.onayliOnaysizRezerve),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(54,163,247, 1.0),  applicationManager.currentLanguage.getmerkezDepoStok,productMetricsResponse.productPerformansResultDTO.merkezDepoStokAdet),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(0,116,198, 1.0),   applicationManager.currentLanguage.getbulunurluk,productMetricsResponse.productPerformansResultDTO.bulunurluk),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(239,138,14, 1.0),  applicationManager.currentLanguage.getderinlik,productMetricsResponse.productPerformansResultDTO.derinlik),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(100,105,188, 1.0), applicationManager.currentLanguage.getrafOmru,productMetricsResponse.productPerformansResultDTO.rafOmru),
+// Container(
+//   decoration:  BoxDecoration(
+//     border:  Border(
+//       bottom:  BorderSide(width: 3.0, color:  LcwAssistColor.cardLineColor)//Color.fromRGBO(182,0,62, 1.0))
+//     )) 
+// ),
+],)
+
+  ),)
+  ],
+);
+}
 
 Widget ekranYerlesim(){
     return Column(
@@ -159,6 +215,35 @@ child:
     // ),
   );
 }
+Widget magazaCardDetay2(){
+  return 
+     Padding(
+       padding: EdgeInsets.fromLTRB(5, 5, 0, 0),
+       child: 
+     Column(
+       mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+
+  Row(children: <Widget>[Text( applicationManager.currentLanguage.getmagaza+' : ',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17.0,fontFamily: LcwAssistTextStyle.currentTextFontFamily,color: LcwAssistColor.reportCardHeaderColor)),Text(storesResponse.storeName,style: TextStyle(fontSize: 17.0,color: LcwAssistColor.reportCardSubHeaderColor))]),
+  //Row(children: <Widget>[Text( applicationManager.currentLanguage.geturun+' : ',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17.0,fontFamily: LcwAssistTextStyle.currentTextFontFamily,color: LcwAssistColor.reportCardHeaderColor)),Text(storesResponse.storeName,style: TextStyle(fontSize: 17.0,color: LcwAssistColor.reportCardSubHeaderColor))]),
+        Row(children: <Widget>[Text(applicationManager.currentLanguage.geturun+' : ',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17.0,fontFamily: LcwAssistTextStyle.currentTextFontFamily,color: LcwAssistColor.reportCardHeaderColor)),
+        
+        Text(this.productMetricsResponse.product.barkod.toString(),style: TextStyle(fontSize: 17.0,color: LcwAssistColor.reportCardHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily),)]),
+        Row(children: <Widget>
+        [
+          
+          Text(
+          this.productMetricsResponse.product.modelKod+' / '+this.productMetricsResponse.product.renkKod+'-'+this.productMetricsResponse.product.renkTanim
+          //productMetricsResponse.product.renkKod+'('+productMetricsResponse.product.renkTanim+')'
+        ,style: TextStyle(fontSize: 17.0,color: LcwAssistColor.reportCardHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily)),]),
+        Row(children: <Widget>[Text(this.productMetricsResponse.product.urunAdi,
+        style: TextStyle(fontSize: 17.0,color: LcwAssistColor.reportCardHeaderColor)),])
+
+
+      ],
+   
+  ),);
+}
 
 Widget magazaCardDetay(){
   return 
@@ -178,23 +263,6 @@ Widget magazaCardDetay(){
         ,style: TextStyle(fontSize: 17.0,color: Colors.white,fontFamily: LcwAssistTextStyle.currentTextFontFamily)),]),
         Row(children: <Widget>[Text(this.productMetricsResponse.product.urunAdi,
         style: TextStyle(fontSize: 17.0,color: Colors.white)),]),
-
-
-
-
-
-        // Row(children: <Widget>[Text('Magaza : ',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17.0,fontFamily: LcwAssistTextStyle.currentTextFontFamily,color: LcwAssistColor.reportCardHeaderColor)),Text(storesResponse.storeName,style: TextStyle(fontSize: 17.0,color: Color.fromRGBO(127,127,127,1.0)))]),
-        // Row(children: <Widget>[Text('Ürün : ',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17.0,fontFamily: LcwAssistTextStyle.currentTextFontFamily,color: LcwAssistColor.reportCardHeaderColor)),
-        // Text(this.productMetricsResponse.product.barkod.toString(),style: TextStyle(fontSize: 17.0,color: Color.fromRGBO(127,127,127,1.0),fontFamily: LcwAssistTextStyle.currentTextFontFamily),)]),
-        // Row(children: <Widget>
-        // [
-          
-        //   Text(
-        //   this.productMetricsResponse.product.modelKod+'/'+this.productMetricsResponse.product.renkKod+'-'+this.productMetricsResponse.product.renkTanim
-        //   //productMetricsResponse.product.renkKod+'('+productMetricsResponse.product.renkTanim+')'
-        // ,style: TextStyle(fontSize: 17.0,color: Color.fromRGBO(127,127,127,1.0),fontFamily: LcwAssistTextStyle.currentTextFontFamily)),]),
-        // Row(children: <Widget>[Text(this.productMetricsResponse.product.urunAdi,
-        // style: TextStyle(fontSize: 17.0,color: Color.fromRGBO(127,127,127,1.0))),]),
 
 
       ],
@@ -534,5 +602,18 @@ stores = await applicationManager.serviceManager.storeChooseService.getCurrentSt
 return stores;
     }
 
+changePageStyle(){
+    if(currentPageStyle){
+    currentPageStyleIcon = Icon(Icons.view_list);
+    currentPageStyle = false;
+  }else{
+    currentPageStyleIcon = Icon(Icons.view_module);
+    currentPageStyle = true;
+  }
+
+  setState(() {
+      
+    });
+}
 
 }

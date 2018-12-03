@@ -407,4 +407,35 @@ Text(masterText,textAlign: TextAlign.center,
 }
 
 
+static Widget satir(Color lineColor,String masterText,String subText,){
+
+return Padding(
+  padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+  child: 
+  Container(
+  padding: EdgeInsets.fromLTRB(10, 5, 10, 10),
+  decoration:  BoxDecoration(
+        //borderRadius: BorderRadius.circular(10.0),
+    border:  Border(
+      // top:  BorderSide(width: 1.0, color:  Color(0xFFFFFFFFFF)),
+       left:  BorderSide(width: 6.0, color:  lineColor),
+      // right:  BorderSide(width: 1.0, color:  Color(0xFFFFFFFFFF)),
+      //bottom:  BorderSide(width: 3.0, color:  LcwAssistColor.cardLineColor)//Color.fromRGBO(182,0,62, 1.0))
+    )),
+  child: Column(
+    mainAxisSize: MainAxisSize.max,
+    crossAxisAlignment: CrossAxisAlignment.stretch,
+    children: <Widget>[
+      Text(masterText,style: TextStyle(fontSize: 15.0,fontFamily: 'Ubuntu',color: LcwAssistColor.reportCardHeaderColor))
+      ,Padding(padding: EdgeInsets.fromLTRB(10, 5, 10, 5),)
+      ,Text(subText,style: TextStyle(fontSize: 15.0,fontFamily: 'Ubuntu',color: LcwAssistColor.reportCardSubHeaderColor))
+
+    ],
+  ),
+),
+);
+
+}
+
+
 }

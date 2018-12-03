@@ -400,7 +400,7 @@ Padding(padding: EdgeInsets.all(4.0),child: Row(children: <Widget>[
   
   color: LcwAssistColor.thirdColor,child: Row(children: <Widget>[Icon(Icons.done,color: Colors.white,),Text(applicationManager.currentLanguage.getfiltrele,style: TextStyle(fontSize: 18.0,color: Colors.white,fontFamily: LcwAssistTextStyle.currentTextFontFamily),)],),),),
   Padding(padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0)),
-  Expanded(flex: 5,child: RaisedButton(onPressed: ()=>
+  Expanded(flex: 7,child: RaisedButton(onPressed: ()=>
   btnClean(),color: LcwAssistColor.thirdColor,child: Row(children: <Widget>[Icon(Icons.clear_all,color: Colors.white),Text(applicationManager.currentLanguage.gettemizle,style: TextStyle(fontSize: 18.0,color: Colors.white,fontFamily: LcwAssistTextStyle.currentTextFontFamily))],),),)
 
 ],)

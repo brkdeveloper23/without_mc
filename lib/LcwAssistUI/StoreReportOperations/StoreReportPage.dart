@@ -116,6 +116,63 @@ sayfaYuklendiMi = true;
     }
 
 Widget storeReportPageBody(){
+
+return 
+new Column(
+  children: <Widget>[
+    Expanded(flex: 2,child: Card(child: Column(
+      children: <Widget>[
+        Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: <Widget>[
+    Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: <Widget>[
+      Padding(padding: EdgeInsets.fromLTRB(5.0, 10.0, 5.0, 10.0),child: Text(applicationManager.currentLanguage.getmagazaKodu+ ' : ',style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 15.0,fontWeight: FontWeight.bold),),),
+      Padding(padding: EdgeInsets.fromLTRB(0.0, 10.0, 10.0, 10.0),child: Text(currentStore.storeCode,style: TextStyle(color: LcwAssistColor.reportCardSubHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 15.0,fontWeight: FontWeight.bold),),)
+    ],),
+    Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: <Widget>[
+      Padding(padding: EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 10.0),child: Text(applicationManager.currentLanguage.getmagazaAdi+' : ',style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 15.0,fontWeight: FontWeight.bold),),),
+      Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 10.0),child: Text(currentStore.storeName,style: TextStyle(color: LcwAssistColor.reportCardSubHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 15.0,fontWeight: FontWeight.bold),),)
+    ],),
+    
+  ],)
+      ],
+    )),),
+    Expanded(flex: 10,child: 
+      SingleChildScrollView(
+                child:
+Column(children: <Widget>[
+LcwAssistCustomWidgets.satir(Color.fromRGBO(54,163,247, 1.0),  applicationManager.currentLanguage.getsatisTutarKDVsiz,raporResult.bY_SatisTutar_KDVsiz),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(0,116,198, 1.0),   applicationManager.currentLanguage.gettutarBuyume,raporResult.tutarBuyume),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(239,138,14, 1.0),  applicationManager.currentLanguage.getsatisTutarGY_KDVsiz,raporResult.gY_SatisTutar_KDVsiz),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(100,105,188, 1.0), applicationManager.currentLanguage.gethedefTutar,raporResult.bY_HedefTutar),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(196,66,88, 1.0),   applicationManager.currentLanguage.gethedefTutarYuzdesi,raporResult.magazaHedefTutturmaYuzdesi),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(38,137,116, 1.0),  applicationManager.currentLanguage.getsatisAdet,raporResult.bY_SatisAdet),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(0,162,181, 1.0),   applicationManager.currentLanguage.getadetBuyume,raporResult.adetBuyume),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(54,163,247, 1.0),  applicationManager.currentLanguage.getsatisAdetGY,raporResult.gY_SatisAdet),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(0,116,198, 1.0),   applicationManager.currentLanguage.getconversionRate,raporResult.conversionRate),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(239,138,14, 1.0),  applicationManager.currentLanguage.getmusteriZiyareySayisi,raporResult.magazaTrafik),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(100,105,188, 1.0), applicationManager.currentLanguage.getsepetBuyukluguAdet,raporResult.sepetBuyukAdet),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(196,66,88, 1.0),   applicationManager.currentLanguage.getsepetBuyukluguTutarKDVsiz,raporResult.sepetBuyukTutarKDVsiz),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(38,137,116, 1.0),  applicationManager.currentLanguage.getstokDevirHizi,raporResult.stokDevirHizi),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(0,162,181, 1.0),   applicationManager.currentLanguage.getM2Verimlilik,raporResult.m2Verimlilik  ),
+// Container(
+//   decoration:  BoxDecoration(
+//     border:  Border(
+//       bottom:  BorderSide(width: 3.0, color:  LcwAssistColor.cardLineColor)//Color.fromRGBO(182,0,62, 1.0))
+//     )) 
+// ),
+],)
+
+  ),)
+  ],
+);
+}
+
+Widget storeReportPageBody2(){
       return
             
        Container(child: Column(children: <Widget>[
@@ -221,7 +278,7 @@ sayfa2.add(Row (children: <Widget>[
   Expanded(child :LcwAssistCustomWidgets.tutarCardDikey(applicationManager.currentLanguage.getsepetBuyukluguTutarKDVsiz,raporResult.sepetBuyukTutarKDVsiz,false))],));
 sayfa2.add(Row (children: <Widget>[
   Expanded(child :LcwAssistCustomWidgets.tutarCardDikey(applicationManager.currentLanguage.getstokDevirHizi,raporResult.stokDevirHizi,false)),
-  Expanded(child :LcwAssistCustomWidgets.tutarCardDikey(applicationManager.currentLanguage.getM2Verimlilik,raporResult.m2Verimlilik,false))],));
+  Expanded(child :LcwAssistCustomWidgets.tutarCardDikey(applicationManager.currentLanguage.getM2Verimlilik,raporResult.m2Verimlilik  ,false))],));
 
 
 

@@ -206,8 +206,8 @@ LcwAssistApplicationManager applicationManager = new LcwAssistApplicationManager
 
 
  new Container(
-    width: 160.0,
-    height: 50.0,
+    width: 140.0,
+    height: 40.0,
       alignment: Alignment.center,
       decoration: new BoxDecoration( 
 
