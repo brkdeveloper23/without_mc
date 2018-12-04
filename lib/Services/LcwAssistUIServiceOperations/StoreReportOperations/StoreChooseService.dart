@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:lcwassist/Core/BaseConst/SharedPreferencesConstant.dart';
 import 'package:lcwassist/Core/BaseConst/UrlConst.dart';
 import 'package:lcwassist/DataAccess/LanguageDTOs/CurrentLangugeDTO.dart';
+import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/FavoriteStoreListDto.dart';
 import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreChooseResponeDTO.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -117,6 +118,48 @@ return ss;
 Stores setTumMagazalar(String tumMagazalarText){
   return Stores(countryRef: 48,depoRef: 0,depoYerlesimTip: "",isOutlet: 0,magazaMudur1: "",magazaMudur2: "",
   musteriProfil: "",operasyonelBolgeTanim: "",personelSayisi: 0,storeCode: "",storeName: tumMagazalarText,toplamM2: 0);
+}
+
+Future<void> saveFavoriteStore(String storeCode) async {
+final prefs = await SharedPreferences.getInstance();
+List<FavoriteStoreListDto> listFavoriteStores = new List<FavoriteStoreListDto>();
+
+if(prefs.getString(SharedPreferencesConstant.favoriteStoreList) != null)
+{
+String jsonList = "";
+jsonList = prefs.getString(SharedPreferencesConstant.favoriteStoreList);
+Iterable l = json.decode(jsonList);
+listFavoriteStores = l.map((i)=> FavoriteStoreListDto.fromJson(i)).toList();
+}
+
+
+if(listFavoriteStores.where((i) => i.getMagazaKod == storeCode).toList().length > 0)
+{
+  listFavoriteStores.remove(listFavoriteStores.where((i) => i.getMagazaKod == storeCode).first);
+}else
+{
+  FavoriteStoreListDto eklenecek = new FavoriteStoreListDto();
+  eklenecek.setMagazaKod = storeCode;
+
+  listFavoriteStores.add(eklenecek);
+}
+
+
+String asafd = "[";
+for(final asd in listFavoriteStores)
+{
+  asafd += json.encode(asd.toMap());
+  asafd += ",";
+}
+asafd = asafd.substring(0, asafd.lastIndexOf(","));
+asafd += "]";
+
+if(prefs.getString(SharedPreferencesConstant.favoriteStoreList) != "")
+prefs.remove(SharedPreferencesConstant.favoriteStoreList);
+
+prefs.setString(SharedPreferencesConstant.currentLanguageId, asafd);
+
+
 }
 
 }

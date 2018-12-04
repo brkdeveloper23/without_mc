@@ -144,7 +144,13 @@ sayfaYuklendiMi = true;
                     ],)
                       ,),
 
-                  Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),child: Icon(Icons.star,color: Colors.yellow[800],),)
+                  Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
+                  child: //Icon(Icons.star,color: Colors.yellow[800],)
+                  new IconButton(
+  icon: new Icon(Icons.star, color: Colors.yellow[800],size: 30, ),
+  onPressed: () => tikla(),
+)
+                  ,)
                    ],)
 //Icon(Icons.star,color: Colors.yellow[700],)
 
@@ -181,7 +187,13 @@ sayfaYuklendiMi = true;
                     ],)
                       ,),
 
-                  Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),child: Icon(Icons.star,color: Colors.yellow[800],),)
+                  Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),child: 
+                  //Icon(Icons.star,color: Colors.yellow[800],)
+                                    new IconButton(
+  icon: new Icon(Icons.star, color: Colors.yellow[800],size: 30, ),
+  onPressed: () => tikla(),
+)
+                  ,)
                    ],)
 //Icon(Icons.star,color: Colors.yellow[700],)
 
@@ -232,5 +244,9 @@ sayfaYuklendiMi = true;
     setState(() {});
   }
 
+
+tikla() async{
+await applicationManager.serviceManager.storeChooseService.saveFavoriteStore('T526');
+}
 
 }

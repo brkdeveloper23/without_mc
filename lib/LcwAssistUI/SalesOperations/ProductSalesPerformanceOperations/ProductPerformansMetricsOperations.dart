@@ -213,6 +213,20 @@ child:
     // )
     //   ,
     // ),
+
+
+
+//  decoration:  BoxDecoration(
+//         //borderRadius: BorderRadius.circular(10.0),
+//     border:  Border(
+//       // top:  BorderSide(width: 1.0, color:  Color(0xFFFFFFFFFF)),
+//        left:  BorderSide(width: 6.0, color:  lineColor),
+//       // right:  BorderSide(width: 1.0, color:  Color(0xFFFFFFFFFF)),
+//       //bottom:  BorderSide(width: 3.0, color:  LcwAssistColor.cardLineColor)//Color.fromRGBO(182,0,62, 1.0))
+//     )),
+
+
+
   );
 }
 Widget magazaCardDetay2(){
@@ -224,19 +238,24 @@ Widget magazaCardDetay2(){
        mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
 
-  Row(children: <Widget>[Text( applicationManager.currentLanguage.getmagaza+' : ',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17.0,fontFamily: LcwAssistTextStyle.currentTextFontFamily,color: LcwAssistColor.reportCardHeaderColor)),Text(storesResponse.storeName,style: TextStyle(fontSize: 17.0,color: LcwAssistColor.reportCardSubHeaderColor))]),
-  //Row(children: <Widget>[Text( applicationManager.currentLanguage.geturun+' : ',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17.0,fontFamily: LcwAssistTextStyle.currentTextFontFamily,color: LcwAssistColor.reportCardHeaderColor)),Text(storesResponse.storeName,style: TextStyle(fontSize: 17.0,color: LcwAssistColor.reportCardSubHeaderColor))]),
-        Row(children: <Widget>[Text(applicationManager.currentLanguage.geturun+' : ',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17.0,fontFamily: LcwAssistTextStyle.currentTextFontFamily,color: LcwAssistColor.reportCardHeaderColor)),
+Container(
+  child: //brightness_1
+  Row(children: <Widget>[Icon(Icons.remove,color: Color.fromRGBO(54,163,247, 1.0),size: 20,),Text( applicationManager.currentLanguage.getmagaza+' : ',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17.0,fontFamily: LcwAssistTextStyle.currentTextFontFamily,color: LcwAssistColor.reportCardHeaderColor)),Text(storesResponse.storeName,style: TextStyle(fontSize: 17.0,color: LcwAssistColor.reportCardSubHeaderColor))]),
+  ),       
+       
+        Row(children: <Widget>[Icon(Icons.remove,color: Color.fromRGBO(0,116,198, 1.0),size: 20,),Text(applicationManager.currentLanguage.geturun+' : ',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17.0,fontFamily: LcwAssistTextStyle.currentTextFontFamily,color: LcwAssistColor.reportCardHeaderColor)),
         
         Text(this.productMetricsResponse.product.barkod.toString(),style: TextStyle(fontSize: 17.0,color: LcwAssistColor.reportCardHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily),)]),
         Row(children: <Widget>
         [
-          
+          Icon(Icons.remove,color: Color.fromRGBO(239,138,14, 1.0),size: 20,),
           Text(
           this.productMetricsResponse.product.modelKod+' / '+this.productMetricsResponse.product.renkKod+'-'+this.productMetricsResponse.product.renkTanim
           //productMetricsResponse.product.renkKod+'('+productMetricsResponse.product.renkTanim+')'
         ,style: TextStyle(fontSize: 17.0,color: LcwAssistColor.reportCardHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily)),]),
-        Row(children: <Widget>[Text(this.productMetricsResponse.product.urunAdi,
+        Row(children: <Widget>[
+          Icon(Icons.remove,color: Color.fromRGBO(100,105,188, 1.0),size: 20,),
+          Text(this.productMetricsResponse.product.urunAdi,
         style: TextStyle(fontSize: 17.0,color: LcwAssistColor.reportCardHeaderColor)),])
 
 

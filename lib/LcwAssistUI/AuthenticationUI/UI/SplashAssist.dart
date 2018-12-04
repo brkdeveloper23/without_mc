@@ -153,6 +153,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:lcwassist/Core/BaseConst/SharedPreferencesConstant.dart';
+import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/FavoriteStoreListDto.dart';
 import 'package:lcwassist/LcwAssistBase/LcwAssistApplicationManager.dart';
 import 'package:lcwassist/LcwAssistUI/AuthenticationUI/UI/loginPage.dart';
 
@@ -160,7 +161,7 @@ import 'package:lcwassist/Style/LcwAssistColor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:localstorage/localstorage.dart';
-
+import 'dart:convert';
 
 void main(){
   runApp(new MaterialApp(
@@ -177,6 +178,7 @@ class SplashAssist extends StatefulWidget{
 class MainPageState extends State<SplashAssist>{
 
 LcwAssistApplicationManager applicationManager = new LcwAssistApplicationManager();
+ImageProvider asas;
 
   @override
   Widget build(BuildContext context) {
@@ -189,7 +191,7 @@ LcwAssistApplicationManager applicationManager = new LcwAssistApplicationManager
       new Container(
         decoration: new BoxDecoration(
           image: new DecorationImage(
-            image: new AssetImage("assets/splas.png"),
+            image: AssetImage("assets/splas.png"),
             fit: BoxFit.cover,
           ),
         ),
@@ -240,7 +242,7 @@ LcwAssistApplicationManager applicationManager = new LcwAssistApplicationManager
   }
 
   Future loaded(BuildContext context) async{
-    
+
 
 await applicationManager.languagesService.getAllLanguages();
 
@@ -249,10 +251,20 @@ final prefs = await SharedPreferences.getInstance();
 if(prefs.getString(SharedPreferencesConstant.currentLanguageId) == null)
 prefs.setString(SharedPreferencesConstant.currentLanguageId,"2");
 
+// if(prefs.getString(SharedPreferencesConstant.favoriteStoreList) == null)
+// {
+// List<FavoriteStoreListDto> list = new List<FavoriteStoreListDto>();
+// FavoriteStoreListDto value = new FavoriteStoreListDto();
+// value.setMagazaKod = "0";
+// list.add(value);
+
+// prefs.setString(SharedPreferencesConstant.favoriteStoreList,json.encode(list));
+// }
+
 String currentLanguageId = prefs.getString(SharedPreferencesConstant.currentLanguageId);
 int dilId = int.parse(currentLanguageId);
 
-// final LocalStorage storage = new LocalStorage('lcwassist_language');
+//  final LocalStorage storage = new LocalStorage('lcwassist_language');
 //  if(storage.getItem('currentDilId') == null)
 //  {
 // Map<String, dynamic> m = new Map();

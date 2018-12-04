@@ -177,6 +177,7 @@ decoration: new BoxDecoration(
 
           child: Row( mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            
             Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
             child: //Image.asset('assets/imglogolcwassist.png',fit: BoxFit.cover,),)
             
@@ -193,11 +194,6 @@ decoration: new BoxDecoration(
     ),
   )
             )
-
-
-
-
-
             
             ]),),),
           Expanded(flex: 4,child: 

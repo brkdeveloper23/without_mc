@@ -44,14 +44,6 @@ prefs.remove(SharedPreferencesConstant.currentLanguage);
 if(prefs.getString(SharedPreferencesConstant.currentLanguageId) != "")
 prefs.remove(SharedPreferencesConstant.currentLanguageId);
 
-// final LocalStorage storage = new LocalStorage('lcwassist_language');
-
-// if(storage.getItem('currentDilId'))
-// storage.deleteItem('currentDilId');
-
-// storage.setItem('currentDilId', dilId);
-
-
 prefs.setString(SharedPreferencesConstant.currentLanguageId, dilId.toString());
 prefs.setString(SharedPreferencesConstant.currentLanguage, asafd);//languageString.toString());
 
