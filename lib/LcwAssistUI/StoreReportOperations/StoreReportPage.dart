@@ -120,23 +120,16 @@ Widget storeReportPageBody(){
 return 
 new Column(
   children: <Widget>[
-    Expanded(flex: 2,child: Card(child: Column(
+    Expanded(flex: 1,child: Card(child: Column(
       children: <Widget>[
         Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-    Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: <Widget>[
-      Padding(padding: EdgeInsets.fromLTRB(5.0, 10.0, 5.0, 10.0),child: Text(applicationManager.currentLanguage.getmagazaKodu+ ' : ',style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 15.0,fontWeight: FontWeight.bold),),),
-      Padding(padding: EdgeInsets.fromLTRB(0.0, 10.0, 10.0, 10.0),child: Text(currentStore.storeCode,style: TextStyle(color: LcwAssistColor.reportCardSubHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 15.0,fontWeight: FontWeight.bold),),)
-    ],),
-    Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: <Widget>[
-      Padding(padding: EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 10.0),child: Text(applicationManager.currentLanguage.getmagazaAdi+' : ',style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 15.0,fontWeight: FontWeight.bold),),),
-      Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 10.0),child: Text(currentStore.storeName,style: TextStyle(color: LcwAssistColor.reportCardSubHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 15.0,fontWeight: FontWeight.bold),),)
-    ],),
+    Row(children: <Widget>[
+    Padding(padding: EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 0.0),child: Icon(Icons.account_balance,color: Colors.grey[700],size: 30,),),
+      Padding(padding: EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 0.0),child: Text(applicationManager.currentLanguage.getmagazaAdi+' : ',style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 17.0),),),
+      Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),child: Text(currentStore.storeName,style: TextStyle(color: LcwAssistColor.reportCardSubHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 17.0),),)
+    ])
     
   ],)
       ],

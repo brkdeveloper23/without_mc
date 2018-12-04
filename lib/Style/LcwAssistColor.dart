@@ -13,6 +13,7 @@ class LcwAssistColor{
 //static Color primaryColor = Color.fromRGBO(49,66,91,1.0);   //THY
 //static Color primaryColor = Color.fromRGBO(49,66,91,1.0);   //YK
 static Color primaryColor = Color.fromRGBO(1,86,143,1.0);   //WORL
+//static Color primaryColor = Color.fromRGBO(28,48,109,1.0);   //DARKMOR
 
   //static Color secondaryColor =  Color.fromRGBO(1,95,190,1.0); //Mavi 
   //static Color secondaryColor =  Color.fromRGBO(103,53,255,1.0); //Mor
@@ -20,6 +21,7 @@ static Color primaryColor = Color.fromRGBO(1,86,143,1.0);   //WORL
   //static Color secondaryColor =  Color.fromRGBO(1,95,54,1.0); //THY Drawer Color
    //static Color secondaryColor =  Color.fromRGBO(0,79,158,1.0); //YK 
 static Color secondaryColor =  Color.fromRGBO(2,65,116,1.0); //WORL 
+//static Color secondaryColor =  Color.fromRGBO(14,26,60,1.0); //DARKMOR 
 
   //  static Color thirdColor = Color.fromRGBO(68, 152, 247, 1.0);//Mavi
   //static Color thirdColor = Color.fromRGBO(80,92,106, 1.0);//Fume
@@ -27,7 +29,7 @@ static Color secondaryColor =  Color.fromRGBO(2,65,116,1.0); //WORL
 //static Color thirdColor = Color.fromRGBO(63,73,91, 1.0);//THY
 //static Color thirdColor = Color.fromRGBO(4,116,207, 1.0);//YK
 static Color thirdColor = Color.fromRGBO(1,117,176, 1.0);//WORL
-
+//static Color thirdColor = Color.fromRGBO(40,71,167, 1.0);//DARKMOR
 
 
 
@@ -40,8 +42,10 @@ static Color thirdColor = Color.fromRGBO(1,117,176, 1.0);//WORL
 //static Color drawerSubMenuColor = Color.fromRGBO(49,66,91,1.0);//Dark_1
 
 static Color drawerSubMenuColor = Color.fromRGBO(0,79,158,1.0);//YK
+//static Color drawerSubMenuColor = Color.fromRGBO(14,26,60,1.0);//DARKMOR
 
 static Color drawerColor = Color.fromRGBO(1,95,190,1.0);//YK
+//static Color drawerColor = Color.fromRGBO(28,48,109,1.0);//DARKMOR
 
 
   static Color reportCardHeaderColor = Colors.grey[700];
@@ -58,6 +62,7 @@ static Color tomatoColor = Color.fromRGBO(254,99,71,1.0);
 //static Color floatingButtonColor = Color.fromRGBO(48,115,221, 1.0); //thy
 
 static Color floatingButtonColor = Color.fromRGBO(1,117,176, 1.0); //World
+//static Color floatingButtonColor = Color.fromRGBO(28,48,109,1.0); //DARKMOR
 
 int asasasa; 
 
