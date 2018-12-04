@@ -7,6 +7,7 @@ import 'package:lcwassist/Core/Abstracts/IsLcwAssistUIPage.dart';
 import 'package:lcwassist/Core/BaseConst/LcwAssistEnumType.dart';
 import 'package:lcwassist/Core/CoreFunctions/LcwAssistLoading.dart';
 import 'package:lcwassist/Core/CoreFunctions/LcwAssistSnackBarDialogs/LcwAssistSnackBarDialogInfo.dart';
+import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreChooseListViewDTO.dart';
 import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreChooseResponeDTO.dart';
 import 'package:lcwassist/LcwAssistUI/Home/HomePageOperations/HomePage.dart';
 import 'package:lcwassist/LcwAssistBase/LcwAssistApplicationManager.dart';
@@ -44,8 +45,9 @@ class _StoreChoosePageState extends State<StoreChoosePage> with WidgetsBindingOb
 LcwAssistApplicationManager applicationManager = new LcwAssistApplicationManager();
 TextEditingController controller = new TextEditingController();
 final GlobalKey<ScaffoldState> scaffoldState = new GlobalKey<ScaffoldState>();
-StoreChooseResponeDTO storesResponse = new StoreChooseResponeDTO();
-List<Stores> storesResponseSearchResult= [];
+//StoreChooseResponeDTO storesResponse = new StoreChooseResponeDTO();
+List<StoreChooseListViewDTO> storesResponseListView = new List<StoreChooseListViewDTO>();
+List<StoreChooseListViewDTO> storesResponseSearchResult= [];
 bool sayfaYuklendiMi = false;
 
   @override
@@ -75,7 +77,10 @@ Future loaded(BuildContext context) async{
 LcwAssistLoading.showAlert(context,applicationManager.currentLanguage.getyukleniyor);
 });
 
-  storesResponse = await applicationManager.serviceManager.storeChooseService.storeListRequest();
+  //storesResponse = await applicationManager.serviceManager.storeChooseService.storeListRequest();
+
+  storesResponseListView = await applicationManager.serviceManager.storeChooseService.storeListForListViewRequest();
+
 
 sayfaYuklendiMi = true;
  setState(() {
@@ -147,8 +152,8 @@ sayfaYuklendiMi = true;
                   Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
                   child: //Icon(Icons.star,color: Colors.yellow[800],)
                   new IconButton(
-  icon: new Icon(Icons.star, color: Colors.yellow[800],size: 30, ),
-  onPressed: () => tikla(),
+  icon: storesResponseSearchResult[i].favorimi ?  Icon(Icons.star, color: Colors.yellow[800],size: 30, ) : Icon(Icons.star_border, color: Colors.grey[700],size: 30, ),
+  onPressed: () => tikla( storesResponseSearchResult[i].storeCode),
 )
                   ,)
                    ],)
@@ -160,13 +165,13 @@ sayfaYuklendiMi = true;
               },
             )
                 : new ListView.builder(
-              itemCount: storesResponse.stores == null ? 0 : storesResponse.stores.length,
-              itemBuilder: (context, index) {
+              itemCount: storesResponseListView == null ? 0 : storesResponseListView.length,
+              itemBuilder: (context, index) { 
                 return new Card(
                   child: new ListTile(
                     //  storeChooseService  leading: new CircleAvatar(backgroundImage: new NetworkImage(_userDetails[index].profileUrl,),),
                     //LcwAssistSnackBarDialogInfo('this.message',context,LcwAssistSnagitType.info);
-                    onTap: (){listViewClick(storesResponse.stores[index]);},
+                    onTap: (){listViewClick(storesResponseListView[index]);},
                     title:
                    Row(
                      mainAxisSize: MainAxisSize.max,
@@ -179,10 +184,10 @@ sayfaYuklendiMi = true;
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
 
-                  storesResponse.stores[index].storeCode != "0" ?
-                  new Text(storesResponse.stores[index].storeCode,style: TextStyle(fontWeight:  FontWeight.bold,fontFamily: LcwAssistTextStyle.currentTextFontFamily),)
+                  storesResponseListView[index].storeCode != "0" ?
+                  new Text(storesResponseListView[index].storeCode,style: TextStyle(fontWeight:  FontWeight.bold,fontFamily: LcwAssistTextStyle.currentTextFontFamily),)
                    : Text(''),
-                      new Text(storesResponse.stores[index].storeName,style: TextStyle(fontFamily: LcwAssistTextStyle.currentTextFontFamily)),
+                      new Text(storesResponseListView[index].storeName,style: TextStyle(fontFamily: LcwAssistTextStyle.currentTextFontFamily)),
 
                     ],)
                       ,),
@@ -190,8 +195,8 @@ sayfaYuklendiMi = true;
                   Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),child: 
                   //Icon(Icons.star,color: Colors.yellow[800],)
                                     new IconButton(
-  icon: new Icon(Icons.star, color: Colors.yellow[800],size: 30, ),
-  onPressed: () => tikla(),
+  icon: storesResponseListView[index].favorimi ?  Icon(Icons.star, color: Colors.yellow[800],size: 30, ): Icon(Icons.star_border, color: Colors.grey[700],size: 30, ),
+  onPressed: () => tikla(storesResponseListView[index].storeCode),
 )
                   ,)
                    ],)
@@ -207,12 +212,10 @@ sayfaYuklendiMi = true;
       );
   }
 
-  void listViewClick(Stores store) async{
+  void listViewClick(StoreChooseListViewDTO store) async{
 
-//LcwAssistSnackBarDialogInfo( store.storeCode+' - '+ store.storeName,scaffoldState,LcwAssistSnagitType.successful).snackbarShow();
+    //await applicationManager.serviceManager.storeChooseService.saveCurrentStore(store);
 
-    await applicationManager.serviceManager.storeChooseService.saveCurrentStore(store);
- //await new Future.delayed(const Duration(seconds: 2 ));
  setState(() {
   Navigator.pop(context);
  });
@@ -230,12 +233,7 @@ sayfaYuklendiMi = true;
       return;
     }
 
-    // _userDetails.forEach((userDetail) {
-    //   if (userDetail.firstName.contains(text) || userDetail.lastName.contains(text))
-    //     _searchResult.add(userDetail);
-    // });
-
-    storesResponse.stores.forEach((userDetail) {
+   storesResponseListView.forEach((userDetail) {
       if (userDetail.storeCode.contains(text.toUpperCase()) || userDetail.storeName.contains(text.toUpperCase()))
         storesResponseSearchResult.add(userDetail);
     });
@@ -245,8 +243,31 @@ sayfaYuklendiMi = true;
   }
 
 
-tikla() async{
-await applicationManager.serviceManager.storeChooseService.saveFavoriteStore('T526');
+tikla(String storeCode) async{
+await applicationManager.serviceManager.storeChooseService.saveFavoriteStore(storeCode);
+
+
+if(storesResponseListView.any((i)=> i.storeCode == storeCode)== true){
+
+if(storesResponseListView.firstWhere((i)=> i.storeCode == storeCode).favorimi == true)
+ storesResponseListView.firstWhere((i)=> i.storeCode == storeCode).favorimi = false;
+else
+if(storesResponseListView.firstWhere((i)=> i.storeCode == storeCode).favorimi == false)
+ storesResponseListView.firstWhere((i)=> i.storeCode == storeCode).favorimi = true;
+}
+
+if(storesResponseSearchResult.any((i)=> i.storeCode == storeCode)== true){
+if(storesResponseSearchResult.firstWhere((i)=> i.storeCode == storeCode).favorimi == true)
+ storesResponseSearchResult.firstWhere((i)=> i.storeCode == storeCode).favorimi = false;
+else
+if(storesResponseSearchResult.firstWhere((i)=> i.storeCode == storeCode).favorimi == false)
+ storesResponseSearchResult.firstWhere((i)=> i.storeCode == storeCode).favorimi = true;
+}
+
+
+setState(() {
+  
+});
 }
 
 }

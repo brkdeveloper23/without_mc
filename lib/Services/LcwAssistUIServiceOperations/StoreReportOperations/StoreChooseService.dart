@@ -4,6 +4,7 @@ import 'package:lcwassist/Core/BaseConst/SharedPreferencesConstant.dart';
 import 'package:lcwassist/Core/BaseConst/UrlConst.dart';
 import 'package:lcwassist/DataAccess/LanguageDTOs/CurrentLangugeDTO.dart';
 import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/FavoriteStoreListDto.dart';
+import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreChooseListViewDTO.dart';
 import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreChooseResponeDTO.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -55,6 +56,68 @@ setTumMagazalar(currentLanguage.gettumMagazalar)
   }
 
     return userResponse;
+  }
+
+
+  Future<List<StoreChooseListViewDTO>> storeListForListViewRequest() async {
+
+StoreChooseResponeDTO userResponse ;
+List<StoreChooseListViewDTO> listResponse = new List<StoreChooseListViewDTO>();
+
+LcwAssistApplicationManager applicationManager = new LcwAssistApplicationManager();
+CurrentLangugeDTO currentLanguage = new CurrentLangugeDTO();
+
+currentLanguage = await applicationManager.languagesService.currentLanguage();
+
+String token =  await TokenService.getAuthToken();
+    var response = await http.post(
+     
+     
+      Uri.encodeFull(UrlConst.getStoreAllUrl),
+      headers: {
+        "Authorization": "Bearer " +token,
+        "Content-Type": "application/json"
+      }, body: json.encode("")
+    );
+
+
+
+    if (response.statusCode == 200) {
+
+//StoreChooseResponeDTO
+ userResponse = StoreChooseResponeDTO.fromJson(json.decode(response.body));
+userResponse.stores.insert(0, 
+setTumMagazalar(currentLanguage.gettumMagazalar)
+);
+
+List<FavoriteStoreListDto> listFavoriteStores = new List<FavoriteStoreListDto>();
+String jsonList = "";
+final prefs = await SharedPreferences.getInstance();
+jsonList = prefs.getString(SharedPreferencesConstant.favoriteStoreList);
+Iterable l = json.decode(jsonList);
+listFavoriteStores = l.map((i)=> FavoriteStoreListDto.fromJson(i)).toList();
+
+
+for(final asd in userResponse.stores)
+{
+StoreChooseListViewDTO item = new StoreChooseListViewDTO();
+item.depoRef = asd.depoRef;
+item.storeCode = asd.storeCode;
+item.storeName = asd.storeName;
+item.favorimi = listFavoriteStores.any((i) => i.magazaKod == asd.storeCode) ? true : false;
+
+listResponse.add(item);
+
+}
+
+
+ 
+  } else {
+    // If that call was not successful, throw an error.
+    throw Exception('Failed to load post ' + response.statusCode.toString() + ' ' );
+  }
+
+    return listResponse;
   }
 
 
@@ -133,13 +196,13 @@ listFavoriteStores = l.map((i)=> FavoriteStoreListDto.fromJson(i)).toList();
 }
 
 
-if(listFavoriteStores.where((i) => i.getMagazaKod == storeCode).toList().length > 0)
+if(listFavoriteStores.where((i) => i.magazaKod == storeCode).toList().length > 0)
 {
-  listFavoriteStores.remove(listFavoriteStores.where((i) => i.getMagazaKod == storeCode).first);
+  listFavoriteStores.remove(listFavoriteStores.where((i) => i.magazaKod == storeCode).first);
 }else
 {
   FavoriteStoreListDto eklenecek = new FavoriteStoreListDto();
-  eklenecek.setMagazaKod = storeCode;
+  eklenecek.magazaKod = storeCode;
 
   listFavoriteStores.add(eklenecek);
 }
@@ -157,7 +220,7 @@ asafd += "]";
 if(prefs.getString(SharedPreferencesConstant.favoriteStoreList) != "")
 prefs.remove(SharedPreferencesConstant.favoriteStoreList);
 
-prefs.setString(SharedPreferencesConstant.currentLanguageId, asafd);
+prefs.setString(SharedPreferencesConstant.favoriteStoreList, asafd);
 
 
 }
