@@ -5,6 +5,7 @@ import 'package:lcwassist/Core/CoreFunctions/LcwAssistLoading.dart';
 import 'package:lcwassist/Core/CoreFunctions/LcwAssistMessageDialogs/LcwAssistAlertDialogInfo.dart';
 import 'package:lcwassist/Core/GlobalWidget/ChartWidgets/ScatterPlotComboLineChart.dart';
 import 'package:lcwassist/Core/GlobalWidget/ChartWidgets/StackedAreaLineChart.dart';
+import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreChooseListViewDTO.dart';
 import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreChooseResponeDTO.dart';
 import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreReportRequestDTO.dart';
 import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreReportResponseDTO.dart';
@@ -32,7 +33,7 @@ class StoreReportPage extends StatefulWidget{
 class StoreReportPageState extends State<StoreReportPage>  with TickerProviderStateMixin implements IsLcwAssistUIPage{
 
 LcwAssistApplicationManager applicationManager = new LcwAssistApplicationManager();
-Stores currentStore;
+StoreChooseListViewDTO currentStore;
 bool sayfaYuklendiMi = false;
 
 StoreReportResponseDTO raporResult;

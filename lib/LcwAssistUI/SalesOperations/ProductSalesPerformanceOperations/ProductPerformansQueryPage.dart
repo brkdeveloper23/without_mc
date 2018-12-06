@@ -11,6 +11,7 @@ import 'package:lcwassist/Core/CoreFunctions/LcwAssistLoading.dart';
 import 'package:lcwassist/Core/CoreFunctions/LcwAssistSnackBarDialogs/LcwAssistSnackBarDialogInfo.dart';
 import 'package:lcwassist/DataAccess/ProductPerformanceMetricsDTOs/ProductMetricsRequest.dart';
 import 'package:lcwassist/DataAccess/ProductPerformanceMetricsDTOs/ProductMetricsResponse.dart';
+import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreChooseListViewDTO.dart';
 import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreChooseResponeDTO.dart';
 import 'package:lcwassist/LcwAssistUI/Home/HomePageOperations/HomePage.dart';
 import 'package:lcwassist/LcwAssistBase/LcwAssistApplicationManager.dart';
@@ -59,7 +60,7 @@ super.initState();
  WidgetsBinding.instance
         .addPostFrameCallback((_) => loaded(context));
 
-controllerBarcode.text = '8681363743975';
+controllerBarcode.text = '8681367994069';
 //controllerModelCode.text = '8SJ450Z1';
 //controllerColorCode.text = 'JPX';
 
@@ -351,7 +352,7 @@ controllerBarcode.text = '';
 
 Future currentStore() async{
 
-Stores stores;
+StoreChooseListViewDTO stores;
 
 stores = await applicationManager.serviceManager.storeChooseService.getCurrentStore();
 

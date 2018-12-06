@@ -17,10 +17,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 class StoreChooseService{
 
 StoreChooseService(){
-
 }
-
-
+ 
 Future<StoreChooseResponeDTO> storeListRequest() async {
 
 StoreChooseResponeDTO userResponse ;
@@ -47,7 +45,9 @@ String token =  await TokenService.getAuthToken();
 //StoreChooseResponeDTO
  userResponse = StoreChooseResponeDTO.fromJson(json.decode(response.body));
 userResponse.stores.insert(0, 
-setTumMagazalar(currentLanguage.gettumMagazalar)
+
+Stores(countryRef: 48,depoRef: 0,depoYerlesimTip: "",isOutlet: 0,magazaMudur1: "",magazaMudur2: "",
+musteriProfil: "",operasyonelBolgeTanim: "",personelSayisi: 0,storeCode: "0",storeName: currentLanguage.gettumMagazalar,toplamM2: 0)
 );
  
   } else {
@@ -58,9 +58,9 @@ setTumMagazalar(currentLanguage.gettumMagazalar)
     return userResponse;
   }
 
+Future<List<StoreChooseListViewDTO>> storeListForListViewRequest() async {
 
-  Future<List<StoreChooseListViewDTO>> storeListForListViewRequest() async {
-
+final prefs = await SharedPreferences.getInstance();
 StoreChooseResponeDTO userResponse ;
 List<StoreChooseListViewDTO> listResponse = new List<StoreChooseListViewDTO>();
 
@@ -87,15 +87,18 @@ String token =  await TokenService.getAuthToken();
 //StoreChooseResponeDTO
  userResponse = StoreChooseResponeDTO.fromJson(json.decode(response.body));
 userResponse.stores.insert(0, 
-setTumMagazalar(currentLanguage.gettumMagazalar)
+Stores(countryRef: 48,depoRef: 0,depoYerlesimTip: "",isOutlet: 0,magazaMudur1: "",magazaMudur2: "",
+musteriProfil: "",operasyonelBolgeTanim: "",personelSayisi: 0,storeCode: "0",storeName: currentLanguage.gettumMagazalar,toplamM2: 0)
 );
 
 List<FavoriteStoreListDto> listFavoriteStores = new List<FavoriteStoreListDto>();
 String jsonList = "";
-final prefs = await SharedPreferences.getInstance();
+
 jsonList = prefs.getString(SharedPreferencesConstant.favoriteStoreList);
+if(jsonList != ""){
 Iterable l = json.decode(jsonList);
 listFavoriteStores = l.map((i)=> FavoriteStoreListDto.fromJson(i)).toList();
+}
 
 
 for(final asd in userResponse.stores)
@@ -105,23 +108,41 @@ item.depoRef = asd.depoRef;
 item.storeCode = asd.storeCode;
 item.storeName = asd.storeName;
 item.favorimi = listFavoriteStores.any((i) => i.magazaKod == asd.storeCode) ? true : false;
+item.countryRef = asd.countryRef;
+item.toplamM2 =asd.toplamM2;
+item.musteriProfil = asd.musteriProfil;
+item.operasyonelBolgeTanim = asd.operasyonelBolgeTanim;
+item.depoYerlesimTip = asd.depoYerlesimTip;
+item.isOutlet = asd.isOutlet;
+item.magazaMudur1 = asd.magazaMudur1;
+item.magazaMudur2 = asd.magazaMudur2;
+item.personelSayisi = asd.personelSayisi;
+
 
 listResponse.add(item);
+}
 
+//Favori olanlar yukarıda olcak şekilde sırala
+if(listFavoriteStores.length > 0){
+  for(final fre in listResponse.where((i) => i.favorimi == true)){
+listResponse.remove(fre);
+if(fre.storeCode == "0")
+listResponse.insert(0, fre);
+else
+listResponse.insert(1, fre);
+  }
 }
 
 
- 
   } else {
     // If that call was not successful, throw an error.
     throw Exception('Failed to load post ' + response.statusCode.toString() + ' ' );
   }
 
     return listResponse;
-  }
+}
 
-
-  Future<StoreReportResponseDTO> storeReport(StoreReportRequestDTO parameter) async{
+Future<StoreReportResponseDTO> storeReport(StoreReportRequestDTO parameter) async{
   StoreReportResponseDTO responseDTO;
 
   String token =  await TokenService.getAuthToken();
@@ -147,9 +168,7 @@ if (response.statusCode == 200) {
 
   }
 
-
-
-Future saveCurrentStore(Stores store) async{
+Future saveCurrentStore(StoreChooseListViewDTO store) async{
 
 final prefs = await SharedPreferences.getInstance();
 
@@ -167,20 +186,22 @@ final prefs = await SharedPreferences.getInstance();
 prefs.remove(SharedPreferencesConstant.currentStore);
 }
 
-Future<Stores> getCurrentStore() async{
+Future<StoreChooseListViewDTO> getCurrentStore() async{
 final prefs = await SharedPreferences.getInstance();
 String currentStore = "";
 currentStore = prefs.getString(SharedPreferencesConstant.currentStore);
 
-Stores ss;
-ss = Stores.fromJson((json.decode(currentStore)));
+StoreChooseListViewDTO ss;
+ss = StoreChooseListViewDTO.fromJson((json.decode(currentStore)));
 
 return ss; 
 }
 
-Stores setTumMagazalar(String tumMagazalarText){
-  return Stores(countryRef: 48,depoRef: 0,depoYerlesimTip: "",isOutlet: 0,magazaMudur1: "",magazaMudur2: "",
-  musteriProfil: "",operasyonelBolgeTanim: "",personelSayisi: 0,storeCode: "",storeName: tumMagazalarText,toplamM2: 0);
+StoreChooseListViewDTO setTumMagazalar(String tumMagazalarText){
+  return StoreChooseListViewDTO//(depoRef: 0,favorimi: true,storeCode: "0",storeName: tumMagazalarText);
+  
+  (countryRef: 48,depoRef: 0,depoYerlesimTip: "",isOutlet: 0,magazaMudur1: "",magazaMudur2: "",favorimi: true,
+   musteriProfil: "",operasyonelBolgeTanim: "",personelSayisi: 0,storeCode: "0",storeName: tumMagazalarText,toplamM2: 0);
 }
 
 Future<void> saveFavoriteStore(String storeCode) async {

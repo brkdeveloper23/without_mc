@@ -8,6 +8,7 @@ import 'package:lcwassist/Core/CoreFunctions/LcwAssistSnackBarDialogs/LcwAssistS
 import 'package:lcwassist/DataAccess/CapacityAnaliysisDTOs/CapacityAnaliysisReportRequestDTO.dart';
 import 'package:lcwassist/DataAccess/CapacityAnaliysisDTOs/CapacityAnaliysisReportResponseDTO.dart';
 import 'package:lcwassist/DataAccess/CapacityAnaliysisDTOs/CapacityAnalysisMetricsFilterDTO.dart';
+import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreChooseListViewDTO.dart';
 import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreChooseResponeDTO.dart';
 import 'package:lcwassist/LcwAssistBase/LcwAssistApplicationManager.dart';
 import 'package:lcwassist/LcwAssistUI/CapacityOperations/CapacityFilterPage.dart';
@@ -34,7 +35,7 @@ class CapacityAnalysisPageState extends State<CapacityAnalysisPage>  with Ticker
 
 CapacityAnaliysisReportRequestDTO capacityParameter = new CapacityAnaliysisReportRequestDTO();
 LcwAssistApplicationManager applicationManager = new LcwAssistApplicationManager();
-Stores currentStore;
+StoreChooseListViewDTO currentStore;
 bool sayfaYuklendiMi = false;
 final GlobalKey<ScaffoldState> scaffoldState = new GlobalKey<ScaffoldState>();
 
@@ -401,6 +402,7 @@ Widget thisBottomNavigator() {
 
 Widget thisFloatActionButton(){
 return FloatingActionButton(
+  backgroundColor: LcwAssistColor.floatingButtonColor,
       child: const Icon(Icons.filter_list), onPressed: () {_openFilterDialog();},);
     }
 

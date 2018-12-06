@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:lcwassist/Core/Abstracts/IsLcwAssistUIPage.dart';
 import 'package:lcwassist/Core/BaseConst/LcwAssistEnumType.dart';
 import 'package:lcwassist/Core/CoreFunctions/LcwAssistLoading.dart';
+import 'package:lcwassist/Core/CoreFunctions/LcwAssistMessageDialogs/LcwAssistAlertDialogInfo.dart';
 import 'package:lcwassist/Core/CoreFunctions/LcwAssistSnackBarDialogs/LcwAssistSnackBarDialogInfo.dart';
 import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreChooseListViewDTO.dart';
 import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreChooseResponeDTO.dart';
@@ -153,7 +154,7 @@ sayfaYuklendiMi = true;
                   child: //Icon(Icons.star,color: Colors.yellow[800],)
                   new IconButton(
   icon: storesResponseSearchResult[i].favorimi ?  Icon(Icons.star, color: Colors.yellow[800],size: 30, ) : Icon(Icons.star_border, color: Colors.grey[700],size: 30, ),
-  onPressed: () => tikla( storesResponseSearchResult[i].storeCode),
+  onPressed: () => saveFavoriteStore( storesResponseSearchResult[i].storeCode),
 )
                   ,)
                    ],)
@@ -196,7 +197,7 @@ sayfaYuklendiMi = true;
                   //Icon(Icons.star,color: Colors.yellow[800],)
                                     new IconButton(
   icon: storesResponseListView[index].favorimi ?  Icon(Icons.star, color: Colors.yellow[800],size: 30, ): Icon(Icons.star_border, color: Colors.grey[700],size: 30, ),
-  onPressed: () => tikla(storesResponseListView[index].storeCode),
+  onPressed: () => saveFavoriteStore(storesResponseListView[index].storeCode),
 )
                   ,)
                    ],)
@@ -214,7 +215,7 @@ sayfaYuklendiMi = true;
 
   void listViewClick(StoreChooseListViewDTO store) async{
 
-    //await applicationManager.serviceManager.storeChooseService.saveCurrentStore(store);
+    await applicationManager.serviceManager.storeChooseService.saveCurrentStore(store);
 
  setState(() {
   Navigator.pop(context);
@@ -243,7 +244,12 @@ sayfaYuklendiMi = true;
   }
 
 
-tikla(String storeCode) async{
+saveFavoriteStore(String storeCode) async{
+
+// if(storeCode == "0"){
+//   await LcwAssistAlertDialogInfo(applicationManager.currentLanguage.getuyari,"Tum mağazaları favorilerden kaldırmazsınız.",applicationManager.currentLanguage.gettamam,context,LcwAssistDialogType.error).show();
+// }
+
 await applicationManager.serviceManager.storeChooseService.saveFavoriteStore(storeCode);
 
 
@@ -262,6 +268,7 @@ if(storesResponseSearchResult.firstWhere((i)=> i.storeCode == storeCode).favorim
 else
 if(storesResponseSearchResult.firstWhere((i)=> i.storeCode == storeCode).favorimi == false)
  storesResponseSearchResult.firstWhere((i)=> i.storeCode == storeCode).favorimi = true;
+ 
 }
 
 

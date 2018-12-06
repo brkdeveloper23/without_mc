@@ -251,15 +251,10 @@ final prefs = await SharedPreferences.getInstance();
 if(prefs.getString(SharedPreferencesConstant.currentLanguageId) == null)
 prefs.setString(SharedPreferencesConstant.currentLanguageId,"2");
 
-// if(prefs.getString(SharedPreferencesConstant.favoriteStoreList) == null)
-// {
-// List<FavoriteStoreListDto> list = new List<FavoriteStoreListDto>();
-// FavoriteStoreListDto value = new FavoriteStoreListDto();
-// value.setMagazaKod = "0";
-// list.add(value);
-
-// prefs.setString(SharedPreferencesConstant.favoriteStoreList,json.encode(list));
-// }
+if(prefs.getString(SharedPreferencesConstant.favoriteStoreList) == null || prefs.getString(SharedPreferencesConstant.favoriteStoreList) == "")
+{
+applicationManager.serviceManager.storeChooseService.saveFavoriteStore("0");
+}
 
 String currentLanguageId = prefs.getString(SharedPreferencesConstant.currentLanguageId);
 int dilId = int.parse(currentLanguageId);

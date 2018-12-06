@@ -15,6 +15,7 @@ CapacityAnaliysisService(){}
 Future<CapacityAnaliysisReportResponseDTO> capacityAnalysisMetrics(CapacityAnaliysisReportRequestDTO request) async {
  
 String token =  await TokenService.getAuthToken();
+request.setMagazaKod = request.getMagazaKod == "0" ? "" : request.getMagazaKod;
 Map<String, dynamic> body = request.toMap();
 var response = await http.post(
       Uri.encodeFull(UrlConst.capacityMetricsUrl),

@@ -6,6 +6,7 @@ import 'package:lcwassist/Core/BaseConst/LcwAssistEnumType.dart';
 import 'package:lcwassist/Core/CoreFunctions/LcwAssistLoading.dart';
 import 'package:lcwassist/Core/CoreFunctions/LcwAssistMessageDialogs/LcwAssistAlertDialogInfo.dart';
 import 'package:lcwassist/DataAccess/LoginPageDTOs/LoginPageEntryResponseDTO.dart';
+import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreChooseListViewDTO.dart';
 import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreChooseResponeDTO.dart';
 import 'package:lcwassist/LcwAssistBase/LcwAssistApplicationManager.dart';
 import 'package:lcwassist/LcwAssistUI/AuthenticationUI/UI/loginPage.dart';
@@ -59,7 +60,7 @@ LcwAssistApplicationManager applicationManager = new LcwAssistApplicationManager
 StoreChooseService storeChooseService = new StoreChooseService();
 StoreChooseResponeDTO storesResponse = new StoreChooseResponeDTO();
 String selectedStoreName = "";
-Stores storeResponse;
+StoreChooseListViewDTO storeResponse;
 
 
 final GlobalKey<ScaffoldState> scaffoldState = new GlobalKey<ScaffoldState>();
@@ -216,7 +217,7 @@ Container(
           
 decoration: new BoxDecoration(
           image: new DecorationImage(
-            image: new AssetImage("assets/drawerSplash.png"), 
+            image: new AssetImage("assets/drawerSplash.jpg"), 
             fit: BoxFit.cover,
           ),
         ),
@@ -330,7 +331,7 @@ return new StoreChoosePage(storesResponse: storesResponse);
 
 Future currentStore() async{
 
-Stores stores;
+StoreChooseListViewDTO stores;
 
 stores = await storeChooseService.getCurrentStore();
 

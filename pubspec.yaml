@@ -72,6 +72,7 @@ flutter:
     - assets/data/languages.json
     - assets/splas.png
     - assets/drawerSplash.png
+    - assets/drawerSplash.jpg
     - assets/homepageFeedback_128.png
     - assets/homepageFeedback_256.png
     - assets/homepageFeedback_512.png
@@ -82,6 +83,7 @@ flutter:
     - assets/message_balon_40.png
     - assets/subHeader.png
     - assets/login.png
+    - assets/login.jpg
     - assets/deneme_rapor.png
     
   # An image asset can refer to one or more resolution-specific "variants", see

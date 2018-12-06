@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lcwassist/Core/Abstracts/IsLcwAssistUIPage.dart';
 import 'package:lcwassist/Core/BaseConst/LcwAssistPageDrawerNumberConst.dart';
 import 'package:lcwassist/DataAccess/ProductPerformanceMetricsDTOs/UcluCardTextDTO.dart';
+import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreChooseListViewDTO.dart';
 import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreChooseResponeDTO.dart';
 import 'package:lcwassist/LcwAssistUI/Home/HomePageOperations/HomePage.dart';
 import 'package:lcwassist/LcwAssistBase/LcwAssistApplicationManager.dart';
@@ -613,7 +614,7 @@ void _openAddEntryDialog() {
 
 Future currentStore() async{
 
-Stores stores;
+StoreChooseListViewDTO stores;
 
 stores = await applicationManager.serviceManager.storeChooseService.getCurrentStore();
 

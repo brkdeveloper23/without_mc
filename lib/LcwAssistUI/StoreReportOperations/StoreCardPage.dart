@@ -1,6 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:lcwassist/Core/Abstracts/IsLcwAssistUIPage.dart';
+import 'package:lcwassist/Core/CoreFunctions/LcwAssistLoading.dart';
+import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreChooseListViewDTO.dart';
 import 'dart:async';
 import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreChooseResponeDTO.dart';
 import 'package:lcwassist/LcwAssistBase/LcwAssistApplicationManager.dart';
@@ -25,9 +27,9 @@ class StoreCardPageState extends State<StoreCardPage>  implements IsLcwAssistUIP
   LcwAssistApplicationManager applicationManager = new LcwAssistApplicationManager();
 final GlobalKey<ScaffoldState> scaffoldState = new GlobalKey<ScaffoldState>();
 
-Stores selectedStore;
+StoreChooseListViewDTO selectedStore;
 String selectedStoreName="";
-
+bool sayfaYuklendiMi = false;
 
 @override
 void initState() {
@@ -35,6 +37,7 @@ super.initState();
 
   WidgetsBinding.instance
         .addPostFrameCallback((_) => loaded(context));
+
 
 currentStore().then((result) {
             setState(() {
@@ -45,7 +48,17 @@ currentStore().then((result) {
   }
 
     Future loaded(BuildContext context) async{
-applicationManager.setCurrentLanguage = await applicationManager.languagesService.currentLanguage();
+      applicationManager.setCurrentLanguage = await applicationManager.languagesService.currentLanguage();
+       setState(() {
+LcwAssistLoading.showAlert(context,applicationManager.currentLanguage.getyukleniyor);
+});
+
+
+sayfaYuklendiMi = true;
+
+ setState(() {
+  Navigator.pop(context);
+ });
 }
 
 Future<void> executeAfterBuild() async {
@@ -65,7 +78,7 @@ Future<void> executeAfterBuild() async {
       //drawer: DrawerOnly.leftSideMenuDiz(LcwAssistPageDrawerNumberConst.satis,context),
       key: scaffoldState,
       backgroundColor: LcwAssistColor.backGroundColor,
-      body: ListView(children: <Widget>[storeCardBody()],),
+      body: sayfaYuklendiMi == true ? ListView(children: <Widget>[storeCardBody()],) : Container(child: Text(''),)
     );
     }
 
@@ -320,7 +333,7 @@ Card(
 
 Future currentStore() async{
 
-Stores stores;
+StoreChooseListViewDTO stores;
 
 stores = await applicationManager.serviceManager.storeChooseService.getCurrentStore();
 
