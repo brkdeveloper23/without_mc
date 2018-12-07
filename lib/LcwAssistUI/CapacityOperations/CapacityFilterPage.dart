@@ -437,6 +437,8 @@ capacityParameter.setMagazaKod = "";
 //aa.setString(SharedPreferencesConstant.capacityFilter, json.encode(asas.toMap()));
 
 Navigator.pop(context, capacityParameter);
+
+
 }
 
 void btnClean(){

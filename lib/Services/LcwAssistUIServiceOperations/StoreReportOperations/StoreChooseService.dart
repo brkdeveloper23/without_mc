@@ -164,7 +164,7 @@ if (response.statusCode == 200) {
      responseDTO = StoreReportResponseDTO.fromJson(json.decode(response.body));
     
      return responseDTO;
-}
+} 
 
   }
 

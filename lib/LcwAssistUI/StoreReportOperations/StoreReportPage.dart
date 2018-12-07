@@ -11,6 +11,7 @@ import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/Store
 import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreReportResponseDTO.dart';
 import 'package:lcwassist/DataAccess/WidgetDto.dart';
 import 'package:lcwassist/LcwAssistBase/LcwAssistApplicationManager.dart';
+import 'package:lcwassist/LcwAssistUI/StoreReportOperations/StoreFilterPage.dart';
 import 'package:lcwassist/Services/LcwAssistUIServiceOperations/StoreReportOperations/StoreChooseService.dart';
 import 'package:lcwassist/Style/CoreWidgets/LcwAssistCustomWidgets.dart';
 
@@ -35,9 +36,9 @@ class StoreReportPageState extends State<StoreReportPage>  with TickerProviderSt
 LcwAssistApplicationManager applicationManager = new LcwAssistApplicationManager();
 StoreChooseListViewDTO currentStore;
 bool sayfaYuklendiMi = false;
-
+ final StoreReportRequestDTO parameter = new StoreReportRequestDTO();
 StoreReportResponseDTO raporResult;
-
+StorePeriodFilterDTO storeCurrentFilterParameter;
 //Floating buton için
     static const List<IconData> icons = const [  Icons.thumb_up, Icons.thumb_down ];
     static const List<Color> iconColors = const [ Colors.green,Colors.red ];
@@ -64,7 +65,6 @@ Future<void> executeAfterBuild() async {
   
 }
 
-
 Future loaded(BuildContext context) async{
 
  //await new Future.delayed(const Duration(seconds: 2 ));
@@ -73,16 +73,9 @@ Future loaded(BuildContext context) async{
 LcwAssistLoading.showAlert(context,applicationManager.currentLanguage.getyukleniyor);
 });
 
-
-
-
-
-
-
-
  currentStore = await applicationManager.serviceManager.storeChooseService.getCurrentStore();
  
- StoreReportRequestDTO parameter = new StoreReportRequestDTO();
+
  parameter.setStoreRef = 654;
  parameter.setFilterDonem = "YTD";
 
@@ -99,15 +92,14 @@ sayfaYuklendiMi = true;
 
     }
 
-
   @override
-  Widget build(BuildContext context) {
+Widget build(BuildContext context) {
 
     return new Scaffold(
       body: sayfaYuklendiMi == true ? storeReportPageBody() : Container(child: Text(''),),
       floatingActionButtonLocation: 
       FloatingActionButtonLocation.endDocked,
-    floatingActionButton: Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 20.0),child: buildFloatingButtonHasSub(),),//thisFloatActionButton(),
+    floatingActionButton: Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 20.0),child: thisFloatActionButton(),),//buildFloatingButtonHasSub(),
     bottomNavigationBar:thisBottomNavigator(),
       //body: storeReportPageBody()
 
@@ -117,6 +109,60 @@ sayfaYuklendiMi = true;
     }
 
 Widget storeReportPageBody(){
+
+return 
+new Column(
+  children: <Widget>[
+    Card(child: Column(
+    
+      children: <Widget>[
+        Column(
+    mainAxisSize: MainAxisSize.max,
+    crossAxisAlignment: CrossAxisAlignment.stretch,
+    children: <Widget>[
+    Row(children: <Widget>[
+    Padding(padding: EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 0.0),child: Icon(Icons.account_balance,color: Colors.grey[700],size: 30,),),
+      Padding(padding: EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 0.0),child: Text(applicationManager.currentLanguage.getmagazaAdi+' : ',style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 17.0),),),
+      Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),child: Text(currentStore.storeName,style: TextStyle(color: LcwAssistColor.reportCardSubHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 17.0),),)
+    ])
+    
+  ],)
+      ],
+    )),
+   
+Expanded(child: SingleChildScrollView(
+                child:
+Column(children: <Widget>[
+LcwAssistCustomWidgets.satir(Color.fromRGBO(54,163,247, 1.0),  applicationManager.currentLanguage.getsatisTutarKDVsiz,raporResult.bY_SatisTutar_KDVsiz),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(0,116,198, 1.0),   applicationManager.currentLanguage.gettutarBuyume,raporResult.tutarBuyume),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(239,138,14, 1.0),  applicationManager.currentLanguage.getsatisTutarGY_KDVsiz,raporResult.gY_SatisTutar_KDVsiz),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(100,105,188, 1.0), applicationManager.currentLanguage.gethedefTutar,raporResult.bY_HedefTutar),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(196,66,88, 1.0),   applicationManager.currentLanguage.gethedefTutarYuzdesi,raporResult.magazaHedefTutturmaYuzdesi),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(38,137,116, 1.0),  applicationManager.currentLanguage.getsatisAdet,raporResult.bY_SatisAdet),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(0,162,181, 1.0),   applicationManager.currentLanguage.getadetBuyume,raporResult.adetBuyume),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(54,163,247, 1.0),  applicationManager.currentLanguage.getsatisAdetGY,raporResult.gY_SatisAdet),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(0,116,198, 1.0),   applicationManager.currentLanguage.getconversionRate,raporResult.conversionRate),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(239,138,14, 1.0),  applicationManager.currentLanguage.getmusteriZiyareySayisi,raporResult.magazaTrafik),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(100,105,188, 1.0), applicationManager.currentLanguage.getsepetBuyukluguAdet,raporResult.sepetBuyukAdet),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(196,66,88, 1.0),   applicationManager.currentLanguage.getsepetBuyukluguTutarKDVsiz,raporResult.sepetBuyukTutarKDVsiz),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(38,137,116, 1.0),  applicationManager.currentLanguage.getstokDevirHizi,raporResult.stokDevirHizi),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(0,162,181, 1.0),   applicationManager.currentLanguage.getM2Verimlilik,raporResult.m2Verimlilik  ),
+// Container(
+//   decoration:  BoxDecoration(
+//     border:  Border(
+//       bottom:  BorderSide(width: 3.0, color:  LcwAssistColor.cardLineColor)//Color.fromRGBO(182,0,62, 1.0))
+//     )) 
+// ),
+],)
+
+  ),
+)
+
+  ],
+);
+}
+
+Widget storeReportPageBody0(){
 
 return 
 new Column(
@@ -329,10 +375,6 @@ Widget thisBottomNavigator() {
     );
 }
 
-Widget thisFloatActionButton(){
-return FloatingActionButton(
-      child: const Icon(Icons.star), onPressed: () {},);
-    }
 
 Widget buildFloatingButtonHasSub() {
   return  new Column(
@@ -386,6 +428,32 @@ Widget buildFloatingButtonHasSub() {
         ),
       );
   }
+
+Widget thisFloatActionButton(){
+return FloatingActionButton(
+  backgroundColor: LcwAssistColor.floatingButtonColor,
+      child: const Icon(Icons.filter_list), onPressed: () {_openFilterDialog();},);
+    }
+
+
+void _openFilterDialog() async{
+
+storeCurrentFilterParameter = await Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => StoreFilterPage(storesDonemFilters:this.raporResult.periodFilterList,storeCurrentFilterParameter:this.storeCurrentFilterParameter)),
+  );
+
+if(storeCurrentFilterParameter != null){
+ 
+parameter.setFilterDonem = storeCurrentFilterParameter.deger;
+
+await loadStoreReport(parameter);
+setState(() {  
+});
+}
+  
+}
+
 
 }
 

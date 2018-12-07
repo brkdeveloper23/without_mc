@@ -426,10 +426,11 @@ return Padding(
     mainAxisSize: MainAxisSize.max,
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: <Widget>[
+
       Text(masterText,style: TextStyle(fontSize: 15.0,fontFamily: 'Ubuntu',color: LcwAssistColor.reportCardHeaderColor))
       ,Padding(padding: EdgeInsets.fromLTRB(10, 5, 10, 5),)
       ,Text(subText,style: TextStyle(fontSize: 15.0,fontFamily: 'Ubuntu',color: LcwAssistColor.reportCardSubHeaderColor))
-
+                              
     ],
   ),
 ),

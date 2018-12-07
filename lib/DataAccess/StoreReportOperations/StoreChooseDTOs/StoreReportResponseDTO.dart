@@ -1,5 +1,5 @@
 import 'package:lcwassist/DataAccess/ResponseBase.dart';
-
+ 
 class StoreReportResponseDTO implements ResponseBase{
    final String magazaTrafik;
    final String bY_SatisAdet;
@@ -15,16 +15,20 @@ class StoreReportResponseDTO implements ResponseBase{
    final String sepetBuyukTutarKDVsiz;
    final String stokDevirHizi;
    final String m2Verimlilik;
+   final List<StoreFilterDto> filters;
+   final List<StorePeriodFilterDTO> periodFilterList;
    String errorMessage;
    bool isSuccess;
    bool isAuthorized;
 
 StoreReportResponseDTO({this.magazaTrafik,this.bY_SatisAdet,this.adetBuyume,this.bY_SatisTutar_KDVsiz,this.bY_HedefTutar,this.magazaHedefTutturmaYuzdesi,
 this.gY_SatisAdet,this.gY_SatisTutar_KDVsiz,this.conversionRate,this.tutarBuyume,this.sepetBuyukAdet,this.sepetBuyukTutarKDVsiz,this.stokDevirHizi,this.m2Verimlilik,
-this.errorMessage,this.isSuccess,this.isAuthorized});
+this.filters,this.periodFilterList,this.errorMessage,this.isSuccess,this.isAuthorized});
 
 factory StoreReportResponseDTO.fromJson(Map<String, dynamic> json) {
-  
+    var filters = json['filters'] as List;
+var periodFilterList = json['periodFilterList'] as List;
+
   return StoreReportResponseDTO(
     magazaTrafik: json['magazaTrafik'] ,
     bY_SatisAdet: json['bY_SatisAdet'],
@@ -40,6 +44,8 @@ factory StoreReportResponseDTO.fromJson(Map<String, dynamic> json) {
     sepetBuyukTutarKDVsiz: json['sepetBuyukTutarKDVsiz'] ,
     stokDevirHizi: json['stokDevirHizi'] ,
     m2Verimlilik: json['m2Verimlilik'] ,
+    filters: filters.map((i) => StoreFilterDto.fromJson(i)).toList(),
+    periodFilterList: periodFilterList.map((i) => StorePeriodFilterDTO.fromJson(i)).toList(),
     errorMessage: json['errorMessage'] ,
     isSuccess: json['isSuccess'] ,
     isAuthorized: json['isAuthorized'] 
@@ -48,17 +54,58 @@ factory StoreReportResponseDTO.fromJson(Map<String, dynamic> json) {
 
 }
 
-  // // TODO: implement errorMessage
-  // @override
-  // String get errorMessage => null;
-
-  // // TODO: implement isAuthorized
-  // @override
-  // bool get isAuthorized => null;
-
-  // // TODO: implement isSuccess
-  // @override
-  // bool get isSuccess => null;
-
-
 }
+
+
+
+
+class StoreFilterDto 
+    {
+        
+        final int yilHafta;
+        final bool ytd;
+      final bool mtd;
+      final bool wtd;
+
+
+        StoreFilterDto({this.yilHafta,this.ytd,this.mtd,this.wtd});
+
+factory StoreFilterDto.fromJson(Map<String, dynamic> json) {
+
+
+  return StoreFilterDto(
+     yilHafta: json['yilHafta'],
+     ytd: json['ytd'],
+     mtd: json['mtd'],
+     wtd: json['wtd']
+    
+  );
+}
+    }
+
+
+    
+class StorePeriodFilterDTO 
+    {
+        
+        final int id;
+        final String deger;
+
+
+        StorePeriodFilterDTO({this.id,this.deger});
+
+factory StorePeriodFilterDTO.fromJson(Map<String, dynamic> json) {
+
+
+  return StorePeriodFilterDTO(
+
+     id: json['id'],
+     deger: json['deger']
+    
+  );
+}
+
+
+
+
+    }

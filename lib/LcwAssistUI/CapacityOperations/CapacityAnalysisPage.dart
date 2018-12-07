@@ -472,20 +472,22 @@ capacityParameter = await Navigator.push(
     MaterialPageRoute(builder: (context) => CapacityFilterPage(storesResponse:this.raporFilterList,capacityParameter:this.capacityParameter)),
   );
   
+
+// capacityParameter = await 
+// Navigator.of(context).push(new MaterialPageRoute<Null>(
+//       builder: (BuildContext context) {
+//         return new CapacityFilterPage(storesResponse:this.raporFilterList,capacityParameter:this.capacityParameter);
+//       },
+//     fullscreenDialog: true
+//   ));
+
+if(capacityParameter != null){
   capacityParameter.setMagazaKod = currentStore.storeCode;
-
-//final aa = await SharedPreferences.getInstance();
-
-//String asd = aa.getString(SharedPreferencesConstant.capacityFilter);
-
-//var result2 =  CapacityAnaliysisReportRequestDTO.fromJson(json.decode(asd));
-
-
 
 await loadCapacityReport(capacityParameter);
 setState(() {  
 });
-
+}
   //LcwAssistSnackBarDialogInfo(result.getAksesuarUrun,scaffoldState,LcwAssistSnagitType.info).snackbarShow();
 }
 
