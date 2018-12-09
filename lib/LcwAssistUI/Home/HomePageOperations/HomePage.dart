@@ -13,6 +13,7 @@ import 'package:lcwassist/LcwAssistUI/AuthenticationUI/UI/loginPage.dart';
 import 'package:lcwassist/LcwAssistUI/AuthenticationUI/UI/ChartPage.dart';
 import 'package:lcwassist/LcwAssistUI/CapacityOperations/CapacityAnalysisPage.dart';
 import 'package:lcwassist/LcwAssistUI/Home/HomePageOperations/HomeFeedBack.dart';
+import 'package:lcwassist/LcwAssistUI/SalesOperations/ProductSalesPerformanceOperations/ProductPerformanceDetailMetric.dart';
 import 'package:lcwassist/LcwAssistUI/SalesOperations/ProductSalesPerformanceOperations/ProductPerformansMetricsOperations.dart';
 import 'package:lcwassist/LcwAssistUI/SalesOperations/ProductSalesPerformanceOperations/ProductPerformansQueryPage.dart';
 import 'package:lcwassist/LcwAssistUI/SettingsPages/LcwAssistTema.dart';
@@ -136,7 +137,7 @@ setState(() {});
 //HomeFeedBack
     switch (pos) {
       case 0:
-        return new HomeFeedBack();
+        return new ProductPerformanceDetailMetric();//HomeFeedBack();
       case 1:
         return new CapacityAnalysisPage();
       case 2:
@@ -181,40 +182,36 @@ return;
       var d = drawerItems[i];
       drawerOptions.add(
 Container(
-
- // padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0,10.0),
       decoration:  BoxDecoration(
          border:  Border(
-      //top:  BorderSide(width: 0.0, color:  LcwAssistColor.secondaryColor),
-
       left:  BorderSide(width: 6.0, color: i == _selectedDrawerIndex ? LcwAssistColor.selectedColor : Colors.transparent),
-
-      //left: i == _selectedDrawerIndex ? BorderSide(width: 6.0, color: i == _selectedDrawerIndex ? LcwAssistColor.selectedColor : LcwAssistColor.secondaryColor) : BorderSide(width: 6.0,color: Colors.transparent),
-      //right:  BorderSide(width: 0.0, color:  LcwAssistColor.secondaryColor),
-      //bottom:  BorderSide(width: 0.0, color:  LcwAssistColor.secondaryColor)//Color.fromRGBO(182,0,62, 1.0))
     )),
     child: 
-  new ListTile(
-          leading: new Icon(d.icon,color: Colors.white,),
-          title: new Text(d.title,style: TextStyle(color: Colors.white,fontSize: 20.0,fontFamily: LcwAssistTextStyle.currentTextFontFamily),),
-          onTap: () => _onSelectItem(i),
-        )
+
+GestureDetector(
+  onTap: (){_onSelectItem(i);},
+child:
+Row(children: <Widget>[
+  Padding(padding: EdgeInsets.fromLTRB(10, 10, 5, 10),child: Icon(d.icon,color: Colors.white,size: 26.0,),),
+  Padding(padding: EdgeInsets.fromLTRB(5, 10, 5, 10),child: new Text(d.title,style: TextStyle(color: Colors.white,fontSize: 18.0,fontFamily: LcwAssistTextStyle.currentTextFontFamily),),),
+],)
+)
+  // new ListTile(
+  //         leading: new Icon(d.icon,color: Colors.white,),
+  //         title: new Text(d.title,style: TextStyle(color: Colors.white,fontSize: 20.0,fontFamily: LcwAssistTextStyle.currentTextFontFamily),),
+  //         onTap: () => _onSelectItem(i),
+  //       )
 
       ));
     }
-
     return new Scaffold(
       appBar: new AppBar(
-        // here we display the title corresponding to the fragment
-        // you can instead choose to have a static title 
         title: new Text(drawerItems[_selectedDrawerIndex].title,
         style: TextStyle(fontFamily: LcwAssistTextStyle.currentTextFontFamily),),
       ),
       key: scaffoldState,
       drawer: new Drawer(
         child: Container(
-          //color:LcwAssistColor.drawerColor,//.withOpacity(0.9),
-          
 decoration: new BoxDecoration(
           image: new DecorationImage(
             image: new AssetImage("assets/drawerSplash.jpg"), 
@@ -241,18 +238,21 @@ ClipOval(
     height: 75.0,
   )
 ),
-
+ 
 Container(padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),child: new Text(currentUserResult.firstName + ' ' + currentUserResult.lastName,style: TextStyle(fontSize: 15.0,color: Colors.white,fontFamily: LcwAssistTextStyle.currentTextFontFamily)),),
 Container(padding: EdgeInsets.fromLTRB(0.0, 7.0, 0.0, 0.0),child: new Text(applicationManager.currentLanguage.gethosgeldiniz,style: TextStyle(fontSize: 15.0,color: Colors.white,fontFamily: LcwAssistTextStyle.currentTextFontFamily),),),
 
 GestureDetector(
   onTap: (){_openStoreCard();},
      child: 
+     //Expanded(child: 
      Row(  children: <Widget>[
   Padding(padding: EdgeInsets.fromLTRB(0.0, 7.0, 0.0, 0.0),
-  child: Text(applicationManager.currentLanguage.getmagaza+ ": " + selectedStoreName ,style: TextStyle(color: Colors.white,fontSize: 15.0,fontFamily: LcwAssistTextStyle.currentTextFontFamily)),),
+  child: Text(applicationManager.currentLanguage.getmagaza+ ": " +  (selectedStoreName.length > 17 ? selectedStoreName.substring(0,16)+'...' : selectedStoreName) ,style: TextStyle(color: Colors.white,fontSize: 15.0,fontFamily: LcwAssistTextStyle.currentTextFontFamily)),),
   Icon(Icons.touch_app,color: Colors.white,size: 18.0),
  ],)
+     //) applicationManager.currentLanguage.getmagaza+ ": " + 
+
    ),
             ],),decoration: new BoxDecoration(
 //  color: LcwAssistColor.primaryColor

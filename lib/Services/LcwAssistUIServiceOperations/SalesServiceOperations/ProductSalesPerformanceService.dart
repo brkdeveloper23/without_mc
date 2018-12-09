@@ -20,7 +20,7 @@ static Future<ProductMetricsResponse> productSalesPerformanceMetrics(ProductMetr
 String token =  await TokenService.getAuthToken();
 request.setStoreCode = request.getStoreCode == "0" ? "" : request.getStoreCode;
 Map<String, dynamic> body = request.toMap();
-var response = await http.post(
+var response = await http.post( 
       //Uri.encodeFull("https://lcwapigateway.lcwaikiki.com/SmartStoreDataService/api/Metrics/GetProductMetricsForOther"),
       Uri.encodeFull(UrlConst.productMetricsUrl),
       headers: {

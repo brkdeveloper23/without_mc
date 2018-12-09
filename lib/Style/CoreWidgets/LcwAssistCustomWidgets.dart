@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lcwassist/DataAccess/WidgetDto.dart';
 import 'package:lcwassist/Style/LcwAssistColor.dart';
 import 'package:lcwassist/Style/LcwAssistTextStyle.dart';
+import 'package:outline_material_icons/outline_material_icons.dart';
 
 class LcwAssistCustomWidgets{
 
@@ -407,7 +408,7 @@ Text(masterText,textAlign: TextAlign.center,
 }
 
 
-static Widget satir(Color lineColor,String masterText,String subText,){
+static Widget satir(Color lineColor,String masterText,String subText,bool hasDetail){
 
 return Padding(
   padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
@@ -415,21 +416,29 @@ return Padding(
   Container(
   padding: EdgeInsets.fromLTRB(10, 5, 10, 10),
   decoration:  BoxDecoration(
-        //borderRadius: BorderRadius.circular(10.0),
     border:  Border(
-      // top:  BorderSide(width: 1.0, color:  Color(0xFFFFFFFFFF)),
        left:  BorderSide(width: 6.0, color:  lineColor),
-      // right:  BorderSide(width: 1.0, color:  Color(0xFFFFFFFFFF)),
-      //bottom:  BorderSide(width: 3.0, color:  LcwAssistColor.cardLineColor)//Color.fromRGBO(182,0,62, 1.0))
     )),
   child: Column(
     mainAxisSize: MainAxisSize.max,
     crossAxisAlignment: CrossAxisAlignment.stretch,
+
     children: <Widget>[
 
-      Text(masterText,style: TextStyle(fontSize: 15.0,fontFamily: 'Ubuntu',color: LcwAssistColor.reportCardHeaderColor))
+      //Text(masterText+masterText,style: TextStyle(fontSize: 15.0,fontFamily: 'Ubuntu',color: LcwAssistColor.reportCardHeaderColor))
+      Wrap(
+        alignment: WrapAlignment.start,
+
+        direction: Axis.horizontal,
+        children: <Widget>[
+        Text(masterText,style: TextStyle(fontSize: 15.0,fontFamily: 'Ubuntu',
+        decoration: hasDetail ? TextDecoration.underline : null,
+        color: hasDetail ? LcwAssistColor.linkColor : LcwAssistColor.reportCardHeaderColor),
+        )
+      ,hasDetail ? Icon(OMIcons.touchApp,size: 16.0,color: LcwAssistColor.linkColor,) : Text('')
+      ],)
       ,Padding(padding: EdgeInsets.fromLTRB(10, 5, 10, 5),)
-      ,Text(subText,style: TextStyle(fontSize: 15.0,fontFamily: 'Ubuntu',color: LcwAssistColor.reportCardSubHeaderColor))
+      ,Text(subText,style: TextStyle(fontSize: 17.0,fontFamily: 'Ubuntu',color: LcwAssistColor.reportCardSubHeaderColor))
                               
     ],
   ),

@@ -42,7 +42,7 @@ final _formKeyBarkodIleSorgulama = GlobalKey<FormState>();
 final _formKeyModelColorSorgulama = GlobalKey<FormState>();
 final GlobalKey<ScaffoldState> scaffoldState = new GlobalKey<ScaffoldState>();
 ProductMetricsRequestDTO productMetricsRequest  = new ProductMetricsRequestDTO();
-Stores selectedStore;
+StoreChooseListViewDTO selectedStore;
 String selectedStoreName="";
 final controllerBarcode = TextEditingController();
 FocusNode _textBarcodeFocus = new FocusNode();
@@ -60,7 +60,7 @@ super.initState();
  WidgetsBinding.instance
         .addPostFrameCallback((_) => loaded(context));
 
-controllerBarcode.text = '8681367994069';
+controllerBarcode.text = '8681363515268';
 //controllerModelCode.text = '8SJ450Z1';
 //controllerColorCode.text = 'JPX';
 
@@ -352,13 +352,13 @@ controllerBarcode.text = '';
 
 Future currentStore() async{
 
-StoreChooseListViewDTO stores;
 
-stores = await applicationManager.serviceManager.storeChooseService.getCurrentStore();
 
-selectedStoreName = stores.storeName;
+selectedStore= await applicationManager.serviceManager.storeChooseService.getCurrentStore();
 
-return stores;
+selectedStoreName = selectedStore.storeName;
+
+return selectedStore;
     }
 
 

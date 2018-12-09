@@ -56,7 +56,7 @@ static Color tomatoColor = Color.fromRGBO(254,99,71,1.0);
   static Color yellowGreen = Color.fromRGBO(189, 214, 52, 1.0);//Color.fromRGBO(246, 129, 33, 1.0);
   static Color filterGreen = Color.fromRGBO(78,173,82,1.0);
   static Color backGroundColor = Color.fromRGBO(250,250,250, 1.0);
-
+static Color linkColor =   Color.fromRGBO(1, 149, 197, 1.0);//Color.fromRGBO(1, 145, 188, 1.0)
   //static Color floatingButtonColor = Colors.blue;
 
 //static Color floatingButtonColor = Color.fromRGBO(48,115,221, 1.0); //thy

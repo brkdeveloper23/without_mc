@@ -57,7 +57,9 @@ sayfaYuklendiMi = false;
 
  WidgetsBinding.instance
         .addPostFrameCallback((_) => loaded(context));
-
+setState(() {
+  
+});
     currentStore().then((result) {
             // If we need to rebuild the widget with the resulting data,
             // make sure to use `setState`
@@ -71,9 +73,9 @@ sayfaYuklendiMi = false;
   Future loaded(BuildContext context) async{
     currentPageStyleIcon = Icon(Icons.view_module);
     currentPageStyle = true;
-
     applicationManager.setCurrentLanguage = await applicationManager.languagesService.currentLanguage();
-    sayfaYuklendiMi = true;
+    
+    sayfaYuklendiMi = true;    
 }
 
 Future<void> executeAfterBuild() async {
@@ -85,13 +87,13 @@ Future<void> executeAfterBuild() async {
     return new Scaffold(
       resizeToAvoidBottomPadding: false,
       //key: scaffoldState,
-      appBar: AppBar(title: Text(applicationManager.currentLanguage.geturunPerformansAnaliz),actions: <Widget>[
+//       appBar: AppBar(title: Text(applicationManager.currentLanguage.geturunPerformansAnaliz),actions: <Widget>[
 
-        new IconButton(
-  icon: new Icon(currentPageStyleIcon.icon, color: Colors.white,size: 30, ),
-  onPressed: () => changePageStyle(),
-)
-      ],),
+//         new IconButton(
+//   icon: new Icon(currentPageStyleIcon.icon, color: Colors.white,size: 30, ),
+//   onPressed: () => changePageStyle(),
+// )
+//       ],),
       //drawer: DrawerOnly.leftSideMenuDiz(LcwAssistPageDrawerNumberConst.satis,context),
       backgroundColor: LcwAssistColor.backGroundColor,
       body: sayfaYuklendiMi == true ? (currentPageStyle == true ? storeReportPageBody() : ekranYerlesim()) : Container(child: Text(''),),//sayfaYuklendiMi == true ? ekranYerlesim() : Container(child: Text(''),),
@@ -117,24 +119,24 @@ new Column(
       SingleChildScrollView(
                 child:
 Column(children: <Widget>[
-LcwAssistCustomWidgets.satir(Color.fromRGBO(54,163,247, 1.0),  applicationManager.currentLanguage.getkumulatifSatisTutar,productMetricsResponse.productPerformansResultDTO.kumulatifSatisTutar),
-LcwAssistCustomWidgets.satir(Color.fromRGBO(0,116,198, 1.0),   applicationManager.currentLanguage.getortalamaPSF,productMetricsResponse.productPerformansResultDTO.ortalamaPSF),
-LcwAssistCustomWidgets.satir(Color.fromRGBO(239,138,14, 1.0),  applicationManager.currentLanguage.getkumulatifSatisAdet,productMetricsResponse.productPerformansResultDTO.kumulatifSatisAdet),
-LcwAssistCustomWidgets.satir(Color.fromRGBO(100,105,188, 1.0), applicationManager.currentLanguage.getkumulatifSevkAdet,productMetricsResponse.productPerformansResultDTO.kumulatifSevkAdet),
-LcwAssistCustomWidgets.satir(Color.fromRGBO(196,66,88, 1.0),   applicationManager.currentLanguage.getstr,productMetricsResponse.productPerformansResultDTO.str),
-LcwAssistCustomWidgets.satir(Color.fromRGBO(38,137,116, 1.0),  applicationManager.currentLanguage.getilkPSF,productMetricsResponse.productPerformansResultDTO.ilkPesinFiyat),
-LcwAssistCustomWidgets.satir(Color.fromRGBO(0,162,181, 1.0),   applicationManager.currentLanguage.getindirimOrani,productMetricsResponse.productPerformansResultDTO.indirimOrani),
-LcwAssistCustomWidgets.satir(Color.fromRGBO(54,163,247, 1.0),  applicationManager.currentLanguage.getsonPSF,productMetricsResponse.productPerformansResultDTO.sonPesitFiyat),
-LcwAssistCustomWidgets.satir(Color.fromRGBO(0,116,198, 1.0),   applicationManager.currentLanguage.getreyonStokAdet,productMetricsResponse.productPerformansResultDTO.reyonStok),
-LcwAssistCustomWidgets.satir(Color.fromRGBO(239,138,14, 1.0),  applicationManager.currentLanguage.getdepoStokAdet,productMetricsResponse.productPerformansResultDTO.depoStok),
-LcwAssistCustomWidgets.satir(Color.fromRGBO(100,105,188, 1.0), applicationManager.currentLanguage.getson7gunSatisAdet,productMetricsResponse.productPerformansResultDTO.son7GunSatisAdet),
-LcwAssistCustomWidgets.satir(Color.fromRGBO(196,66,88, 1.0),   applicationManager.currentLanguage.getfiiliCover,productMetricsResponse.productPerformansResultDTO.fiiliCover),
-LcwAssistCustomWidgets.satir(Color.fromRGBO(38,137,116, 1.0),  applicationManager.currentLanguage.getyolStokAdet,productMetricsResponse.productPerformansResultDTO.yolStok),
-LcwAssistCustomWidgets.satir(Color.fromRGBO(0,162,181, 1.0),   applicationManager.currentLanguage.getonayliOnyasizRezerveAdet,productMetricsResponse.productPerformansResultDTO.onayliOnaysizRezerve),
-LcwAssistCustomWidgets.satir(Color.fromRGBO(54,163,247, 1.0),  applicationManager.currentLanguage.getmerkezDepoStok,productMetricsResponse.productPerformansResultDTO.merkezDepoStokAdet),
-LcwAssistCustomWidgets.satir(Color.fromRGBO(0,116,198, 1.0),   applicationManager.currentLanguage.getbulunurluk,productMetricsResponse.productPerformansResultDTO.bulunurluk),
-LcwAssistCustomWidgets.satir(Color.fromRGBO(239,138,14, 1.0),  applicationManager.currentLanguage.getderinlik,productMetricsResponse.productPerformansResultDTO.derinlik),
-LcwAssistCustomWidgets.satir(Color.fromRGBO(100,105,188, 1.0), applicationManager.currentLanguage.getrafOmru,productMetricsResponse.productPerformansResultDTO.rafOmru),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(54,163,247, 1.0),  applicationManager.currentLanguage.getkumulatifSatisTutar,productMetricsResponse.productPerformansResultDTO.kumulatifSatisTutar,false),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(0,116,198, 1.0),   applicationManager.currentLanguage.getortalamaPSF,productMetricsResponse.productPerformansResultDTO.ortalamaPSF,false),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(239,138,14, 1.0),  applicationManager.currentLanguage.getkumulatifSatisAdet,productMetricsResponse.productPerformansResultDTO.kumulatifSatisAdet,false),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(100,105,188, 1.0), applicationManager.currentLanguage.getkumulatifSevkAdet,productMetricsResponse.productPerformansResultDTO.kumulatifSevkAdet,false),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(196,66,88, 1.0),   applicationManager.currentLanguage.getstr,productMetricsResponse.productPerformansResultDTO.str,false),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(38,137,116, 1.0),  applicationManager.currentLanguage.getilkPSF,productMetricsResponse.productPerformansResultDTO.ilkPesinFiyat,false),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(0,162,181, 1.0),   applicationManager.currentLanguage.getindirimOrani,productMetricsResponse.productPerformansResultDTO.indirimOrani,false),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(54,163,247, 1.0),  applicationManager.currentLanguage.getsonPSF,productMetricsResponse.productPerformansResultDTO.sonPesitFiyat,false),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(0,116,198, 1.0),   applicationManager.currentLanguage.getreyonStokAdet,productMetricsResponse.productPerformansResultDTO.reyonStok,false),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(239,138,14, 1.0),  applicationManager.currentLanguage.getdepoStokAdet,productMetricsResponse.productPerformansResultDTO.depoStok,false),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(100,105,188, 1.0), applicationManager.currentLanguage.getson7gunSatisAdet,productMetricsResponse.productPerformansResultDTO.son7GunSatisAdet,false),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(196,66,88, 1.0),   applicationManager.currentLanguage.getfiiliCover,productMetricsResponse.productPerformansResultDTO.fiiliCover,false),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(38,137,116, 1.0),  applicationManager.currentLanguage.getyolStokAdet,productMetricsResponse.productPerformansResultDTO.yolStok,false),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(0,162,181, 1.0),   applicationManager.currentLanguage.getonayliOnyasizRezerveAdet,productMetricsResponse.productPerformansResultDTO.onayliOnaysizRezerve,false),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(54,163,247, 1.0),  applicationManager.currentLanguage.getmerkezDepoStok,productMetricsResponse.productPerformansResultDTO.merkezDepoStokAdet,false),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(0,116,198, 1.0),   applicationManager.currentLanguage.getbulunurluk,productMetricsResponse.productPerformansResultDTO.bulunurluk,false),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(239,138,14, 1.0),  applicationManager.currentLanguage.getderinlik,productMetricsResponse.productPerformansResultDTO.derinlik,false),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(100,105,188, 1.0), applicationManager.currentLanguage.getrafOmru,productMetricsResponse.productPerformansResultDTO.rafOmru,false),
 // Container(
 //   decoration:  BoxDecoration(
 //     border:  Border(

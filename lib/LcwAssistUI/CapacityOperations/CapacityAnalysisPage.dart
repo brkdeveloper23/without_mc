@@ -12,6 +12,7 @@ import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/Store
 import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreChooseResponeDTO.dart';
 import 'package:lcwassist/LcwAssistBase/LcwAssistApplicationManager.dart';
 import 'package:lcwassist/LcwAssistUI/CapacityOperations/CapacityFilterPage.dart';
+import 'package:lcwassist/LcwAssistUI/SalesOperations/ProductSalesPerformanceOperations/ProductPerformanceDetailMetric.dart';
 import 'package:lcwassist/Style/CoreWidgets/LcwAssistCustomWidgets.dart';
 import 'package:lcwassist/Style/LcwAssistColor.dart';
 import 'package:lcwassist/Style/LcwAssistTextStyle.dart';
@@ -135,32 +136,49 @@ Widget storeReportPageBody(){
 return 
 new Column(
   children: <Widget>[
-    Expanded(flex: 1,child: Card(child: Row(children: <Widget>[
+     Column(
+     mainAxisSize: MainAxisSize.max,
+    crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: <Widget>[
+      Card(child: 
+    Padding(padding: EdgeInsets.fromLTRB(5, 5, 5, 5),child: 
+    Row(
       
-      Padding(padding: EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 0.0),child: Icon(Icons.account_balance,color: Colors.grey[700],size: 30,),),
+      children: <Widget>[
+    Padding(padding: EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 0.0),child: Icon(Icons.account_balance,color: Colors.grey[700],size: 30,),),
       Padding(padding: EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 0.0),child: Text(applicationManager.currentLanguage.getmagazaAdi+' : ',style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 17.0),),),
-      Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),child: Text(currentStore.storeName,style: TextStyle(color: LcwAssistColor.reportCardSubHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 17.0),),)
+      
+Expanded(child: 
+        Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),child: 
+        Text(currentStore.storeName,style: TextStyle(color: LcwAssistColor.reportCardSubHeaderColor,
+        fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 17.0),),)
+      ,)
+    ]),)
+    )
+    ],),
 
-      ],),),),
-    Expanded(flex: 10,child: 
+    Expanded(child: 
       SingleChildScrollView(
-                child:
+                child: 
 Column(children: <Widget>[
-
-LcwAssistCustomWidgets.satir(Color.fromRGBO(54,163,247, 1.0), applicationManager.currentLanguage.gettoplamFiiliDolulukBDHaric,raporResult.toplamFiiliDolulukLCM),
-LcwAssistCustomWidgets.satir(Color.fromRGBO(0,116,198, 1.0),  applicationManager.currentLanguage.getnetNihaiLCMDoluluk,raporResult.netNihaiLCMDoluluk),
-LcwAssistCustomWidgets.satir(Color.fromRGBO(239,138,14, 1.0), applicationManager.currentLanguage.getreyonDolulukLCM,raporResult.reyonDolulukLCM),
-LcwAssistCustomWidgets.satir(Color.fromRGBO(100,105,188, 1.0),applicationManager.currentLanguage.getdepoDolulukLCM,raporResult.depoDolulukLCM),
-LcwAssistCustomWidgets.satir(Color.fromRGBO(196,66,88, 1.0),  applicationManager.currentLanguage.getonayLimiti,raporResult.onayLimiti),
-LcwAssistCustomWidgets.satir(Color.fromRGBO(38,137,116, 1.0), applicationManager.currentLanguage.gettoplamKapLCMNetNihaiKapLCM,raporResult.toplamKapOverNetNihai),
-LcwAssistCustomWidgets.satir(Color.fromRGBO(0,162,181, 1.0),  applicationManager.currentLanguage.getreyonStokAdet,raporResult.reyonStokAdet),
-LcwAssistCustomWidgets.satir(Color.fromRGBO(54,163,247, 1.0), applicationManager.currentLanguage.getdepoStokAdet,raporResult.depoStokAdet),
-LcwAssistCustomWidgets.satir(Color.fromRGBO(0,116,198, 1.0),  applicationManager.currentLanguage.gettoplamStokAdet,raporResult.toplamStokAdet),
-LcwAssistCustomWidgets.satir(Color.fromRGBO(239,138,14, 1.0), applicationManager.currentLanguage.getson7gunSatisAdet,raporResult.sonYediGunSatis),
-LcwAssistCustomWidgets.satir(Color.fromRGBO(100,105,188, 1.0),applicationManager.currentLanguage.getfiiliCover,raporResult.fiiliCover),
-LcwAssistCustomWidgets.satir(Color.fromRGBO(196,66,88, 1.0),  applicationManager.currentLanguage.getyolStokAdet,raporResult.yolStokAdet),
-LcwAssistCustomWidgets.satir(Color.fromRGBO(38,137,116, 1.0), applicationManager.currentLanguage.getonayliOnyasizRezerveAdet,raporResult.onayliOnaysizRezerveAdet),
-LcwAssistCustomWidgets.satir(Color.fromRGBO(0,162,181, 1.0),  applicationManager.currentLanguage.gettransferINOUT,raporResult.transferInOut),
+new GestureDetector(
+  onTap:() =>detayaGit(),
+  child:
+LcwAssistCustomWidgets.satir(Color.fromRGBO(54,163,247, 1.0),
+ applicationManager.currentLanguage.gettoplamFiiliDolulukBDHaric,raporResult.toplamFiiliDolulukLCM,true)),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(0,116,198, 1.0),  applicationManager.currentLanguage.getnetNihaiLCMDoluluk,raporResult.netNihaiLCMDoluluk,false),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(239,138,14, 1.0), applicationManager.currentLanguage.getreyonDolulukLCM,raporResult.reyonDolulukLCM,false),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(100,105,188, 1.0),applicationManager.currentLanguage.getdepoDolulukLCM,raporResult.depoDolulukLCM,false),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(196,66,88, 1.0),  applicationManager.currentLanguage.getonayLimiti,raporResult.onayLimiti,false),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(38,137,116, 1.0), applicationManager.currentLanguage.gettoplamKapLCMNetNihaiKapLCM,raporResult.toplamKapOverNetNihai,false),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(0,162,181, 1.0),  applicationManager.currentLanguage.getreyonStokAdet,raporResult.reyonStokAdet,false),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(54,163,247, 1.0), applicationManager.currentLanguage.getdepoStokAdet,raporResult.depoStokAdet,false),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(0,116,198, 1.0),  applicationManager.currentLanguage.gettoplamStokAdet,raporResult.toplamStokAdet,false),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(239,138,14, 1.0), applicationManager.currentLanguage.getson7gunSatisAdet,raporResult.sonYediGunSatis,false),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(100,105,188, 1.0),applicationManager.currentLanguage.getfiiliCover,raporResult.fiiliCover,false),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(196,66,88, 1.0),  applicationManager.currentLanguage.getyolStokAdet,raporResult.yolStokAdet,false),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(38,137,116, 1.0), applicationManager.currentLanguage.getonayliOnyasizRezerveAdet,raporResult.onayliOnaysizRezerveAdet,false),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(0,162,181, 1.0),  applicationManager.currentLanguage.gettransferINOUT,raporResult.transferInOut,false),
 
 // Container(
 //   decoration:  BoxDecoration(
@@ -173,6 +191,16 @@ LcwAssistCustomWidgets.satir(Color.fromRGBO(0,162,181, 1.0),  applicationManager
   ),)
   ],
 );
+}
+
+void detayaGit(){
+
+    var route = new MaterialPageRoute(
+            builder: (BuildContext context) => ProductPerformanceDetailMetric()
+          );
+
+    Navigator.of(context).push(route);
+
 }
 
 Widget storeReportPageBody2(){
@@ -467,12 +495,14 @@ void _openFilterDialog() async{
 //     fullscreenDialog: true
 //   ));
 
-capacityParameter = await Navigator.push(
+var result = null;
+
+result =  await Navigator.push(
     context,
     MaterialPageRoute(builder: (context) => CapacityFilterPage(storesResponse:this.raporFilterList,capacityParameter:this.capacityParameter)),
   );
   
-
+capacityParameter = result ?? capacityParameter;
 // capacityParameter = await 
 // Navigator.of(context).push(new MaterialPageRoute<Null>(
 //       builder: (BuildContext context) {

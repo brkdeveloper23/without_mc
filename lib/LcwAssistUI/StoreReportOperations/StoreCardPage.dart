@@ -91,10 +91,7 @@ Card(
         
         decoration:  BoxDecoration(
     border:  Border(
-      top:  BorderSide(width: 1.0, color:  Color(0xFFFFFFFFFF)),
-      left:  BorderSide(width: 4.0, color:  LcwAssistColor.cardLineColor),
-      right:  BorderSide(width: 1.0, color:  Color(0xFFFFFFFFFF)),
-      bottom:  BorderSide(width: 1.0, color:  Color(0xFFFFFFFFFF))//Color.fromRGBO(182,0,62, 1.0))
+      left:  BorderSide(width: 4.0, color:  Color.fromRGBO(54,163,247, 1.0)),
     )),
         child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -120,10 +117,9 @@ Expanded(flex: 1,child: Card(
       Container(
         decoration:  BoxDecoration(
     border:  Border(
-      top:  BorderSide(width: 1.0, color:  Color(0xFFFFFFFFFF)),
-      left:  BorderSide(width: 4.0, color:  LcwAssistColor.cardLineColor),
-      right:  BorderSide(width: 1.0, color:  Color(0xFFFFFFFFFF)),
-      bottom:  BorderSide(width: 1.0, color:  Color(0xFFFFFFFFFF))//Color.fromRGBO(182,0,62, 1.0))
+     
+      left:  BorderSide(width: 4.0, color:  Color.fromRGBO(239,138,14, 1.0)),
+      
     )),
         child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -141,10 +137,7 @@ Expanded(flex: 1,child: Card(
       child: Container(
         decoration:  BoxDecoration(
     border:  Border(
-      top:  BorderSide(width: 1.0, color:  Color(0xFFFFFFFFFF)),
-      left:  BorderSide(width: 4.0, color:  LcwAssistColor.cardLineColor),
-      right:  BorderSide(width: 1.0, color:  Color(0xFFFFFFFFFF)),
-      bottom:  BorderSide(width: 1.0, color:  Color(0xFFFFFFFFFF))//Color.fromRGBO(182,0,62, 1.0))
+      left:  BorderSide(width: 4.0, color:  Color.fromRGBO(0,116,198, 1.0)),
     )),
         child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -166,10 +159,7 @@ Expanded(flex: 1,child: Card(
       child: Container(
         decoration:  BoxDecoration(
     border:  Border(
-      top:  BorderSide(width: 1.0, color:  Color(0xFFFFFFFFFF)),
-      left:  BorderSide(width: 4.0, color:  LcwAssistColor.cardLineColor),
-      right:  BorderSide(width: 1.0, color:  Color(0xFFFFFFFFFF)),
-      bottom:  BorderSide(width: 1.0, color:  Color(0xFFFFFFFFFF))//Color.fromRGBO(182,0,62, 1.0))
+      left:  BorderSide(width: 4.0, color:  Color.fromRGBO(100,105,188, 1.0)),
     )),
         child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -185,10 +175,7 @@ Expanded(flex: 1,child: Card(
       child: Container(
         decoration:  BoxDecoration(
     border:  Border(
-      top:  BorderSide(width: 1.0, color:  Color(0xFFFFFFFFFF)),
-      left:  BorderSide(width: 4.0, color:  LcwAssistColor.cardLineColor),
-      right:  BorderSide(width: 1.0, color:  Color(0xFFFFFFFFFF)),
-      bottom:  BorderSide(width: 1.0, color:  Color(0xFFFFFFFFFF))//Color.fromRGBO(182,0,62, 1.0))
+      left:  BorderSide(width: 4.0, color:  Color.fromRGBO(54,163,247, 1.0)),
     ))
         ,child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -210,10 +197,7 @@ Expanded(flex: 1,child: Card(
       child: Container(
         decoration:  BoxDecoration(
     border:  Border(
-      top:  BorderSide(width: 1.0, color:  Color(0xFFFFFFFFFF)),
-      left:  BorderSide(width: 4.0, color:  LcwAssistColor.cardLineColor),
-      right:  BorderSide(width: 1.0, color:  Color(0xFFFFFFFFFF)),
-      bottom:  BorderSide(width: 1.0, color:  Color(0xFFFFFFFFFF))//Color.fromRGBO(182,0,62, 1.0))
+      left:  BorderSide(width: 4.0, color:  Color.fromRGBO(38,137,116, 1.0)),
     ))
         ,child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -229,10 +213,7 @@ Expanded(flex: 1,child: Card(
       child: Container(
         decoration:  BoxDecoration(
     border:  Border(
-      top:  BorderSide(width: 1.0, color:  Color(0xFFFFFFFFFF)),
-      left:  BorderSide(width: 4.0, color:  LcwAssistColor.cardLineColor),
-      right:  BorderSide(width: 1.0, color:  Color(0xFFFFFFFFFF)),
-      bottom:  BorderSide(width: 1.0, color:  Color(0xFFFFFFFFFF))//Color.fromRGBO(182,0,62, 1.0))
+      left:  BorderSide(width: 4.0, color:  Color.fromRGBO(0,162,181, 1.0)),
     ))
         ,child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -253,10 +234,7 @@ Card(
       child: Container(
         decoration:  BoxDecoration(
     border:  Border(
-      top:  BorderSide(width: 1.0, color:  Color(0xFFFFFFFFFF)),
-      left:  BorderSide(width: 4.0, color:  LcwAssistColor.cardLineColor),
-      right:  BorderSide(width: 1.0, color:  Color(0xFFFFFFFFFF)),
-      bottom:  BorderSide(width: 1.0, color:  Color(0xFFFFFFFFFF))//Color.fromRGBO(182,0,62, 1.0))
+      left:  BorderSide(width: 4.0, color:  Color.fromRGBO(196,66,88, 1.0)),
     ))
         ,child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -280,10 +258,7 @@ Card(
       child: Container(
         decoration:  BoxDecoration(
     border:  Border(
-      top:  BorderSide(width: 1.0, color:  Color(0xFFFFFFFFFF)),
-      left:  BorderSide(width: 4.0, color:  LcwAssistColor.cardLineColor),
-      right:  BorderSide(width: 1.0, color:  Color(0xFFFFFFFFFF)),
-      bottom:  BorderSide(width: 1.0, color:  Color(0xFFFFFFFFFF))//Color.fromRGBO(182,0,62, 1.0))
+      left:  BorderSide(width: 4.0, color: Color.fromRGBO(0,116,198, 1.0)),
     ))
         ,child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -307,10 +282,7 @@ Card(
       child: Container(
         decoration:  BoxDecoration(
     border:  Border(
-      top:  BorderSide(width: 1.0, color:  Color(0xFFFFFFFFFF)),
-      left:  BorderSide(width: 4.0, color:  LcwAssistColor.cardLineColor),
-      right:  BorderSide(width: 1.0, color:  Color(0xFFFFFFFFFF)),
-      bottom:  BorderSide(width: 1.0, color:  Color(0xFFFFFFFFFF))//Color.fromRGBO(182,0,62, 1.0))
+      left:  BorderSide(width: 4.0, color:Color.fromRGBO(239,138,14, 1.0)),
     ))
         ,child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
