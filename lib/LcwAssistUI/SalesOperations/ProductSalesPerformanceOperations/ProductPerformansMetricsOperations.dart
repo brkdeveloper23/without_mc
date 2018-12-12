@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:lcwassist/Core/Abstracts/IsLcwAssistUIPage.dart';
+import 'package:lcwassist/Core/BaseConst/LcwAssistEnumType.dart';
 import 'package:lcwassist/Core/BaseConst/LcwAssistPageDrawerNumberConst.dart';
 import 'package:lcwassist/DataAccess/ProductPerformanceMetricsDTOs/UcluCardTextDTO.dart';
 import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreChooseListViewDTO.dart';
 import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreChooseResponeDTO.dart';
 import 'package:lcwassist/LcwAssistUI/Home/HomePageOperations/HomePage.dart';
 import 'package:lcwassist/LcwAssistBase/LcwAssistApplicationManager.dart';
+import 'package:lcwassist/LcwAssistUI/SalesOperations/ProductSalesPerformanceOperations/ProductPerformanceDetailMetric.dart';
 import 'package:lcwassist/LcwAssistUI/SalesOperations/ProductSalesPerformanceOperations/ProductPerformansMetricFeedBackDialog.dart';
 import 'package:lcwassist/Services/LcwAssistUIServiceOperations/StoreReportOperations/StoreChooseService.dart';
 import 'package:lcwassist/Style/CoreWidgets/LcwAssistCustomWidgets.dart';
@@ -21,23 +23,25 @@ void main(){
 class ProductPerformansMetricsOperations extends StatefulWidget {
 
 final ProductMetricsResponse productMetricsResponse;
-ProductPerformansMetricsOperations({Key key, @required this.productMetricsResponse}) : super(key: key);
+final LcwAssistApplicationManager applicationManager;
+
+ProductPerformansMetricsOperations({Key key, @required this.productMetricsResponse,@required this.applicationManager}) : super(key: key);
 
 
   @override
-  ProductPerformansMetricsState createState() => new ProductPerformansMetricsState(productMetricsResponse: productMetricsResponse);
+  ProductPerformansMetricsState createState() => new ProductPerformansMetricsState(productMetricsResponse: productMetricsResponse,applicationManager:applicationManager);
 }
 class ProductPerformansMetricsState extends State<ProductPerformansMetricsOperations> with TickerProviderStateMixin implements IsLcwAssistUIPage{ 
 
 final ProductMetricsResponse productMetricsResponse;
-  ProductPerformansMetricsState({Key key, @required this.productMetricsResponse});
+  ProductPerformansMetricsState({Key key, @required this.productMetricsResponse, @required this.applicationManager});
 
 LcwAssistApplicationManager applicationManager = new LcwAssistApplicationManager();
 
-Icon currentPageStyleIcon;
-bool currentPageStyle;
+Icon currentPageStyleIcon = Icon(Icons.view_module);
+bool currentPageStyle = true;
 
-Stores storesResponse = new Stores();
+StoreChooseListViewDTO storesResponse = new StoreChooseListViewDTO();
 bool sayfaYuklendiMi = false;
 //Floating buton için
     static const List<IconData> icons = const [  Icons.thumb_up, Icons.thumb_down ];
@@ -53,13 +57,13 @@ void initState() {
     );
 ///////////////////////
     super.initState();
-sayfaYuklendiMi = false;
+sayfaYuklendiMi = true;
 
- WidgetsBinding.instance
-        .addPostFrameCallback((_) => loaded(context));
-setState(() {
+//  WidgetsBinding.instance
+//         .addPostFrameCallback((_) => loaded(context));
+// setState(() {
   
-});
+// });
     currentStore().then((result) {
             // If we need to rebuild the widget with the resulting data,
             // make sure to use `setState`
@@ -87,13 +91,13 @@ Future<void> executeAfterBuild() async {
     return new Scaffold(
       resizeToAvoidBottomPadding: false,
       //key: scaffoldState,
-//       appBar: AppBar(title: Text(applicationManager.currentLanguage.geturunPerformansAnaliz),actions: <Widget>[
+      appBar: AppBar(title: Text(applicationManager.currentLanguage.geturunPerformansAnaliz),actions: <Widget>[
 
-//         new IconButton(
-//   icon: new Icon(currentPageStyleIcon.icon, color: Colors.white,size: 30, ),
-//   onPressed: () => changePageStyle(),
-// )
-//       ],),
+        new IconButton(
+  icon: new Icon(currentPageStyleIcon.icon, color: Colors.white,size: 30, ),
+  onPressed: () => changePageStyle(),
+)
+      ],),
       //drawer: DrawerOnly.leftSideMenuDiz(LcwAssistPageDrawerNumberConst.satis,context),
       backgroundColor: LcwAssistColor.backGroundColor,
       body: sayfaYuklendiMi == true ? (currentPageStyle == true ? storeReportPageBody() : ekranYerlesim()) : Container(child: Text(''),),//sayfaYuklendiMi == true ? ekranYerlesim() : Container(child: Text(''),),
@@ -110,28 +114,56 @@ Widget storeReportPageBody(){
 return 
 new Column(
   children: <Widget>[
-    Expanded(flex: 3,child: Card(child: Column(
+    Card(child: Column(
+        mainAxisSize: MainAxisSize.max,
+    crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         magazaCardDetay2()
       ],
-    )),),
-    Expanded(flex: 10,child: 
+    )),
+    Expanded(child: 
       SingleChildScrollView(
                 child:
 Column(children: <Widget>[
-LcwAssistCustomWidgets.satir(Color.fromRGBO(54,163,247, 1.0),  applicationManager.currentLanguage.getkumulatifSatisTutar,productMetricsResponse.productPerformansResultDTO.kumulatifSatisTutar,false),
+
+new GestureDetector(
+  onTap:() =>detayaGit(ProductPerformansDetailType.salesDetail),
+  child:
+LcwAssistCustomWidgets.satir(Color.fromRGBO(54,163,247, 1.0),  applicationManager.currentLanguage.getkumulatifSatisTutar,productMetricsResponse.productPerformansResultDTO.kumulatifSatisTutar,true)),
+
 LcwAssistCustomWidgets.satir(Color.fromRGBO(0,116,198, 1.0),   applicationManager.currentLanguage.getortalamaPSF,productMetricsResponse.productPerformansResultDTO.ortalamaPSF,false),
-LcwAssistCustomWidgets.satir(Color.fromRGBO(239,138,14, 1.0),  applicationManager.currentLanguage.getkumulatifSatisAdet,productMetricsResponse.productPerformansResultDTO.kumulatifSatisAdet,false),
-LcwAssistCustomWidgets.satir(Color.fromRGBO(100,105,188, 1.0), applicationManager.currentLanguage.getkumulatifSevkAdet,productMetricsResponse.productPerformansResultDTO.kumulatifSevkAdet,false),
-LcwAssistCustomWidgets.satir(Color.fromRGBO(196,66,88, 1.0),   applicationManager.currentLanguage.getstr,productMetricsResponse.productPerformansResultDTO.str,false),
+new GestureDetector(
+  onTap:() =>detayaGit(ProductPerformansDetailType.salesDetail),
+  child:
+LcwAssistCustomWidgets.satir(Color.fromRGBO(239,138,14, 1.0),  applicationManager.currentLanguage.getkumulatifSatisAdet,productMetricsResponse.productPerformansResultDTO.kumulatifSatisAdet,true),),
+new GestureDetector(
+  onTap:() =>detayaGit(ProductPerformansDetailType.salesDetail),
+  child:
+LcwAssistCustomWidgets.satir(Color.fromRGBO(100,105,188, 1.0), applicationManager.currentLanguage.getkumulatifSevkAdet,productMetricsResponse.productPerformansResultDTO.kumulatifSevkAdet,true),),
+new GestureDetector(
+  onTap:() =>detayaGit(ProductPerformansDetailType.salesDetail),
+  child:
+LcwAssistCustomWidgets.satir(Color.fromRGBO(196,66,88, 1.0),   applicationManager.currentLanguage.getstr,productMetricsResponse.productPerformansResultDTO.str,true),),
 LcwAssistCustomWidgets.satir(Color.fromRGBO(38,137,116, 1.0),  applicationManager.currentLanguage.getilkPSF,productMetricsResponse.productPerformansResultDTO.ilkPesinFiyat,false),
 LcwAssistCustomWidgets.satir(Color.fromRGBO(0,162,181, 1.0),   applicationManager.currentLanguage.getindirimOrani,productMetricsResponse.productPerformansResultDTO.indirimOrani,false),
 LcwAssistCustomWidgets.satir(Color.fromRGBO(54,163,247, 1.0),  applicationManager.currentLanguage.getsonPSF,productMetricsResponse.productPerformansResultDTO.sonPesitFiyat,false),
-LcwAssistCustomWidgets.satir(Color.fromRGBO(0,116,198, 1.0),   applicationManager.currentLanguage.getreyonStokAdet,productMetricsResponse.productPerformansResultDTO.reyonStok,false),
-LcwAssistCustomWidgets.satir(Color.fromRGBO(239,138,14, 1.0),  applicationManager.currentLanguage.getdepoStokAdet,productMetricsResponse.productPerformansResultDTO.depoStok,false),
-LcwAssistCustomWidgets.satir(Color.fromRGBO(100,105,188, 1.0), applicationManager.currentLanguage.getson7gunSatisAdet,productMetricsResponse.productPerformansResultDTO.son7GunSatisAdet,false),
+new GestureDetector(
+  onTap:() =>detayaGit(ProductPerformansDetailType.stockDetail),
+  child:
+LcwAssistCustomWidgets.satir(Color.fromRGBO(0,116,198, 1.0),   applicationManager.currentLanguage.getreyonStokAdet,productMetricsResponse.productPerformansResultDTO.reyonStok,true),),
+new GestureDetector(
+  onTap:() =>detayaGit(ProductPerformansDetailType.stockDetail),
+  child:
+LcwAssistCustomWidgets.satir(Color.fromRGBO(239,138,14, 1.0),  applicationManager.currentLanguage.getdepoStokAdet,productMetricsResponse.productPerformansResultDTO.depoStok,true),),
+new GestureDetector(
+  onTap:() =>detayaGit(ProductPerformansDetailType.stockDetail),
+  child:
+LcwAssistCustomWidgets.satir(Color.fromRGBO(100,105,188, 1.0), applicationManager.currentLanguage.getson7gunSatisAdet,productMetricsResponse.productPerformansResultDTO.son7GunSatisAdet,true),),
 LcwAssistCustomWidgets.satir(Color.fromRGBO(196,66,88, 1.0),   applicationManager.currentLanguage.getfiiliCover,productMetricsResponse.productPerformansResultDTO.fiiliCover,false),
-LcwAssistCustomWidgets.satir(Color.fromRGBO(38,137,116, 1.0),  applicationManager.currentLanguage.getyolStokAdet,productMetricsResponse.productPerformansResultDTO.yolStok,false),
+new GestureDetector(
+  onTap:() =>detayaGit(ProductPerformansDetailType.stockDetail),
+  child:
+LcwAssistCustomWidgets.satir(Color.fromRGBO(38,137,116, 1.0),  applicationManager.currentLanguage.getyolStokAdet,productMetricsResponse.productPerformansResultDTO.yolStok,true),),
 LcwAssistCustomWidgets.satir(Color.fromRGBO(0,162,181, 1.0),   applicationManager.currentLanguage.getonayliOnyasizRezerveAdet,productMetricsResponse.productPerformansResultDTO.onayliOnaysizRezerve,false),
 LcwAssistCustomWidgets.satir(Color.fromRGBO(54,163,247, 1.0),  applicationManager.currentLanguage.getmerkezDepoStok,productMetricsResponse.productPerformansResultDTO.merkezDepoStokAdet,false),
 LcwAssistCustomWidgets.satir(Color.fromRGBO(0,116,198, 1.0),   applicationManager.currentLanguage.getbulunurluk,productMetricsResponse.productPerformansResultDTO.bulunurluk,false),
@@ -232,6 +264,7 @@ child:
 
   );
 }
+
 Widget magazaCardDetay2(){
   return 
      Padding(
@@ -638,4 +671,31 @@ changePageStyle(){
     });
 }
 
+void detayaGit(ProductPerformansDetailType type) async{
+
+    // var route = new MaterialPageRoute(
+    //         builder: (BuildContext context) => ProductPerformanceDetailMetric()
+    //       );
+
+    // Navigator.of(context).push(route);
+
+
+ 
+//     await 
+// Navigator.of(context).push(new MaterialPageRoute<Null>(
+//       builder: (BuildContext context) {
+//         return new ProductPerformanceDetailMetric();//(storesResponse:this.raporFilterList,capacityParameter:this.capacityParameter);
+//       },
+//     fullscreenDialog: true
+//   ));
+
+
+  Navigator.of(context).push(new MaterialPageRoute<Null>(
+      builder: (BuildContext context) {
+        return new ProductPerformanceDetailMetric(productMetricsResponse: productMetricsResponse,applicationManager: applicationManager,productPerformansDetailType:type);
+      },
+    fullscreenDialog: true
+  ));
+
+}
 }

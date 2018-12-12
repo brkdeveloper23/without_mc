@@ -137,7 +137,7 @@ setState(() {});
 //HomeFeedBack
     switch (pos) {
       case 0:
-        return new ProductPerformanceDetailMetric();//HomeFeedBack();
+        return new HomeFeedBack();
       case 1:
         return new CapacityAnalysisPage();
       case 2:
@@ -181,6 +181,9 @@ return;
     for (var i = 0; i < drawerItems.length; i++) {
       var d = drawerItems[i];
       drawerOptions.add(
+        GestureDetector(
+  onTap: (){_onSelectItem(i);},
+child:
 Container(
       decoration:  BoxDecoration(
          border:  Border(
@@ -188,12 +191,13 @@ Container(
     )),
     child: 
 
-GestureDetector(
-  onTap: (){_onSelectItem(i);},
-child:
-Row(children: <Widget>[
+
+Row(
+  mainAxisSize: MainAxisSize.max,
+  mainAxisAlignment: MainAxisAlignment.start,
+  children: <Widget>[
   Padding(padding: EdgeInsets.fromLTRB(10, 10, 5, 10),child: Icon(d.icon,color: Colors.white,size: 26.0,),),
-  Padding(padding: EdgeInsets.fromLTRB(5, 10, 5, 10),child: new Text(d.title,style: TextStyle(color: Colors.white,fontSize: 18.0,fontFamily: LcwAssistTextStyle.currentTextFontFamily),),),
+  Padding(padding: EdgeInsets.fromLTRB(5, 10, 5, 10),child: new Text(d.title+'',style: TextStyle(color: Colors.white,fontSize: 18.0,fontFamily: LcwAssistTextStyle.currentTextFontFamily),),),
 ],)
 )
   // new ListTile(

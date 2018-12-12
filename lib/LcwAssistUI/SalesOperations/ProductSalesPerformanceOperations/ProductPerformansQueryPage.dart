@@ -60,7 +60,7 @@ super.initState();
  WidgetsBinding.instance
         .addPostFrameCallback((_) => loaded(context));
 
-controllerBarcode.text = '8681363515268';
+controllerBarcode.text = '8681367994069';
 //controllerModelCode.text = '8SJ450Z1';
 //controllerColorCode.text = 'JPX';
 
@@ -145,7 +145,8 @@ ProductMetricsResponse result = await ProductSalesPerformanceService.productSale
  //LcwAssistSnackBarDialogInfo(result.product.modelKod,scaffoldState,LcwAssistSnagitType.info).snackbarShow();
 
  var route = new MaterialPageRoute(
-            builder: (BuildContext context) => ProductPerformansMetricsOperations(productMetricsResponse: result)
+            builder: (BuildContext context) => ProductPerformansMetricsOperations(productMetricsResponse: result,
+            applicationManager: this.applicationManager)
           );
 
           Navigator.of(context).push(route);
@@ -167,9 +168,9 @@ this.productMetricsRequest.setColorCode = controllerColorCode.text;
 this.productMetricsRequest.setColorCode = '';
 }
 
-this.productMetricsRequest.setStoreCode = '';
+this.productMetricsRequest.setStoreCode = selectedStore.storeCode.toString();
 this.productMetricsRequest.setStoreRef = selectedStore.depoRef.toString();//'671';
-this.productMetricsRequest.setCountryRef = selectedStore.countryRef.toString();
+this.productMetricsRequest.setCountryRef = selectedStore.countryRef.toString() == "0" ? "48" : selectedStore.countryRef.toString();
 return this.productMetricsRequest;
 }
 

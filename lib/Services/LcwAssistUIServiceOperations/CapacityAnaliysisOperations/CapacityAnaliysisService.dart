@@ -54,7 +54,7 @@ CapacityAnalysisMetricsFilterDTO result;
 if (response.statusCode == 200) {
     // If the call to the server was successful, parse the JSON
      result = CapacityAnalysisMetricsFilterDTO.fromJson(json.decode(response.body));
-    
+     
      return result;
 }
 

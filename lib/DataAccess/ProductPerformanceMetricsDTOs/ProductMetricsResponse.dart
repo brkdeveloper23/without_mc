@@ -17,13 +17,20 @@ class ProductMetricsResponse {
   final bool isAuthorized;
   final List<ProductOptionMetrics> optionMetrics;
   final ProductPerformansResultDTO productPerformansResultDTO;
+  final List<ProductSalesMetricsModel> satisMetriclerDetay;
+  final List<ProductStockMetricsModel> stokMetricDetay;
+
   ProductMetricsResponse({this.product,this.depoRef,this.modelRef,this.renkRef,this.ulkeRef,this.ilkPesinFiyat,this.sonPesinFiyat,this.bulunurluk,this.derinlik
-  ,this.rafOmru,this.urunOptionSizeRef,this.merchAltGrupRef,this.optionMetrics,this.errorMessage,this.isSuccess,this.isAuthorized,this.productPerformansResultDTO});
+  ,this.rafOmru,this.urunOptionSizeRef,this.merchAltGrupRef,this.optionMetrics,
+  this.errorMessage,this.isSuccess,this.isAuthorized,this.productPerformansResultDTO,this.satisMetriclerDetay,this.stokMetricDetay});
   
 factory ProductMetricsResponse.fromJson(Map<String, dynamic> json1) {
 
 var productList = json1['product'];
 var optionMetrics = json1['optionMetrics'] as List;
+
+var satisMetriclerDetay = json1['satisMetriclerDetay'] as List;
+var stokMetricDetay = json1['stokMetricDetay'] as List;
 
   return ProductMetricsResponse(
      //product: productList.map((i) => Product.fromJson(i)),
@@ -43,7 +50,9 @@ var optionMetrics = json1['optionMetrics'] as List;
      isSuccess: json1['isSuccess'],
      isAuthorized: json1['isAuthorized'],
      optionMetrics: optionMetrics.map((i) => ProductOptionMetrics.fromJson(i)).toList(),//optionMetrics.map((i) => ProductOptionMetrics.fromJson(i)).toList()
-     productPerformansResultDTO: ProductPerformansResultDTO.fromJson(json1['productPerformansResultDTO'])
+     productPerformansResultDTO: ProductPerformansResultDTO.fromJson(json1['productPerformansResultDTO']),
+     satisMetriclerDetay: satisMetriclerDetay.map((i) => ProductSalesMetricsModel.fromJson(i)).toList(),
+     stokMetricDetay: stokMetricDetay.map((i) => ProductStockMetricsModel.fromJson(i)).toList()
   );
 }
 
@@ -303,3 +312,57 @@ factory ProductPerformansResultDTO.fromJson(Map<String, dynamic> json) {
 
 
 }
+
+    class ProductSalesMetricsModel 
+    {
+        final String beden;
+        final double kumulatifSatisTutar;
+        final int kumulatifSatisAdet;
+        final int kumulatifSevkAdet;
+        final String sTR;
+        final int merkezDepoStokAdet;
+
+
+ProductSalesMetricsModel({this.beden,this.kumulatifSatisTutar,this.kumulatifSatisAdet
+,this.kumulatifSevkAdet,this.sTR,this.merkezDepoStokAdet});
+        
+factory ProductSalesMetricsModel.fromJson(Map<String, dynamic> json) {
+  return ProductSalesMetricsModel(
+    beden: json['beden'],
+    kumulatifSatisTutar: json['kumulatifSatisTutar'],
+    kumulatifSatisAdet: json['kumulatifSatisAdet'],
+    kumulatifSevkAdet: json['kumulatifSevkAdet'],
+    sTR: json['str'],
+    merkezDepoStokAdet: json['merkezDepoStokAdet']
+  );
+    }
+
+
+    }
+
+        class ProductStockMetricsModel 
+    {
+        final String beden;
+        final int reyonStok;
+        final int depoStok;
+        final int yolStok;
+        final String onayliOnaysizRezerve;
+        final int son7GunSatis;
+
+
+ProductStockMetricsModel({this.beden,this.reyonStok,this.depoStok
+,this.yolStok,this.onayliOnaysizRezerve,this.son7GunSatis});
+        
+factory ProductStockMetricsModel.fromJson(Map<String, dynamic> json) {
+  return ProductStockMetricsModel(
+    beden: json['beden'],
+    reyonStok: json['reyonStok'],
+    depoStok: json['depoStok'],
+    yolStok: json['yolStok'],
+    onayliOnaysizRezerve: json['onaylıOnaysızRezerve'],
+    son7GunSatis: json['son7GunSatis']
+  );
+    }
+
+
+    }

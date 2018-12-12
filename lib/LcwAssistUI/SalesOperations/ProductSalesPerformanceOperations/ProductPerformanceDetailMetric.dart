@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lcwassist/Core/Abstracts/IsLcwAssistUIPage.dart';
+import 'package:lcwassist/Core/BaseConst/LcwAssistEnumType.dart';
 import 'package:lcwassist/Core/BaseConst/LcwAssistPageDrawerNumberConst.dart';
 import 'package:lcwassist/DataAccess/ProductPerformanceMetricsDTOs/UcluCardTextDTO.dart';
 import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreChooseListViewDTO.dart';
@@ -21,16 +22,19 @@ void main(){
 class ProductPerformanceDetailMetric extends StatefulWidget {
 
 final ProductMetricsResponse productMetricsResponse;
-ProductPerformanceDetailMetric({Key key, @required this.productMetricsResponse}) : super(key: key);
+final LcwAssistApplicationManager applicationManager;
+final ProductPerformansDetailType productPerformansDetailType;
+ProductPerformanceDetailMetric({Key key, @required this.productMetricsResponse,@required this.applicationManager,@required this.productPerformansDetailType}) : super(key: key);
 
 
   @override
-  ProductPerformanceDetailMetricState createState() => new ProductPerformanceDetailMetricState(productMetricsResponse: productMetricsResponse);
+  ProductPerformanceDetailMetricState createState() => new ProductPerformanceDetailMetricState(productMetricsResponse: productMetricsResponse,applicationManager:applicationManager,productPerformansDetailType:productPerformansDetailType);
 }
 class ProductPerformanceDetailMetricState extends State<ProductPerformanceDetailMetric> with TickerProviderStateMixin implements IsLcwAssistUIPage{
 
 final ProductMetricsResponse productMetricsResponse;
-  ProductPerformanceDetailMetricState({Key key, @required this.productMetricsResponse});
+final ProductPerformansDetailType productPerformansDetailType;
+  ProductPerformanceDetailMetricState({Key key, @required this.productMetricsResponse,@required this.applicationManager,@required this.productPerformansDetailType});
 
 LcwAssistApplicationManager applicationManager = new LcwAssistApplicationManager();
 
@@ -43,18 +47,17 @@ bool sayfaYuklendiMi = false;
 @override
 void initState() {
     super.initState();
-sayfaYuklendiMi = false;
+sayfaYuklendiMi = true;
 
  WidgetsBinding.instance
         .addPostFrameCallback((_) => loaded(context));
+        setState(() {
+                  
+                });
   }
 
 
   Future loaded(BuildContext context) async{
-
-    currentPageStyle = true;
-
-    applicationManager.setCurrentLanguage = await applicationManager.languagesService.currentLanguage();
     sayfaYuklendiMi = true;
 }
 
@@ -72,6 +75,10 @@ Future<void> executeAfterBuild() async {
 
       // ],),
       //drawer: DrawerOnly.leftSideMenuDiz(LcwAssistPageDrawerNumberConst.satis,context),
+      appBar: new AppBar(
+        title:  sayfaYuklendiMi == true ? Text(applicationManager.currentLanguage.getdetaylar) :  Text(''),
+     
+      ),
       backgroundColor: LcwAssistColor.backGroundColor,
       body: storeReportPageBody()//sayfaYuklendiMi == true ? (currentPageStyle == true ? storeReportPageBody() : ekranYerlesim()) : Container(child: Text(''),),//
     );
@@ -102,54 +109,6 @@ new Column(
   children: <Widget>[
     Card(child:
     Padding(padding: EdgeInsets.fromLTRB(10, 10, 10, 10),child:
-// DataTable(
-//   columns: <DataColumn>[
-//     DataColumn(
-//       label: Text('Beden'),
-//       numeric: false,
-//       onSort: (i, b){},
-//       tooltip: ""
-//       ),
-//       DataColumn(
-//       label: Text('Küm.Satış Tutar'),
-//       numeric: false,
-//       onSort: (i, b){},
-//       tooltip: ""
-//       ),
-//       DataColumn(
-//       label: Text('Küm.Satış Adet'),
-//       numeric: false,
-//       onSort: (i, b){},
-//       tooltip: ""
-//       ),
-//       DataColumn(
-//       label: Text('? STR'),
-//       numeric: false,
-//       onSort: (i, b){},
-//       tooltip: ""
-//       ),
-//       DataColumn(
-//       label: Text('Merkez Depo Stok Adet'),
-//       numeric: false,
-//       onSort: (i, b){},
-//       tooltip: ""
-//       ),
-//   ],
-//   rows: <DataRow>[
-//     DataRow(
-//       cells: <DataCell>[
-//         DataCell(Text('')),
-//         DataCell(Text('')),
-//         DataCell(Text('')),
-//         DataCell(Text('')),
-//         DataCell(Text(''))
-//       ]
-//     ),
-//   ],
-// )
-//     )
-
-
     Table(
       //defaultVerticalAlignment: TableCellVerticalAlignment.bottom, 
       children:
@@ -240,6 +199,27 @@ children: [
 
 List<Widget> gridRows(){
 
+List<String> kolonlar = productPerformansDetailType ==ProductPerformansDetailType.salesDetail ? 
+[
+  this.applicationManager.currentLanguage.getbeden,
+  this.applicationManager.currentLanguage.getkumulatifSatisTutar,
+  this.applicationManager.currentLanguage.getkumulatifSatisAdet,
+  this.applicationManager.currentLanguage.getkumulatifSevkAdet,
+  this.applicationManager.currentLanguage.getstr,
+  this.applicationManager.currentLanguage.getmerkezDepoStok,
+  ]
+ : 
+[
+  this.applicationManager.currentLanguage.getbeden,
+  this.applicationManager.currentLanguage.getreyonStokAdet,
+  this.applicationManager.currentLanguage.getdepoStokAdet,
+  this.applicationManager.currentLanguage.getyolStokAdet,
+  this.applicationManager.currentLanguage.getonayliOnyasizRezerveAdet,
+  this.applicationManager.currentLanguage.getson7gunSatisAdet,
+];
+
+
+
 List<Widget> rows = [];
 
 //HEADER
@@ -252,80 +232,133 @@ rows.add(
       children: <Widget>[
 Expanded(flex: 1,child: 
         Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),child: 
-        Text('Beden',style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,
-        fontFamily: LcwAssistTextStyle.currentTextFontFamily),),)
+        Text(kolonlar[0],style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,
+        fontFamily: LcwAssistTextStyle.currentTextFontFamily),textAlign: TextAlign.center,),)
       ,),
 Expanded(flex: 1,child: 
         Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),child: 
-        Text('Küm.Satış Tutar',style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,
-        fontFamily: LcwAssistTextStyle.currentTextFontFamily),),)
+        Text(kolonlar[1],style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,
+        fontFamily: LcwAssistTextStyle.currentTextFontFamily),textAlign: TextAlign.center,),)
       ,),
       Expanded(flex: 1,child: 
         Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),child: 
-        Text('Küm.Satış Adet',style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,
-        fontFamily: LcwAssistTextStyle.currentTextFontFamily),),)
+        Text(kolonlar[2],style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,
+        fontFamily: LcwAssistTextStyle.currentTextFontFamily),textAlign: TextAlign.center,),)
       ,),
       Expanded(flex: 1,child: 
         Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),child: 
-        Text('Küm.Sevk Adet',style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,
-        fontFamily: LcwAssistTextStyle.currentTextFontFamily),),)
+        Text(kolonlar[3],style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,
+        fontFamily: LcwAssistTextStyle.currentTextFontFamily),textAlign: TextAlign.center,),)
       ,),
       Expanded(flex: 1,child: 
         Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),child: 
-        Text('? STR',style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,
-        fontFamily: LcwAssistTextStyle.currentTextFontFamily),),)
+        Text(kolonlar[4],style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,
+        fontFamily: LcwAssistTextStyle.currentTextFontFamily),textAlign: TextAlign.center,),)
       ,),
       Expanded(flex: 1,child: 
         Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),child: 
-        Text('Merkez Depo Stok Adet',style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,
-        fontFamily: LcwAssistTextStyle.currentTextFontFamily),),)
+        Text(kolonlar[5],style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,
+        fontFamily: LcwAssistTextStyle.currentTextFontFamily),textAlign: TextAlign.center,),)
       ,)
     ])),
   
 );
-
-for (var i = 0; i < 10; i++) {
+//productMetricsResponse
+if(productPerformansDetailType == ProductPerformansDetailType.salesDetail){
+//for (var i = 0; i < 10; i++) {
+  int count = 0;
+  for (var i in  productMetricsResponse.satisMetriclerDetay) {
   rows.add(
-
   Container(
   padding: EdgeInsets.all(5.0),
-  color: i % 2 == 0 ? Color.fromRGBO(255,255,255, 1.0) : Color.fromRGBO(247,251,255,1.0)//(250,248,252, 1.0)
+  color: count % 2 == 0 ? Color.fromRGBO(255,255,255, 1.0) : Color.fromRGBO(240,249,255,1.0)//Color.fromRGBO(247,251,255,1.0)//(250,248,252, 1.0)
   ,child:
   Row(
       children: <Widget>[
 Expanded(flex: 1,child: 
-        Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),child: 
-        Text('Beden',style: TextStyle(color: LcwAssistColor.reportCardSubHeaderColor,
-        fontFamily: LcwAssistTextStyle.currentTextFontFamily),),)
+        Padding(padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),child: 
+        Text(i.beden.toString(),style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,
+        fontFamily: LcwAssistTextStyle.currentTextFontFamily),textAlign: TextAlign.center),)
       ,),
 Expanded(flex: 1,child: 
-        Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),child: 
-        Text('Küm.Satış Tutar',style: TextStyle(color: LcwAssistColor.reportCardSubHeaderColor,
-        fontFamily: LcwAssistTextStyle.currentTextFontFamily),),)
+        Padding(padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),child: 
+        Text(i.kumulatifSatisTutar.toString() ?? "",style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,
+        fontFamily: LcwAssistTextStyle.currentTextFontFamily),textAlign: TextAlign.center,),)
       ,),
       Expanded(flex: 1,child: 
-        Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),child: 
-        Text('Küm.Satış Tutar',style: TextStyle(color: LcwAssistColor.reportCardSubHeaderColor,
-        fontFamily: LcwAssistTextStyle.currentTextFontFamily),),)
+        Padding(padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),child: 
+        Text(i.kumulatifSatisAdet.toString() ?? "",style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,
+        fontFamily: LcwAssistTextStyle.currentTextFontFamily),textAlign: TextAlign.center),)
       ,),
       Expanded(flex: 1,child: 
-        Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),child: 
-        Text('Küm.Satış Tutar',style: TextStyle(color: LcwAssistColor.reportCardSubHeaderColor,
-        fontFamily: LcwAssistTextStyle.currentTextFontFamily),),)
+        Padding(padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),child: 
+        Text(i.kumulatifSevkAdet.toString() ?? "",style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,
+        fontFamily: LcwAssistTextStyle.currentTextFontFamily),textAlign: TextAlign.center),)
       ,),
       Expanded(flex: 1,child: 
-        Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),child: 
-        Text('? STR',style: TextStyle(color: LcwAssistColor.reportCardSubHeaderColor,
-        fontFamily: LcwAssistTextStyle.currentTextFontFamily),),)
+        Padding(padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),child: 
+        Text(i.sTR.toString() ?? "",style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,
+        fontFamily: LcwAssistTextStyle.currentTextFontFamily),textAlign: TextAlign.center),)
       ,),
       Expanded(flex: 1,child: 
-        Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),child: 
-        Text('Merkez Depo Stok Adet',style: TextStyle(color: LcwAssistColor.reportCardSubHeaderColor,
-        fontFamily: LcwAssistTextStyle.currentTextFontFamily),),)
+        Padding(padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),child: 
+        Text(i.merkezDepoStokAdet.toString() ?? "",style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,
+        fontFamily: LcwAssistTextStyle.currentTextFontFamily),textAlign: TextAlign.center),)
       ,)
     ]))
 
   );
+count++;
+}
+}else if(productPerformansDetailType == ProductPerformansDetailType.stockDetail){
+
+int count = 0;
+for (var i in  productMetricsResponse.stokMetricDetay) {
+  rows.add(
+
+  Container(
+  padding: EdgeInsets.all(5.0),
+  color: count % 2 == 0 ? Color.fromRGBO(255,255,255, 1.0) : Color.fromRGBO(240,249,255,1.0)//Color.fromRGBO(247,251,255,1.0)//(250,248,252, 1.0)
+  ,child:
+  Row(
+      children: <Widget>[
+Expanded(flex: 1,child: 
+        Padding(padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),child: 
+        Text(i.beden.toString(),style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,
+        fontFamily: LcwAssistTextStyle.currentTextFontFamily),textAlign: TextAlign.center),)
+      ,),
+Expanded(flex: 1,child: 
+        Padding(padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),child: 
+        Text(i.reyonStok.toString() ?? "",style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,
+        fontFamily: LcwAssistTextStyle.currentTextFontFamily),textAlign: TextAlign.center),)
+      ,),
+      Expanded(flex: 1,child: 
+        Padding(padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),child: 
+        Text(i.depoStok.toString() ?? "",style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,
+        fontFamily: LcwAssistTextStyle.currentTextFontFamily),textAlign: TextAlign.center),)
+      ,),
+      Expanded(flex: 1,child: 
+        Padding(padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),child: 
+        Text(i.yolStok.toString() ?? "",style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,
+        fontFamily: LcwAssistTextStyle.currentTextFontFamily),textAlign: TextAlign.center),)
+      ,),
+      Expanded(flex: 1,child: 
+        Padding(padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),child: 
+        Text(i.onayliOnaysizRezerve,style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,
+        fontFamily: LcwAssistTextStyle.currentTextFontFamily),textAlign: TextAlign.center),)
+      ,),
+      Expanded(flex: 1,child: 
+        Padding(padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),child: 
+        Text(i.son7GunSatis.toString() ?? "",style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,
+        fontFamily: LcwAssistTextStyle.currentTextFontFamily),textAlign: TextAlign.center),)
+      ,)
+    ]))
+
+  );
+  count++;
+}
+
+
 }
 return rows;
 }

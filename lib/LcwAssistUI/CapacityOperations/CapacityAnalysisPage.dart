@@ -165,7 +165,7 @@ new GestureDetector(
   onTap:() =>detayaGit(),
   child:
 LcwAssistCustomWidgets.satir(Color.fromRGBO(54,163,247, 1.0),
- applicationManager.currentLanguage.gettoplamFiiliDolulukBDHaric,raporResult.toplamFiiliDolulukLCM,true)),
+ applicationManager.currentLanguage.gettoplamFiiliDolulukBDHaric,raporResult.toplamFiiliDolulukLCM,false)),
 LcwAssistCustomWidgets.satir(Color.fromRGBO(0,116,198, 1.0),  applicationManager.currentLanguage.getnetNihaiLCMDoluluk,raporResult.netNihaiLCMDoluluk,false),
 LcwAssistCustomWidgets.satir(Color.fromRGBO(239,138,14, 1.0), applicationManager.currentLanguage.getreyonDolulukLCM,raporResult.reyonDolulukLCM,false),
 LcwAssistCustomWidgets.satir(Color.fromRGBO(100,105,188, 1.0),applicationManager.currentLanguage.getdepoDolulukLCM,raporResult.depoDolulukLCM,false),

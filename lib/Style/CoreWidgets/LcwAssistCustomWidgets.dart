@@ -431,14 +431,14 @@ return Padding(
 
         direction: Axis.horizontal,
         children: <Widget>[
-        Text(masterText,style: TextStyle(fontSize: 15.0,fontFamily: 'Ubuntu',
+        Text(masterText,style: TextStyle(fontSize: 17.0,fontFamily: 'Ubuntu',
         decoration: hasDetail ? TextDecoration.underline : null,
         color: hasDetail ? LcwAssistColor.linkColor : LcwAssistColor.reportCardHeaderColor),
         )
       ,hasDetail ? Icon(OMIcons.touchApp,size: 16.0,color: LcwAssistColor.linkColor,) : Text('')
       ],)
       ,Padding(padding: EdgeInsets.fromLTRB(10, 5, 10, 5),)
-      ,Text(subText,style: TextStyle(fontSize: 17.0,fontFamily: 'Ubuntu',color: LcwAssistColor.reportCardSubHeaderColor))
+      ,Text(subText,style: TextStyle(fontSize: 19.0,fontFamily: 'Ubuntu',color: LcwAssistColor.reportCardSubHeaderColor))
                               
     ],
   ),

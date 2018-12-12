@@ -10,3 +10,6 @@ enum LcwAssistDialogType {
 enum ProductMetricsResponseType {
   writeBarcode,writeModelAndColor,scanBarcode
 }
+enum ProductPerformansDetailType {
+  stockDetail,salesDetail
+}

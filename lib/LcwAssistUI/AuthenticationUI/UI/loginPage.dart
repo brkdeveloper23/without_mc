@@ -165,9 +165,8 @@ if(!resultInternet)
 
 return;
 
-setState(() {
-
 LcwAssistLoading.showAlert(context,applicationManager.currentLanguage.getyukleniyor);
+setState(() {
 
 });
 
