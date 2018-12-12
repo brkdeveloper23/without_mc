@@ -79,9 +79,19 @@ LoginPageEntryResponseDTO currentUserResult;
 
   var drawerItems;
 
+_onLayoutDone(_) {
+       //your logic here
+//Scaffold.of(context).openDrawer();
+//Sayfa buil edilmeden önce
+
+    }
+
+
   @override
   void initState() {
+    WidgetsBinding.instance.addPostFrameCallback(_onLayoutDone);
 super.initState();
+
  WidgetsBinding.instance
         .addPostFrameCallback((_) => loadPage(context));
 
@@ -98,10 +108,11 @@ currentStore().then((result) {
     loadPage(BuildContext context) async
     
     {
-//await applicationManager.onReadyLanguage;
 
 storeResponse = await storeChooseService.getCurrentStore();
 applicationManager.setCurrentLanguage = await applicationManager.languagesService.currentLanguage();
+
+//scaffoldState.currentState.openDrawer();
   }
 
 
@@ -127,6 +138,7 @@ drawerItems = [
   ];
 
 setState(() {});
+
 }
 
   _getDrawerItemWidget(int pos) {
@@ -177,6 +189,7 @@ return;
   @override
   Widget build(BuildContext context) {
     executeAfterBuild();
+    
     List<Widget> drawerOptions = [];
     for (var i = 0; i < drawerItems.length; i++) {
       var d = drawerItems[i];
@@ -208,13 +221,17 @@ Row(
 
       ));
     }
+
+    
     return new Scaffold(
+
       appBar: new AppBar(
         title: new Text(drawerItems[_selectedDrawerIndex].title,
         style: TextStyle(fontFamily: LcwAssistTextStyle.currentTextFontFamily),),
       ),
       key: scaffoldState,
       drawer: new Drawer(
+        
         child: Container(
 decoration: new BoxDecoration(
           image: new DecorationImage(

@@ -165,7 +165,7 @@ if(!resultInternet)
 
 return;
 
-LcwAssistLoading.showAlert(context,applicationManager.currentLanguage.getyukleniyor);
+//LcwAssistLoading.showAlert(context,applicationManager.currentLanguage.getyukleniyor);
 setState(() {
 
 });
@@ -208,13 +208,21 @@ Navigator.pop(context);
 
 });
 
+// var route = new MaterialPageRoute(
+
+// builder: (BuildContext context) => HomePage()
+
+// );
+
+//Navigator.of(context).pushReplacement(route);
+
 var route = new MaterialPageRoute(
+            builder: (BuildContext context) => HomePage()
+          );
 
-builder: (BuildContext context) => HomePage()
+   Navigator.of(context).pushReplacement(route);
 
-);
 
-Navigator.of(context).push(route);
 
 }
 

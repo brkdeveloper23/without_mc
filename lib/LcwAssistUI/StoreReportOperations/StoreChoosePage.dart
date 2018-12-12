@@ -48,7 +48,7 @@ TextEditingController controller = new TextEditingController();
 final GlobalKey<ScaffoldState> scaffoldState = new GlobalKey<ScaffoldState>();
 //StoreChooseResponeDTO storesResponse = new StoreChooseResponeDTO();
 List<StoreChooseListViewDTO> storesResponseListView = new List<StoreChooseListViewDTO>();
-List<StoreChooseListViewDTO> storesResponseSearchResult= [];
+List<StoreChooseListViewDTO> storesResponseSearchResult=  new List<StoreChooseListViewDTO>();
 bool sayfaYuklendiMi = false;
 
   @override
@@ -60,7 +60,7 @@ bool sayfaYuklendiMi = false;
         loaded(context)
         );
 
-storesResponseSearchResult = [];
+storesResponseSearchResult = new List<StoreChooseListViewDTO>();
 
 
   }
@@ -132,6 +132,7 @@ sayfaYuklendiMi = true;
                 return  new Card(
                   child: new ListTile(
                     //  storeChooseService  leading: new CircleAvatar(backgroundImage: new NetworkImage(_userDetails[index].profileUrl,),),
+onTap: (){listViewClick(storesResponseSearchResult[i]);},
                     title:
 
                    Row(
@@ -152,9 +153,9 @@ sayfaYuklendiMi = true;
 
                   Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
                   child: //Icon(Icons.star,color: Colors.yellow[800],)
-                  new IconButton(
-  icon: storesResponseSearchResult[i].favorimi ?  Icon(Icons.star, color: Colors.yellow[800],size: 30, ) : Icon(Icons.star_border, color: Colors.grey[700],size: 30, ),
-  onPressed: () => saveFavoriteStore( storesResponseSearchResult[i].storeCode),
+                                    new IconButton(
+  icon: storesResponseSearchResult[i].favorimi ?  Icon(Icons.star, color: Colors.yellow[800],size: 30, ): Icon(Icons.star_border, color: Colors.grey[700],size: 30, ),
+  onPressed: () => saveFavoriteStore(storesResponseSearchResult[i].storeCode),
 )
                   ,)
                    ],)
@@ -217,23 +218,36 @@ sayfaYuklendiMi = true;
 
     await applicationManager.serviceManager.storeChooseService.saveCurrentStore(store);
 
- setState(() {
-  Navigator.pop(context);
- });
+ //setState(() {
+ // Navigator.pop(context);
+ //});
+setState(() {});
       var route = new MaterialPageRoute(
               builder: (BuildContext context) => HomePage()
             );
      Navigator.of(context).push(route);
-     setState(() {});
+     //setState(() {});
   }
 
   onSearchTextChanged(String text) async {
-    storesResponseSearchResult = [];
+    storesResponseSearchResult = new List<StoreChooseListViewDTO>();
+
     if (text.isEmpty) {
+
+  for(final fre in storesResponseListView.where((i) => i.favorimi == true)){
+storesResponseListView.remove(fre);
+if(fre.storeCode == "0")
+storesResponseListView.insert(0, fre);
+else
+storesResponseListView.insert(1, fre);
+  }
+
+
+
       setState(() {});
       return;
     }
-
+ setState(() {});
    storesResponseListView.forEach((userDetail) {
       if (userDetail.storeCode.contains(text.toUpperCase()) || userDetail.storeName.contains(text.toUpperCase()))
         storesResponseSearchResult.add(userDetail);
@@ -262,14 +276,33 @@ if(storesResponseListView.firstWhere((i)=> i.storeCode == storeCode).favorimi ==
  storesResponseListView.firstWhere((i)=> i.storeCode == storeCode).favorimi = true;
 }
 
+
+//Takla atıldı
 if(storesResponseSearchResult.any((i)=> i.storeCode == storeCode)== true){
+
 if(storesResponseSearchResult.firstWhere((i)=> i.storeCode == storeCode).favorimi == true)
+{
  storesResponseSearchResult.firstWhere((i)=> i.storeCode == storeCode).favorimi = false;
+ storesResponseSearchResult.firstWhere((i)=> i.storeCode == storeCode).favorimi = true;
+ storesResponseListView.firstWhere((i)=> i.storeCode == storeCode).favorimi = true;
+}
 else
 if(storesResponseSearchResult.firstWhere((i)=> i.storeCode == storeCode).favorimi == false)
+{
  storesResponseSearchResult.firstWhere((i)=> i.storeCode == storeCode).favorimi = true;
- 
+ storesResponseSearchResult.firstWhere((i)=> i.storeCode == storeCode).favorimi = false;
+ storesResponseListView.firstWhere((i)=> i.storeCode == storeCode).favorimi = false;
 }
+}
+
+// if(storesResponseSearchResult.any((i)=> i.storeCode == storeCode)== true){
+// if(storesResponseSearchResult.firstWhere((i)=> i.storeCode == storeCode).favorimi == true)
+//  storesResponseSearchResult.firstWhere((i)=> i.storeCode == storeCode).favorimi = false;
+// else
+// if(storesResponseSearchResult.firstWhere((i)=> i.storeCode == storeCode).favorimi == false)
+//  storesResponseSearchResult.firstWhere((i)=> i.storeCode == storeCode).favorimi = true;
+ 
+// }
 
 
 setState(() {

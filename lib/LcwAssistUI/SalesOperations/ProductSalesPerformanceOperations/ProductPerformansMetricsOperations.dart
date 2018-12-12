@@ -100,7 +100,7 @@ Future<void> executeAfterBuild() async {
       ],),
       //drawer: DrawerOnly.leftSideMenuDiz(LcwAssistPageDrawerNumberConst.satis,context),
       backgroundColor: LcwAssistColor.backGroundColor,
-      body: sayfaYuklendiMi == true ? (currentPageStyle == true ? storeReportPageBody() : ekranYerlesim()) : Container(child: Text(''),),//sayfaYuklendiMi == true ? ekranYerlesim() : Container(child: Text(''),),
+      body: sayfaYuklendiMi == true ? storeReportPageBody(): Container(child: Text(''),),//(currentPageStyle == true ? storeReportPageBody() : ekranYerlesim()) : Container(child: Text(''),),
       floatingActionButtonLocation: 
       FloatingActionButtonLocation.endDocked,
     floatingActionButton: Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 20.0),child: buildFloatingButtonHasSub(),),//thisFloatActionButton(),
@@ -108,6 +108,7 @@ Future<void> executeAfterBuild() async {
     );
     }
 
+//Expanded(flex: 12,child: Container(color: LcwAssistColor.backGroundColor,child: Padding(padding: EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 0.0),child: buildPageView(),),),),
 
 Widget storeReportPageBody(){
 
@@ -121,6 +122,8 @@ new Column(
         magazaCardDetay2()
       ],
     )),
+
+    currentPageStyle == true ?
     Expanded(child: 
       SingleChildScrollView(
                 child:
@@ -178,6 +181,15 @@ LcwAssistCustomWidgets.satir(Color.fromRGBO(100,105,188, 1.0), applicationManage
 ],)
 
   ),)
+
+:Expanded(child: Container(color: LcwAssistColor.backGroundColor,child: Padding(padding: EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 0.0),child: buildPageView(),),),),
+
+
+
+
+
+
+
   ],
 );
 }
@@ -232,34 +244,6 @@ child:
       ],
     )
       ,
-    
-
-
-
-    // child: Card(
-    //   child: 
-    //   Row(
-    //   children: <Widget>[
-    //     Expanded(flex: 140, child: 
-    //     Padding(child: Image.asset('assets/chart_6.png',fit: BoxFit.cover,),padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),)            
-    //     ),//, fit: BoxFit.cover
-    //     Expanded(flex: 400,child: magazaCardDetay(),),
-    //   ],
-    // )
-    //   ,
-    // ),
-
-
-
-//  decoration:  BoxDecoration(
-//         //borderRadius: BorderRadius.circular(10.0),
-//     border:  Border(
-//       // top:  BorderSide(width: 1.0, color:  Color(0xFFFFFFFFFF)),
-//        left:  BorderSide(width: 6.0, color:  lineColor),
-//       // right:  BorderSide(width: 1.0, color:  Color(0xFFFFFFFFFF)),
-//       //bottom:  BorderSide(width: 3.0, color:  LcwAssistColor.cardLineColor)//Color.fromRGBO(182,0,62, 1.0))
-//     )),
-
 
 
   );
@@ -458,7 +442,7 @@ sayfaBirSatir3.add(new UcluCardTextDTO(applicationManager.currentLanguage.getind
 sayfaBirSatir3.add(new UcluCardTextDTO(applicationManager.currentLanguage.getsonPSF,productMetricsResponse.productPerformansResultDTO.sonPesitFiyat));
 
 List<Widget> sayfa1 = new List<Widget>();
-sayfa1.add(Row (children: <Widget>[Expanded(child :tutarUcluCard(Colors.white,sayfaBirSatir1,true))],));
+sayfa1.add(Row (children: <Widget>[Expanded(child :tutarUcluCard(Color.fromRGBO(54,163,247, 1.0),sayfaBirSatir1,true))],));
 
 
 sayfa1.add(Row (children: <Widget>[

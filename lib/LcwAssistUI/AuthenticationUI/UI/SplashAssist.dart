@@ -284,7 +284,7 @@ var route = new MaterialPageRoute(
             builder: (BuildContext context) => LoginPage()
           );
 
-   Navigator.of(context).push(route);
+   Navigator.of(context).pushReplacement(route);
  }
 
   Future dris() async {
