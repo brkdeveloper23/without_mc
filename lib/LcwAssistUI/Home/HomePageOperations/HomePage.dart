@@ -13,6 +13,7 @@ import 'package:lcwassist/LcwAssistUI/AuthenticationUI/UI/loginPage.dart';
 import 'package:lcwassist/LcwAssistUI/AuthenticationUI/UI/ChartPage.dart';
 import 'package:lcwassist/LcwAssistUI/CapacityOperations/CapacityAnalysisPage.dart';
 import 'package:lcwassist/LcwAssistUI/Home/HomePageOperations/HomeFeedBack.dart';
+import 'package:lcwassist/LcwAssistUI/Home/HomePageOperations/speech_deneme.dart';
 import 'package:lcwassist/LcwAssistUI/SalesOperations/ProductSalesPerformanceOperations/ProductPerformanceDetailMetric.dart';
 import 'package:lcwassist/LcwAssistUI/SalesOperations/ProductSalesPerformanceOperations/ProductPerformansMetricsOperations.dart';
 import 'package:lcwassist/LcwAssistUI/SalesOperations/ProductSalesPerformanceOperations/ProductPerformansQueryPage.dart';
@@ -161,7 +162,7 @@ setState(() {});
         case 5:
         return new ChartPage();
         case 6:
-        return new LcvAssistTema();
+        return new SpeechSayfa();//LcvAssistTema();
 
       default:
         return new Text("Error");

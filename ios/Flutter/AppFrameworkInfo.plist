@@ -22,5 +22,9 @@
   <string>1.0</string>
   <key>MinimumOSVersion</key>
   <string>8.0</string>
+  <key>NSMicrophoneUsageDescription</key>
+  <string>This application needs to access your microphone</string>
+  <key>NSSpeechRecognitionUsageDescription</key>
+  <string>This application needs the speech recognition permission</string>
 </dict>
 </plist>

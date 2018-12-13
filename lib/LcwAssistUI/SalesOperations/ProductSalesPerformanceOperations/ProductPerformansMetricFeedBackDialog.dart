@@ -3,6 +3,7 @@ import 'package:lcwassist/Core/Abstracts/IsLcwAssistUIPage.dart';
 import 'package:lcwassist/LcwAssistBase/LcwAssistApplicationManager.dart';
 import 'package:lcwassist/Style/LcwAssistColor.dart';
 import 'package:lcwassist/Style/LcwAssistTextStyle.dart';
+import 'package:speech_recognition/speech_recognition.dart';
 
 class ProductPerformansMetricFeedBackDialog extends StatefulWidget {
   @override
@@ -13,15 +14,37 @@ class ProductPerformansMetricFeedBackDialogState extends State<ProductPerformans
 
 LcwAssistApplicationManager applicationManager = new LcwAssistApplicationManager();
 bool sayfaYuklendiMi = false;
+SpeechRecognition _speech;
+bool _speechRecognitionAvailable = false;
+bool _isListening = false;
+
+String currencyCode = "en_US";//"tr_TR";
+String transcription = '';
+final _formKey = GlobalKey<FormState>();
+final controllerFeedbackEditText = TextEditingController();
 
 @override
 void initState() {
     super.initState();
-
+activateSpeechRecognizer();
      sayfaYuklendiMi = false;
      WidgetsBinding.instance
         .addPostFrameCallback((_) => loaded(context)); 
 
+  }
+
+
+    void activateSpeechRecognizer() {
+    print('_MyAppState.activateSpeechRecognizer... ');
+    _speech = new SpeechRecognition();
+    _speech.setAvailabilityHandler(onSpeechAvailability);
+    _speech.setCurrentLocaleHandler(onCurrentLocale);
+    _speech.setRecognitionStartedHandler(onRecognitionStarted);
+    _speech.setRecognitionResultHandler(onRecognitionResult);
+    _speech.setRecognitionCompleteHandler(onRecognitionComplete);
+    _speech
+        .activate()
+        .then((res) => setState(() => _speechRecognitionAvailable = res));
   }
 
   Future loaded(BuildContext context) async{
@@ -51,16 +74,18 @@ Future<void> executeAfterBuild() async {
   }
 
   Widget pageBody(){
-    return       Padding(padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
+    return  Form(
+
+key: _formKey,
+child:  Padding(padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
       child: Card(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-
-
-
           Padding(child:   new TextFormField(
+            controller: controllerFeedbackEditText,
           scrollPadding: EdgeInsets.all(15.0),
+
               decoration: InputDecoration(
                 hintText: applicationManager.currentLanguage.getfeedBackGirin
               ),
@@ -77,30 +102,89 @@ Row(
   children: <Widget>[
 Expanded(child:
 
-Padding(padding: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
- child: RaisedButton( 
- //height: 50.0, 
+Padding(padding: EdgeInsets.fromLTRB(20.0, 10.0, 5.0, 5.0), 
+  child: 
+Row(
+  mainAxisSize: MainAxisSize.max,
+  children: <Widget>[
+  FloatingActionButton(
+                backgroundColor: Colors.redAccent,
+                child: Icon(_isListening ? Icons.pause : Icons.mic),
+                onPressed: () => speak(),
+              ),
+              Padding(padding: EdgeInsets.fromLTRB(10, 0, 10, 0),),
+Expanded(
+  child:  MaterialButton( 
+height: 45.0,
  color: Colors.green[400],//LcwAssistColor.secondaryColor,//Theme.of(context).primaryColor, 
  textColor: Colors.white, 
  child: new Text(applicationManager.currentLanguage.getgonder,style: TextStyle(fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 20.0,color: Colors.white),),
  onPressed: () => {}, 
  splashColor: Colors.redAccent,
+),),
+Padding(padding: EdgeInsets.fromLTRB(0, 0, 10, 0),),
+],),
+            
+//  RaisedButton( 
+//  //height: 50.0, 
+//  color: Colors.green[400],//LcwAssistColor.secondaryColor,//Theme.of(context).primaryColor, 
+//  textColor: Colors.white, 
+//  child: new Text(applicationManager.currentLanguage.getgonder,style: TextStyle(fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 20.0,color: Colors.white),),
+//  onPressed: () => {}, 
+//  splashColor: Colors.redAccent,
+// )
 )
 ,)
-,)
 ],)
-
-
-
-
-
-
-
-
 
           ],
         ),
       ),
-      );
+      ));
   }
+
+speak(){
+//_isListening = !_isListening;
+if(_speechRecognitionAvailable && !_isListening)
+{
+ start();
+
+}else
+{
+cancel();
+//stop();
+}
+
+setState(() {
+  
+});
+}
+
+  void start() => _speech
+      .listen(locale: 'tr_TR')
+      .then((result) => print('_MyAppState.start => result ${result}'));
+
+  void cancel() =>
+      _speech.cancel().then((result) => setState(() => _isListening = result));
+
+  void stop() =>
+      _speech.stop().then((result) => setState(() => _isListening = result));
+
+  void onSpeechAvailability(bool result) =>
+      setState(() => _speechRecognitionAvailable = result);
+
+  void onCurrentLocale(String locale) {
+    print('_MyAppState.onCurrentLocale... $locale');
+    setState(
+        //() => selectedLang = 'tr_TR';//languages.firstWhere((l) => l.code == locale));
+        () => currencyCode = currencyCode);//languages.firstWhere((l) => l.code == locale));
+  }
+
+  void onRecognitionStarted() => setState(() => _isListening = true);
+
+  void onRecognitionResult(String text) => setState(() => controllerFeedbackEditText.text = text);//transcription = text);//
+
+  void onRecognitionComplete() => setState(() => _isListening = false);
+
+
 }
