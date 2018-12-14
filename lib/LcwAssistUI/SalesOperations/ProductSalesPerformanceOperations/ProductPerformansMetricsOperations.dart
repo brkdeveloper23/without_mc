@@ -115,14 +115,14 @@ Widget storeReportPageBody(){
 return 
 new Column(
   children: <Widget>[
-    Card(child: Column(
-        mainAxisSize: MainAxisSize.max,
-    crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        magazaCardDetay2()
-      ],
-    )),
-
+    // Card(child: Column(
+    //     mainAxisSize: MainAxisSize.max,
+    // crossAxisAlignment: CrossAxisAlignment.stretch,
+    //   children: <Widget>[
+    //     yeniHeader(),//magazaCardDetay2()
+    //   ],
+    // )),
+magazaCardDetay3(),
     currentPageStyle == true ?
     Expanded(child: 
       SingleChildScrollView(
@@ -621,6 +621,75 @@ Widget buildFloatingButtonHasSubbbb() {
         ),
       );
   }
+
+
+Widget magazaCardDetay3(){
+  return Column(
+     mainAxisSize: MainAxisSize.max,
+    crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: <Widget>[
+      Card(child: 
+    Padding(padding: EdgeInsets.fromLTRB(10, 10, 10, 10),child: 
+    Column(children: <Widget>[
+      Container(
+  padding: EdgeInsets.fromLTRB(0, 10, 5, 10),
+  decoration:  BoxDecoration(
+    border:  Border(
+       bottom:  BorderSide(width: 0.5, color:  Colors.grey[400]),
+    )),
+  child: 
+    Row(
+      
+      children: <Widget>[
+    Padding(padding: EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 0.0),child: Icon(Icons.bubble_chart,color: LcwAssistColor.pageCardHeaderColor),),
+    
+        Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 5.0, 0.0),child: 
+        Text("Ürün Bilgileri",style: TextStyle(color: LcwAssistColor.pageCardHeaderColor,
+        fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 17.0),),)
+      
+    ]))
+,
+
+     Padding(
+       padding: EdgeInsets.fromLTRB(5, 5, 0, 0),
+       child: 
+     Column(
+       mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+
+Container(
+  child: //brightness_1
+  Row(children: <Widget>[
+    //Icon(Icons.remove,color: Color.fromRGBO(54,163,247, 1.0),size: 20,),
+    Text( applicationManager.currentLanguage.getmagaza+' : ',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17.0,fontFamily: LcwAssistTextStyle.currentTextFontFamily,color: LcwAssistColor.reportCardHeaderColor)),Text(storesResponse.storeName,style: TextStyle(fontSize: 17.0,color: LcwAssistColor.reportCardSubHeaderColor))]),
+  ),       
+       
+        Row(children: <Widget>[
+          //Icon(Icons.remove,color: Color.fromRGBO(0,116,198, 1.0),size: 20,),
+          Text(applicationManager.currentLanguage.geturun+' : ',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17.0,fontFamily: LcwAssistTextStyle.currentTextFontFamily,color: LcwAssistColor.reportCardHeaderColor)),
+        
+        Text(this.productMetricsResponse.product.barkod.toString(),style: TextStyle(fontSize: 17.0,color: LcwAssistColor.reportCardHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily),)]),
+        Row(children: <Widget>
+        [
+          //Icon(Icons.remove,color: Color.fromRGBO(239,138,14, 1.0),size: 20,),
+          Text(
+          this.productMetricsResponse.product.modelKod+' / '+this.productMetricsResponse.product.renkKod+'-'+this.productMetricsResponse.product.renkTanim
+          //productMetricsResponse.product.renkKod+'('+productMetricsResponse.product.renkTanim+')'
+        ,style: TextStyle(fontSize: 17.0,color: LcwAssistColor.reportCardHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily)),]),
+        Row(children: <Widget>[
+          //Icon(Icons.remove,color: Color.fromRGBO(100,105,188, 1.0),size: 20,),
+          Text(this.productMetricsResponse.product.urunAdi,
+        style: TextStyle(fontSize: 17.0,color: LcwAssistColor.reportCardHeaderColor)),])
+
+
+      ],
+   
+  ),)
+    
+    ],),)
+    )    
+    ],);
+}
 
 void _openAddEntryDialog() {
   Navigator.of(context).push(new MaterialPageRoute<Null>(

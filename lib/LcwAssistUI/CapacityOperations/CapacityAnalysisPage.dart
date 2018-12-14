@@ -147,13 +147,12 @@ Widget yeniHeader(){
     Row(
       
       children: <Widget>[
-    Padding(padding: EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 0.0),child: Icon(Icons.account_balance,color: Color.fromRGBO(2, 144, 192, 1.0)),),
+    Padding(padding: EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 0.0),child: Icon(Icons.account_balance,color: LcwAssistColor.pageCardHeaderColor),),
     
-Expanded(child: 
         Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 5.0, 0.0),child: 
-        Text("Mağaza Bilgileri",style: TextStyle(color: Color.fromRGBO(2, 144, 192, 1.0),
+        Text("Mağaza Bilgileri",style: TextStyle(color: LcwAssistColor.pageCardHeaderColor,
         fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 17.0),),)
-      ,)
+      
     ]))
     ,
         Row(
@@ -168,13 +167,8 @@ Expanded(child:
       ,)
     ])
     
-
-
-
     ],),)
-    )
-
-    
+    )    
     ],);
 }
 

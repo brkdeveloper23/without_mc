@@ -12,7 +12,7 @@ class LcwAssistColor{
  //static Color primaryColor = Color.fromRGBO(49,66,91,1.0);   //Dark_1
 //static Color primaryColor = Color.fromRGBO(49,66,91,1.0);   //THY
 //static Color primaryColor = Color.fromRGBO(49,66,91,1.0);   //YK
-static Color primaryColor = Color.fromRGBO(1,86,143,1.0);   //WORL
+static Color primaryColor = Color.fromRGBO(1,143,191,1.0);   //WORLColor.fromRGBO(1,86,143,1.0);
 //static Color primaryColor = Color.fromRGBO(28,48,109,1.0);   //DARKMOR
 
   //static Color secondaryColor =  Color.fromRGBO(1,95,190,1.0); //Mavi 
@@ -20,7 +20,7 @@ static Color primaryColor = Color.fromRGBO(1,86,143,1.0);   //WORL
   //static Color secondaryColor =  Color.fromRGBO(35,47,65,1.0); //Dark_1 Drawer Color
   //static Color secondaryColor =  Color.fromRGBO(1,95,54,1.0); //THY Drawer Color
    //static Color secondaryColor =  Color.fromRGBO(0,79,158,1.0); //YK 
-static Color secondaryColor =  Color.fromRGBO(2,65,116,1.0); //WORL 
+static Color secondaryColor =  Color.fromRGBO(0,111,164,1.0); //WORL Color.fromRGBO(2,65,116,1.0);
 //static Color secondaryColor =  Color.fromRGBO(14,26,60,1.0); //DARKMOR 
 
   //  static Color thirdColor = Color.fromRGBO(68, 152, 247, 1.0);//Mavi
@@ -57,6 +57,7 @@ static Color tomatoColor = Color.fromRGBO(254,99,71,1.0);
   static Color filterGreen = Color.fromRGBO(78,173,82,1.0);
   static Color backGroundColor = Color.fromRGBO(250,250,250, 1.0);
 static Color linkColor =   Color.fromRGBO(1, 149, 197, 1.0);//Color.fromRGBO(1, 145, 188, 1.0)
+ static Color pageCardHeaderColor =  Color.fromRGBO(100,105,188, 1.0);//Color.fromRGBO(2, 144, 192, 1.0);
   //static Color floatingButtonColor = Colors.blue;
 
 //static Color floatingButtonColor = Color.fromRGBO(48,115,221, 1.0); //thy
