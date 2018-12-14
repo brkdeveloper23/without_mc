@@ -129,33 +129,86 @@ Widget resimYukle(){
   );
 }
 
+Widget yeniHeader(){
+  return Column(
+     mainAxisSize: MainAxisSize.max,
+    crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: <Widget>[
+      Card(child: 
+    Padding(padding: EdgeInsets.fromLTRB(10, 10, 10, 10),child: 
+    Column(children: <Widget>[
+      Container(
+  padding: EdgeInsets.fromLTRB(0, 10, 5, 10),
+  decoration:  BoxDecoration(
+    border:  Border(
+       bottom:  BorderSide(width: 0.5, color:  Colors.grey[400]),
+    )),
+  child: 
+    Row(
+      
+      children: <Widget>[
+    Padding(padding: EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 0.0),child: Icon(Icons.account_balance,color: Color.fromRGBO(2, 144, 192, 1.0)),),
+    
+Expanded(child: 
+        Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 5.0, 0.0),child: 
+        Text("Mağaza Bilgileri",style: TextStyle(color: Color.fromRGBO(2, 144, 192, 1.0),
+        fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 17.0),),)
+      ,)
+    ]))
+    ,
+        Row(
+      
+      children: <Widget>[
+      Padding(padding: EdgeInsets.fromLTRB(5.0, 10.0, 5.0, 0.0),child: Text(applicationManager.currentLanguage.getmagazaAdi+' : ',style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 17.0),),),
+      
+Expanded(child: 
+        Padding(padding: EdgeInsets.fromLTRB(0.0, 10.0, 10.0, 0.0),child: 
+        Text(currentStore.storeName,style: TextStyle(color: LcwAssistColor.reportCardSubHeaderColor,
+        fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 17.0),),)
+      ,)
+    ])
+    
 
+
+
+    ],),)
+    )
+
+    
+    ],);
+}
 
 Widget storeReportPageBody(){
 
 return 
 new Column(
   children: <Widget>[
-     Column(
-     mainAxisSize: MainAxisSize.max,
-    crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-      Card(child: 
-    Padding(padding: EdgeInsets.fromLTRB(5, 5, 5, 5),child: 
-    Row(
+//      Column(
+//      mainAxisSize: MainAxisSize.max,
+//     crossAxisAlignment: CrossAxisAlignment.stretch,
+//       children: <Widget>[
+//       Card(child: 
+//     Padding(padding: EdgeInsets.fromLTRB(10, 10, 10, 10),child: 
+//     Row(
       
-      children: <Widget>[
-    Padding(padding: EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 0.0),child: Icon(Icons.account_balance,color: Colors.grey[700],size: 30,),),
-      Padding(padding: EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 0.0),child: Text(applicationManager.currentLanguage.getmagazaAdi+' : ',style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 17.0),),),
+//       children: <Widget>[
+//     Padding(padding: EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 0.0),child: Icon(Icons.account_balance,color: Colors.grey[700],size: 30,),),
+//     Divider(color: Colors.red,),
+//       Padding(padding: EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 0.0),child: Text(applicationManager.currentLanguage.getmagazaAdi+' : ',style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 17.0),),),
       
-Expanded(child: 
-        Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),child: 
-        Text(currentStore.storeName,style: TextStyle(color: LcwAssistColor.reportCardSubHeaderColor,
-        fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 17.0),),)
-      ,)
-    ]),)
-    )
-    ],),
+// Expanded(child: 
+//         Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),child: 
+//         Text(currentStore.storeName,style: TextStyle(color: LcwAssistColor.reportCardSubHeaderColor,
+//         fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 17.0),),)
+//       ,)
+//     ]),)
+//     )
+
+
+//     ],),
+
+yeniHeader(),
+
 
     Expanded(child: 
       SingleChildScrollView(
