@@ -1,0 +1,65 @@
+PODS:
+  - barcode_scan (0.0.1):
+    - Flutter
+    - MTBBarcodeScanner
+  - Flutter (1.0.0)
+  - FMDB (2.7.5):
+    - FMDB/standard (= 2.7.5)
+  - FMDB/standard (2.7.5)
+  - MTBBarcodeScanner (5.0.7)
+  - path_provider (0.0.1):
+    - Flutter
+  - shared_preferences (0.0.1):
+    - Flutter
+  - simple_permissions (0.0.1):
+    - Flutter
+  - speech_recognition (0.3.0):
+    - Flutter
+  - sqflite (0.0.1):
+    - Flutter
+    - FMDB (~> 2.7.2)
+
+DEPENDENCIES:
+  - barcode_scan (from `.symlinks/plugins/barcode_scan/ios`)
+  - Flutter (from `.symlinks/flutter/ios-release`)
+  - path_provider (from `.symlinks/plugins/path_provider/ios`)
+  - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
+  - simple_permissions (from `.symlinks/plugins/simple_permissions/ios`)
+  - speech_recognition (from `.symlinks/plugins/speech_recognition/ios`)
+  - sqflite (from `.symlinks/plugins/sqflite/ios`)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - FMDB
+    - MTBBarcodeScanner
+
+EXTERNAL SOURCES:
+  barcode_scan:
+    :path: ".symlinks/plugins/barcode_scan/ios"
+  Flutter:
+    :path: ".symlinks/flutter/ios-release"
+  path_provider:
+    :path: ".symlinks/plugins/path_provider/ios"
+  shared_preferences:
+    :path: ".symlinks/plugins/shared_preferences/ios"
+  simple_permissions:
+    :path: ".symlinks/plugins/simple_permissions/ios"
+  speech_recognition:
+    :path: ".symlinks/plugins/speech_recognition/ios"
+  sqflite:
+    :path: ".symlinks/plugins/sqflite/ios"
+
+SPEC CHECKSUMS:
+  barcode_scan: 8288e70cb430072003bce2c794a1431e7adbcb4d
+  Flutter: 9d0fac939486c9aba2809b7982dfdbb47a7b0296
+  FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
+  MTBBarcodeScanner: 003bb85d24e25818852fb8a10b5dbfe039d0385b
+  path_provider: 09407919825bfe3c2deae39453b7a5b44f467873
+  shared_preferences: 5a1d487c427ee18fcd3ea1f2a131569481834b53
+  simple_permissions: 8ea52208b437f8fae29d97a55fe00b705a53246b
+  speech_recognition: acf2b916cd7aff5d4b76a238740afe2aff85e6bc
+  sqflite: 801b6b0983f722fa29baf00d1476e4556ada6de4
+
+PODFILE CHECKSUM: e1057084579311cfd94307cf1fd593ba7b4ee307
+
+COCOAPODS: 1.5.3
