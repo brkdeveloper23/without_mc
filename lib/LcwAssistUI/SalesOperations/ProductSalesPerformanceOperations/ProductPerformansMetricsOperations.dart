@@ -320,7 +320,7 @@ Widget tutarUcluCard(Color colorR,List<UcluCardTextDTO> ucluKartText, bool isThe
       // top:  BorderSide(width: 1.0, color:  Color(0xFFFFFFFFFF)),
       // left:  BorderSide(width: 1.0, color:  Color(0xFFFFFFFFFF)),
       // right:  BorderSide(width: 1.0, color:  Color(0xFFFFFFFFFF)),
-      bottom:  BorderSide(width: 2.0, color:  LcwAssistColor.cardLineColor)//Color.fromRGBO(182,0,62, 1.0))
+      bottom:  BorderSide(width: 4.0, color:  colorR)//Color.fromRGBO(182,0,62, 1.0))
     )),
       child: 
     Column(
@@ -442,13 +442,13 @@ sayfaBirSatir3.add(new UcluCardTextDTO(applicationManager.currentLanguage.getind
 sayfaBirSatir3.add(new UcluCardTextDTO(applicationManager.currentLanguage.getsonPSF,productMetricsResponse.productPerformansResultDTO.sonPesitFiyat));
 
 List<Widget> sayfa1 = new List<Widget>();
-sayfa1.add(Row (children: <Widget>[Expanded(child :tutarUcluCard(Color.fromRGBO(54,163,247, 1.0),sayfaBirSatir1,true))],));
+sayfa1.add(Row (children: <Widget>[Expanded(child :tutarUcluCard(Color.fromRGBO(54,163,247, 1.0),sayfaBirSatir1,false))],));
 
 
 sayfa1.add(Row (children: <Widget>[
-  Expanded(child :tutarCard(Colors.white,applicationManager.currentLanguage.getkumulatifSevkAdet,productMetricsResponse.productPerformansResultDTO.kumulatifSevkAdet,true)),
-  Expanded(child :tutarCard(Colors.white,applicationManager.currentLanguage.getstr,productMetricsResponse.productPerformansResultDTO.str,true))],));
-sayfa1.add(Row (children: <Widget>[Expanded(child :tutarUcluCard(Colors.white,sayfaBirSatir3,false))],));
+  Expanded(child :tutarCard(Color.fromRGBO(100,105,188, 1.0),applicationManager.currentLanguage.getkumulatifSevkAdet,productMetricsResponse.productPerformansResultDTO.kumulatifSevkAdet,false)),
+  Expanded(child :tutarCard(Color.fromRGBO(239,138,14, 1.0),applicationManager.currentLanguage.getstr,productMetricsResponse.productPerformansResultDTO.str,false))],));
+sayfa1.add(Row (children: <Widget>[Expanded(child :tutarUcluCard(Color.fromRGBO(0,116,198, 1.0),sayfaBirSatir3,false))],));
 
 
 //SAYFA 2
@@ -622,13 +622,13 @@ Widget buildFloatingButtonHasSubbbb() {
       );
   }
 
-
 Widget magazaCardDetay3(){
   return Column(
      mainAxisSize: MainAxisSize.max,
     crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-      Card(child: 
+    Padding(padding: EdgeInsets.fromLTRB(10, 10, 10, 5), child: 
+    Card(child: 
     Padding(padding: EdgeInsets.fromLTRB(10, 10, 10, 10),child: 
     Column(children: <Widget>[
       Container(
@@ -642,21 +642,18 @@ Widget magazaCardDetay3(){
       
       children: <Widget>[
     Padding(padding: EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 0.0),child: Icon(Icons.bubble_chart,color: LcwAssistColor.pageCardHeaderColor),),
-    
         Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 5.0, 0.0),child: 
         Text("Ürün Bilgileri",style: TextStyle(color: LcwAssistColor.pageCardHeaderColor,
         fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 17.0),),)
       
     ]))
 ,
-
      Padding(
        padding: EdgeInsets.fromLTRB(5, 5, 0, 0),
        child: 
      Column(
        mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-
 Container(
   child: //brightness_1
   Row(children: <Widget>[
@@ -687,7 +684,7 @@ Container(
   ),)
     
     ],),)
-    )    
+    ))    
     ],);
 }
 
