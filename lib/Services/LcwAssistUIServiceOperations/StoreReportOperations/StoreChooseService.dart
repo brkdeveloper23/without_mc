@@ -11,7 +11,7 @@ import 'package:http/http.dart' as http;
 import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreReportRequestDTO.dart';
 import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreReportResponseDTO.dart';
 import 'package:lcwassist/LcwAssistBase/LcwAssistApplicationManager.dart';
-import 'package:lcwassist/Services/AuthenticationServiceOperations/TokenOperations/TokenService.dart';
+import 'package:lcwassist/Services/AuthenticationServiceOperations/TokenService.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class StoreChooseService{

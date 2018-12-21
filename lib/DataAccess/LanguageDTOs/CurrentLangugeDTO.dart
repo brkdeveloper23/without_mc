@@ -223,6 +223,7 @@ String _filtrele="";
 String _birFeedBackBirak="";
 String _urunBagimsizFeedbackGonder="";
 String _urunBagimliBagimsizFeedbackGonder="";
+String _aradiginizKriterlerdeDataBulunamadi="";
 
   // CurrentLangugeDTO(
   //   this._dilId,
@@ -401,6 +402,7 @@ set setfiltrele(String filtrele) {_filtrele = filtrele;}
 set setbirFeedBackBirak(String birFeedBackBirak) {_birFeedBackBirak = birFeedBackBirak;}
 set seturunBagimsizFeedbackGonder(String urunBagimsizFeedbackGonder) {_urunBagimsizFeedbackGonder = urunBagimsizFeedbackGonder;}
 set seturunBagimliBagimsizFeedbackGonder(String urunBagimliBagimsizFeedbackGonder) {_urunBagimliBagimsizFeedbackGonder = urunBagimliBagimsizFeedbackGonder;}
+set setaradiginizKriterlerdeDataBulunamadi(String aradiginizKriterlerdeDataBulunamadi) {_aradiginizKriterlerdeDataBulunamadi = aradiginizKriterlerdeDataBulunamadi;}
 
   String get getkullaniciGirisi => _kullaniciGirisi;
   String get getkullaniciAdi => _kullaniciAdi;
@@ -542,7 +544,8 @@ set seturunBagimliBagimsizFeedbackGonder(String urunBagimliBagimsizFeedbackGonde
     String get getbirFeedBackBirak => _birFeedBackBirak;
   String get geturunBagimsizFeedbackGonder => _urunBagimsizFeedbackGonder;
   String get geturunBagimliBagimsizFeedbackGonder => _urunBagimliBagimsizFeedbackGonder;
-  
+    String get getaradiginizKriterlerdeDataBulunamadi => _aradiginizKriterlerdeDataBulunamadi;
+
   //LcwAssistLanguagesDTO
 
 //   CurrentLangugeDTO toFill(List<LcwAssistLanguagesDTO> currentLanguageRawData){
@@ -728,7 +731,7 @@ map["filtrele"] = _filtrele;
 map["birFeedBackBirak"] = _birFeedBackBirak;
 map["urunBagimsizFeedbackGonder"] = _urunBagimsizFeedbackGonder;
 map["urunBagimliBagimsizFeedbackGonder"] = _urunBagimliBagimsizFeedbackGonder;
-
+map["aradiginizKriterlerdeDataBulunamadi"] = _aradiginizKriterlerdeDataBulunamadi;
     return map;
   }
 }

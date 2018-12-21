@@ -153,15 +153,22 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:lcwassist/Core/BaseConst/SharedPreferencesConstant.dart';
+import 'package:lcwassist/DataAccess/LcwStoreDTOs/GetLatestAppVersionInfoResponseDTO.dart';
+import 'package:lcwassist/DataAccess/LcwStoreDTOs/SaveAppUsageLogRequestDTO.dart';
 import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/FavoriteStoreListDto.dart';
 import 'package:lcwassist/LcwAssistBase/LcwAssistApplicationManager.dart';
 import 'package:lcwassist/LcwAssistUI/AuthenticationUI/UI/loginPage.dart';
 
 import 'package:lcwassist/Style/LcwAssistColor.dart';
+import 'package:package_info/package_info.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:localstorage/localstorage.dart';
 import 'dart:convert';
+import 'package:device_info/device_info.dart';
+//import 'package:device_id/device_id.dart';
+import 'package:flutter/services.dart';
+//import 'package:unique_identifier/unique_identifier.dart';
 
 void main(){
   runApp(new MaterialApp(
@@ -179,6 +186,7 @@ class MainPageState extends State<SplashAssist>{
 
 LcwAssistApplicationManager applicationManager = new LcwAssistApplicationManager();
 ImageProvider asas;
+PackageInfo packageInfo;
 
   @override
   Widget build(BuildContext context) {
@@ -243,10 +251,25 @@ ImageProvider asas;
 
   Future loaded(BuildContext context) async{
 
+// DeviceInfoPlugin deviceInfo2 = DeviceInfoPlugin();
+// AndroidDeviceInfo androidInfo = await deviceInfo2.androidInfo;
+// SaveAppUsageLogRequestDTO deviceInfo = new SaveAppUsageLogRequestDTO();
+// deviceInfo.deviceId = await DeviceId.getID;
+// deviceInfo.packageId = await UniqueIdentifier.serial;
+// deviceInfo.versionCode = packageInfo.buildNumber;
 
-await applicationManager.languagesService.getAllLanguages();
+// await this.applicationManager.serviceManager.lcwStoreService.lCWStoreAppVersionForce(deviceInfo);
+
 
 final prefs = await SharedPreferences.getInstance();
+
+packageInfo = await PackageInfo.fromPlatform();
+await applicationManager.languagesService.getAllLanguages();
+
+await this.applicationManager.serviceManager.lcwStoreService.setCurrentServiceVersion(packageInfo.packageName);
+
+
+
 
 if(prefs.getString(SharedPreferencesConstant.currentLanguageId) == null)
 prefs.setString(SharedPreferencesConstant.currentLanguageId,"2");
@@ -259,16 +282,6 @@ applicationManager.serviceManager.storeChooseService.saveFavoriteStore("0");
 String currentLanguageId = prefs.getString(SharedPreferencesConstant.currentLanguageId);
 int dilId = int.parse(currentLanguageId);
 
-//  final LocalStorage storage = new LocalStorage('lcwassist_language');
-//  if(storage.getItem('currentDilId') == null)
-//  {
-// Map<String, dynamic> m = new Map();
-// m['dilId'] = 1;
-// storage.setItem('currentDilId', m);
-//  }
-
-// Map<String, dynamic> m2 = new Map();
-// m2 = storage.getItem('currentDilId');
 
 await applicationManager.languagesService.setCurrentLanguage(dilId);
 

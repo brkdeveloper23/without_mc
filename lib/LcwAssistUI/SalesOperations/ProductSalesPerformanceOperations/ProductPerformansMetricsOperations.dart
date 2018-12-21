@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lcwassist/Core/Abstracts/IsLcwAssistUIPage.dart';
 import 'package:lcwassist/Core/BaseConst/LcwAssistEnumType.dart';
 import 'package:lcwassist/Core/BaseConst/LcwAssistPageDrawerNumberConst.dart';
+import 'package:lcwassist/DataAccess/ProductPerformanceMetricsDTOs/SaveFeedbackRequestDTO.dart';
 import 'package:lcwassist/DataAccess/ProductPerformanceMetricsDTOs/UcluCardTextDTO.dart';
 import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreChooseListViewDTO.dart';
 import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreChooseResponeDTO.dart';
@@ -41,7 +42,7 @@ LcwAssistApplicationManager applicationManager = new LcwAssistApplicationManager
 Icon currentPageStyleIcon = Icon(Icons.view_module);
 bool currentPageStyle = true;
 
-StoreChooseListViewDTO storesResponse = new StoreChooseListViewDTO();
+//StoreChooseListViewDTO storesResponse = new StoreChooseListViewDTO();
 bool sayfaYuklendiMi = false;
 //Floating buton için
     static const List<IconData> icons = const [  Icons.thumb_up, Icons.thumb_down ];
@@ -64,13 +65,13 @@ sayfaYuklendiMi = true;
 // setState(() {
   
 // });
-    currentStore().then((result) {
-            // If we need to rebuild the widget with the resulting data,
-            // make sure to use `setState`
-            setState(() {
-                storesResponse = result;
-            });
-        });
+    // currentStore().then((result) {
+    //         // If we need to rebuild the widget with the resulting data,
+    //         // make sure to use `setState`
+    //         setState(() {
+    //             storesResponse = result;
+    //         });
+    //     });
   }
 
 
@@ -78,7 +79,9 @@ sayfaYuklendiMi = true;
     currentPageStyleIcon = Icon(Icons.view_module);
     currentPageStyle = true;
     applicationManager.setCurrentLanguage = await applicationManager.languagesService.currentLanguage();
-    
+    applicationManager.setCurrentStore = await applicationManager.serviceManager.storeChooseService.getCurrentStore();
+    applicationManager.setCurrentUser = await applicationManager.serviceManager.loginService.getCurrentUser();
+
     sayfaYuklendiMi = true;    
 }
 
@@ -122,7 +125,10 @@ new Column(
     //     yeniHeader(),//magazaCardDetay2()
     //   ],
     // )),
-magazaCardDetay3(),
+
+
+    
+yeniHeader(),
     currentPageStyle == true ?
     Expanded(child: 
       SingleChildScrollView(
@@ -260,7 +266,7 @@ Widget magazaCardDetay2(){
 
 Container(
   child: //brightness_1
-  Row(children: <Widget>[Icon(Icons.remove,color: Color.fromRGBO(54,163,247, 1.0),size: 20,),Text( applicationManager.currentLanguage.getmagaza+' : ',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17.0,fontFamily: LcwAssistTextStyle.currentTextFontFamily,color: LcwAssistColor.reportCardHeaderColor)),Text(storesResponse.storeName,style: TextStyle(fontSize: 17.0,color: LcwAssistColor.reportCardSubHeaderColor))]),
+  Row(children: <Widget>[Icon(Icons.remove,color: Color.fromRGBO(54,163,247, 1.0),size: 20,),Text( applicationManager.currentLanguage.getmagaza+' : ',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17.0,fontFamily: LcwAssistTextStyle.currentTextFontFamily,color: LcwAssistColor.reportCardHeaderColor)),Text(applicationManager.currentStore.storeName,style: TextStyle(fontSize: 17.0,color: LcwAssistColor.reportCardSubHeaderColor))]),
   ),       
        
         Row(children: <Widget>[Icon(Icons.remove,color: Color.fromRGBO(0,116,198, 1.0),size: 20,),Text(applicationManager.currentLanguage.geturun+' : ',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17.0,fontFamily: LcwAssistTextStyle.currentTextFontFamily,color: LcwAssistColor.reportCardHeaderColor)),
@@ -290,7 +296,7 @@ Widget magazaCardDetay(){
        mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
 
-  Row(children: <Widget>[Text( applicationManager.currentLanguage.getmagaza+' : ',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17.0,fontFamily: LcwAssistTextStyle.currentTextFontFamily,color: Colors.white)),Text(storesResponse.storeName,style: TextStyle(fontSize: 17.0,color: Colors.white))]),
+  Row(children: <Widget>[Text( applicationManager.currentLanguage.getmagaza+' : ',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17.0,fontFamily: LcwAssistTextStyle.currentTextFontFamily,color: Colors.white)),Text(applicationManager.currentStore.storeName,style: TextStyle(fontSize: 17.0,color: Colors.white))]),
         Row(children: <Widget>[Text(applicationManager.currentLanguage.geturun+' : ',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17.0,fontFamily: LcwAssistTextStyle.currentTextFontFamily,color: Colors.white)),
         Text(this.productMetricsResponse.product.barkod.toString(),style: TextStyle(fontSize: 17.0,color: Colors.white,fontFamily: LcwAssistTextStyle.currentTextFontFamily),)]),
         Row(children: <Widget>
@@ -538,7 +544,7 @@ Widget buildFloatingButtonHasSub() {
                 backgroundColor: Colors.white,
                 mini: false,
                 child: new Icon(icons[index],  color: iconColors[index]),
-                onPressed: () { _openAddEntryDialog();},
+                onPressed: () { _openAddEntryDialog(LcwAssistFeedbackType.like);},
               ),
             ),
           );
@@ -622,17 +628,26 @@ Widget buildFloatingButtonHasSubbbb() {
       );
   }
 
-Widget magazaCardDetay3(){
+Widget yeniHeader(){
   return Column(
      mainAxisSize: MainAxisSize.max,
     crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-    Padding(padding: EdgeInsets.fromLTRB(10, 10, 10, 5), child: 
-    Card(child: 
-    Padding(padding: EdgeInsets.fromLTRB(10, 10, 10, 10),child: 
+    Padding(padding: EdgeInsets.fromLTRB(6, 0, 6, 0), child: 
+    Card(
+      child:
+      Container(
+  padding: EdgeInsets.fromLTRB(5, 5, 10, 5),
+  decoration:  BoxDecoration(
+    border:  Border(
+       left:  BorderSide(width: 6.0, color:  Color.fromRGBO(0,116,198, 1.0)),
+    )),
+  
+      child: 
+    Padding(padding: EdgeInsets.fromLTRB(10, 5, 10, 10),child: 
     Column(children: <Widget>[
       Container(
-  padding: EdgeInsets.fromLTRB(0, 10, 5, 10),
+  padding: EdgeInsets.fromLTRB(0, 5, 5, 10),
   decoration:  BoxDecoration(
     border:  Border(
        bottom:  BorderSide(width: 0.5, color:  Colors.grey[400]),
@@ -658,7 +673,7 @@ Container(
   child: //brightness_1
   Row(children: <Widget>[
     //Icon(Icons.remove,color: Color.fromRGBO(54,163,247, 1.0),size: 20,),
-    Text( applicationManager.currentLanguage.getmagaza+' : ',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17.0,fontFamily: LcwAssistTextStyle.currentTextFontFamily,color: LcwAssistColor.reportCardHeaderColor)),Text(storesResponse.storeName,style: TextStyle(fontSize: 17.0,color: LcwAssistColor.reportCardSubHeaderColor))]),
+    Text( applicationManager.currentLanguage.getmagaza+' : ',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17.0,fontFamily: LcwAssistTextStyle.currentTextFontFamily,color: LcwAssistColor.reportCardHeaderColor)),Text(this.applicationManager.currentStore.storeName,style: TextStyle(fontSize: 17.0,color: LcwAssistColor.reportCardSubHeaderColor))]),
   ),       
        
         Row(children: <Widget>[
@@ -684,14 +699,25 @@ Container(
   ),)
     
     ],),)
-    ))    
+    )))    
     ],);
 }
 
-void _openAddEntryDialog() {
+void _openAddEntryDialog(LcwAssistFeedbackType lcwAssistFeedbackType) {
+
+SaveFeedbackRequestDTO request = new SaveFeedbackRequestDTO();
+request.setUserHRRef = 1;
+request.setUserName =this.applicationManager.currentUser.firstName+ " "+  this.applicationManager.currentUser.lastName; 
+request.setFeedBackType = lcwAssistFeedbackType == LcwAssistFeedbackType.like ? 0 : 1;
+request.setBarcode = this.productMetricsResponse.product.barkod;
+request.setStoreName = this.applicationManager.currentStore.storeName;
+request.setStoreCode = this.applicationManager.currentStore.storeCode;
+
+
+
   Navigator.of(context).push(new MaterialPageRoute<Null>(
       builder: (BuildContext context) {
-        return new ProductPerformansMetricFeedBackDialog();
+        return new ProductPerformansMetricFeedBackDialog(feedbackRequest:request);
       },
     fullscreenDialog: true
   ));

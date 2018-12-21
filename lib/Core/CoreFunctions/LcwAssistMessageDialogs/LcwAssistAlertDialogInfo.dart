@@ -68,7 +68,15 @@ return Padding(padding: EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 0.0),child: Align(a
     mainAxisSize: MainAxisSize.min,
     children: <Widget>[
      Card(child: 
-Padding(padding: EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 0.0),child:Column(mainAxisSize: MainAxisSize.min,children: <Widget>[
+Padding(padding: EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 0.0),child:
+Column(
+  
+  //mainAxisSize: MainAxisSize.max,
+  
+mainAxisSize: MainAxisSize.max,
+    crossAxisAlignment: CrossAxisAlignment.stretch,
+
+children: <Widget>[
 
       Row( mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -80,10 +88,15 @@ Padding(padding: EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 0.0),child:Column(mainAxi
         ,)
         ],),
       
-      Row(children: <Widget>[
-        Container(padding: EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 20.0),child: Text(this.message,style: TextStyle(fontSize: 16.0,fontFamily: LcwAssistTextStyle.currentTextFontFamily),),)
-        
-        ],),
+    
+        Padding(padding: EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 20.0),child: 
+        Wrap(
+        alignment: WrapAlignment.start,
+        direction: Axis.horizontal,
+          children: <Widget>[
+          Text(this.message,style: TextStyle(fontSize: 16.0,fontFamily: LcwAssistTextStyle.currentTextFontFamily),)
+        ],),)
+        ,
       
       new SizedBox(
   width: double.infinity,

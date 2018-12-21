@@ -1,17 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:lcwassist/Core/Abstracts/IsLcwAssistUIPage.dart';
+import 'package:lcwassist/Core/BaseConst/LcwAssistEnumType.dart';
+import 'package:lcwassist/Core/CoreFunctions/LcwAssistLoading.dart';
+import 'package:lcwassist/Core/CoreFunctions/LcwAssistSnackBarDialogs/LcwAssistSnackBarDialogInfo.dart';
+import 'package:lcwassist/DataAccess/ProductPerformanceMetricsDTOs/SaveFeedbackRequestDTO.dart';
 import 'package:lcwassist/LcwAssistBase/LcwAssistApplicationManager.dart';
 import 'package:lcwassist/Style/LcwAssistColor.dart';
 import 'package:lcwassist/Style/LcwAssistTextStyle.dart';
 import 'package:speech_recognition/speech_recognition.dart';
 
 class ProductPerformansMetricFeedBackDialog extends StatefulWidget {
+SaveFeedbackRequestDTO feedbackRequest;
+
+
+ProductPerformansMetricFeedBackDialog({Key key, @required this.feedbackRequest}) : super(key: key);
+
   @override
-  ProductPerformansMetricFeedBackDialogState createState() => new ProductPerformansMetricFeedBackDialogState();
+  ProductPerformansMetricFeedBackDialogState createState() => 
+  new ProductPerformansMetricFeedBackDialogState(feedbackRequest:feedbackRequest);
 }
 
 class ProductPerformansMetricFeedBackDialogState extends State<ProductPerformansMetricFeedBackDialog>  implements IsLcwAssistUIPage{
-
+ProductPerformansMetricFeedBackDialogState({Key key, @required this.feedbackRequest});
+final GlobalKey<ScaffoldState> scaffoldState = new GlobalKey<ScaffoldState>();
+SaveFeedbackRequestDTO feedbackRequest;
+String barkod;
 LcwAssistApplicationManager applicationManager = new LcwAssistApplicationManager();
 bool sayfaYuklendiMi = false;
 SpeechRecognition _speech;
@@ -34,7 +47,7 @@ activateSpeechRecognizer();
   }
 
 
-    void activateSpeechRecognizer() {
+void activateSpeechRecognizer() {
     print('_MyAppState.activateSpeechRecognizer... ');
     _speech = new SpeechRecognition();
     _speech.setAvailabilityHandler(onSpeechAvailability);
@@ -56,7 +69,7 @@ setState(() {});
 
 Future<void> executeAfterBuild() async {
   
-}
+  }
 
 
 
@@ -64,10 +77,15 @@ Future<void> executeAfterBuild() async {
   Widget build(BuildContext context) {
     return new Scaffold(
       backgroundColor: LcwAssistColor.backGroundColor,
-      appBar: new AppBar(
+      resizeToAvoidBottomPadding: false,
+      key: scaffoldState,
+       appBar:
+       !(feedbackRequest.getFeedBackType==2) ?  
+       new AppBar(
         title:  sayfaYuklendiMi == true ? Text(applicationManager.currentLanguage.getfeedbackIslemleri) :  Text(''),
-     
-      ),
+      ) : null,
+
+
       body: sayfaYuklendiMi == true ? pageBody() : Container(child: Text(''),),
 
     );
@@ -84,6 +102,15 @@ child:  Padding(padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
           children: <Widget>[
           Padding(child:   new TextFormField(
             controller: controllerFeedbackEditText,
+            validator: (value) {
+
+if (value.isEmpty) {
+
+return this.applicationManager.currentLanguage.getbosGecemezsiniz;
+
+}
+
+},
           scrollPadding: EdgeInsets.all(15.0),
 
               decoration: InputDecoration(
@@ -119,7 +146,7 @@ height: 45.0,
  color: Colors.green[400],//LcwAssistColor.secondaryColor,//Theme.of(context).primaryColor, 
  textColor: Colors.white, 
  child: new Text(applicationManager.currentLanguage.getgonder,style: TextStyle(fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 20.0,color: Colors.white),),
- onPressed: () => {}, 
+ onPressed: () => saveFeedback(), 
  splashColor: Colors.redAccent,
 ),),
 Padding(padding: EdgeInsets.fromLTRB(0, 0, 10, 0),),
@@ -143,7 +170,7 @@ Padding(padding: EdgeInsets.fromLTRB(0, 0, 10, 0),),
       ));
   }
 
-speak(){
+  speak(){
 //_isListening = !_isListening;
 if(_speechRecognitionAvailable && !_isListening)
 {
@@ -158,6 +185,27 @@ cancel();
 setState(() {
   
 });
+}
+
+saveFeedback() async{
+  if (!_formKey.currentState.validate())
+return;
+
+LcwAssistLoading.showAlert(context,applicationManager.currentLanguage.getyukleniyor);
+
+feedbackRequest.setMessage = controllerFeedbackEditText.text;
+
+await this.applicationManager.serviceManager.productSalesPerformanceService.saveFeedback(feedbackRequest);
+
+setState(() {
+
+Navigator.pop(context);
+
+});
+
+LcwAssistSnackBarDialogInfo(this.applicationManager.currentLanguage.getfeedbackAlinmistir,scaffoldState,LcwAssistSnagitType.successful).snackbarShow();
+
+controllerFeedbackEditText.text = "";
 }
 
   void start() => _speech

@@ -6,6 +6,7 @@ import 'package:lcwassist/Core/BaseConst/LcwAssistEnumType.dart';
 import 'package:lcwassist/Core/CoreFunctions/LcwAssistLoading.dart';
 import 'package:lcwassist/Core/CoreFunctions/LcwAssistMessageDialogs/LcwAssistAlertDialogInfo.dart';
 import 'package:lcwassist/DataAccess/LoginPageDTOs/LoginPageEntryResponseDTO.dart';
+import 'package:lcwassist/DataAccess/ProductPerformanceMetricsDTOs/SaveFeedbackRequestDTO.dart';
 import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreChooseListViewDTO.dart';
 import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreChooseResponeDTO.dart';
 import 'package:lcwassist/LcwAssistBase/LcwAssistApplicationManager.dart';
@@ -15,6 +16,7 @@ import 'package:lcwassist/LcwAssistUI/CapacityOperations/CapacityAnalysisPage.da
 import 'package:lcwassist/LcwAssistUI/Home/HomePageOperations/HomeFeedBack.dart';
 import 'package:lcwassist/LcwAssistUI/Home/HomePageOperations/speech_deneme.dart';
 import 'package:lcwassist/LcwAssistUI/SalesOperations/ProductSalesPerformanceOperations/ProductPerformanceDetailMetric.dart';
+import 'package:lcwassist/LcwAssistUI/SalesOperations/ProductSalesPerformanceOperations/ProductPerformansMetricFeedBackDialog.dart';
 import 'package:lcwassist/LcwAssistUI/SalesOperations/ProductSalesPerformanceOperations/ProductPerformansMetricsOperations.dart';
 import 'package:lcwassist/LcwAssistUI/SalesOperations/ProductSalesPerformanceOperations/ProductPerformansQueryPage.dart';
 import 'package:lcwassist/LcwAssistUI/SettingsPages/LcwAssistTema.dart';
@@ -22,11 +24,12 @@ import 'package:lcwassist/LcwAssistUI/StoreReportOperations/StoreCardPage.dart';
 
 import 'package:lcwassist/LcwAssistUI/StoreReportOperations/StoreChoosePage.dart';
 import 'package:lcwassist/LcwAssistUI/StoreReportOperations/StoreReportPage.dart';
-import 'package:lcwassist/Services/AuthenticationServiceOperations/LoginPageOperations/LoginPageService.dart';
+import 'package:lcwassist/Services/AuthenticationServiceOperations/LoginPageService.dart';
 import 'package:lcwassist/Services/LcwAssistUIServiceOperations/StoreReportOperations/StoreChooseService.dart';
 import 'package:lcwassist/Style/LcwAssistColor.dart';
 import 'package:lcwassist/Style/LcwAssistTextStyle.dart';
 import 'package:lcwassist/DataAccess/LanguageDTOs/CurrentLangugeDTO.dart';
+import 'package:lcwassist/Core/BaseConst/LcwAssistEnumType.dart';
 
 class DrawerItem {
   String title;
@@ -134,6 +137,7 @@ drawerItems = [
     new DrawerItem(applicationManager.currentLanguage.getmagazaKarne, Icons.store),
     new DrawerItem(applicationManager.currentLanguage.getmagazaSec, Icons.location_on),
     new DrawerItem(applicationManager.currentLanguage.getkumulatifSatis, Icons.multiline_chart),
+    new DrawerItem(applicationManager.currentLanguage.getbirFeedBackBirak, Icons.chat),
     new DrawerItem(applicationManager.currentLanguage.getayarlar, Icons.settings)
     
   ];
@@ -162,8 +166,9 @@ setState(() {});
         case 5:
         return new ChartPage();
         case 6:
-        return new SpeechSayfa();//LcvAssistTema();
-
+        return new ProductPerformansMetricFeedBackDialog(feedbackRequest:feedbackRequest());//LcvAssistTema();  ProductPerformansMetricFeedBackDialogState
+        case 7:
+        return new SpeechSayfa();
       default:
         return new Text("Error");
     }
@@ -394,7 +399,18 @@ void logOut(){
 
 }
 
+SaveFeedbackRequestDTO feedbackRequest(){
 
+  SaveFeedbackRequestDTO request = new SaveFeedbackRequestDTO();
+request.setUserHRRef = 1;
+request.setUserName =currentUserResult.firstName+" "+currentUserResult.lastName; 
+request.setFeedBackType = 2;
+request.setBarcode = null;
+request.setStoreName = storeResponse.storeName;
+request.setStoreCode = storeResponse.storeCode;
+
+return request;
+}
 
 
 }

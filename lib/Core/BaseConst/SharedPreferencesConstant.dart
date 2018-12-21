@@ -8,4 +8,5 @@ static String allLanguage = "allLanguage";
 static String currentLanguageId = "currentLanguageId";
 static String capacityFilter = "capacityFilter";
 static String favoriteStoreList = "favoriteStoreList";
+static String currentLcwStoreVersion = "currentLcwStoreVersion";
 }

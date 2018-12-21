@@ -424,11 +424,9 @@ return Padding(
     crossAxisAlignment: CrossAxisAlignment.stretch,
 
     children: <Widget>[
-
       //Text(masterText+masterText,style: TextStyle(fontSize: 15.0,fontFamily: 'Ubuntu',color: LcwAssistColor.reportCardHeaderColor))
       Wrap(
         alignment: WrapAlignment.start,
-
         direction: Axis.horizontal,
         children: <Widget>[
         Text(masterText,style: TextStyle(fontSize: 17.0,fontFamily: 'Ubuntu',

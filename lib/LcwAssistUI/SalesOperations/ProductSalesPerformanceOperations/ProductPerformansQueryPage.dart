@@ -135,14 +135,16 @@ this.productMetricsRequest.setBarcode = qrResult;
 LcwAssistLoading.showAlert(context,applicationManager.currentLanguage.getyukleniyor);
 });
 
-ProductMetricsResponse result = await ProductSalesPerformanceService.productSalesPerformanceMetrics(fillToModel(type));
+ProductMetricsResponse result = await this.applicationManager.serviceManager.productSalesPerformanceService.productSalesPerformanceMetrics(fillToModel(type));
 
  setState(() {
   Navigator.pop(context);
  });
 
-
- //LcwAssistSnackBarDialogInfo(result.product.modelKod,scaffoldState,LcwAssistSnagitType.info).snackbarShow();
+if(result == null){
+LcwAssistSnackBarDialogInfo(this.applicationManager.currentLanguage.geturunBulunamadi,scaffoldState,LcwAssistSnagitType.warning).snackbarShow();
+ return;
+ }
 
  var route = new MaterialPageRoute(
             builder: (BuildContext context) => ProductPerformansMetricsOperations(productMetricsResponse: result,

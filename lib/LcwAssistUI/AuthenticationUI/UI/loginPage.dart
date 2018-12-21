@@ -16,6 +16,7 @@ import 'package:lcwassist/Core/CoreFunctions/LcwAssistMessageDialogs/LcwAssistAl
 import 'package:lcwassist/DataAccess/LanguageDTOs/CurrentLangugeDTO.dart';
 
 import 'package:lcwassist/DataAccess/LanguageDTOs/MultiLangComboDTO.dart';
+import 'package:lcwassist/DataAccess/LcwStoreDTOs/GetLatestAppVersionInfoResponseDTO.dart';
 
 import 'package:lcwassist/DataAccess/LoginPageDTOs/LoginPageEntryRequestDTO.dart';
 
@@ -25,7 +26,7 @@ import 'package:lcwassist/LcwAssistUI/Home/HomePageOperations/HomePage.dart';
 
 import 'package:lcwassist/LcwAssistBase/LcwAssistApplicationManager.dart';
 
-import 'package:lcwassist/Services/AuthenticationServiceOperations/TokenOperations/TokenService.dart';
+import 'package:lcwassist/Services/AuthenticationServiceOperations/TokenService.dart';
 
 import 'package:lcwassist/Style/LcwAssistColor.dart';
 
@@ -36,6 +37,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:localstorage/localstorage.dart';
 import 'package:flutter/services.dart';
 import 'package:simple_permissions/simple_permissions.dart';
+import 'package:package_info/package_info.dart';
 
 void main(){
 
@@ -64,6 +66,9 @@ LcwAssistApplicationManager applicationManager = new LcwAssistApplicationManager
 LoginPageEntryRequestDTO loginRequest = new LoginPageEntryRequestDTO();
 
 LoginPageEntryResponseDTO responseDTO;
+
+String versionString = "";
+PackageInfo packageInfo;
 
 CurrentLangugeDTO currentLangugeDTO = new CurrentLangugeDTO();
 
@@ -124,8 +129,9 @@ super.initState();
 if(Platform.isAndroid)
 initPlatformState();
 
-controllerUserName.text = "burak.bitkin";
 
+
+controllerUserName.text = "burak.bitkin";
 controllerPassword.text = "Cmb150832";
 
 loadMultiLangCombo();
@@ -140,9 +146,8 @@ setState(() {});
 
 Future<void> executeAfterBuild() async {
 
-//await applicationManager.onReadyLanguage;
-
 applicationManager.setCurrentLanguage = await applicationManager.languagesService.currentLanguage();
+
 
 final prefs = await SharedPreferences.getInstance();
 
@@ -152,7 +157,29 @@ setState(() {});
 
 }
 
-loaded(BuildContext context) {
+Future<bool> checkToVersion() async{
+  bool result = true;
+final prefs = await SharedPreferences.getInstance();
+
+String storeVersiyon = prefs.getString(SharedPreferencesConstant.currentLcwStoreVersion);
+
+versionString = "D.V " +packageInfo.version + " - S.V " + storeVersiyon;
+
+versionString = packageInfo.packageName;
+
+if(storeVersiyon != packageInfo.version)
+{
+  result = false;
+}
+
+return result;
+}
+
+Future loaded(BuildContext context) async{
+   packageInfo = await PackageInfo.fromPlatform();
+if(!await checkToVersion())
+LcwAssistAlertDialogInfo(applicationManager.currentLanguage.getguncellemeUyarisi,applicationManager.currentLanguage.getmsg04,applicationManager.currentLanguage.gettamam,context,LcwAssistDialogType.error).show();
+
 
 }
 
@@ -190,27 +217,27 @@ return this.loginRequest;
 
 Future showLoginPage() async{
 
-
-LcwAssistLoading.showAlert(context,applicationManager.currentLanguage.getyukleniyor);
-
-String asas = "";
-
-asas = applicationManager.currentLanguage.getkullaniciGirisi;
-
 if (!_formKey.currentState.validate())
-
 return;
 
 bool resultInternet = await applicationManager.utils.checkToInternet(context);
-
 if(!resultInternet)
-
 return;
 
-//LcwAssistLoading.showAlert(context,applicationManager.currentLanguage.getyukleniyor);
-setState(() {
 
+LcwAssistLoading.showAlert(context,applicationManager.currentLanguage.getyukleniyor);
+
+await this.applicationManager.serviceManager.lcwStoreService.setCurrentServiceVersion(packageInfo.packageName);
+
+if(! await checkToVersion())
+{
+setState(() {
+Navigator.pop(context);
 });
+
+LcwAssistAlertDialogInfo(applicationManager.currentLanguage.getguncellemeUyarisi,applicationManager.currentLanguage.getmsg04,applicationManager.currentLanguage.gettamam,context,LcwAssistDialogType.error).show();
+  return;
+}
 
 responseDTO = await applicationManager.serviceManager.loginService.loginEntryRequest(fillToModel());
 
@@ -219,9 +246,7 @@ responseDTO = await applicationManager.serviceManager.loginService.loginEntryReq
 if(responseDTO.authToken == '' || responseDTO.authToken == null) {
 
 setState(() {
-
 Navigator.pop(context);
-
 });
 
 //await LcwAssistAlertDialogInfo('Uyarý','Yanlýþ kullanýcý adý yda þifre.','Tamam',context).showAlert();
@@ -340,7 +365,7 @@ crossAxisAlignment: CrossAxisAlignment.end,
 
 mainAxisAlignment: MainAxisAlignment.center ,
 
-children: <Widget>[Column(mainAxisAlignment: MainAxisAlignment.end,children: <Widget>[Text('LC WAIKIKI',style: TextStyle(fontSize: 20.0,color: Color.fromRGBO(40, 53, 147, 1.0),fontWeight: FontWeight.bold,fontFamily: LcwAssistTextStyle.currentTextFontFamily)),Text('Versiyon : 2.0.0'),Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 45.0),)],)],),
+children: <Widget>[Column(mainAxisAlignment: MainAxisAlignment.end,children: <Widget>[Text('LC WAIKIKI',style: TextStyle(fontSize: 20.0,color: Color.fromRGBO(40, 53, 147, 1.0),fontWeight: FontWeight.bold,fontFamily: LcwAssistTextStyle.currentTextFontFamily)),Text(versionString),Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 45.0),)],)],),
 
 )),
 
@@ -422,7 +447,7 @@ validator: (value) {
 
 if (value.isEmpty) {
 
-return 'Boþ Geçemezsiniz.';
+return this.applicationManager.currentLanguage.getbosGecemezsiniz;
 
 }
 
@@ -480,7 +505,7 @@ validator: (value) {
 
 if (value.isEmpty) {
 
-return 'Boþ Geçemezsiniz.';
+return this.applicationManager.currentLanguage.getbosGecemezsiniz;
 
 }
 

@@ -36,8 +36,8 @@ android {
         applicationId "com.example.lcwassist"
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
+        versionCode 9//flutterVersionCode.toInteger()
+        versionName "1.0.8"//flutterVersionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 

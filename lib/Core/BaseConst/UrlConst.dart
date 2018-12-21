@@ -9,5 +9,6 @@ static String productMetricsUrl =  baseUrl + "/SmartStoreDataService/api/Metrics
 static String capacityMetricsUrl =  baseUrl + "/SmartStoreDataService/api/Metrics/GetCapacityAnalysisMetricsOther";
 static String capacityMetricsFiltersUrl =  baseUrl + "/SmartStoreDataService/api/Metrics/GetMerchHierarcies";
 static String usingLanguagesUrl =  baseUrl + "/SmartStoreDataService/api/Metrics/GetAllLanguages";
-
+static String usingSaveFeedbackUrl =  baseUrl + "/SmartStoreDataService/api/Metrics/SaveFeedBackNew";
+static String getLatestAppVersionInfo = "https://appstore.lcwaikiki.com/Mobile/GetLatestAppVersionInfo";
 }

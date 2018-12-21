@@ -27,7 +27,7 @@ scaffoldState.currentState.showSnackBar(new SnackBar(
     Padding(padding: EdgeInsets.fromLTRB(5.0, 0.0, 0.0, 0.0),),
     Text(this.message,style: TextStyle(fontSize: 17.0,fontFamily: LcwAssistTextStyle.currentTextFontFamily),)
     ],),
-  duration: Duration(seconds: 3),
+  duration: Duration(seconds: 2),
   backgroundColor: Colors.black.withOpacity(0.7),
 ));
 }

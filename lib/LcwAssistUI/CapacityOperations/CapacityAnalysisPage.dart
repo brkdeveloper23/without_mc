@@ -4,6 +4,7 @@ import 'package:lcwassist/Core/BaseConst/LcwAssistEnumType.dart';
 import 'package:lcwassist/Core/BaseConst/SharedPreferencesConstant.dart';
 
 import 'package:lcwassist/Core/CoreFunctions/LcwAssistLoading.dart';
+import 'package:lcwassist/Core/CoreFunctions/LcwAssistMessageDialogs/LcwAssistAlertDialogInfo.dart';
 import 'package:lcwassist/Core/CoreFunctions/LcwAssistSnackBarDialogs/LcwAssistSnackBarDialogInfo.dart';
 import 'package:lcwassist/DataAccess/CapacityAnaliysisDTOs/CapacityAnaliysisReportRequestDTO.dart';
 import 'package:lcwassist/DataAccess/CapacityAnaliysisDTOs/CapacityAnaliysisReportResponseDTO.dart';
@@ -102,7 +103,7 @@ sayfaYuklendiMi = true;
 
 
   @override
-  Widget build(BuildContext context) {
+Widget build(BuildContext context) {
 
     return new Scaffold(
       body: sayfaYuklendiMi == true ? storeReportPageBody() : Container(child: Text(''),),
@@ -129,13 +130,23 @@ Widget resimYukle(){
   );
 }
 
-Widget yeniHeader(){
-  return Column(
+
+    Widget yeniHeader(){
+  return 
+   
+  Column(
      mainAxisSize: MainAxisSize.max,
     crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
       Card(child: 
-    Padding(padding: EdgeInsets.fromLTRB(10, 10, 10, 10),child: 
+Container(
+  padding: EdgeInsets.fromLTRB(5, 5, 10, 5),
+  decoration:  BoxDecoration(
+    border:  Border( 
+       left:  BorderSide(width: 6.0, color:  Color.fromRGBO(0,116,198, 1.0)),
+    )),
+  child:
+    Padding(padding: EdgeInsets.fromLTRB(10, 0, 10, 10),child: 
     Column(children: <Widget>[
       Container(
   padding: EdgeInsets.fromLTRB(0, 10, 5, 10),
@@ -147,7 +158,9 @@ Widget yeniHeader(){
     Row(
       
       children: <Widget>[
-    Padding(padding: EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 0.0),child: Icon(Icons.account_balance,color: LcwAssistColor.pageCardHeaderColor),),
+    Padding(padding: EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 0.0),
+    child: Icon(Icons.account_balance,
+      color: LcwAssistColor.pageCardHeaderColor),),
     
         Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 5.0, 0.0),child: 
         Text("Mağaza Bilgileri",style: TextStyle(color: LcwAssistColor.pageCardHeaderColor,
@@ -168,9 +181,12 @@ Expanded(child:
     ])
     
     ],),)
-    )    
+    ))    
     ],);
 }
+
+
+
 
 Widget storeReportPageBody(){
 
@@ -201,7 +217,7 @@ new Column(
 
 //     ],),
 
-yeniHeader(),
+Padding(padding: EdgeInsets.fromLTRB(6, 0, 6, 0),child: yeniHeader(),),
 
 
     Expanded(child: 
@@ -211,10 +227,10 @@ Column(children: <Widget>[
 new GestureDetector(
   onTap:() =>detayaGit(),
   child:
-LcwAssistCustomWidgets.satir(Color.fromRGBO(54,163,247, 1.0),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(239,138,14, 1.0),
  applicationManager.currentLanguage.gettoplamFiiliDolulukBDHaric,raporResult.toplamFiiliDolulukLCM,false)),
 LcwAssistCustomWidgets.satir(Color.fromRGBO(0,116,198, 1.0),  applicationManager.currentLanguage.getnetNihaiLCMDoluluk,raporResult.netNihaiLCMDoluluk,false),
-LcwAssistCustomWidgets.satir(Color.fromRGBO(239,138,14, 1.0), applicationManager.currentLanguage.getreyonDolulukLCM,raporResult.reyonDolulukLCM,false),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(54,163,247, 1.0), applicationManager.currentLanguage.getreyonDolulukLCM,raporResult.reyonDolulukLCM,false),
 LcwAssistCustomWidgets.satir(Color.fromRGBO(100,105,188, 1.0),applicationManager.currentLanguage.getdepoDolulukLCM,raporResult.depoDolulukLCM,false),
 LcwAssistCustomWidgets.satir(Color.fromRGBO(196,66,88, 1.0),  applicationManager.currentLanguage.getonayLimiti,raporResult.onayLimiti,false),
 LcwAssistCustomWidgets.satir(Color.fromRGBO(38,137,116, 1.0), applicationManager.currentLanguage.gettoplamKapLCMNetNihaiKapLCM,raporResult.toplamKapOverNetNihai,false),
@@ -561,14 +577,30 @@ capacityParameter = result ?? capacityParameter;
 if(capacityParameter != null){
   capacityParameter.setMagazaKod = currentStore.storeCode;
 
+   setState(() {
+LcwAssistLoading.showAlert(context,applicationManager.currentLanguage.getyukleniyor);
+});
+
+
 await loadCapacityReport(capacityParameter);
+
+ setState(() {
+  Navigator.pop(context);
+ });
+
+if(raporResult == null){
+sayfaYuklendiMi = false;
+LcwAssistAlertDialogInfo(applicationManager.currentLanguage.getuyari, applicationManager.currentLanguage.getaradiginizKriterlerdeDataBulunamadi, applicationManager.currentLanguage.gettamam, context, LcwAssistDialogType.warning);
+}else
+{
+  sayfaYuklendiMi = true;
+}
+
 setState(() {  
 });
 }
   //LcwAssistSnackBarDialogInfo(result.getAksesuarUrun,scaffoldState,LcwAssistSnagitType.info).snackbarShow();
 }
-
-
 
 }
 

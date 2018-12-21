@@ -6,7 +6,8 @@ import 'package:lcwassist/Core/BaseConst/UrlConst.dart';
 import 'package:lcwassist/DataAccess/ProductPerformanceMetricsDTOs/ProductMetricsRequest.dart';
 
 import 'package:lcwassist/DataAccess/ProductPerformanceMetricsDTOs/ProductMetricsResponse.dart';
-import 'package:lcwassist/Services/AuthenticationServiceOperations/TokenOperations/TokenService.dart';
+import 'package:lcwassist/DataAccess/ProductPerformanceMetricsDTOs/SaveFeedbackRequestDTO.dart';
+import 'package:lcwassist/Services/AuthenticationServiceOperations/TokenService.dart';
 
 class ProductSalesPerformanceService{
 
@@ -15,7 +16,7 @@ class ProductSalesPerformanceService{
 }
 
 
-static Future<ProductMetricsResponse> productSalesPerformanceMetrics(ProductMetricsRequestDTO request) async {
+ Future<ProductMetricsResponse> productSalesPerformanceMetrics(ProductMetricsRequestDTO request) async {
  
 String token =  await TokenService.getAuthToken();
 request.setStoreCode = request.getStoreCode == "0" ? "" : request.getStoreCode;
@@ -31,8 +32,13 @@ var response = await http.post(
 
 ProductMetricsResponse result;
 
+//var bodyResult;
+Map<String, dynamic>  bodyResult;
 if (response.statusCode == 200) {
     // If the call to the server was successful, parse the JSON
+     bodyResult = json.decode(response.body);
+
+      if(bodyResult["product"] != null )
      result = ProductMetricsResponse.fromJson(json.decode(response.body));
     
      return result;
@@ -40,5 +46,27 @@ if (response.statusCode == 200) {
 
 }
 
+Future saveFeedback(SaveFeedbackRequestDTO request) async{
+
+  String token =  await TokenService.getAuthToken();
+
+Map<String, dynamic> body = request.toMap();
+var response = await http.post( 
+      //Uri.encodeFull("https://lcwapigateway.lcwaikiki.com/SmartStoreDataService/api/Metrics/GetProductMetricsForOther"),
+      Uri.encodeFull(UrlConst.usingSaveFeedbackUrl),
+      headers: {
+        "Authorization": "Bearer " +token,
+        "Content-Type": "application/json"
+      }, body: json.encode(body)
+    );
+
+Map<String, dynamic>  bodyResult;
+if (response.statusCode == 200) {
+    // If the call to the server was successful, parse the JSON
+     bodyResult = json.decode(response.body);
+
+}
+
+}
 
 }

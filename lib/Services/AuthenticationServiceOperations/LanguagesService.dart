@@ -254,6 +254,7 @@ currentLanguage.setfiltrele = currentLanguageRawData.firstWhere((i)=>i.kod == "f
 currentLanguage.setbirFeedBackBirak = currentLanguageRawData.firstWhere((i)=>i.kod == "birFeedBackBirak").deger;
 currentLanguage.seturunBagimsizFeedbackGonder = currentLanguageRawData.firstWhere((i)=>i.kod == "urunBagimsizFeedbackGonder").deger;
 currentLanguage.seturunBagimliBagimsizFeedbackGonder = currentLanguageRawData.firstWhere((i)=>i.kod == "urunBagimliBagimsizFeedbackGonder").deger;
+currentLanguage.setaradiginizKriterlerdeDataBulunamadi = currentLanguageRawData.firstWhere((i)=>i.kod == "aradiginizKriterlerdeDataBulunamadi").deger;
 
 return currentLanguage;
   }

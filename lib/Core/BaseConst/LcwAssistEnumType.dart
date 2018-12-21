@@ -13,3 +13,6 @@ enum ProductMetricsResponseType {
 enum ProductPerformansDetailType {
   stockDetail,salesDetail
 }
+enum LcwAssistFeedbackType {
+  like,unlike,general
+}
