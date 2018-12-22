@@ -96,6 +96,7 @@ const languages = const [
   const Language('Pусский', 'ru_RU'),
   const Language('Italiano', 'it_IT'),
   const Language('Español', 'es_ES'),
+  const Language('Turkce', 'tr_TR'),
 ];
 
 class Language {
