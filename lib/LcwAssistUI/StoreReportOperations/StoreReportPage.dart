@@ -83,7 +83,7 @@ LcwAssistLoading.showAlert(context,applicationManager.currentLanguage.getyukleni
  loadStoreReport(parameter);
 
 
- await new Future.delayed(const Duration(seconds: 2 ));
+ //await new Future.delayed(const Duration(seconds: 2 ));
 sayfaYuklendiMi = true;
  setState(() {
   Navigator.pop(context);

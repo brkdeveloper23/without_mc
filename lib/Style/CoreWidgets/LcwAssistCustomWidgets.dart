@@ -365,14 +365,6 @@ mainAxisSize: MainAxisSize.max,
 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                 Icon(Icons.assessment,color:  Colors.grey[500]),    
-          //       new Wrap(
-          // spacing: 4.0,
-          //       runSpacing: 4.0,
-          //       children: <Widget>[            
-          //       Text(masterText,textAlign: TextAlign.center,
-          //       style: TextStyle(fontWeight: FontWeight.bold,fontFamily: 'Ubuntu',
-          //       color: LcwAssistColor.reportCardHeaderColor)),
-          //       ])
 
   Container(
           width: (MediaQuery.of(context).size.width/2)*0.6,
@@ -387,20 +379,6 @@ Text(masterText,textAlign: TextAlign.center,
                 color: LcwAssistColor.reportCardHeaderColor))
 
                 ])),
-
-
-
-
-
-
-
-
-
-
-
-
-
-
               ],),
     )
   

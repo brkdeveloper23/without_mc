@@ -1,6 +1,7 @@
 class CapacityAnaliysisReportRequestDTO{
 
 String _magazaKod;
+String _merchGrupKod;
 String _merchYasGrupKod;
 String _merchAltGrupKod;
 String _buyerGrupTanim;
@@ -10,6 +11,9 @@ String _aksesuarUrun;
 
     set setMagazaKod(String magazaKod) {
       _magazaKod = magazaKod;
+    }
+    set setMerchGrupKod(String merchGrupKod) {
+      _merchGrupKod = merchGrupKod;
     }
     set setMerchYasGrupKod(String merchYasGrupKod) {
       _merchYasGrupKod = merchYasGrupKod;
@@ -27,6 +31,7 @@ String _aksesuarUrun;
     }
 
   String get getMagazaKod => _magazaKod;
+  String get getMerchGrupKod => _merchGrupKod;
   String get getMerchYasGrupKod => _merchYasGrupKod;
   String get getMerchAltGrupKod => _merchAltGrupKod;
   String get getBuyerGrupTanim => _buyerGrupTanim;
@@ -36,6 +41,7 @@ String _aksesuarUrun;
   Map<String, dynamic> toMap() {
     var map = new Map<String, dynamic>();
     map["MagazaKod"] = _magazaKod;
+    map["MerchGrupKod"] = _merchGrupKod;
     map["MerchYasGrupKod"] = _merchYasGrupKod;
     map["MerchAltGrupKod"] = _merchAltGrupKod;
     map["BuyerGrupTanim"] = _buyerGrupTanim;

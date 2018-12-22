@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       //showPerformanceOverlay: true,
       theme: ThemeData(
-        //primarySwatch: LcwAssistColor.secondaryColor,
+        //primarySwatch: LcwAssistColor.secondaryColor,LCWAIKIKI\\BURAK.BITKIN Cmb150832
         primaryColor: LcwAssistColor.secondaryColor,
       ),
       home: SplashAssist(), 

@@ -43,8 +43,12 @@ LcwAssistApplicationManager applicationManager = new LcwAssistApplicationManager
 
 List<String> aksesuarUrunList = new List<String>();
 String aksesuarUrun="";
+bool sayfaYuklendimi = false;
 
 Color cardBackColor = Colors.grey[100];
+
+List<MerchGrupDTO> listMerchGrupDTO = new List<MerchGrupDTO>();
+MerchGrupDTO listSelectedMerchGrupDTO;
 
 List<MerchMarkaYasGrupDTO> listMerchMarkaYasGrupDTO = new List<MerchMarkaYasGrupDTO>();
 MerchMarkaYasGrupDTO listSelectedMerchMarkaYasGrupDTO;
@@ -85,7 +89,39 @@ for(final i in aksesuarUrunList)
 
 }
 
-loadMerchMarkaYasGrupKodList(List<String> akseduarKodList){
+loadMerchGrupKodList(List<String> akseduarKodList){
+List<String> merchGrupKodList = new List<String>();
+
+listMerchGrupDTO = new List<MerchGrupDTO>();
+
+//if(aksesuarKod == ""){
+merchGrupKodList = 
+storesResponse.merchHierarchiesList
+.where((i)=> akseduarKodList.contains(i.aksesuarUrun))
+.map((f)=> f.merchGrupKod.toString()).toList();//sort((a, b) => a.length.compareTo(b.length));;
+
+ int count = 0;
+
+merchGrupKodList.sort();
+ listMerchGrupDTO.add(MerchGrupDTO(kod: count,tanim: applicationManager.currentLanguage.gettumu));
+
+
+
+ listSelectedMerchGrupDTO = listMerchGrupDTO[0];
+ count++;
+for(final i in merchGrupKodList)
+{
+  //Distinct yaptık.
+  if(!listMerchGrupDTO.map((f)=> f.tanim.toString()).toList().contains(i))
+  {
+  listMerchGrupDTO.add(MerchGrupDTO(kod: count,tanim: i));
+  count++;
+  }
+}
+
+}
+
+loadMerchMarkaYasGrupKodList(List<String> merchGrupKodList){
 
 List<String> merchMarkaYasGrupKodList = new List<String>();
 
@@ -94,14 +130,13 @@ listMerchMarkaYasGrupDTO = new List<MerchMarkaYasGrupDTO>();
 //if(aksesuarKod == ""){
 merchMarkaYasGrupKodList = 
 storesResponse.merchHierarchiesList
-.where((i)=> akseduarKodList.contains(i.aksesuarUrun))
+.where((i)=> merchGrupKodList.contains(i.merchGrupKod))
 .map((f)=> f.merchMarkaYasGrupKod.toString()).toList();//sort((a, b) => a.length.compareTo(b.length));;
 
  int count = 0;
 
-merchMarkaYasGrupKodList.sort();
+ merchMarkaYasGrupKodList.sort();
  listMerchMarkaYasGrupDTO.add(MerchMarkaYasGrupDTO(kod: count,tanim: applicationManager.currentLanguage.gettumu));
-
 
 
  listSelectedMerchMarkaYasGrupDTO = listMerchMarkaYasGrupDTO[0];
@@ -172,6 +207,8 @@ for(final i in buyerGrupTanimList)
 }
 }
 
+
+
   @override
   void initState() {
 super.initState();
@@ -181,13 +218,17 @@ WidgetsBinding.instance
   }
 
 Future loaded(BuildContext context) async{
-  
 applicationManager.setCurrentLanguage = await applicationManager.languagesService.currentLanguage();
+sayfaYuklendimi = true;
+setState(() {
+      
+    });
 loadAllCombo();
 }
 
 Future<void> executeAfterBuild() async {
   applicationManager.setCurrentLanguage = await applicationManager.languagesService.currentLanguage();
+  sayfaYuklendimi = true;
   setState(() {
       
     });
@@ -196,11 +237,13 @@ Future<void> executeAfterBuild() async {
 void loadAllCombo(){
 
 loadAksesuarUrunList();
-loadMerchMarkaYasGrupKodList(aksesuarUrunList);
+loadMerchGrupKodList(aksesuarUrunList);
+loadMerchMarkaYasGrupKodList(listMerchGrupDTO.map((f)=> f.tanim.toString()).toList());
 loadMerchAltGrupKodList(listMerchMarkaYasGrupDTO.map((f)=> f.tanim.toString()).toList());
 loadBuyerGrupTanimList(listMerchAltGroupDTO.map((f)=> f.tanim.toString()).toList());
 
 listSelectedAksesuarUrunDTO = capacityParameter.getAksesuarUrun != "" ? listAksesuarUrunDTO.where((i) => i.tanim == capacityParameter.getAksesuarUrun).first : listAksesuarUrunDTO[0];
+listSelectedMerchGrupDTO = capacityParameter.getMerchGrupKod != "" ? listMerchGrupDTO.where((i) => i.tanim == capacityParameter.getMerchGrupKod).first : listMerchGrupDTO[0];
 listSelectedBuyerGrupTanimDTO = capacityParameter.getBuyerGrupTanim != "" ? listBuyerGrupTanimDTO.where((i) => i.tanim == capacityParameter.getBuyerGrupTanim).first : listBuyerGrupTanimDTO[0];
 listSelectedMerchAltGroupDTO = capacityParameter.getMerchAltGrupKod != "" ? listMerchAltGroupDTO.where((i) => i.tanim == capacityParameter.getMerchAltGrupKod).first : listMerchAltGroupDTO[0];
 listSelectedMerchMarkaYasGrupDTO = capacityParameter.getMerchYasGrupKod != "" ? listMerchMarkaYasGrupDTO.where((i) => i.tanim == capacityParameter.getMerchYasGrupKod).first : listMerchMarkaYasGrupDTO[0];
@@ -213,10 +256,10 @@ executeAfterBuild();
     return new Scaffold(
       backgroundColor: LcwAssistColor.backGroundColor,
       appBar: new AppBar(
-        title: Text(applicationManager.currentLanguage.getkapasiteFiltre),
+        title: sayfaYuklendimi ? Text(applicationManager.currentLanguage.getkapasiteFiltre) : Text(''),
      
       ),
-      body: filterBody()
+      body: sayfaYuklendimi ? filterBody() : Text('')
     );
 
 
@@ -260,7 +303,8 @@ DropdownButtonHideUnderline(
  List<String> e3we = new List<String>();
  e3we.add(newValue.tanim);
 
-              loadMerchMarkaYasGrupKodList(e3we);
+              loadMerchGrupKodList(e3we);
+              loadMerchMarkaYasGrupKodList(listMerchGrupDTO.map((f)=> f.tanim.toString()).toList());
               loadMerchAltGrupKodList(listMerchMarkaYasGrupDTO.map((f)=> f.tanim.toString()).toList());
 
               loadBuyerGrupTanimList(listMerchAltGroupDTO.map((f)=> f.tanim.toString()).toList());
@@ -285,6 +329,59 @@ DropdownButtonHideUnderline(
 ,),
 
 ],)
+),
+
+//MerchGrup Kod
+Card(
+  color: cardBackColor,
+child:
+Column(
+  crossAxisAlignment: CrossAxisAlignment.stretch,
+  children: <Widget>[
+Padding(child: Text('Merch Grup Kod Seç...',style: TextStyle(fontSize: 15.0,color: LcwAssistColor.primaryColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily)),padding: EdgeInsets.fromLTRB(3, 3, 3, 3),),
+Card(child: 
+Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),child:
+
+
+DropdownButtonHideUnderline(
+        child: ButtonTheme(
+          alignedDropdown: true,
+          child: 
+
+ new DropdownButton<MerchGrupDTO>(
+            //hint: new Text(""),
+            value: listSelectedMerchGrupDTO,
+            onChanged: (MerchGrupDTO newValue) {
+              
+               List<String> e3we = new List<String>();
+ e3we.add(newValue.tanim);
+
+                loadMerchMarkaYasGrupKodList(e3we);
+                listSelectedMerchGrupDTO = newValue;
+                chan(newValue.kod);
+              setState(() {
+                
+              });
+            },
+            items: listMerchGrupDTO.map((MerchGrupDTO user) {
+              return new DropdownMenuItem<MerchGrupDTO>(
+                value: user,
+                child: new Text(
+                  user.tanim,
+                  style: new TextStyle(color: Colors.black),
+                ),
+              );
+            }).toList(),
+            ),
+        )
+    ),
+)
+,),
+
+
+],)
+
+
 ),
 
 Card(
@@ -467,6 +564,7 @@ capacityParameter.setAksesuarUrun = listSelectedAksesuarUrunDTO.tanim == listAks
 capacityParameter.setBuyerGrupTanim =listSelectedBuyerGrupTanimDTO.tanim == listBuyerGrupTanimDTO[0].tanim ? "" : listSelectedBuyerGrupTanimDTO.tanim;
 capacityParameter.setMerchAltGrupKod = listSelectedMerchAltGroupDTO.tanim == listMerchAltGroupDTO[0].tanim ? "" : listSelectedMerchAltGroupDTO.tanim;
 capacityParameter.setMerchYasGrupKod = listSelectedMerchMarkaYasGrupDTO.tanim == listMerchMarkaYasGrupDTO[0].tanim ? "" : listSelectedMerchMarkaYasGrupDTO.tanim;
+capacityParameter.setMerchGrupKod = listSelectedMerchGrupDTO.tanim == listMerchGrupDTO[0].tanim ? "" : listSelectedMerchGrupDTO.tanim;
 capacityParameter.setMagazaKod = "";
 
 
@@ -485,6 +583,7 @@ capacityParameter.setAksesuarUrun =   "";
 capacityParameter.setBuyerGrupTanim = ""; 
 capacityParameter.setMerchAltGrupKod =""; 
 capacityParameter.setMerchYasGrupKod ="";
+capacityParameter.setMerchGrupKod ="";
 
 loadAllCombo();
 

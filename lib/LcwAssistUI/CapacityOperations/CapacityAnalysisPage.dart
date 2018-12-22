@@ -85,6 +85,7 @@ LcwAssistLoading.showAlert(context,applicationManager.currentLanguage.getyukleni
 
 capacityParameter.setAksesuarUrun = "";
 capacityParameter.setBuyerGrupTanim = "";
+capacityParameter.setMerchGrupKod = "";
 capacityParameter.setMagazaKod = currentStore.storeCode;
 capacityParameter.setMerchAltGrupKod = "";
 capacityParameter.setMerchYasGrupKod = "";

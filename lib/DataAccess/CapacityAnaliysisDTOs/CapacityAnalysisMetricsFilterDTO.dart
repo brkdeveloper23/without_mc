@@ -66,29 +66,39 @@ var merchHierarchies = json['merchHierarchies'] as List;
 }
 
 class MerchHierarchiesDTO{
+final String merchGrupKod; 
 final String merchMarkaYasGrupKod;
 final String  merchAltGrupKod;
 final String  buyerGrupTanim;
 final String  aksesuarUrun;
 
-MerchHierarchiesDTO({this.merchMarkaYasGrupKod,this.merchAltGrupKod,this.buyerGrupTanim,this.aksesuarUrun});
+MerchHierarchiesDTO({this.merchGrupKod,this.merchMarkaYasGrupKod,this.merchAltGrupKod,this.buyerGrupTanim,this.aksesuarUrun});
 
 
 factory MerchHierarchiesDTO.fromJson(Map<String, dynamic> json) {
 
 
   return MerchHierarchiesDTO(
-     
+    merchGrupKod: json['merchGrupKod'], 
+    aksesuarUrun: json['aksesuarUrun'], 
     merchMarkaYasGrupKod: json['merchMarkaYasGrupKod'] ,
     merchAltGrupKod: json['merchAltGrupKod'],
-    buyerGrupTanim: json['buyerGrupTanim'] ,
-    aksesuarUrun: json['aksesuarUrun']
+    buyerGrupTanim: json['buyerGrupTanim'] 
+    
   );
 }
 
 
 }
 
+
+class MerchGrupDTO{
+int kod;
+String tanim;
+
+MerchGrupDTO({this.kod,this.tanim});
+
+}
 
 class MerchAltGroupDTO{
 

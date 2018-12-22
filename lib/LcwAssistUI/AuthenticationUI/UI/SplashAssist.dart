@@ -289,7 +289,7 @@ await applicationManager.languagesService.setCurrentLanguage(dilId);
 
 
 
-await new Future.delayed(const Duration(seconds: 1 ));
+//await new Future.delayed(const Duration(seconds: 1 ));
 
 Navigator.pop(context);
 

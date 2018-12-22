@@ -16,6 +16,7 @@ import 'package:lcwassist/Core/CoreFunctions/LcwAssistMessageDialogs/LcwAssistAl
 import 'package:lcwassist/DataAccess/LanguageDTOs/CurrentLangugeDTO.dart';
 
 import 'package:lcwassist/DataAccess/LanguageDTOs/MultiLangComboDTO.dart';
+
 import 'package:lcwassist/DataAccess/LcwStoreDTOs/GetLatestAppVersionInfoResponseDTO.dart';
 
 import 'package:lcwassist/DataAccess/LoginPageDTOs/LoginPageEntryRequestDTO.dart';
@@ -163,9 +164,9 @@ final prefs = await SharedPreferences.getInstance();
 
 String storeVersiyon = prefs.getString(SharedPreferencesConstant.currentLcwStoreVersion);
 
-versionString = "D.V " +packageInfo.version + " - S.V " + storeVersiyon;
+versionString = "D.V: " +packageInfo.version + " - S.V: " + storeVersiyon;
 
-versionString = packageInfo.packageName;
+//versionString = packageInfo.packageName;
 
 if(storeVersiyon != packageInfo.version)
 {

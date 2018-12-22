@@ -33,11 +33,11 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.example.lcwassist"
+        applicationId "com.lcwaikiki.lcwassist.droid"
         minSdkVersion 16
         targetSdkVersion 27
         versionCode 9//flutterVersionCode.toInteger()
-        versionName "1.0.8"//flutterVersionName
+        versionName "1.0.9"//flutterVersionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 

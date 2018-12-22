@@ -58,13 +58,13 @@ void initState() {
     );
 ///////////////////////
     super.initState();
-sayfaYuklendiMi = true;
 
-//  WidgetsBinding.instance
-//         .addPostFrameCallback((_) => loaded(context));
-// setState(() {
-  
-// });
+
+ WidgetsBinding.instance
+        .addPostFrameCallback((_) => loaded(context));
+
+
+ //sayfaYuklendiMi = true;
     // currentStore().then((result) {
     //         // If we need to rebuild the widget with the resulting data,
     //         // make sure to use `setState`
@@ -74,15 +74,15 @@ sayfaYuklendiMi = true;
     //     });
   }
 
-
-  Future loaded(BuildContext context) async{
+Future loaded(BuildContext context) async{
     currentPageStyleIcon = Icon(Icons.view_module);
     currentPageStyle = true;
     applicationManager.setCurrentLanguage = await applicationManager.languagesService.currentLanguage();
     applicationManager.setCurrentStore = await applicationManager.serviceManager.storeChooseService.getCurrentStore();
     applicationManager.setCurrentUser = await applicationManager.serviceManager.loginService.getCurrentUser();
 
-    sayfaYuklendiMi = true;    
+    sayfaYuklendiMi = true;
+    setState(() {});
 }
 
 Future<void> executeAfterBuild() async {
@@ -90,7 +90,7 @@ Future<void> executeAfterBuild() async {
 }
 
   @override
-  Widget build(BuildContext context) {
+Widget build(BuildContext context) {
     return new Scaffold(
       resizeToAvoidBottomPadding: false,
       //key: scaffoldState,
@@ -103,7 +103,7 @@ Future<void> executeAfterBuild() async {
       ],),
       //drawer: DrawerOnly.leftSideMenuDiz(LcwAssistPageDrawerNumberConst.satis,context),
       backgroundColor: LcwAssistColor.backGroundColor,
-      body: sayfaYuklendiMi == true ? storeReportPageBody(): Container(child: Text(''),),//(currentPageStyle == true ? storeReportPageBody() : ekranYerlesim()) : Container(child: Text(''),),
+      body: sayfaYuklendiMi == true ? storeReportPageBody(): Container(child: Text(''),),
       floatingActionButtonLocation: 
       FloatingActionButtonLocation.endDocked,
     floatingActionButton: Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 20.0),child: buildFloatingButtonHasSub(),),//thisFloatActionButton(),
@@ -111,23 +111,12 @@ Future<void> executeAfterBuild() async {
     );
     }
 
-//Expanded(flex: 12,child: Container(color: LcwAssistColor.backGroundColor,child: Padding(padding: EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 0.0),child: buildPageView(),),),),
-
 Widget storeReportPageBody(){
 
 return 
 new Column(
   children: <Widget>[
-    // Card(child: Column(
-    //     mainAxisSize: MainAxisSize.max,
-    // crossAxisAlignment: CrossAxisAlignment.stretch,
-    //   children: <Widget>[
-    //     yeniHeader(),//magazaCardDetay2()
-    //   ],
-    // )),
-
-
-    
+   
 yeniHeader(),
     currentPageStyle == true ?
     Expanded(child: 
@@ -200,30 +189,6 @@ LcwAssistCustomWidgets.satir(Color.fromRGBO(100,105,188, 1.0), applicationManage
 );
 }
 
-Widget ekranYerlesim(){
-    return Column(
-    children: <Widget>[
-      Expanded(flex: 4,child: Container(color: LcwAssistColor.backGroundColor,
-      child: 
-      Padding(child: masterCardInfo(),padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),),)
-      ,),//masterCardInfo()
-
-      Expanded(flex: 12,child: Container(color: LcwAssistColor.backGroundColor,child: Padding(padding: EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 0.0),child: buildPageView(),),),),
-      Expanded(flex: 1,child: Container(
-        padding: EdgeInsets.fromLTRB(0.0, 0.0, 5.0, 0.0),
-        alignment: Alignment.centerRight,
-        color: LcwAssistColor.backGroundColor,
-        child: Row(
-         mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            // Image.asset('assets/diagram1.png')
-          ],
-        ),),)//child: buildFlatButton(),),)
-      
-    ],
-  );
-}
-
 Widget sayfa(List<Widget> satirlar){
     return Container(
     //padding: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
@@ -236,131 +201,76 @@ Widget sayfa(List<Widget> satirlar){
   ));
 }
 
-Widget masterCardInfo(){
-  return Container
-  (
-color: LcwAssistColor.thirdColor,
-child:
-      Row(
-      children: <Widget>[
-        Expanded(flex: 140, child: 
-        Padding(child: Image.asset('assets/chart_6.png',fit: BoxFit.cover,),padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),)            
-        ),//, fit: BoxFit.cover
-        Expanded(flex: 400,child: magazaCardDetay(),),
-      ],
-    )
-      ,
 
-
-  );
-}
-
-Widget magazaCardDetay2(){
-  return 
-     Padding(
-       padding: EdgeInsets.fromLTRB(5, 5, 0, 0),
-       child: 
-     Column(
-       mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-
-Container(
-  child: //brightness_1
-  Row(children: <Widget>[Icon(Icons.remove,color: Color.fromRGBO(54,163,247, 1.0),size: 20,),Text( applicationManager.currentLanguage.getmagaza+' : ',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17.0,fontFamily: LcwAssistTextStyle.currentTextFontFamily,color: LcwAssistColor.reportCardHeaderColor)),Text(applicationManager.currentStore.storeName,style: TextStyle(fontSize: 17.0,color: LcwAssistColor.reportCardSubHeaderColor))]),
-  ),       
-       
-        Row(children: <Widget>[Icon(Icons.remove,color: Color.fromRGBO(0,116,198, 1.0),size: 20,),Text(applicationManager.currentLanguage.geturun+' : ',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17.0,fontFamily: LcwAssistTextStyle.currentTextFontFamily,color: LcwAssistColor.reportCardHeaderColor)),
-        
-        Text(this.productMetricsResponse.product.barkod.toString(),style: TextStyle(fontSize: 17.0,color: LcwAssistColor.reportCardHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily),)]),
-        Row(children: <Widget>
-        [
-          Icon(Icons.remove,color: Color.fromRGBO(239,138,14, 1.0),size: 20,),
-          Text(
-          this.productMetricsResponse.product.modelKod+' / '+this.productMetricsResponse.product.renkKod+'-'+this.productMetricsResponse.product.renkTanim
-          //productMetricsResponse.product.renkKod+'('+productMetricsResponse.product.renkTanim+')'
-        ,style: TextStyle(fontSize: 17.0,color: LcwAssistColor.reportCardHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily)),]),
-        Row(children: <Widget>[
-          Icon(Icons.remove,color: Color.fromRGBO(100,105,188, 1.0),size: 20,),
-          Text(this.productMetricsResponse.product.urunAdi,
-        style: TextStyle(fontSize: 17.0,color: LcwAssistColor.reportCardHeaderColor)),])
-
-
-      ],
-   
-  ),);
-}
-
-Widget magazaCardDetay(){
-  return 
-     Column(
-       mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-
-  Row(children: <Widget>[Text( applicationManager.currentLanguage.getmagaza+' : ',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17.0,fontFamily: LcwAssistTextStyle.currentTextFontFamily,color: Colors.white)),Text(applicationManager.currentStore.storeName,style: TextStyle(fontSize: 17.0,color: Colors.white))]),
-        Row(children: <Widget>[Text(applicationManager.currentLanguage.geturun+' : ',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17.0,fontFamily: LcwAssistTextStyle.currentTextFontFamily,color: Colors.white)),
-        Text(this.productMetricsResponse.product.barkod.toString(),style: TextStyle(fontSize: 17.0,color: Colors.white,fontFamily: LcwAssistTextStyle.currentTextFontFamily),)]),
-        Row(children: <Widget>
-        [
-          
-          Text(
-          this.productMetricsResponse.product.modelKod+'/'+this.productMetricsResponse.product.renkKod+'-'+this.productMetricsResponse.product.renkTanim
-          //productMetricsResponse.product.renkKod+'('+productMetricsResponse.product.renkTanim+')'
-        ,style: TextStyle(fontSize: 17.0,color: Colors.white,fontFamily: LcwAssistTextStyle.currentTextFontFamily)),]),
-        Row(children: <Widget>[Text(this.productMetricsResponse.product.urunAdi,
-        style: TextStyle(fontSize: 17.0,color: Colors.white)),]),
-
-
-      ],
-   
-  );
-}
-
-Widget tutarUcluCard(Color colorR,List<UcluCardTextDTO> ucluKartText, bool isThereDetail){
+Widget tutarUcluCard(Color colorR,List<UcluCardTextDTO2> ucluKartText){
   
-  return Card(
-    child: 
-
+  return 
     Container(
+      padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
       decoration:  BoxDecoration(
     border:  Border(
-      // top:  BorderSide(width: 1.0, color:  Color(0xFFFFFFFFFF)),
-      // left:  BorderSide(width: 1.0, color:  Color(0xFFFFFFFFFF)),
-      // right:  BorderSide(width: 1.0, color:  Color(0xFFFFFFFFFF)),
-      bottom:  BorderSide(width: 4.0, color:  colorR)//Color.fromRGBO(182,0,62, 1.0))
+      bottom:  BorderSide(width: 3.0, color:  colorR)
     )),
       child: 
     Column(
-// mainAxisSize: MainAxisSize.max,
  mainAxisAlignment: MainAxisAlignment.spaceBetween,
  crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         Container(child: Container(
           child: 
           Row(
-
-
             children: <Widget>[
 Expanded(flex: 2,
 child: 
           Column(
           children: <Widget>[
-            Container(padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),child: Text(ucluKartText[0].masterText,style: LcwAssistTextStyle.reportCardHeaderTextStyle),),
+           
+            new Wrap(
+          spacing: 2.0, // gap between adjacent chips
+  runSpacing: 2.0, // gap between lines 
+  direction: Axis.horizontal,
+                children: <Widget>[
+              //Text(ucluKartText[0].masterText,style: LcwAssistTextStyle.reportCardHeaderTextStyle)
+Text(ucluKartText[0].masterText,style: TextStyle(fontFamily: 'Ubuntu',
+        decoration: ucluKartText[0].hasDetail ? TextDecoration.underline : null,
+        color: ucluKartText[0].hasDetail ? LcwAssistColor.linkColor : LcwAssistColor.reportCardHeaderColor),
+        )
+      ,ucluKartText[0].hasDetail ? Icon(OMIcons.touchApp,size: 16.0,color: LcwAssistColor.linkColor,) : Text('')
+
+            ],)
+            
+            
+            
+            ,
             Container(padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),child: Text(ucluKartText[0].subText,style:LcwAssistTextStyle.reportCardsubHeaderTextStyle))
             ],)),
-
 Expanded(flex: 1,
 child: 
 Column(
           children: <Widget>[
-            Container(padding: EdgeInsets.fromLTRB(0.0, 40.0, 0.0, 0.0),child: Text(ucluKartText[1].masterText,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14.0,decoration: TextDecoration.underline,fontFamily: LcwAssistTextStyle.currentTextFontFamily,color: LcwAssistColor.secondaryColor)),),
-            Container(padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),child: Text(ucluKartText[1].subText,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16.0,decoration: TextDecoration.underline,fontFamily:  LcwAssistTextStyle.currentTextFontFamily,color: LcwAssistColor.thirdColor)))
+            Container(padding: EdgeInsets.fromLTRB(0.0, 40.0, 0.0, 0.0),child: Text(ucluKartText[1].masterText,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14.0,decoration: TextDecoration.underline,fontFamily: LcwAssistTextStyle.currentTextFontFamily,color: LcwAssistColor.reportCardHeaderColor)),),
+            Container(padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),child: Text(ucluKartText[1].subText,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16.0,decoration: TextDecoration.underline,fontFamily:  LcwAssistTextStyle.currentTextFontFamily,color: LcwAssistColor.reportCardSubHeaderColor)))
             ],)),
-
 Expanded(flex: 2,
 child: 
 Column(
           children: <Widget>[
-            Container(padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),child: Text(ucluKartText[2].masterText,style: LcwAssistTextStyle.reportCardHeaderTextStyle),),
+                       new Wrap(
+          spacing: 2.0, // gap between adjacent chips
+  runSpacing: 2.0, // gap between lines 
+  direction: Axis.horizontal,
+                children: <Widget>[
+              //Text(ucluKartText[0].masterText,style: LcwAssistTextStyle.reportCardHeaderTextStyle)
+Text(ucluKartText[2].masterText,style: TextStyle(fontFamily: 'Ubuntu',
+        decoration: ucluKartText[2].hasDetail ? TextDecoration.underline : null,
+        color: ucluKartText[2].hasDetail ? LcwAssistColor.linkColor : LcwAssistColor.reportCardHeaderColor),
+        )
+      ,ucluKartText[2].hasDetail ? Icon(OMIcons.touchApp,size: 16.0,color: LcwAssistColor.linkColor,) : Text('')
+
+            ],)
+           
+           ,
+           
             Container(padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),child: Text(ucluKartText[2].subText,style: LcwAssistTextStyle.reportCardsubHeaderTextStyle))
             ],)),
 
@@ -368,41 +278,21 @@ Column(
           
             ),),
             ),
- isThereDetail == true ? Row(
-   mainAxisAlignment: MainAxisAlignment.end,
-  children: <Widget>[
-    new GestureDetector(
-  onTap: ()=>{},
-  child: new Card(
-    color: LcwAssistColor.yellowGreen,//color: LcwAssistColor.specialOrange,
-    child: Row(children: <Widget>[Icon(Icons.more_horiz,color: Colors.white,),
-    Text(applicationManager.currentLanguage.getdetaylar,style: TextStyle(color: Colors.white,fontFamily: LcwAssistTextStyle.currentTextFontFamily),),
-    Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 2.0, 0.0),)],)    
-    ,),
-)
-  ],
-): Row(),
-
       ],
     ),
-  )
-  
-  
-  );
-
+    );
 }
 
 Widget tutarCard(Color colorR,String masterText,String subText, bool isThereDetail){
-  
-  return Card(
-    child: 
+return
     Container(
+      padding: EdgeInsets.fromLTRB(5, 10, 5, 5),
       decoration:  BoxDecoration(
     border:  Border(
       top:  BorderSide(width: 1.0, color:  Color(0xFFFFFFFFFF)),
       left:  BorderSide(width: 1.0, color:  Color(0xFFFFFFFFFF)),
       right:  BorderSide(width: 1.0, color:  Color(0xFFFFFFFFFF)),
-      bottom:  BorderSide(width: 4.0, color:  Color.fromRGBO(colorR.red, colorR.green, colorR.blue, 1.0))//Color.fromRGBO(182,0,62, 1.0))
+      bottom:  BorderSide(width: 3.0, color:  Color.fromRGBO(colorR.red, colorR.green, colorR.blue, 1.0))//Color.fromRGBO(182,0,62, 1.0))
     )),
       child: 
     Column(
@@ -410,76 +300,231 @@ Widget tutarCard(Color colorR,String masterText,String subText, bool isThereDeta
  crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
 Column(children: <Widget>[
-            Container(padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),child: Text(masterText,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16.0,fontFamily: 'Ubuntu',color: LcwAssistColor.reportCardHeaderColor)),),
+
+new Wrap(
+          spacing: 2.0, // gap between adjacent chips
+  runSpacing: 2.0, // gap between lines 
+  direction: Axis.horizontal,
+                children: <Widget>[
+              //Text(ucluKartText[0].masterText,style: LcwAssistTextStyle.reportCardHeaderTextStyle)
+Text(masterText,style: TextStyle(fontFamily: 'Ubuntu',
+        decoration: isThereDetail ? TextDecoration.underline : null,
+        color: isThereDetail ? LcwAssistColor.linkColor : LcwAssistColor.reportCardHeaderColor),
+        )
+      ,isThereDetail ? Icon(OMIcons.touchApp,size: 16.0,color: LcwAssistColor.linkColor,) : Text('')
+
+            ],)
+
+            //Container(padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),child: Text(masterText,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16.0,fontFamily: 'Ubuntu',color: LcwAssistColor.reportCardHeaderColor)),),
+            ,
+            
+            
+            
             Container(padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),child: Text(subText,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16.0,fontFamily: 'Ubuntu',color: LcwAssistColor.reportCardSubHeaderColor)))
+             
+             
              ],),
              isThereDetail == true ? Row(
    mainAxisAlignment: MainAxisAlignment.end,
   children: <Widget>[
-    new GestureDetector(
-  onTap: ()=>{},
-  child: new Card(
-    color: LcwAssistColor.yellowGreen,//LcwAssistColor.specialOrange,
-    child: Row(children: <Widget>[Icon(Icons.more_horiz,color: Colors.white,),
-    Text(applicationManager.currentLanguage.getdetaylar,style: TextStyle(color: Colors.white,fontFamily: LcwAssistTextStyle.currentTextFontFamily),),
-    Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 2.0, 0.0),)],)    
-    ,),
-)
+
   ],
 ): Row()
         
 
     ],)
     
-  ));
+  );
 }
+
+
+
+
+// Widget tutarUcluCard(Color colorR,List<UcluCardTextDTO2> ucluKartText){
+  
+//   return Card(
+//     child: 
+
+//     Container(
+//       decoration:  BoxDecoration(
+//     border:  Border(
+//       bottom:  BorderSide(width: 4.0, color:  colorR)
+//     )),
+//       child: 
+//     Column(
+//  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//  crossAxisAlignment: CrossAxisAlignment.stretch,
+//       children: <Widget>[
+//         Container(child: Container(
+//           child: 
+//           Row(
+//             children: <Widget>[
+// Expanded(flex: 2,
+// child: 
+//           Column(
+//           children: <Widget>[
+           
+//             new Wrap(
+//           spacing: 2.0, // gap between adjacent chips
+//   runSpacing: 2.0, // gap between lines 
+//   direction: Axis.horizontal,
+//                 children: <Widget>[
+//               //Text(ucluKartText[0].masterText,style: LcwAssistTextStyle.reportCardHeaderTextStyle)
+// Text(ucluKartText[0].masterText,style: TextStyle(fontFamily: 'Ubuntu',
+//         decoration: ucluKartText[0].hasDetail ? TextDecoration.underline : null,
+//         color: ucluKartText[0].hasDetail ? LcwAssistColor.linkColor : LcwAssistColor.reportCardHeaderColor),
+//         )
+//       ,ucluKartText[0].hasDetail ? Icon(OMIcons.touchApp,size: 16.0,color: LcwAssistColor.linkColor,) : Text('')
+
+//             ],)
+            
+            
+            
+//             ,
+//             Container(padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),child: Text(ucluKartText[0].subText,style:LcwAssistTextStyle.reportCardsubHeaderTextStyle))
+//             ],)),
+// Expanded(flex: 1,
+// child: 
+// Column(
+//           children: <Widget>[
+//             Container(padding: EdgeInsets.fromLTRB(0.0, 40.0, 0.0, 0.0),child: Text(ucluKartText[1].masterText,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14.0,decoration: TextDecoration.underline,fontFamily: LcwAssistTextStyle.currentTextFontFamily,color: LcwAssistColor.reportCardHeaderColor)),),
+//             Container(padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),child: Text(ucluKartText[1].subText,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16.0,decoration: TextDecoration.underline,fontFamily:  LcwAssistTextStyle.currentTextFontFamily,color: LcwAssistColor.reportCardSubHeaderColor)))
+//             ],)),
+// Expanded(flex: 2,
+// child: 
+// Column(
+//           children: <Widget>[
+//                        new Wrap(
+//           spacing: 2.0, // gap between adjacent chips
+//   runSpacing: 2.0, // gap between lines 
+//   direction: Axis.horizontal,
+//                 children: <Widget>[
+//               //Text(ucluKartText[0].masterText,style: LcwAssistTextStyle.reportCardHeaderTextStyle)
+// Text(ucluKartText[2].masterText,style: TextStyle(fontFamily: 'Ubuntu',
+//         decoration: ucluKartText[2].hasDetail ? TextDecoration.underline : null,
+//         color: ucluKartText[2].hasDetail ? LcwAssistColor.linkColor : LcwAssistColor.reportCardHeaderColor),
+//         )
+//       ,ucluKartText[2].hasDetail ? Icon(OMIcons.touchApp,size: 16.0,color: LcwAssistColor.linkColor,) : Text('')
+
+//             ],)
+           
+//            ,
+           
+//             Container(padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),child: Text(ucluKartText[2].subText,style: LcwAssistTextStyle.reportCardsubHeaderTextStyle))
+//             ],)),
+
+//             ] 
+          
+//             ),),
+//             ),
+//       ],
+//     ),
+//   )
+//   );
+// }
+
+// Widget tutarCard(Color colorR,String masterText,String subText, bool isThereDetail){
+  
+//   return Card(
+//     child: 
+//     Container(
+//       decoration:  BoxDecoration(
+//     border:  Border(
+//       top:  BorderSide(width: 1.0, color:  Color(0xFFFFFFFFFF)),
+//       left:  BorderSide(width: 1.0, color:  Color(0xFFFFFFFFFF)),
+//       right:  BorderSide(width: 1.0, color:  Color(0xFFFFFFFFFF)),
+//       bottom:  BorderSide(width: 4.0, color:  Color.fromRGBO(colorR.red, colorR.green, colorR.blue, 1.0))//Color.fromRGBO(182,0,62, 1.0))
+//     )),
+//       child: 
+//     Column(
+//  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//  crossAxisAlignment: CrossAxisAlignment.stretch,
+//       children: <Widget>[
+// Column(children: <Widget>[
+
+// new Wrap(
+//           spacing: 2.0, // gap between adjacent chips
+//   runSpacing: 2.0, // gap between lines 
+//   direction: Axis.horizontal,
+//                 children: <Widget>[
+//               //Text(ucluKartText[0].masterText,style: LcwAssistTextStyle.reportCardHeaderTextStyle)
+// Text(masterText,style: TextStyle(fontFamily: 'Ubuntu',
+//         decoration: isThereDetail ? TextDecoration.underline : null,
+//         color: isThereDetail ? LcwAssistColor.linkColor : LcwAssistColor.reportCardHeaderColor),
+//         )
+//       ,isThereDetail ? Icon(OMIcons.touchApp,size: 16.0,color: LcwAssistColor.linkColor,) : Text('')
+
+//             ],)
+
+//             //Container(padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),child: Text(masterText,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16.0,fontFamily: 'Ubuntu',color: LcwAssistColor.reportCardHeaderColor)),),
+//             ,
+            
+            
+            
+//             Container(padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),child: Text(subText,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16.0,fontFamily: 'Ubuntu',color: LcwAssistColor.reportCardSubHeaderColor)))
+             
+             
+//              ],),
+//              isThereDetail == true ? Row(
+//    mainAxisAlignment: MainAxisAlignment.end,
+//   children: <Widget>[
+
+//   ],
+// ): Row()
+        
+
+//     ],)
+    
+//   ));
+// }
+
+
 
 Widget buildPageView() {
 
-List<UcluCardTextDTO> sayfaBirSatir1 = new List<UcluCardTextDTO>();
-sayfaBirSatir1.add(new UcluCardTextDTO(applicationManager.currentLanguage.getkumulatifSatisTutar,productMetricsResponse.productPerformansResultDTO.kumulatifSatisTutar));
-sayfaBirSatir1.add(new UcluCardTextDTO(applicationManager.currentLanguage.getortalamaPSF,productMetricsResponse.productPerformansResultDTO.ortalamaPSF));
-sayfaBirSatir1.add(new UcluCardTextDTO(applicationManager.currentLanguage.getkumulatifSatisAdet,productMetricsResponse.productPerformansResultDTO.kumulatifSatisAdet));
+List<UcluCardTextDTO2> sayfaBirSatir1 = new List<UcluCardTextDTO2>();
+sayfaBirSatir1.add(new UcluCardTextDTO2(applicationManager.currentLanguage.getkumulatifSatisTutar,productMetricsResponse.productPerformansResultDTO.kumulatifSatisTutar,true));
+sayfaBirSatir1.add(new UcluCardTextDTO2(applicationManager.currentLanguage.getortalamaPSF,productMetricsResponse.productPerformansResultDTO.ortalamaPSF,false));
+sayfaBirSatir1.add(new UcluCardTextDTO2(applicationManager.currentLanguage.getkumulatifSatisAdet,productMetricsResponse.productPerformansResultDTO.kumulatifSatisAdet,true));
 
 
-List<UcluCardTextDTO> sayfaBirSatir3 = new List<UcluCardTextDTO>();
-sayfaBirSatir3.add(new UcluCardTextDTO(applicationManager.currentLanguage.getilkPSF,productMetricsResponse.productPerformansResultDTO.ilkPesinFiyat));
-sayfaBirSatir3.add(new UcluCardTextDTO(applicationManager.currentLanguage.getindirimOrani,productMetricsResponse.productPerformansResultDTO.indirimOrani));
-sayfaBirSatir3.add(new UcluCardTextDTO(applicationManager.currentLanguage.getsonPSF,productMetricsResponse.productPerformansResultDTO.sonPesitFiyat));
+List<UcluCardTextDTO2> sayfaBirSatir3 = new List<UcluCardTextDTO2>();
+sayfaBirSatir3.add(new UcluCardTextDTO2(applicationManager.currentLanguage.getilkPSF,productMetricsResponse.productPerformansResultDTO.ilkPesinFiyat,false));
+sayfaBirSatir3.add(new UcluCardTextDTO2(applicationManager.currentLanguage.getindirimOrani,productMetricsResponse.productPerformansResultDTO.indirimOrani,false));
+sayfaBirSatir3.add(new UcluCardTextDTO2(applicationManager.currentLanguage.getsonPSF,productMetricsResponse.productPerformansResultDTO.sonPesitFiyat,false));
+
 
 List<Widget> sayfa1 = new List<Widget>();
-sayfa1.add(Row (children: <Widget>[Expanded(child :tutarUcluCard(Color.fromRGBO(54,163,247, 1.0),sayfaBirSatir1,false))],));
-
-
+sayfa1.add(Row (children: <Widget>[Expanded(child :tutarUcluCard(Color.fromRGBO(54,163,247, 1.0),sayfaBirSatir1))],));
 sayfa1.add(Row (children: <Widget>[
-  Expanded(child :tutarCard(Color.fromRGBO(100,105,188, 1.0),applicationManager.currentLanguage.getkumulatifSevkAdet,productMetricsResponse.productPerformansResultDTO.kumulatifSevkAdet,false)),
-  Expanded(child :tutarCard(Color.fromRGBO(239,138,14, 1.0),applicationManager.currentLanguage.getstr,productMetricsResponse.productPerformansResultDTO.str,false))],));
-sayfa1.add(Row (children: <Widget>[Expanded(child :tutarUcluCard(Color.fromRGBO(0,116,198, 1.0),sayfaBirSatir3,false))],));
+  Expanded(child :tutarCard(Color.fromRGBO(100,105,188, 1.0),applicationManager.currentLanguage.getkumulatifSevkAdet,productMetricsResponse.productPerformansResultDTO.kumulatifSevkAdet,true)),
+  Expanded(child :tutarCard(Color.fromRGBO(239,138,14, 1.0),applicationManager.currentLanguage.getstr,productMetricsResponse.productPerformansResultDTO.str,true))],));
+sayfa1.add(Row (children: <Widget>[Expanded(child :tutarUcluCard(Color.fromRGBO(0,162,181, 1.0),sayfaBirSatir3))],));
 
 
 //SAYFA 2
-List<UcluCardTextDTO> sayfaIkiSatir2 = new List<UcluCardTextDTO>();
-sayfaIkiSatir2.add(new UcluCardTextDTO(applicationManager.currentLanguage.getson7gunSatisAdet,productMetricsResponse.productPerformansResultDTO.son7GunSatisAdet));
-sayfaIkiSatir2.add(new UcluCardTextDTO(applicationManager.currentLanguage.getfiiliCover,productMetricsResponse.productPerformansResultDTO.fiiliCover));
-sayfaIkiSatir2.add(new UcluCardTextDTO(applicationManager.currentLanguage.getyolStokAdet,productMetricsResponse.productPerformansResultDTO.yolStok));
+List<UcluCardTextDTO2> sayfaIkiSatir2 = new List<UcluCardTextDTO2>();
+sayfaIkiSatir2.add(new UcluCardTextDTO2(applicationManager.currentLanguage.getson7gunSatisAdet,productMetricsResponse.productPerformansResultDTO.son7GunSatisAdet,true));
+sayfaIkiSatir2.add(new UcluCardTextDTO2(applicationManager.currentLanguage.getfiiliCover,productMetricsResponse.productPerformansResultDTO.fiiliCover,false));
+sayfaIkiSatir2.add(new UcluCardTextDTO2(applicationManager.currentLanguage.getyolStokAdet,productMetricsResponse.productPerformansResultDTO.yolStok,true));
 
 
 
 List<Widget> sayfa2 = new List<Widget>();
 
 sayfa2.add(Row (children: <Widget>[
-  Expanded(child :tutarCard(Colors.white,applicationManager.currentLanguage.getreyonStokAdet,productMetricsResponse.productPerformansResultDTO.reyonStok,true)),
-  Expanded(child :tutarCard(Colors.white,applicationManager.currentLanguage.getdepoStokAdet,productMetricsResponse.productPerformansResultDTO.depoStok,true))],));
-sayfa2.add(Row (children: <Widget>[Expanded(child :tutarUcluCard(Colors.white,sayfaIkiSatir2,true))],));
+  Expanded(child :tutarCard(Color.fromRGBO(239,138,14, 1.0),applicationManager.currentLanguage.getreyonStokAdet,productMetricsResponse.productPerformansResultDTO.reyonStok,true)),
+  Expanded(child :tutarCard(Color.fromRGBO(0,162,181, 1.0),applicationManager.currentLanguage.getdepoStokAdet,productMetricsResponse.productPerformansResultDTO.depoStok,true))],));
+sayfa2.add(Row (children: <Widget>[Expanded(child :tutarUcluCard(Color.fromRGBO(54,163,247, 1.0),sayfaIkiSatir2))],));
 sayfa2.add(Row (children: <Widget>[
-  Expanded(child :tutarCard(Colors.white,applicationManager.currentLanguage.getonayliOnyasizRezerveAdet,productMetricsResponse.productPerformansResultDTO.onayliOnaysizRezerve,true)),
-  Expanded(child :tutarCard(Colors.white,applicationManager.currentLanguage.getmerkezDepoStok,productMetricsResponse.productPerformansResultDTO.merkezDepoStokAdet,false))],));
+  Expanded(child :tutarCard(Color.fromRGBO(196,66,88, 1.0),applicationManager.currentLanguage.getonayliOnyasizRezerveAdet,productMetricsResponse.productPerformansResultDTO.onayliOnaysizRezerve,true)),
+  Expanded(child :tutarCard(Color.fromRGBO(100,105,188, 1.0),applicationManager.currentLanguage.getmerkezDepoStok,productMetricsResponse.productPerformansResultDTO.merkezDepoStokAdet,false))],));
 
 
 List<Widget> sayfa3 = new List<Widget>();
 sayfa3.add(Row (children: <Widget>[
-  Expanded(child :tutarCard(Colors.white,applicationManager.currentLanguage.getbulunurluk,productMetricsResponse.productPerformansResultDTO.bulunurluk,false)),
-  Expanded(child :tutarCard(Colors.white,applicationManager.currentLanguage.getderinlik,productMetricsResponse.productPerformansResultDTO.derinlik,false))],));
+  Expanded(child :tutarCard(Color.fromRGBO(54,163,247, 1.0),applicationManager.currentLanguage.getbulunurluk,productMetricsResponse.productPerformansResultDTO.bulunurluk,false)),
+  Expanded(child :tutarCard(Color.fromRGBO(0,116,198, 1.0),applicationManager.currentLanguage.getderinlik,productMetricsResponse.productPerformansResultDTO.derinlik,false))],));
 
 
 sayfa3.add(Row (children: <Widget>[
@@ -516,11 +561,6 @@ Widget thisBottomNavigator() {
       ),
     );
 }
-
-Widget thisFloatActionButton(){
-return FloatingActionButton(
-      child: const Icon(Icons.star), onPressed: () {},);
-    }
 
 Widget buildFloatingButtonHasSub() {
   return  new Column(
@@ -575,59 +615,6 @@ Widget buildFloatingButtonHasSub() {
       );
   }
 
-Widget buildFloatingButtonHasSubbbb() {
-  return  new Column(
-        mainAxisSize: MainAxisSize.min,
-        children: new List.generate(icons.length, (int index) {
-          Widget child = new Container(
-            height: 70.0,
-            width: 56.0,
-            alignment: FractionalOffset.topCenter,
-            child: new ScaleTransition(
-              scale: new CurvedAnimation(
-                parent: _controller,
-                curve: new Interval(
-                  0.0,
-                  1.0 - index / icons.length / 2.0,
-                  curve: Curves.easeOut
-                ),
-              ),
-              child: new FloatingActionButton(
-                heroTag: null,
-                backgroundColor: Colors.white,
-                mini: true,
-                child: new Icon(icons[index],  color: iconColors[index]),
-                onPressed: () {},
-              ),
-            ),
-          );
-          return child;
-        }).toList()..add(
-          new FloatingActionButton(
-            heroTag: null,
-            backgroundColor: Color.fromRGBO(244,81,108,1.0),//Color.fromRGBO(44,45,58,1.0),
-            child: new AnimatedBuilder(
-              animation: _controller,
-              builder: (BuildContext context, Widget child) {
-                return new Transform(
-                  transform: new Matrix4.rotationZ(_controller.value * 0.5 *3.14),
-                  alignment: FractionalOffset.center,
-                  child: new Icon(_controller.isDismissed ? Icons.record_voice_over : Icons.close,),
-                );
-              },
-            ),
-            onPressed: () {
-              if (_controller.isDismissed) {
-                _controller.forward();
-              } else {
-                _controller.reverse();
-              }
-            },
-          ),
-        ),
-      );
-  }
-
 Widget yeniHeader(){
   return Column(
      mainAxisSize: MainAxisSize.max,
@@ -637,17 +624,17 @@ Widget yeniHeader(){
     Card(
       child:
       Container(
-  padding: EdgeInsets.fromLTRB(5, 5, 10, 5),
+  padding: EdgeInsets.fromLTRB(5, 0, 10, 0),
   decoration:  BoxDecoration(
     border:  Border(
        left:  BorderSide(width: 6.0, color:  Color.fromRGBO(0,116,198, 1.0)),
     )),
   
       child: 
-    Padding(padding: EdgeInsets.fromLTRB(10, 5, 10, 10),child: 
+    Padding(padding: EdgeInsets.fromLTRB(10, 5, 10, 5),child: 
     Column(children: <Widget>[
       Container(
-  padding: EdgeInsets.fromLTRB(0, 5, 5, 10),
+  padding: EdgeInsets.fromLTRB(0, 5, 5, 5),
   decoration:  BoxDecoration(
     border:  Border(
        bottom:  BorderSide(width: 0.5, color:  Colors.grey[400]),
@@ -723,16 +710,6 @@ request.setStoreCode = this.applicationManager.currentStore.storeCode;
   ));
 }
 
-Future currentStore() async{
-
-StoreChooseListViewDTO stores;
-
-stores = await applicationManager.serviceManager.storeChooseService.getCurrentStore();
-
-
-return stores;
-    }
-
 changePageStyle(){
     if(currentPageStyle){
     currentPageStyleIcon = Icon(Icons.view_list);
@@ -749,23 +726,6 @@ changePageStyle(){
 
 void detayaGit(ProductPerformansDetailType type) async{
 
-    // var route = new MaterialPageRoute(
-    //         builder: (BuildContext context) => ProductPerformanceDetailMetric()
-    //       );
-
-    // Navigator.of(context).push(route);
-
-
- 
-//     await 
-// Navigator.of(context).push(new MaterialPageRoute<Null>(
-//       builder: (BuildContext context) {
-//         return new ProductPerformanceDetailMetric();//(storesResponse:this.raporFilterList,capacityParameter:this.capacityParameter);
-//       },
-//     fullscreenDialog: true
-//   ));
-
-
   Navigator.of(context).push(new MaterialPageRoute<Null>(
       builder: (BuildContext context) {
         return new ProductPerformanceDetailMetric(productMetricsResponse: productMetricsResponse,applicationManager: applicationManager,productPerformansDetailType:type);
@@ -774,4 +734,5 @@ void detayaGit(ProductPerformansDetailType type) async{
   ));
 
 }
+
 }
