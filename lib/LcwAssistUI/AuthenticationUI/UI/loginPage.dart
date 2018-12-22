@@ -386,7 +386,7 @@ Positioned(
 
 //height: 350.0,//button altýna padding verdik
 
-top: (MediaQuery.of(context).size.width)*0.45,
+top: (MediaQuery.of(context).size.width)*0.50,
 
 width: (MediaQuery.of(context).size.width)*0.90,
 

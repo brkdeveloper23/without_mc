@@ -28,6 +28,8 @@
 	<string>Camera permission is required for QR scanning.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>This application needs to access your microphon</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>This application needs the speech recognition permission</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
