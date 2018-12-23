@@ -216,7 +216,7 @@ PackageInfo packageInfo;
 
 
  new Container(
-    width: 140.0,
+    width: 130.0,
     height: 40.0,
       alignment: Alignment.center,
       decoration: new BoxDecoration( 
@@ -291,7 +291,7 @@ await applicationManager.languagesService.setCurrentLanguage(dilId);
 
 //await new Future.delayed(const Duration(seconds: 1 ));
 
-Navigator.pop(context);
+//Navigator.pop(context);
 
 var route = new MaterialPageRoute(
             builder: (BuildContext context) => LoginPage()

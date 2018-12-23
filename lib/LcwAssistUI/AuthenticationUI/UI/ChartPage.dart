@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:lcwassist/Core/Abstracts/IsLcwAssistUIPage.dart';
 import 'package:lcwassist/Core/BaseConst/LcwAssistEnumType.dart';
 import 'package:lcwassist/Core/CoreFunctions/LcwAssistMessageDialogs/LcwAssistAlertDialogInfo.dart';
+import 'package:lcwassist/Core/GlobalWidget/ChartWidgets/BucketingAxisChart.dart';
+import 'package:lcwassist/Core/GlobalWidget/ChartWidgets/PieChartSimple.dart';
 import 'package:lcwassist/Core/GlobalWidget/ChartWidgets/ScatterPlotComboLineChart.dart';
 import 'package:lcwassist/Core/GlobalWidget/ChartWidgets/StackedAreaLineChart.dart';
 import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreChooseListViewDTO.dart';
@@ -73,7 +75,7 @@ sayfaYuklendiMi = true;
     );}
 
 Widget pageBody(){
-  return  Card(
+  return  Container(
   child:
  Column(
  crossAxisAlignment: CrossAxisAlignment.start,
@@ -89,10 +91,60 @@ Row(children: <Widget>[
   Padding(padding: EdgeInsets.fromLTRB(0.0, 4.0, 0.0, 0.0),child: Text(applicationManager.currentLanguage.getmagaza+': ' + selectedStoreName,style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,fontSize: 15.0,fontFamily: LcwAssistTextStyle.currentTextFontFamily)),)
   ],
   ),)
-  
   ),
 ),
-Expanded(flex: 1,
+
+Expanded(child: chartPageView(),)
+
+
+ ],)
+ );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
+
+Widget chartPageView()
+{
+  return PageView(
+    children: <Widget>[
+
+Container(child: Column(children: <Widget>[chart1(),chart2()],),),
+Container(child: Column(children: <Widget>[chart3(),chart4()],),),
+
+    ],
+  );
+}
+
+    Future currentStore() async{
+
+StoreChooseListViewDTO stores;
+
+stores = await storeChooseService.getCurrentStore();
+
+selectedStoreName = stores.storeName;
+
+return selectedStoreName;
+    }
+
+
+Widget chart1(){
+     return Expanded(flex: 1,
 child: 
  Card(
   child:
@@ -110,8 +162,12 @@ Column(
 ],)
 
  )
-),
-Expanded(flex: 1,
+);
+
+    }
+
+Widget chart2(){
+      return Expanded(flex: 1,
 child: 
  Card(
   child:
@@ -129,23 +185,56 @@ Column(
 ],)
 
  )
-,)
-
- ],)
- );
-}
-
-    Future currentStore() async{
-
-StoreChooseListViewDTO stores;
-
-stores = await storeChooseService.getCurrentStore();
-
-selectedStoreName = stores.storeName;
-
-return selectedStoreName;
+,);
     }
 
+Widget chart3(){
+return 
+Expanded(flex: 1,
+child: 
+ Card(
+  child:
+ 
+Column(
+  mainAxisSize: MainAxisSize.max,
+  crossAxisAlignment: CrossAxisAlignment.stretch,
+
+  children: <Widget>[
+   Container(child: Row(children: <Widget>[
+     Padding(padding: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
+     child: Text(applicationManager.currentLanguage.getmagazaSatisIstatistikleri,style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,fontSize: 20.0,fontFamily: LcwAssistTextStyle.currentTextFontFamily),),)],),),
+  Container(child: 
+  Expanded(child: Padding(padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),child: BucketingAxisScatterPlotChart(BucketingAxisScatterPlotChart.createSampleData()),),),)
+],)
+
+ )
+,);
+
+}
+
+Widget chart4(){
+return 
+Expanded(flex: 1,
+child: 
+ Card(
+  child:
+ 
+Column(
+  mainAxisSize: MainAxisSize.max,
+  crossAxisAlignment: CrossAxisAlignment.stretch,
+
+  children: <Widget>[
+   Container(child: Row(children: <Widget>[
+     Padding(padding: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
+     child: Text(applicationManager.currentLanguage.getmagazaSatisIstatistikleri,style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,fontSize: 20.0,fontFamily: LcwAssistTextStyle.currentTextFontFamily),),)],),),
+  Container(child: 
+  Expanded(child: Padding(padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),child: PieOutsideLabelChart(PieOutsideLabelChart.createSampleData()),),),)
+],)
+
+ )
+,);
+
+}
 
 
 }
