@@ -1,7 +1,9 @@
 
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:lcwassist/Core/Abstracts/IsLcwAssistUIPage.dart';
-
+import 'package:http/http.dart' as http;
 import 'package:lcwassist/Core/BaseConst/LcwAssistEnumType.dart';
 import 'package:lcwassist/Core/CoreFunctions/LcwAssistLoading.dart';
 import 'package:lcwassist/Core/CoreFunctions/LcwAssistMessageDialogs/LcwAssistAlertDialogInfo.dart';
@@ -21,7 +23,7 @@ import 'package:lcwassist/LcwAssistUI/SalesOperations/ProductSalesPerformanceOpe
 import 'package:lcwassist/LcwAssistUI/SalesOperations/ProductSalesPerformanceOperations/ProductPerformansQueryPage.dart';
 import 'package:lcwassist/LcwAssistUI/SettingsPages/LcwAssistTema.dart';
 import 'package:lcwassist/LcwAssistUI/StoreReportOperations/StoreCardPage.dart';
-
+import 'dart:convert';
 import 'package:lcwassist/LcwAssistUI/StoreReportOperations/StoreChoosePage.dart';
 import 'package:lcwassist/LcwAssistUI/StoreReportOperations/StoreReportPage.dart';
 import 'package:lcwassist/Services/AuthenticationServiceOperations/LoginPageService.dart';
@@ -30,6 +32,7 @@ import 'package:lcwassist/Style/LcwAssistColor.dart';
 import 'package:lcwassist/Style/LcwAssistTextStyle.dart';
 import 'package:lcwassist/DataAccess/LanguageDTOs/CurrentLangugeDTO.dart';
 import 'package:lcwassist/Core/BaseConst/LcwAssistEnumType.dart';
+
 
 class DrawerItem {
   String title;
@@ -66,7 +69,8 @@ StoreChooseService storeChooseService = new StoreChooseService();
 StoreChooseResponeDTO storesResponse = new StoreChooseResponeDTO();
 String selectedStoreName = "";
 StoreChooseListViewDTO storeResponse;
-
+Uint8List base64;
+String _base64;
 
 final GlobalKey<ScaffoldState> scaffoldState = new GlobalKey<ScaffoldState>();
 LoginPageService loginPageService = new LoginPageService();
@@ -90,6 +94,11 @@ _onLayoutDone(_) {
 
     }
 
+@override
+  void afterFirstLayout(BuildContext context) {
+    // Calling the same function "after layout" to resolve the issue.
+    scaffoldState.currentState.openDrawer();
+  }
 
   @override
   void initState() {
@@ -99,18 +108,27 @@ super.initState();
  WidgetsBinding.instance
         .addPostFrameCallback((_) => loadPage(context));
 
+
 currentStore().then((result) {
             // If we need to rebuild the widget with the resulting data,
-            // make sure to use `setState`
+            // make sure to use `setState` 
             setState(() {
                 selectedStoreName = result;
                 loadCurrentUser();
             });
         });
+       
+        setState(() {
+                  
+                });
+  }
+
+   @override
+  void dispose() {
+         super.dispose();
   }
 
     loadPage(BuildContext context) async
-    
     {
 
 storeResponse = await storeChooseService.getCurrentStore();
@@ -145,7 +163,7 @@ drawerItems = [
 setState(() {});
 
 }
-
+ 
   _getDrawerItemWidget(int pos) {
 
 // setState(() {
@@ -230,11 +248,12 @@ Row(
 
     
     return new Scaffold(
-
       appBar: new AppBar(
         title: new Text(drawerItems[_selectedDrawerIndex].title,
         style: TextStyle(fontFamily: LcwAssistTextStyle.currentTextFontFamily),),
+        
       ),
+      
       key: scaffoldState,
       drawer: new Drawer(
         
@@ -258,12 +277,22 @@ decoration: new BoxDecoration(
               children: <Widget>[
 
 ClipOval(
-  child: Image.asset(
-    "assets/defaultMalePP.png",
+  child:
+  //  Image.asset(
+  //    //"assets/defaultMalePP.png",
+  //   fit: BoxFit.cover,
+  //   width: 75.0,
+  //   height: 75.0,
+  // )
+
+ Image.memory(
+   base64Decode(currentUserResult.resimBase64),
     fit: BoxFit.cover,
     width: 75.0,
     height: 75.0,
   )
+
+
 ),
  
 Container(padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),child: new Text(currentUserResult.firstName + ' ' + currentUserResult.lastName,style: TextStyle(fontSize: 15.0,color: Colors.white,fontFamily: LcwAssistTextStyle.currentTextFontFamily)),),
@@ -344,17 +373,6 @@ decoration:  BoxDecoration(
     );
   }   
 
-StoreChoosePage asas() {
-//   setState(() {
-// LcwAssistLoading.showAlert(context);
-// });
-getStoretoreList();
-return new StoreChoosePage(storesResponse: storesResponse);
-//  setState(() {
-//   Navigator.pop(context);
-//  });
-
-}
 
 Future currentStore() async{
 
