@@ -14,7 +14,7 @@ import 'package:localstorage/localstorage.dart';
 
   class LcwStoreService{
   LcwStoreService(){
-
+//Kontrol
   }
   Future<GetLatestAppVersionInfoResponseDTO> getLatestAppVersionInfo(String packageId) async{
 
