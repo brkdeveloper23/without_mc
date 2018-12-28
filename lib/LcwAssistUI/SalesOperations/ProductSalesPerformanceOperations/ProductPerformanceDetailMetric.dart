@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lcwassist/Core/Abstracts/IsLcwAssistUIPage.dart';
 import 'package:lcwassist/Core/BaseConst/LcwAssistEnumType.dart';
 import 'package:lcwassist/Core/BaseConst/LcwAssistPageDrawerNumberConst.dart';
@@ -47,6 +48,11 @@ bool sayfaYuklendiMi = false;
 @override
 void initState() {
     super.initState();
+    
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+  ]);
+  
 sayfaYuklendiMi = true;
 
  WidgetsBinding.instance

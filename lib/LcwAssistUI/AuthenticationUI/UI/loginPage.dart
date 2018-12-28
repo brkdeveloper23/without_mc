@@ -125,11 +125,14 @@ if(Platform.isAndroid)
 
 @override
 void initState() {
-
 super.initState();
+
 if(Platform.isAndroid)
 initPlatformState();
 
+SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+  ]);
 
 
 controllerUserName.text = "burak.bitkin";

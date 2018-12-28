@@ -1,5 +1,6 @@
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lcwassist/Core/Abstracts/IsLcwAssistUIPage.dart';
 import 'package:lcwassist/Core/BaseConst/LcwAssistEnumType.dart';
 import 'package:lcwassist/Core/CoreFunctions/LcwAssistLoading.dart';
@@ -56,7 +57,9 @@ final controllerColorCode = TextEditingController();
   void initState() {
 super.initState();
 
-
+SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+  ]);
 
  WidgetsBinding.instance
         .addPostFrameCallback((_) => loaded(context));

@@ -57,6 +57,10 @@ bool sayfaYuklendiMi = false;
 void initState() {
 super.initState();
 
+SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+  ]);
+
  WidgetsBinding.instance
         .addPostFrameCallback((_) => loaded(context));
 
@@ -183,6 +187,7 @@ Widget pageBody(){
       Container(padding: EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 5.0), color: LcwAssistColor.backGroundColor,child: barkodIleSorgulamaCard(),),
       Container(padding: EdgeInsets.fromLTRB(15.0, 5.0, 15.0, 5.0),color: LcwAssistColor.backGroundColor,child: urunKoduIleSorgulamaCard(),),
       Container(padding: EdgeInsets.fromLTRB(15.0, 5.0, 15.0, 0.0),color: LcwAssistColor.backGroundColor,child: barkodTaraSorgulamaCard(),),
+
       
     ],
   ),);

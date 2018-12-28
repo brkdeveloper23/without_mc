@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lcwassist/Core/Abstracts/IsLcwAssistUIPage.dart';
 import 'package:lcwassist/Core/BaseConst/LcwAssistEnumType.dart';
 import 'package:lcwassist/Core/BaseConst/LcwAssistPageDrawerNumberConst.dart';
@@ -59,6 +60,9 @@ void initState() {
 ///////////////////////
     super.initState();
 
+SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+  ]);
 
  WidgetsBinding.instance
         .addPostFrameCallback((_) => loaded(context));
@@ -80,13 +84,12 @@ Future loaded(BuildContext context) async{
     applicationManager.setCurrentLanguage = await applicationManager.languagesService.currentLanguage();
     applicationManager.setCurrentStore = await applicationManager.serviceManager.storeChooseService.getCurrentStore();
     applicationManager.setCurrentUser = await applicationManager.serviceManager.loginService.getCurrentUser();
-
+    String as =productMetricsResponse.birimLcm;
     sayfaYuklendiMi = true;
     setState(() {});
 }
 
 Future<void> executeAfterBuild() async {
-  
 }
 
   @override
@@ -167,6 +170,7 @@ LcwAssistCustomWidgets.satir(Color.fromRGBO(54,163,247, 1.0),  applicationManage
 LcwAssistCustomWidgets.satir(Color.fromRGBO(0,116,198, 1.0),   applicationManager.currentLanguage.getbulunurluk,productMetricsResponse.productPerformansResultDTO.bulunurluk,false),
 LcwAssistCustomWidgets.satir(Color.fromRGBO(239,138,14, 1.0),  applicationManager.currentLanguage.getderinlik,productMetricsResponse.productPerformansResultDTO.derinlik,false),
 LcwAssistCustomWidgets.satir(Color.fromRGBO(100,105,188, 1.0), applicationManager.currentLanguage.getrafOmru,productMetricsResponse.productPerformansResultDTO.rafOmru,false),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(38,137,116, 1.0), applicationManager.currentLanguage.getbirimLCM,productMetricsResponse.productPerformansResultDTO.birimLcm,false),
 // Container(
 //   decoration:  BoxDecoration(
 //     border:  Border(
@@ -529,7 +533,7 @@ sayfa3.add(Row (children: <Widget>[
 
 sayfa3.add(Row (children: <Widget>[
   Expanded(child :tutarCard(Colors.white,applicationManager.currentLanguage.getrafOmru,productMetricsResponse.productPerformansResultDTO.rafOmru,false)),
-  Expanded(child :Text(''))],));
+  Expanded(child :tutarCard(Colors.white,applicationManager.currentLanguage.getbirimLCM,productMetricsResponse.productPerformansResultDTO.birimLcm,false))],));
 
 sayfa3.add(Row (children: <Widget>[
   Expanded(child :Text('')),

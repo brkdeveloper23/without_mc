@@ -113,7 +113,7 @@ CurrentLangugeDTO toFill(List<LcwAssistLanguagesDTO> currentLanguageRawData){
   
   CurrentLangugeDTO currentLanguage = new CurrentLangugeDTO();
   
-  currentLanguage.setkullaniciGirisi = currentLanguageRawData.firstWhere((i)=>i.kod == "kullaniciGirisi").deger;
+currentLanguage.setkullaniciGirisi = currentLanguageRawData.firstWhere((i)=>i.kod == "kullaniciGirisi").deger;
 currentLanguage.setkullaniciAdi = currentLanguageRawData.firstWhere((i)=>i.kod == "kullaniciAdi").deger;
 currentLanguage.setparola = currentLanguageRawData.firstWhere((i)=>i.kod == "parola").deger;
 currentLanguage.setgiris = currentLanguageRawData.firstWhere((i)=>i.kod == "giris").deger;
@@ -255,6 +255,12 @@ currentLanguage.setbirFeedBackBirak = currentLanguageRawData.firstWhere((i)=>i.k
 currentLanguage.seturunBagimsizFeedbackGonder = currentLanguageRawData.firstWhere((i)=>i.kod == "urunBagimsizFeedbackGonder").deger;
 currentLanguage.seturunBagimliBagimsizFeedbackGonder = currentLanguageRawData.firstWhere((i)=>i.kod == "urunBagimliBagimsizFeedbackGonder").deger;
 currentLanguage.setaradiginizKriterlerdeDataBulunamadi = currentLanguageRawData.firstWhere((i)=>i.kod == "aradiginizKriterlerdeDataBulunamadi").deger;
+currentLanguage.setbirimLCM = currentLanguageRawData.firstWhere((i)=>i.kod == "birimLCM").deger;
+currentLanguage.setworstOptions = currentLanguageRawData.firstWhere((i)=>i.kod == "worstOptions").deger;
+currentLanguage.setbestOptions = currentLanguageRawData.firstWhere((i)=>i.kod == "bestOptions").deger;
+currentLanguage.setbestWorstOptionSiralamaTipi = currentLanguageRawData.firstWhere((i)=>i.kod == "bestWorstOptionSiralamaTipi").deger;
+currentLanguage.setbestWorstDMKupKar = currentLanguageRawData.firstWhere((i)=>i.kod == "bestWorstDMKupKar").deger;
+currentLanguage.setbestWorstDevirHizi = currentLanguageRawData.firstWhere((i)=>i.kod == "bestWorstDevirHizi").deger;
 
 return currentLanguage;
   }

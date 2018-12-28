@@ -224,7 +224,14 @@ String _birFeedBackBirak="";
 String _urunBagimsizFeedbackGonder="";
 String _urunBagimliBagimsizFeedbackGonder="";
 String _aradiginizKriterlerdeDataBulunamadi="";
-
+String _birimLCM="";
+String _bestWorstOptions="";
+String _bestWorstOptionsAciklama="";
+String _worstOptions="";
+String _bestOptions="";
+String _bestWorstOptionSiralamaTipi="";
+String _bestWorstDMKupKar="";
+String _bestWorstDevirHizi="";
   // CurrentLangugeDTO(
   //   this._dilId,
   //     this._kullaniciGirisi,
@@ -403,6 +410,14 @@ set setbirFeedBackBirak(String birFeedBackBirak) {_birFeedBackBirak = birFeedBac
 set seturunBagimsizFeedbackGonder(String urunBagimsizFeedbackGonder) {_urunBagimsizFeedbackGonder = urunBagimsizFeedbackGonder;}
 set seturunBagimliBagimsizFeedbackGonder(String urunBagimliBagimsizFeedbackGonder) {_urunBagimliBagimsizFeedbackGonder = urunBagimliBagimsizFeedbackGonder;}
 set setaradiginizKriterlerdeDataBulunamadi(String aradiginizKriterlerdeDataBulunamadi) {_aradiginizKriterlerdeDataBulunamadi = aradiginizKriterlerdeDataBulunamadi;}
+set setbirimLCM(String birimLCM) {_birimLCM = birimLCM;}
+set setbestWorstOptions(String bestWorstOptions) {_bestWorstOptions = bestWorstOptions;}
+set setbestWorstOptionsAciklama(String bestWorstOptionsAciklama) {_bestWorstOptionsAciklama = bestWorstOptionsAciklama;}
+set setworstOptions(String worstOptions) {_worstOptions = worstOptions;}
+set setbestOptions(String bestOptions) {_bestOptions = bestOptions;}
+set setbestWorstOptionSiralamaTipi(String bestWorstOptionSiralamaTipi) {_bestWorstOptionSiralamaTipi = bestWorstOptionSiralamaTipi;}
+set setbestWorstDMKupKar(String bestWorstDMKupKar) {_bestWorstDMKupKar = bestWorstDMKupKar;}
+set setbestWorstDevirHizi(String bestWorstDevirHizi) {_bestWorstDevirHizi = bestWorstDevirHizi;}
 
   String get getkullaniciGirisi => _kullaniciGirisi;
   String get getkullaniciAdi => _kullaniciAdi;
@@ -545,7 +560,14 @@ set setaradiginizKriterlerdeDataBulunamadi(String aradiginizKriterlerdeDataBulun
   String get geturunBagimsizFeedbackGonder => _urunBagimsizFeedbackGonder;
   String get geturunBagimliBagimsizFeedbackGonder => _urunBagimliBagimsizFeedbackGonder;
     String get getaradiginizKriterlerdeDataBulunamadi => _aradiginizKriterlerdeDataBulunamadi;
-
+  String get getbirimLCM => _birimLCM;
+    String get getbestWorstOptions => _bestWorstOptions;
+  String get getbestWorstOptionsAciklama => _bestWorstOptionsAciklama;
+    String get getworstOptions => _worstOptions;
+  String get getbestOptions => _bestOptions;
+  String get getbestWorstOptionSiralamaTipi => _bestWorstOptionSiralamaTipi;
+  String get getbestWorstDMKupKar => _bestWorstDMKupKar;
+  String get getbestWorstDevirHizi => _bestWorstDevirHizi;
   //LcwAssistLanguagesDTO
 
 //   CurrentLangugeDTO toFill(List<LcwAssistLanguagesDTO> currentLanguageRawData){
@@ -732,6 +754,14 @@ map["birFeedBackBirak"] = _birFeedBackBirak;
 map["urunBagimsizFeedbackGonder"] = _urunBagimsizFeedbackGonder;
 map["urunBagimliBagimsizFeedbackGonder"] = _urunBagimliBagimsizFeedbackGonder;
 map["aradiginizKriterlerdeDataBulunamadi"] = _aradiginizKriterlerdeDataBulunamadi;
+map["birimLCM"] = _birimLCM;
+map["bestWorstOptions"] = _bestWorstOptions;
+map["bestWorstOptionsAciklama"] = _bestWorstOptionsAciklama;
+map["worstOptions"] = _worstOptions;
+map["bestOptions"] = _bestOptions;
+map["bestWorstOptionSiralamaTipi"] = _bestWorstOptionSiralamaTipi;
+map["bestWorstDMKupKar"] = _bestWorstDMKupKar;
+map["bestWorstDevirHizi"] = _bestWorstDevirHizi;
     return map;
   }
 }

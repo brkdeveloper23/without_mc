@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lcwassist/Core/Abstracts/IsLcwAssistUIPage.dart';
 import 'package:lcwassist/Core/BaseConst/LcwAssistEnumType.dart';
 import 'package:lcwassist/Core/CoreFunctions/LcwAssistLoading.dart';
@@ -51,6 +52,10 @@ StorePeriodFilterDTO storeCurrentFilterParameter;
   void initState() {
 super.initState();
 
+SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+  ]);
+
 //Floating buton için
     _controller = new AnimationController(vsync: this,
       duration: const Duration(milliseconds: 500),
@@ -80,7 +85,7 @@ LcwAssistLoading.showAlert(context,applicationManager.currentLanguage.getyukleni
  parameter.setStoreRef = 654;
  parameter.setFilterDonem = "YTD";
 
- loadStoreReport(parameter);
+ await loadStoreReport(parameter);
 
 
  //await new Future.delayed(const Duration(seconds: 2 ));

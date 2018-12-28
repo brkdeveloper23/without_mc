@@ -7,6 +7,7 @@ class ProductMetricsResponse {
   final int ulkeRef;
   final double ilkPesinFiyat;
   final double sonPesinFiyat;
+  final String birimLcm;
   final double bulunurluk;
   final double derinlik;
   final double rafOmru;
@@ -20,7 +21,7 @@ class ProductMetricsResponse {
   final List<ProductSalesMetricsModel> satisMetriclerDetay;
   final List<ProductStockMetricsModel> stokMetricDetay;
 
-  ProductMetricsResponse({this.product,this.depoRef,this.modelRef,this.renkRef,this.ulkeRef,this.ilkPesinFiyat,this.sonPesinFiyat,this.bulunurluk,this.derinlik
+  ProductMetricsResponse({this.product,this.depoRef,this.modelRef,this.renkRef,this.ulkeRef,this.ilkPesinFiyat,this.sonPesinFiyat,this.birimLcm,this.bulunurluk,this.derinlik
   ,this.rafOmru,this.urunOptionSizeRef,this.merchAltGrupRef,this.optionMetrics,
   this.errorMessage,this.isSuccess,this.isAuthorized,this.productPerformansResultDTO,this.satisMetriclerDetay,this.stokMetricDetay});
   
@@ -41,6 +42,7 @@ var stokMetricDetay = json1['stokMetricDetay'] as List;
      ulkeRef: json1['ulkeRef'],
      ilkPesinFiyat: json1['ilkPesinFiyat'],
      sonPesinFiyat: json1['sonPesinFiyat'],
+     birimLcm: json1['birimLcm'],
      bulunurluk: json1['bulunurluk'],
      derinlik: json1['derinlik'],
      rafOmru: json1['rafOmru'],
@@ -277,6 +279,8 @@ class ProductPerformansResultDTO
 
         final String bulunurluk ;
 
+        final String birimLcm;
+
         final String derinlik ;
 
         final String rafOmru ;
@@ -284,7 +288,7 @@ class ProductPerformansResultDTO
 ProductPerformansResultDTO({
   this.kumulatifSatisTutar,this.kumulatifSatisAdet,this.ortalamaPSF,this.kumulatifSevkAdet,this.str,this.ilkPesinFiyat,
   this.indirimOrani,this.sonPesitFiyat,this.reyonStok,this.depoStok,this.fiiliCover,this.yolStok,this.onayliOnaysizRezerve,this.merkezDepoStokAdet,
-  this.bulunurluk,this.derinlik,this.rafOmru,this.son7GunSatisAdet
+  this.bulunurluk,this.birimLcm,this.derinlik,this.rafOmru,this.son7GunSatisAdet
 });
         
 factory ProductPerformansResultDTO.fromJson(Map<String, dynamic> json) {
@@ -304,6 +308,7 @@ factory ProductPerformansResultDTO.fromJson(Map<String, dynamic> json) {
     onayliOnaysizRezerve: json['onayliOnaysizRezerve'],
     merkezDepoStokAdet: json['merkezDepoStokAdet'],
     bulunurluk: json['bulunurluk'],
+    birimLcm: json['birimLCM'],
     derinlik: json['derinlik'],
     rafOmru: json['rafOmru'],
     son7GunSatisAdet: json['son7GunSatisAdet']

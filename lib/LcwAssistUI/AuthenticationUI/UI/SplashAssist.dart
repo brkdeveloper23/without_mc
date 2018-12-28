@@ -247,6 +247,10 @@ PackageInfo packageInfo;
         .addPostFrameCallback((_) => loaded(context));
 
     super.initState();
+
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+  ]);
   }
 
   Future loaded(BuildContext context) async{

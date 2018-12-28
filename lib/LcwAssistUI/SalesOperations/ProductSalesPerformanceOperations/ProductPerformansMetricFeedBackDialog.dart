@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lcwassist/Core/Abstracts/IsLcwAssistUIPage.dart';
 import 'package:lcwassist/Core/BaseConst/LcwAssistEnumType.dart';
 import 'package:lcwassist/Core/CoreFunctions/LcwAssistLoading.dart';
@@ -39,6 +40,11 @@ final controllerFeedbackEditText = TextEditingController();
 @override
 void initState() {
     super.initState();
+
+SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+  ]);
+
 activateSpeechRecognizer();
      sayfaYuklendiMi = false;
      WidgetsBinding.instance

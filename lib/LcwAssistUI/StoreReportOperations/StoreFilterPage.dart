@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lcwassist/Core/Abstracts/IsLcwAssistUIPage.dart';
 import 'package:lcwassist/Core/BaseConst/SharedPreferencesConstant.dart';
 
@@ -65,6 +66,10 @@ if(storeCurrentFilterParameter == null)
   @override
   void initState() {
 super.initState();
+
+SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+  ]);
 
  WidgetsBinding.instance
         .addPostFrameCallback((_) => loaded(context));

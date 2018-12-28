@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lcwassist/Core/Abstracts/IsLcwAssistUIPage.dart';
 import 'package:lcwassist/Core/BaseConst/LcwAssistEnumType.dart';
 import 'package:lcwassist/Core/BaseConst/SharedPreferencesConstant.dart';
@@ -62,6 +63,10 @@ super.initState();
       duration: const Duration(milliseconds: 500),
     );
 ///////////////////////
+
+SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+  ]);
 
  WidgetsBinding.instance
         .addPostFrameCallback((_) => loaded(context));

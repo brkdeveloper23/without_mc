@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:lcwassist/Core/Abstracts/IsLcwAssistUIPage.dart';
@@ -54,6 +55,10 @@ bool sayfaYuklendiMi = false;
   @override
   void initState() {
     super.initState();
+
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+  ]);
 
      WidgetsBinding.instance
         .addPostFrameCallback((_) => 

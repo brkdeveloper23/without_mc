@@ -2,6 +2,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lcwassist/Core/Abstracts/IsLcwAssistUIPage.dart';
 import 'package:http/http.dart' as http;
 import 'package:lcwassist/Core/BaseConst/LcwAssistEnumType.dart';
@@ -105,6 +106,10 @@ _onLayoutDone(_) {
     WidgetsBinding.instance.addPostFrameCallback(_onLayoutDone);
 super.initState();
 
+SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+  ]);
+
  WidgetsBinding.instance
         .addPostFrameCallback((_) => loadPage(context));
 
@@ -156,6 +161,9 @@ drawerItems = [
     new DrawerItem(applicationManager.currentLanguage.getmagazaSec, Icons.location_on),
     new DrawerItem(applicationManager.currentLanguage.getkumulatifSatis, Icons.multiline_chart),
     new DrawerItem(applicationManager.currentLanguage.getbirFeedBackBirak, Icons.chat),
+
+
+
     new DrawerItem(applicationManager.currentLanguage.getayarlar, Icons.settings)
     
   ];
@@ -268,11 +276,11 @@ decoration: new BoxDecoration(
           child:
          new Column(
           children: <Widget>[
+            //Header
             Container(
               padding: EdgeInsets.fromLTRB(10.0, 35.0, 10.0, 10.0),
               alignment: Alignment.centerLeft,
-              child: Column(
-              
+              child: Column(       
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
 
@@ -301,7 +309,7 @@ Container(padding: EdgeInsets.fromLTRB(0.0, 7.0, 0.0, 0.0),child: new Text(appli
 GestureDetector(
   onTap: (){_openStoreCard();},
      child: 
-     //Expanded(child: 
+     
      Row(  children: <Widget>[
   Padding(padding: EdgeInsets.fromLTRB(0.0, 7.0, 0.0, 0.0),
   child: Text(applicationManager.currentLanguage.getmagaza+ ": " +  (selectedStoreName.length > 17 ? selectedStoreName.substring(0,16)+'...' : selectedStoreName) ,style: TextStyle(color: Colors.white,fontSize: 15.0,fontFamily: LcwAssistTextStyle.currentTextFontFamily)),),
@@ -310,13 +318,19 @@ GestureDetector(
      //) applicationManager.currentLanguage.getmagaza+ ": " + 
 
    ),
-            ],),decoration: new BoxDecoration(
+            ],),
+            decoration: new BoxDecoration(
 //  color: LcwAssistColor.primaryColor
 ) ,),
 
-            new Column(children: drawerOptions),
-            
-            Expanded(
+            //Menu Listesi
+            //Expanded(child: new Column(children: drawerOptions),),
+Expanded(child: SingleChildScrollView(child: Column(mainAxisSize: MainAxisSize.max,children: drawerOptions,),),),
+          //Container(child: Expanded(child: SingleChildScrollView(child: Column(mainAxisSize: MainAxisSize.max,children: drawerOptions,),),),),
+
+            //Logaut Menu
+            //Eskiden Expanded//
+            Container(
               // color: Colors.green,
               // alignment: Alignment.bottomCenter,
               child: 
@@ -363,7 +377,8 @@ decoration:  BoxDecoration(
               ,)
   
               //Text('dataa',style: TextStyle(color: Colors.white),)
-            ],),),)
+            ],),),
+            )
 
             //Align(alignment: Alignment.bottomCenter,child: Text('data',style: TextStyle(color: Colors.white),),)
           ], 
