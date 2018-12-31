@@ -232,6 +232,8 @@ String _bestOptions="";
 String _bestWorstOptionSiralamaTipi="";
 String _bestWorstDMKupKar="";
 String _bestWorstDevirHizi="";
+String _oturumSonlanmistir="";
+
   // CurrentLangugeDTO(
   //   this._dilId,
   //     this._kullaniciGirisi,
@@ -418,6 +420,7 @@ set setbestOptions(String bestOptions) {_bestOptions = bestOptions;}
 set setbestWorstOptionSiralamaTipi(String bestWorstOptionSiralamaTipi) {_bestWorstOptionSiralamaTipi = bestWorstOptionSiralamaTipi;}
 set setbestWorstDMKupKar(String bestWorstDMKupKar) {_bestWorstDMKupKar = bestWorstDMKupKar;}
 set setbestWorstDevirHizi(String bestWorstDevirHizi) {_bestWorstDevirHizi = bestWorstDevirHizi;}
+set setoturumSonlanmistir(String oturumSonlanmistir) {_oturumSonlanmistir = oturumSonlanmistir;}
 
   String get getkullaniciGirisi => _kullaniciGirisi;
   String get getkullaniciAdi => _kullaniciAdi;
@@ -568,6 +571,7 @@ set setbestWorstDevirHizi(String bestWorstDevirHizi) {_bestWorstDevirHizi = best
   String get getbestWorstOptionSiralamaTipi => _bestWorstOptionSiralamaTipi;
   String get getbestWorstDMKupKar => _bestWorstDMKupKar;
   String get getbestWorstDevirHizi => _bestWorstDevirHizi;
+    String get getoturumSonlanmistir => _oturumSonlanmistir;
   //LcwAssistLanguagesDTO
 
 //   CurrentLangugeDTO toFill(List<LcwAssistLanguagesDTO> currentLanguageRawData){
@@ -762,6 +766,7 @@ map["bestOptions"] = _bestOptions;
 map["bestWorstOptionSiralamaTipi"] = _bestWorstOptionSiralamaTipi;
 map["bestWorstDMKupKar"] = _bestWorstDMKupKar;
 map["bestWorstDevirHizi"] = _bestWorstDevirHizi;
+map["oturumSonlanmistir"] = _oturumSonlanmistir;
     return map;
   }
 }

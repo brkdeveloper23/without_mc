@@ -68,6 +68,14 @@ void activateSpeechRecognizer() {
 
   Future loaded(BuildContext context) async{
 applicationManager.setCurrentLanguage = await applicationManager.languagesService.currentLanguage();
+
+
+ if(await applicationManager.utils.checkToTokenExpireRedirectToLogin(applicationManager.currentLanguage, context))
+ {
+   applicationManager.utils.navigateToLoginPage(context);
+ return;
+ }
+
 sayfaYuklendiMi = true;
 
 setState(() {});

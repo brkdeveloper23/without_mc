@@ -75,6 +75,15 @@ Future loaded(BuildContext context) async{
 
  //await new Future.delayed(const Duration(seconds: 2 ));
  applicationManager.setCurrentLanguage = await applicationManager.languagesService.currentLanguage();
+
+
+ if(await applicationManager.utils.checkToTokenExpireRedirectToLogin(applicationManager.currentLanguage, context))
+ {
+   applicationManager.utils.navigateToLoginPage(context);
+ return;
+ }
+
+
    setState(() {
 LcwAssistLoading.showAlert(context,applicationManager.currentLanguage.getyukleniyor);
 });

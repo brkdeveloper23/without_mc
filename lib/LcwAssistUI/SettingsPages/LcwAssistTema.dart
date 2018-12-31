@@ -42,10 +42,10 @@ super.initState();
     return new Scaffold(
       body:Container(child: Column(children: <Widget>[
 
-         RaisedButton(child: Text('Tema Mavi'),onPressed: () =>temalar(1),),
-         RaisedButton(child: Text('Tema Füme'),onPressed: () =>temalar(2),),
-         RaisedButton(child: Text('Tema Mor'),onPressed: () =>temalar(3),),
-         
+        //  RaisedButton(child: Text('Tema Mavi'),onPressed: () =>temalar(1),),
+        //  RaisedButton(child: Text('Tema Füme'),onPressed: () =>temalar(2),),
+        //  RaisedButton(child: Text('Tema Mor'),onPressed: () =>temalar(3),),
+         Text('')
 
       ],)), 
     );

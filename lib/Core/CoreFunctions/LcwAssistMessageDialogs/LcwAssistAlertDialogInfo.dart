@@ -84,7 +84,7 @@ children: <Widget>[
           Text(this.title,style: 
         lcwAssistDialogType == LcwAssistDialogType.error ? TextStyle(fontSize: alertFontSize,color: Colors.red,fontFamily: LcwAssistTextStyle.currentTextFontFamily) : 
         lcwAssistDialogType ==LcwAssistDialogType.info ? TextStyle(fontSize: alertFontSize,color: Colors.green,fontFamily: LcwAssistTextStyle.currentTextFontFamily) :
-         TextStyle(fontSize: alertFontSize,color: Colors.green,fontFamily: LcwAssistTextStyle.currentTextFontFamily)
+         TextStyle(fontSize: alertFontSize,color: Colors.orange[400],fontFamily: LcwAssistTextStyle.currentTextFontFamily)
         ,)
         ],),
       
@@ -114,22 +114,6 @@ onPressed: () {
 )
 ),
       
-//       Row(
-
-//   children: <Widget>[
-//     RaisedButton( 
-//  //height: 40.0, 
-//  //minWidth: 315.0, 
-//  color: Color.fromRGBO(68, 152, 247, 1.0),//Colors.green[400],//LcwAssistColor.secondaryColor,//Theme.of(context).primaryColor, 
-//  textColor: Colors.white, 
-//  child: new Text(this.buttonText,style: TextStyle(fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 18.0,color: Colors.white),),
-// onPressed: () {
-//                Navigator.of(context, rootNavigator: true).pop();
-//              },
-//  splashColor:  Color.fromRGBO(128, 189, 242, 1.0),
-// )
-//   ],
-// )
 
      ],),),)
     ],

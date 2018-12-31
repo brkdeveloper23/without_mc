@@ -8,11 +8,13 @@ import 'package:lcwassist/Core/Abstracts/IsLcwAssistUIPage.dart';
 import 'package:lcwassist/Core/BaseConst/LcwAssistEnumType.dart';
 import 'package:lcwassist/Core/BaseConst/LcwAssistPageDrawerNumberConst.dart';
 import 'package:lcwassist/Core/CoreFunctions/LcwAssistLoading.dart';
+import 'package:lcwassist/Core/CoreFunctions/LcwAssistMessageDialogs/LcwAssistAlertDialogInfo.dart';
 import 'package:lcwassist/Core/CoreFunctions/LcwAssistSnackBarDialogs/LcwAssistSnackBarDialogInfo.dart';
 import 'package:lcwassist/DataAccess/ProductPerformanceMetricsDTOs/ProductMetricsRequest.dart';
 import 'package:lcwassist/DataAccess/ProductPerformanceMetricsDTOs/ProductMetricsResponse.dart';
 import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreChooseListViewDTO.dart';
 import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreChooseResponeDTO.dart';
+import 'package:lcwassist/LcwAssistUI/AuthenticationUI/UI/loginPage.dart';
 import 'package:lcwassist/LcwAssistUI/Home/HomePageOperations/HomePage.dart';
 import 'package:lcwassist/LcwAssistBase/LcwAssistApplicationManager.dart';
 import 'package:lcwassist/LcwAssistUI/SalesOperations/ProductSalesPerformanceOperations/ProductPerformansMetricFeedBackDialog.dart';
@@ -79,7 +81,15 @@ _textColorCodeFocus.addListener(onModelColorChange);
   }
 
 Future loaded(BuildContext context) async{
+
 applicationManager.setCurrentLanguage = await applicationManager.languagesService.currentLanguage();
+
+ if(await applicationManager.utils.checkToTokenExpireRedirectToLogin(applicationManager.currentLanguage, context))
+ {
+   applicationManager.utils.navigateToLoginPage(context);
+ return;
+ }
+
 
 sayfaYuklendiMi = false;
 

@@ -2,7 +2,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lcwassist/Core/Abstracts/IsLcwAssistUIPage.dart';
+import 'package:lcwassist/Core/BaseConst/LcwAssistEnumType.dart';
 import 'package:lcwassist/Core/CoreFunctions/LcwAssistLoading.dart';
+import 'package:lcwassist/Core/CoreFunctions/LcwAssistMessageDialogs/LcwAssistAlertDialogInfo.dart';
+import 'package:lcwassist/Core/CoreFunctions/Utils.dart';
 import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreChooseListViewDTO.dart';
 import 'dart:async';
 import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreChooseResponeDTO.dart';
@@ -53,7 +56,16 @@ currentStore().then((result) {
   }
 
     Future loaded(BuildContext context) async{
+
       applicationManager.setCurrentLanguage = await applicationManager.languagesService.currentLanguage();
+
+
+ if(await applicationManager.utils.checkToTokenExpireRedirectToLogin(applicationManager.currentLanguage, context))
+ {
+   applicationManager.utils.navigateToLoginPage(context);
+ return;
+ }
+
        setState(() {
 LcwAssistLoading.showAlert(context,applicationManager.currentLanguage.getyukleniyor);
 });

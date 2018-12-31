@@ -261,6 +261,7 @@ currentLanguage.setbestOptions = currentLanguageRawData.firstWhere((i)=>i.kod ==
 currentLanguage.setbestWorstOptionSiralamaTipi = currentLanguageRawData.firstWhere((i)=>i.kod == "bestWorstOptionSiralamaTipi").deger;
 currentLanguage.setbestWorstDMKupKar = currentLanguageRawData.firstWhere((i)=>i.kod == "bestWorstDMKupKar").deger;
 currentLanguage.setbestWorstDevirHizi = currentLanguageRawData.firstWhere((i)=>i.kod == "bestWorstDevirHizi").deger;
+currentLanguage.setoturumSonlanmistir = currentLanguageRawData.firstWhere((i)=>i.kod == "oturumSonlanmistir").deger;
 
 return currentLanguage;
   }

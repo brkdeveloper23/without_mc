@@ -84,6 +84,15 @@ Future loaded(BuildContext context) async{
     applicationManager.setCurrentLanguage = await applicationManager.languagesService.currentLanguage();
     applicationManager.setCurrentStore = await applicationManager.serviceManager.storeChooseService.getCurrentStore();
     applicationManager.setCurrentUser = await applicationManager.serviceManager.loginService.getCurrentUser();
+
+
+ if(await applicationManager.utils.checkToTokenExpireRedirectToLogin(applicationManager.currentLanguage, context))
+ {
+   applicationManager.utils.navigateToLoginPage(context);
+ return;
+ }
+
+
     String as =productMetricsResponse.birimLcm;
     sayfaYuklendiMi = true;
     setState(() {});

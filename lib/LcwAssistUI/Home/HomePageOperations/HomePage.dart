@@ -180,7 +180,7 @@ setState(() {});
 //HomeFeedBack
     switch (pos) {
       case 0:
-        return new HomeFeedBack();
+        return new ChartPage();//HomeFeedBack();
       case 1:
         return new CapacityAnalysisPage();
       case 2:
@@ -194,7 +194,7 @@ setState(() {});
         case 6:
         return new ProductPerformansMetricFeedBackDialog(feedbackRequest:feedbackRequest());//LcvAssistTema();  ProductPerformansMetricFeedBackDialogState
         case 7:
-        return new SpeechSayfa();
+        return new LcvAssistTema();//SpeechSayfa();
       default:
         return new Text("Error");
     }

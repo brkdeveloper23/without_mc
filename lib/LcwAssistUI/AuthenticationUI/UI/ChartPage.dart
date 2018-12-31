@@ -92,7 +92,7 @@ Widget pageBody(){
   child:
 Padding(padding: EdgeInsets.fromLTRB(5.0, 2.0, 0.0, 2.0),child: 
 Row(children: <Widget>[
-  Icon(Icons.touch_app,color: LcwAssistColor.secondaryColor),
+  
   Padding(padding: EdgeInsets.fromLTRB(0.0, 4.0, 0.0, 0.0),child: Text(applicationManager.currentLanguage.getmagaza+': ' + selectedStoreName,style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,fontSize: 15.0,fontFamily: LcwAssistTextStyle.currentTextFontFamily)),)
   ],
   ),)
