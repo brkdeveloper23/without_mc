@@ -17,12 +17,14 @@ import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/Store
 import 'package:lcwassist/LcwAssistUI/AuthenticationUI/UI/loginPage.dart';
 import 'package:lcwassist/LcwAssistUI/Home/HomePageOperations/HomePage.dart';
 import 'package:lcwassist/LcwAssistBase/LcwAssistApplicationManager.dart';
+import 'package:lcwassist/LcwAssistUI/SalesOperations/ProductSalesPerformanceOperations/BestWorstOptions/BestWorstOptionFilter.dart';
 import 'package:lcwassist/LcwAssistUI/SalesOperations/ProductSalesPerformanceOperations/ProductPerformansMetricFeedBackDialog.dart';
 import 'package:lcwassist/LcwAssistUI/SalesOperations/ProductSalesPerformanceOperations/ProductPerformansMetricsOperations.dart';
 import 'package:lcwassist/Services/LcwAssistUIServiceOperations/SalesServiceOperations/ProductSalesPerformanceService.dart';
 import 'package:lcwassist/Services/LcwAssistUIServiceOperations/StoreReportOperations/StoreChooseService.dart';
 import 'package:lcwassist/Style/LcwAssistColor.dart';
 import 'package:barcode_scan/barcode_scan.dart';
+import 'package:lcwassist/Style/LcwAssistTextStyle.dart';
 void main(){
   runApp(new MaterialApp(
     home:new ProductPerformansQueryPage(),
@@ -143,6 +145,17 @@ String qrResult = await BarcodeScanner.scan();
 this.productMetricsRequest.setBarcode = qrResult;
 }
 
+if(type == ProductMetricsResponseType.bestWorstOptions){
+
+ var route = new MaterialPageRoute(
+            builder: (BuildContext context) => BestWorstOptionFilter()
+          );
+
+          Navigator.of(context).push(route);
+
+          return;
+}
+
 
 
   setState(() {
@@ -197,7 +210,7 @@ Widget pageBody(){
       Container(padding: EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 5.0), color: LcwAssistColor.backGroundColor,child: barkodIleSorgulamaCard(),),
       Container(padding: EdgeInsets.fromLTRB(15.0, 5.0, 15.0, 5.0),color: LcwAssistColor.backGroundColor,child: urunKoduIleSorgulamaCard(),),
       Container(padding: EdgeInsets.fromLTRB(15.0, 5.0, 15.0, 0.0),color: LcwAssistColor.backGroundColor,child: barkodTaraSorgulamaCard(),),
-
+Container(padding: EdgeInsets.fromLTRB(15.0, 5.0, 15.0, 0.0),color: LcwAssistColor.backGroundColor,child: bestWorstSorgulamaCard(),),
       
     ],
   ),);
@@ -211,7 +224,29 @@ Widget barkodIleSorgulamaCard(){
       child: Column(
         children: <Widget>[
           
-          Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Container(padding: EdgeInsets.all(5.0), child: Text(applicationManager.currentLanguage.getbarkodNumarasiGirin),)]),
+          Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Container(padding: EdgeInsets.all(5.0), child: Text(applicationManager.currentLanguage.getbarkodNumarasiGirin,style: TextStyle(color: Color.fromRGBO(38, 149, 243, 1.0),fontFamily: LcwAssistTextStyle.currentTextFontFamily),),)]),
+          
+  //         Padding(padding: EdgeInsets.fromLTRB(10, 5, 10, 5),child:
+  //         Container(
+  // padding: EdgeInsets.fromLTRB(0, 3, 3, 3),
+  // decoration:  BoxDecoration(
+  //   border:  Border(
+  //      bottom:  BorderSide(width: 0.5, color:  Color.fromRGBO(44, 144, 240, 1.0)),
+  //   )),
+  // child: 
+  //   Row(
+      
+  //     children: <Widget>[
+  //   Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Container(padding: EdgeInsets.all(3.0), child: Text(applicationManager.currentLanguage.getbarkodNumarasiGirin,style: TextStyle(color: Color.fromRGBO(38, 149, 243, 1.0),fontFamily: LcwAssistTextStyle.currentTextFontFamily),),)]),
+      
+  //   ])),
+  //         ),
+
+
+
+          
+          
+          
           Row(
         children: <Widget>[
           Expanded(
@@ -263,7 +298,7 @@ Widget urunKoduIleSorgulamaCard(){
       child: Column(
         children: <Widget>[
           
-          Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Container(padding: EdgeInsets.all(5.0), child: Text(applicationManager.currentLanguage.getbarkodIleSorgulama),)]),
+          Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Container(padding: EdgeInsets.all(5.0), child: Text(applicationManager.currentLanguage.getbarkodIleSorgulama,style: TextStyle(color: Color.fromRGBO(38, 149, 243, 1.0),fontFamily: LcwAssistTextStyle.currentTextFontFamily),),)]),
           Row(
         children: <Widget>[
           Expanded(
@@ -330,7 +365,7 @@ Widget barkodTaraSorgulamaCard(){
       child: Column(
         children: <Widget>[
           
-          Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Container(padding: EdgeInsets.all(5.0), child: Text(applicationManager.currentLanguage.getbarkodTara),)]),
+          Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Container(padding: EdgeInsets.all(5.0), child: Text(applicationManager.currentLanguage.getbarkodTara,style: TextStyle(color: Color.fromRGBO(38, 149, 243, 1.0),fontFamily: LcwAssistTextStyle.currentTextFontFamily),),)]),
           Row(
         children: <Widget>[
           Expanded(
@@ -339,7 +374,7 @@ Widget barkodTaraSorgulamaCard(){
           ),
           Expanded(
             flex: 3,
-            child: new Text(applicationManager.currentLanguage.getkameraIleTaratarakAramaYapabilirsiniz),
+            child: new Text(applicationManager.currentLanguage.getkameraIleTaratarakAramaYapabilirsiniz,style: TextStyle(fontFamily: LcwAssistTextStyle.currentTextFontFamily),),
           ),
           Expanded(
             flex: 1,
@@ -356,6 +391,40 @@ Widget barkodTaraSorgulamaCard(){
     ),
   );
 }
+
+Widget bestWorstSorgulamaCard(){
+  return Container(
+    child: Card(
+      child: Column(
+        children: <Widget>[
+          
+          Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Container(padding: EdgeInsets.all(5.0), child: Text(applicationManager.currentLanguage.getbestWorstOptions,style: TextStyle(color: Color.fromRGBO(38, 149, 243, 1.0),fontFamily: LcwAssistTextStyle.currentTextFontFamily),),)]),
+          Row(
+        children: <Widget>[
+          Expanded(
+            flex: 1,
+            child: Container(padding: EdgeInsets.fromLTRB(14.0, 14.0, 14.0, 14.0),child: Image.asset('assets/best_worst_96.png'),),
+          ),
+          Expanded(
+            flex: 3,
+            child: new Text(applicationManager.currentLanguage.getbestWorstOptionsAciklama,style: TextStyle(fontFamily: LcwAssistTextStyle.currentTextFontFamily),),
+          ),
+          Expanded(
+            flex: 1,
+            child:             GestureDetector(
+       onTap: ()=>showProductPerformanceMetricPage(ProductMetricsResponseType.bestWorstOptions),
+        child: Image.asset('assets/search_40.png')
+            
+            )
+          )
+        ],
+      )
+        ],
+      ),
+    ),
+  );
+}
+
 
 void onBarcodeChange(){
 

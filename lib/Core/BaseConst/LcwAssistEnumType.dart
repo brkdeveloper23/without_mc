@@ -8,7 +8,7 @@ enum LcwAssistDialogType {
   info,warning,error
 }
 enum ProductMetricsResponseType {
-  writeBarcode,writeModelAndColor,scanBarcode
+  writeBarcode,writeModelAndColor,scanBarcode,bestWorstOptions
 }
 enum ProductPerformansDetailType {
   stockDetail,salesDetail

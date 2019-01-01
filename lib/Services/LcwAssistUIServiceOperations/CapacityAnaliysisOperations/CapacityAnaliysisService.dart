@@ -42,7 +42,7 @@ Future<CapacityAnalysisMetricsFilterDTO> capacityAnalysisMetricsFilters() async 
 String token =  await TokenService.getAuthToken();
 //Map<String, dynamic> body = request.toMap();
 var response = await http.post(
-      Uri.encodeFull(UrlConst.capacityMetricsFiltersUrl),
+      Uri.encodeFull(UrlConst.merchHierarciesFiltersUrl),
       headers: {
         "Authorization": "Bearer " +token,
         "Content-Type": "application/json"

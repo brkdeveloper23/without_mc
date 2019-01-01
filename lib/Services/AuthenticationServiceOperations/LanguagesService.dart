@@ -257,6 +257,8 @@ currentLanguage.seturunBagimliBagimsizFeedbackGonder = currentLanguageRawData.fi
 currentLanguage.setaradiginizKriterlerdeDataBulunamadi = currentLanguageRawData.firstWhere((i)=>i.kod == "aradiginizKriterlerdeDataBulunamadi").deger;
 currentLanguage.setbirimLCM = currentLanguageRawData.firstWhere((i)=>i.kod == "birimLCM").deger;
 currentLanguage.setworstOptions = currentLanguageRawData.firstWhere((i)=>i.kod == "worstOptions").deger;
+currentLanguage.setbestWorstOptions = currentLanguageRawData.firstWhere((i)=>i.kod == "bestWorstOptions").deger;
+currentLanguage.setbestWorstOptionsAciklama = currentLanguageRawData.firstWhere((i)=>i.kod == "bestWorstOptionsAciklama").deger;
 currentLanguage.setbestOptions = currentLanguageRawData.firstWhere((i)=>i.kod == "bestOptions").deger;
 currentLanguage.setbestWorstOptionSiralamaTipi = currentLanguageRawData.firstWhere((i)=>i.kod == "bestWorstOptionSiralamaTipi").deger;
 currentLanguage.setbestWorstDMKupKar = currentLanguageRawData.firstWhere((i)=>i.kod == "bestWorstDMKupKar").deger;

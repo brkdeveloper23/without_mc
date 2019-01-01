@@ -94,6 +94,7 @@ flutter:
     - assets/login.png
     - assets/login.jpg
     - assets/deneme_rapor.png
+    - assets/best_worst_96.png
     
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.

@@ -128,3 +128,20 @@ String tanim;
 AksesuarUrunDTO({this.kod,this.tanim});
 
 }
+
+class BestWorstOptionDTO{
+int kod;
+String tanim;
+
+BestWorstOptionDTO({this.kod,this.tanim});
+
+}
+
+
+class BestWorstOptionSiralamaTipi{
+int kod;
+String tanim;
+
+BestWorstOptionSiralamaTipi({this.kod,this.tanim});
+
+}
