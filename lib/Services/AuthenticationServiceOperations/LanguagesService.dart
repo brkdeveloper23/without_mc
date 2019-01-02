@@ -264,6 +264,13 @@ currentLanguage.setbestWorstOptionSiralamaTipi = currentLanguageRawData.firstWhe
 currentLanguage.setbestWorstDMKupKar = currentLanguageRawData.firstWhere((i)=>i.kod == "bestWorstDMKupKar").deger;
 currentLanguage.setbestWorstDevirHizi = currentLanguageRawData.firstWhere((i)=>i.kod == "bestWorstDevirHizi").deger;
 currentLanguage.setoturumSonlanmistir = currentLanguageRawData.firstWhere((i)=>i.kod == "oturumSonlanmistir").deger;
+currentLanguage.setsonraki = currentLanguageRawData.firstWhere((i)=>i.kod == "sonraki").deger;
+currentLanguage.setbestWorstListColumn0 = currentLanguageRawData.firstWhere((i)=>i.kod == "bestWorstListColumn0").deger;
+currentLanguage.setbestWorstListColumn1 = currentLanguageRawData.firstWhere((i)=>i.kod == "bestWorstListColumn1").deger;
+currentLanguage.setbestWorstListColumn2 = currentLanguageRawData.firstWhere((i)=>i.kod == "bestWorstListColumn2").deger;
+currentLanguage.setbestWorstListColumn3 = currentLanguageRawData.firstWhere((i)=>i.kod == "bestWorstListColumn3").deger;
+currentLanguage.setbestWorstListColumn4 = currentLanguageRawData.firstWhere((i)=>i.kod == "bestWorstListColumn4").deger;
+currentLanguage.setbestWorstListColumn5 = currentLanguageRawData.firstWhere((i)=>i.kod == "bestWorstListColumn5").deger;
 
 return currentLanguage;
   }

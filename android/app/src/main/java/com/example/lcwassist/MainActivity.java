@@ -1,4 +1,4 @@
-package com.lcwaikiki.lcwassist.droid;
+package com.lcwaikiki.lcwassist.droid.test;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;

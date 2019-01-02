@@ -4,6 +4,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:lcwassist/Core/BaseConst/UrlConst.dart';
 import 'package:lcwassist/DataAccess/CapacityAnaliysisDTOs/CapacityAnalysisMetricsFilterDTO.dart';
+import 'package:lcwassist/DataAccess/ProductPerformanceMetricsDTOs/BestWorstOptionsDTOs/BestWorstOptionListResponseList.dart';
+import 'package:lcwassist/DataAccess/ProductPerformanceMetricsDTOs/BestWorstOptionsDTOs/BestWorstOptionsFilterRequestDTO.dart';
 import 'package:lcwassist/DataAccess/ProductPerformanceMetricsDTOs/ProductMetricsRequest.dart';
 
 import 'package:lcwassist/DataAccess/ProductPerformanceMetricsDTOs/ProductMetricsResponse.dart';
@@ -70,4 +72,45 @@ if (response.statusCode == 200) {
 
 }
 
+ Future<List<BestWorstOptionListResponseList>> bestWorstOptionProductList(BestWorstOptionsFilterRequestDTO request) async {
+ 
+String token =  await TokenService.getAuthToken();
+
+Map<String, dynamic> body = request.toMap();
+
+var response = await http.post( 
+      //Uri.encodeFull("https://lcwapigateway.lcwaikiki.com/SmartStoreDataService/api/Metrics/GetProductMetricsForOther"),
+      Uri.encodeFull(UrlConst.bestWorstOptionProductList),
+      headers: {
+        "Authorization": "Bearer " +token,
+        "Content-Type": "application/json"
+      }, body: json.encode(body)
+    );
+
+List<BestWorstOptionListResponseList> result = new List<BestWorstOptionListResponseList>();
+
+//var bodyResult;
+List<Map<String, dynamic>>  bodyResult;
+List list = List();
+if (response.statusCode == 200) {
+    // If the call to the server was successful, parse the JSON
+    //bodyResult = json.decode(response.body) as List;
+     list = json.decode(response.body) as List;
+
+//Iterable l = json.decode(response.body);
+
+ //Iterable l = json.decode(response.body);
+ list.map((i)=> result.add(BestWorstOptionListResponseList.fromJson(i))).toList();
+
+int sss = result.length;
+
+//result = list.map((i) => BestWorstOptionListResponseList.fromJson(i)).toList();
+    
+     
+    
+     return result;
+}
+
+}
+ 
 }

@@ -10,15 +10,15 @@ class BestWorstOptionsFilterRequestDTO{
 //         public int BestWorstTipi { get; set; }
 
 
-String _depoRef;
+int _depoRef;
 String _merchGrupKod;
 String _merchMarkaYasGrupKod;
 String _merchAltGrupKod;
 String _buyerGrupTanim;
-String _bestWorstSiralamaTipi;
-String _bestWorstTipi;
+int _bestWorstSiralamaTipi;
+int _bestWorstTipi;
 
-    set setDepoRef(String depoRef) {
+    set setDepoRef(int depoRef) {
       _depoRef = depoRef;
     }
     set setMerchGrupKod(String merchGrupKod) {
@@ -35,21 +35,21 @@ String _bestWorstTipi;
       _buyerGrupTanim = buyerGrupTanim;
     }
 
-    set setBestWorstSiralamaTipi(String bestWorstSiralamaTipi) {
+    set setBestWorstSiralamaTipi(int bestWorstSiralamaTipi) {
       _bestWorstSiralamaTipi = bestWorstSiralamaTipi;
     }
 
-    set setBestWorstTipi(String bestWorstTipi) {
+    set setBestWorstTipi(int bestWorstTipi) {
       _bestWorstTipi = bestWorstTipi;
     }
 
-  String get getDepoRef => _depoRef;
+  int get getDepoRef => _depoRef;
   String get getMerchGrupKod => _merchGrupKod;
   String get getMerchMarkaYasGrupKod => _merchMarkaYasGrupKod;
   String get getMerchAltGrupKod => _merchAltGrupKod;
   String get getBuyerGrupTanim => _buyerGrupTanim;
-  String get getBestWorstSiralamaTipi => _bestWorstSiralamaTipi;
-  String get getBestWorstTipi => _bestWorstTipi;
+  int get getBestWorstSiralamaTipi => _bestWorstSiralamaTipi;
+  int get getBestWorstTipi => _bestWorstTipi;
   
 
   Map<String, dynamic> toMap() {

@@ -156,7 +156,7 @@ if(type == ProductMetricsResponseType.bestWorstOptions){
           return;
 }
 
-
+ 
 
   setState(() {
 LcwAssistLoading.showAlert(context,applicationManager.currentLanguage.getyukleniyor);

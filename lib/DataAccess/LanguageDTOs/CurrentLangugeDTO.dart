@@ -233,6 +233,13 @@ String _bestWorstOptionSiralamaTipi="";
 String _bestWorstDMKupKar="";
 String _bestWorstDevirHizi="";
 String _oturumSonlanmistir="";
+String _sonraki="";
+String _bestWorstListColumn0="";
+String _bestWorstListColumn1="";
+String _bestWorstListColumn2="";
+String _bestWorstListColumn3="";
+String _bestWorstListColumn4="";
+String _bestWorstListColumn5="";
 
   // CurrentLangugeDTO(
   //   this._dilId,
@@ -421,6 +428,15 @@ set setbestWorstOptionSiralamaTipi(String bestWorstOptionSiralamaTipi) {_bestWor
 set setbestWorstDMKupKar(String bestWorstDMKupKar) {_bestWorstDMKupKar = bestWorstDMKupKar;}
 set setbestWorstDevirHizi(String bestWorstDevirHizi) {_bestWorstDevirHizi = bestWorstDevirHizi;}
 set setoturumSonlanmistir(String oturumSonlanmistir) {_oturumSonlanmistir = oturumSonlanmistir;}
+set setsonraki(String sonraki) {_sonraki = sonraki;}
+set setbestWorstListColumn0(String bestWorstListColumn0) {_bestWorstListColumn0 = bestWorstListColumn0;}
+set setbestWorstListColumn1(String bestWorstListColumn1) {_bestWorstListColumn1 = bestWorstListColumn1;}
+set setbestWorstListColumn2(String bestWorstListColumn2) {_bestWorstListColumn2 = bestWorstListColumn2;}
+set setbestWorstListColumn3(String bestWorstListColumn3) {_bestWorstListColumn3 = bestWorstListColumn3;}
+set setbestWorstListColumn4(String bestWorstListColumn4) {_bestWorstListColumn4 = bestWorstListColumn4;}
+set setbestWorstListColumn5(String bestWorstListColumn5) {_bestWorstListColumn5 = bestWorstListColumn5;}
+
+
 
   String get getkullaniciGirisi => _kullaniciGirisi;
   String get getkullaniciAdi => _kullaniciAdi;
@@ -572,6 +588,13 @@ set setoturumSonlanmistir(String oturumSonlanmistir) {_oturumSonlanmistir = otur
   String get getbestWorstDMKupKar => _bestWorstDMKupKar;
   String get getbestWorstDevirHizi => _bestWorstDevirHizi;
     String get getoturumSonlanmistir => _oturumSonlanmistir;
+      String get getsonraki => _sonraki;
+        String get getbestWorstListColumn0 => _bestWorstListColumn0;
+  String get getbestWorstListColumn1 => _bestWorstListColumn1;
+  String get getbestWorstListColumn2 => _bestWorstListColumn2;
+  String get getbestWorstListColumn3 => _bestWorstListColumn3;
+  String get getbestWorstListColumn4 => _bestWorstListColumn4;
+  String get getbestWorstListColumn5 => _bestWorstListColumn5;
   //LcwAssistLanguagesDTO
 
 //   CurrentLangugeDTO toFill(List<LcwAssistLanguagesDTO> currentLanguageRawData){
@@ -767,6 +790,14 @@ map["bestWorstOptionSiralamaTipi"] = _bestWorstOptionSiralamaTipi;
 map["bestWorstDMKupKar"] = _bestWorstDMKupKar;
 map["bestWorstDevirHizi"] = _bestWorstDevirHizi;
 map["oturumSonlanmistir"] = _oturumSonlanmistir;
+map["sonraki"] = _sonraki;
+map["bestWorstListColumn0"] = _bestWorstListColumn0;
+map["bestWorstListColumn1"] = _bestWorstListColumn1;
+map["bestWorstListColumn2"] = _bestWorstListColumn2;
+map["bestWorstListColumn3"] = _bestWorstListColumn3;
+map["bestWorstListColumn4"] = _bestWorstListColumn4;
+map["bestWorstListColumn5"] = _bestWorstListColumn5;
+
     return map;
   }
 }

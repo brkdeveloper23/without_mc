@@ -8,8 +8,11 @@ import 'package:lcwassist/DataAccess/CapacityAnaliysisDTOs/CapacityAnaliysisRepo
 import 'package:lcwassist/DataAccess/CapacityAnaliysisDTOs/CapacityAnaliysisReportResponseDTO.dart';
 import 'package:lcwassist/DataAccess/CapacityAnaliysisDTOs/CapacityAnalysisMetricsFilterDTO.dart';
 import 'package:lcwassist/DataAccess/LanguageDTOs/MultiLangComboDTO.dart';
+import 'package:lcwassist/DataAccess/ProductPerformanceMetricsDTOs/BestWorstOptionsDTOs/BestWorstOptionListResponseList.dart';
+import 'package:lcwassist/DataAccess/ProductPerformanceMetricsDTOs/BestWorstOptionsDTOs/BestWorstOptionsFilterRequestDTO.dart';
 import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreChooseResponeDTO.dart';
 import 'package:lcwassist/LcwAssistBase/LcwAssistApplicationManager.dart';
+import 'package:lcwassist/LcwAssistUI/SalesOperations/ProductSalesPerformanceOperations/BestWorstOptions/BestWorstProductList.dart';
 import 'package:lcwassist/Style/CoreWidgets/LcwAssistCustomWidgets.dart';
 import 'package:lcwassist/Style/LcwAssistColor.dart';
 import 'package:lcwassist/Style/LcwAssistTextStyle.dart';
@@ -29,7 +32,7 @@ class BestWorstOptionFilter extends StatefulWidget{
    CapacityAnaliysisReportRequestDTO capacityParameter  = new CapacityAnaliysisReportRequestDTO();
 
   //BestWorstOptionFilter({Key key, @required this.storesResponse,@required this.capacityParameter}) : super(key: key);
-//BestWorstOptionFilter({Key key, @required this.storesResponse,@required this.capacityParameter}) : super(key: key);
+  //BestWorstOptionFilter({Key key, @required this.storesResponse,@required this.capacityParameter}) : super(key: key);
   @override
   //BestWorstOptionFilterState createState() => new BestWorstOptionFilterState(merchHierarsiList:storesResponse,capacityParameter: capacityParameter);
   BestWorstOptionFilterState createState() => new BestWorstOptionFilterState();
@@ -39,7 +42,7 @@ class BestWorstOptionFilterState extends State<BestWorstOptionFilter>  with Tick
 
 CapacityAnalysisMetricsFilterDTO merchHierarsiList;
 
-CapacityAnaliysisReportRequestDTO capacityParameter   = new CapacityAnaliysisReportRequestDTO();
+BestWorstOptionsFilterRequestDTO bestWorsParameter   = new BestWorstOptionsFilterRequestDTO();
 //BestWorstOptionFilterState({Key key, @required this.storesResponse,@required this.capacityParameter});
 BestWorstOptionFilterState();
 LcwAssistApplicationManager applicationManager = new LcwAssistApplicationManager();
@@ -243,15 +246,16 @@ WidgetsBinding.instance
 
 Future loaded(BuildContext context) async{
 applicationManager.setCurrentLanguage = await applicationManager.languagesService.currentLanguage();
+applicationManager.setCurrentStore = await applicationManager.serviceManager.storeChooseService.getCurrentStore();
    setState(() {
 LcwAssistLoading.showAlert(context,applicationManager.currentLanguage.getyukleniyor);
 });
 
- capacityParameter.setMagazaKod = "";
- capacityParameter.setBuyerGrupTanim = "";
- capacityParameter.setMerchYasGrupKod = "";
- capacityParameter.setMerchAltGrupKod = "";
- capacityParameter.setMerchGrupKod = "";
+ bestWorsParameter.setDepoRef =  applicationManager.currentStore.depoRef;
+ bestWorsParameter.setBuyerGrupTanim = "";
+ bestWorsParameter.setMerchMarkaYasGrupKod = "";
+ bestWorsParameter.setMerchAltGrupKod = "";
+ bestWorsParameter.setMerchGrupKod = "";
  await loadMerchHierarsiList();
 
 loadAllCombo();
@@ -281,10 +285,10 @@ loadBuyerGrupTanimList(listMerchAltGroupDTO.map((f)=> f.tanim.toString()).toList
 loadSiralamaTipi();
 loadBestWorstOption();
 
-listSelectedMerchGrupDTO = capacityParameter.getMerchGrupKod != "" ? listMerchGrupDTO.where((i) => i.tanim == capacityParameter.getMerchGrupKod).first : listMerchGrupDTO[0];
-listSelectedBuyerGrupTanimDTO = capacityParameter.getBuyerGrupTanim != "" ? listBuyerGrupTanimDTO.where((i) => i.tanim == capacityParameter.getBuyerGrupTanim).first : listBuyerGrupTanimDTO[0];
-listSelectedMerchAltGroupDTO = capacityParameter.getMerchAltGrupKod != "" ? listMerchAltGroupDTO.where((i) => i.tanim == capacityParameter.getMerchAltGrupKod).first : listMerchAltGroupDTO[0];
-listSelectedMerchMarkaYasGrupDTO = capacityParameter.getMerchYasGrupKod != "" ? listMerchMarkaYasGrupDTO.where((i) => i.tanim == capacityParameter.getMerchYasGrupKod).first : listMerchMarkaYasGrupDTO[0];
+listSelectedMerchGrupDTO = bestWorsParameter.getMerchGrupKod != "" ? listMerchGrupDTO.where((i) => i.tanim == bestWorsParameter.getMerchGrupKod).first : listMerchGrupDTO[0];
+listSelectedBuyerGrupTanimDTO = bestWorsParameter.getBuyerGrupTanim != "" ? listBuyerGrupTanimDTO.where((i) => i.tanim == bestWorsParameter.getBuyerGrupTanim).first : listBuyerGrupTanimDTO[0];
+listSelectedMerchAltGroupDTO = bestWorsParameter.getMerchAltGrupKod != "" ? listMerchAltGroupDTO.where((i) => i.tanim == bestWorsParameter.getMerchAltGrupKod).first : listMerchAltGroupDTO[0];
+listSelectedMerchMarkaYasGrupDTO = bestWorsParameter.getMerchMarkaYasGrupKod != "" ? listMerchMarkaYasGrupDTO.where((i) => i.tanim == bestWorsParameter.getMerchMarkaYasGrupKod).first : listMerchMarkaYasGrupDTO[0];
 
 }
 
@@ -613,10 +617,10 @@ DropdownButtonHideUnderline(
 
 Padding(padding: EdgeInsets.all(4.0),child: Row(children: <Widget>[
   
-  Expanded(flex: 2,child: RaisedButton(onPressed: ()=>
+  Expanded(flex: 1,child: RaisedButton(onPressed: ()=>
   btnfilterClick(),
   
-  color: LcwAssistColor.thirdColor,child: Row(children: <Widget>[Icon(Icons.done,color: Colors.white,),Text(applicationManager.currentLanguage.getfiltrele,style: TextStyle(fontSize: 18.0,color: Colors.white,fontFamily: LcwAssistTextStyle.currentTextFontFamily),)],),),),
+  color: LcwAssistColor.thirdColor,child: Row(children: <Widget>[Icon(Icons.subdirectory_arrow_right,color: Colors.white,),Text(applicationManager.currentLanguage.getsonraki,style: TextStyle(fontSize: 18.0,color: Colors.white,fontFamily: LcwAssistTextStyle.currentTextFontFamily),)],),),),
   Padding(padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0)),
   Expanded(flex: 1,child: RaisedButton(onPressed: ()=>
   btnClean(),color: LcwAssistColor.tomatoColor,child: Row(children: <Widget>[Icon(Icons.clear_all,color: Colors.white),Text(applicationManager.currentLanguage.gettemizle,style: TextStyle(fontSize: 18.0,color: Colors.white,fontFamily: LcwAssistTextStyle.currentTextFontFamily))],),),)
@@ -643,33 +647,50 @@ void chan(int value){
 
 void btnfilterClick() async{
 
-//CapacityAnaliysisReportRequestDTO asas= new CapacityAnaliysisReportRequestDTO();
-capacityParameter.setBuyerGrupTanim =listSelectedBuyerGrupTanimDTO.tanim == listBuyerGrupTanimDTO[0].tanim ? "" : listSelectedBuyerGrupTanimDTO.tanim;
-capacityParameter.setMerchAltGrupKod = listSelectedMerchAltGroupDTO.tanim == listMerchAltGroupDTO[0].tanim ? "" : listSelectedMerchAltGroupDTO.tanim;
-capacityParameter.setMerchYasGrupKod = listSelectedMerchMarkaYasGrupDTO.tanim == listMerchMarkaYasGrupDTO[0].tanim ? "" : listSelectedMerchMarkaYasGrupDTO.tanim;
-capacityParameter.setMerchGrupKod = listSelectedMerchGrupDTO.tanim == listMerchGrupDTO[0].tanim ? "" : listSelectedMerchGrupDTO.tanim;
-capacityParameter.setMagazaKod = "";
+bestWorsParameter.setBuyerGrupTanim =listSelectedBuyerGrupTanimDTO.tanim == listBuyerGrupTanimDTO[0].tanim ? "" : listSelectedBuyerGrupTanimDTO.tanim;
+bestWorsParameter.setMerchAltGrupKod = listSelectedMerchAltGroupDTO.tanim == listMerchAltGroupDTO[0].tanim ? "" : listSelectedMerchAltGroupDTO.tanim;
+bestWorsParameter.setMerchMarkaYasGrupKod = listSelectedMerchMarkaYasGrupDTO.tanim == listMerchMarkaYasGrupDTO[0].tanim ? "" : listSelectedMerchMarkaYasGrupDTO.tanim;
+bestWorsParameter.setMerchGrupKod = listSelectedMerchGrupDTO.tanim == listMerchGrupDTO[0].tanim ? "" : listSelectedMerchGrupDTO.tanim;
+bestWorsParameter.setDepoRef = applicationManager.currentStore.depoRef;
+bestWorsParameter.setBestWorstSiralamaTipi = listSelectedBestWorstOptionSiralamaTipi.kod;
+bestWorsParameter.setBestWorstTipi = listSelectedBestWorstOptionDTO.kod;
 
+List<BestWorstOptionListResponseList> result = new List<BestWorstOptionListResponseList>();
+
+   setState(() {
+LcwAssistLoading.showAlert(context,applicationManager.currentLanguage.getyukleniyor);
+});
+
+result = await applicationManager.serviceManager.productSalesPerformanceService.bestWorstOptionProductList(bestWorsParameter);
+
+ setState(() {
+  Navigator.pop(context);
+ });
+
+ var route = new MaterialPageRoute(
+            builder: (BuildContext context) => BestWorstProductList(bestWorstOptionList: result,applicationManager: applicationManager)
+          );
+
+          Navigator.of(context).push(route);
 
 //final aa = await SharedPreferences.getInstance();
 
 //aa.setString(SharedPreferencesConstant.capacityFilter, json.encode(asas.toMap()));
 
-Navigator.pop(context, capacityParameter);
+//Navigator.pop(context, capacityParameter);
 
 
 }
 
 void btnClean(){
 
-capacityParameter.setAksesuarUrun =   ""; 
-capacityParameter.setBuyerGrupTanim = ""; 
-capacityParameter.setMerchAltGrupKod =""; 
-capacityParameter.setMerchYasGrupKod ="";
-capacityParameter.setMerchGrupKod ="";
+
+bestWorsParameter.setBuyerGrupTanim = ""; 
+bestWorsParameter.setMerchAltGrupKod =""; 
+bestWorsParameter.setMerchMarkaYasGrupKod ="";
+bestWorsParameter.setMerchGrupKod ="";
 
 loadAllCombo();
-
 
 setState(() {
 });
