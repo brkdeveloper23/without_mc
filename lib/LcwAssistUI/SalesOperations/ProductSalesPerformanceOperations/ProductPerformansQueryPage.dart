@@ -84,7 +84,7 @@ _textColorCodeFocus.addListener(onModelColorChange);
 
 Future loaded(BuildContext context) async{
 
-applicationManager.setCurrentLanguage = await applicationManager.languagesService.currentLanguage();
+applicationManager.setCurrentLanguage = await applicationManager.serviceManager.languagesService.currentLanguage();
 
  if(await applicationManager.utils.checkToTokenExpireRedirectToLogin(applicationManager.currentLanguage, context))
  {

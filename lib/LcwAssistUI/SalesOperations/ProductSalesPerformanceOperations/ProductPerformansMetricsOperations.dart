@@ -81,7 +81,7 @@ SystemChrome.setPreferredOrientations([
 Future loaded(BuildContext context) async{
     currentPageStyleIcon = Icon(Icons.view_module);
     currentPageStyle = true;
-    applicationManager.setCurrentLanguage = await applicationManager.languagesService.currentLanguage();
+    applicationManager.setCurrentLanguage = await applicationManager.serviceManager.languagesService.currentLanguage();
     applicationManager.setCurrentStore = await applicationManager.serviceManager.storeChooseService.getCurrentStore();
     applicationManager.setCurrentUser = await applicationManager.serviceManager.loginService.getCurrentUser();
 

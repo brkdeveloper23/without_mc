@@ -74,6 +74,7 @@ BestWorstOptionSiralamaTipi listSelectedBestWorstOptionSiralamaTipi;
 loadBestWorstOption(){
   
 BestWorstOptionDTO data = new BestWorstOptionDTO();
+listBestWorstOptionDTO = new List<BestWorstOptionDTO>();
 data.kod = 0;
 data.tanim = applicationManager.currentLanguage.getbestOptions;
 listBestWorstOptionDTO.add(data);
@@ -88,6 +89,7 @@ listSelectedBestWorstOptionDTO = listBestWorstOptionDTO[0];
 }
 
 loadSiralamaTipi(){
+  listBestWorstOptionSiralamaTipi = new List<BestWorstOptionSiralamaTipi>();
 BestWorstOptionSiralamaTipi siralamaTipi = new BestWorstOptionSiralamaTipi();
 siralamaTipi.kod = 0;
 siralamaTipi.tanim = applicationManager.currentLanguage.getsatis;
@@ -245,7 +247,7 @@ WidgetsBinding.instance
   }
 
 Future loaded(BuildContext context) async{
-applicationManager.setCurrentLanguage = await applicationManager.languagesService.currentLanguage();
+applicationManager.setCurrentLanguage = await applicationManager.serviceManager.languagesService.currentLanguage();
 applicationManager.setCurrentStore = await applicationManager.serviceManager.storeChooseService.getCurrentStore();
    setState(() {
 LcwAssistLoading.showAlert(context,applicationManager.currentLanguage.getyukleniyor);
@@ -269,7 +271,7 @@ loadAllCombo();
 }
 
 Future<void> executeAfterBuild() async {
-  applicationManager.setCurrentLanguage = await applicationManager.languagesService.currentLanguage();
+  applicationManager.setCurrentLanguage = await applicationManager.serviceManager.languagesService.currentLanguage();
   sayfaYuklendimi = true;
   setState(() {
       

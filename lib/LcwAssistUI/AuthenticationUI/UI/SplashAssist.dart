@@ -268,7 +268,9 @@ PackageInfo packageInfo;
 final prefs = await SharedPreferences.getInstance();
 
 packageInfo = await PackageInfo.fromPlatform();
-await applicationManager.languagesService.getAllLanguages();
+await applicationManager.serviceManager.languagesService.getAllLanguages();
+
+await applicationManager.serviceManager.languagesService.getUsingLanguages();
 
 await this.applicationManager.serviceManager.lcwStoreService.setCurrentServiceVersion(packageInfo.packageName);
 
@@ -287,10 +289,7 @@ String currentLanguageId = prefs.getString(SharedPreferencesConstant.currentLang
 int dilId = int.parse(currentLanguageId);
 
 
-await applicationManager.languagesService.setCurrentLanguage(dilId);
-
-
-
+await applicationManager.serviceManager.languagesService.setCurrentLanguage(dilId);
 
 
 //await new Future.delayed(const Duration(seconds: 1 ));

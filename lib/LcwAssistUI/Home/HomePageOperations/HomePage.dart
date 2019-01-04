@@ -137,7 +137,7 @@ currentStore().then((result) {
     {
 
 storeResponse = await storeChooseService.getCurrentStore();
-applicationManager.setCurrentLanguage = await applicationManager.languagesService.currentLanguage();
+applicationManager.setCurrentLanguage = await applicationManager.serviceManager.languagesService.currentLanguage();
 
 //scaffoldState.currentState.openDrawer();
   }
@@ -156,6 +156,7 @@ Future<void> executeAfterBuild() async {
 drawerItems = [
     new DrawerItem(applicationManager.currentLanguage.getanasayfa, Icons.home),
     new DrawerItem(applicationManager.currentLanguage.getkapasite, Icons.table_chart),//domain
+    new DrawerItem(applicationManager.currentLanguage.getkapasitePerformans, Icons.network_check),//Icons.equalizer),
     new DrawerItem(applicationManager.currentLanguage.getsatis, Icons.payment),
     new DrawerItem(applicationManager.currentLanguage.getmagazaKarne, Icons.store),
     new DrawerItem(applicationManager.currentLanguage.getmagazaSec, Icons.location_on),

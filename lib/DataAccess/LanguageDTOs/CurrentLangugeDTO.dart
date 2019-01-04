@@ -240,6 +240,7 @@ String _bestWorstListColumn2="";
 String _bestWorstListColumn3="";
 String _bestWorstListColumn4="";
 String _bestWorstListColumn5="";
+String _kapasitePerformans="";
 
   // CurrentLangugeDTO(
   //   this._dilId,
@@ -435,6 +436,7 @@ set setbestWorstListColumn2(String bestWorstListColumn2) {_bestWorstListColumn2 
 set setbestWorstListColumn3(String bestWorstListColumn3) {_bestWorstListColumn3 = bestWorstListColumn3;}
 set setbestWorstListColumn4(String bestWorstListColumn4) {_bestWorstListColumn4 = bestWorstListColumn4;}
 set setbestWorstListColumn5(String bestWorstListColumn5) {_bestWorstListColumn5 = bestWorstListColumn5;}
+set setkapasitePerformans(String kapasitePerformans) {_kapasitePerformans = kapasitePerformans;}
 
 
 
@@ -595,6 +597,7 @@ set setbestWorstListColumn5(String bestWorstListColumn5) {_bestWorstListColumn5 
   String get getbestWorstListColumn3 => _bestWorstListColumn3;
   String get getbestWorstListColumn4 => _bestWorstListColumn4;
   String get getbestWorstListColumn5 => _bestWorstListColumn5;
+    String get getkapasitePerformans => _kapasitePerformans;
   //LcwAssistLanguagesDTO
 
 //   CurrentLangugeDTO toFill(List<LcwAssistLanguagesDTO> currentLanguageRawData){
@@ -797,6 +800,7 @@ map["bestWorstListColumn2"] = _bestWorstListColumn2;
 map["bestWorstListColumn3"] = _bestWorstListColumn3;
 map["bestWorstListColumn4"] = _bestWorstListColumn4;
 map["bestWorstListColumn5"] = _bestWorstListColumn5;
+map["kapasitePerformans"] = _kapasitePerformans;
 
     return map;
   }

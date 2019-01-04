@@ -37,8 +37,8 @@ LcwAssistApplicationManager() {
 LcwAssistServiceManager _lcwAssistServiceManager;
 LcwAssistServiceManager get serviceManager => _lcwAssistServiceManager = new LcwAssistServiceManager();
 
-LanguagesService _languagesService;
-LanguagesService get languagesService => _languagesService = new LanguagesService();
+// LanguagesService _languagesService;
+// LanguagesService get languagesService => _languagesService = new LanguagesService();
 
 GlobalFunctions _globalFunctions;
 GlobalFunctions get globalFunctions => _globalFunctions = new GlobalFunctions();
@@ -81,10 +81,12 @@ ProductSalesPerformanceService _productSalesPerformanceService;
 StoreChooseService _storeChooseService;
 CapacityAnaliysisService _capacityAnaliysisService;
 LcwStoreService _lcwStoreService;
-
+LanguagesService _languagesService;
 
 LoginPageService get loginService => _loginPageService = new LoginPageService();
 
+
+LanguagesService get languagesService => _languagesService = new LanguagesService();
 
 TokenService get tokenService => _tokenService = new TokenService();
 ProductSalesPerformanceService get productSalesPerformanceService => _productSalesPerformanceService = new ProductSalesPerformanceService();

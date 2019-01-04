@@ -2,6 +2,7 @@ import 'package:lcwassist/Core/BaseConst/SharedPreferencesConstant.dart';
 import 'package:lcwassist/Core/BaseConst/UrlConst.dart';
 import 'package:lcwassist/DataAccess/LanguageDTOs/CurrentLangugeDTO.dart';
 import 'package:lcwassist/DataAccess/LanguageDTOs/LcwAssistLanguagesDTO.dart';
+import 'package:lcwassist/DataAccess/LanguageDTOs/MultiLangComboDTO.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
 import 'dart:convert';
@@ -60,7 +61,7 @@ prefs.remove(SharedPreferencesConstant.allLanguage);
 
 //Map<String, dynamic> body = request.toMap();
 var response = await http.post(
-      Uri.encodeFull(UrlConst.usingLanguagesUrl),
+      Uri.encodeFull(UrlConst.allLanguagesDataUrl),
       headers: {
         "Content-Type": "application/json"
       }, body: json.encode("{'AksesuarUrun':''}")
@@ -107,6 +108,28 @@ currentLanguage = prefs.getString(SharedPreferencesConstant.currentLanguage);
 
 
   return multiLangComboDTO;
+}
+
+Future<List<MultiLangComboDTO>> getUsingLanguages() async{
+
+var response = await http.post(
+      Uri.encodeFull(UrlConst.getUsingLanguagesUrl),
+      headers: {
+        "Content-Type": "application/json"
+      }, //body: json.encode("{'AksesuarUrun':''}")
+    );
+    List<MultiLangComboDTO> result = new List<MultiLangComboDTO>();
+
+if (response.statusCode == 200) {
+List list = json.decode(response.body) as List;
+
+list.map((i)=> result.add(MultiLangComboDTO.fromJson(i))).toList();
+
+int aa = result.length;
+}
+
+
+return result;
 }
 
 CurrentLangugeDTO toFill(List<LcwAssistLanguagesDTO> currentLanguageRawData){
@@ -271,6 +294,7 @@ currentLanguage.setbestWorstListColumn2 = currentLanguageRawData.firstWhere((i)=
 currentLanguage.setbestWorstListColumn3 = currentLanguageRawData.firstWhere((i)=>i.kod == "bestWorstListColumn3").deger;
 currentLanguage.setbestWorstListColumn4 = currentLanguageRawData.firstWhere((i)=>i.kod == "bestWorstListColumn4").deger;
 currentLanguage.setbestWorstListColumn5 = currentLanguageRawData.firstWhere((i)=>i.kod == "bestWorstListColumn5").deger;
+currentLanguage.setkapasitePerformans = currentLanguageRawData.firstWhere((i)=>i.kod == "kapasitePerformans").deger;
 
 return currentLanguage;
   }

@@ -59,7 +59,7 @@ currentStore().then((result) {
 
   void loaded(BuildContext context) async{
 
-applicationManager.setCurrentLanguage = await applicationManager.languagesService.currentLanguage();
+applicationManager.setCurrentLanguage = await applicationManager.serviceManager.languagesService.currentLanguage();
 sayfaYuklendiMi = true; 
   }
 

@@ -54,7 +54,7 @@ sayfaYuklendiMi = false;
     currentPageStyleIcon = Icon(Icons.view_module);
     currentPageStyle = true;
 
-    applicationManager.setCurrentLanguage = await applicationManager.languagesService.currentLanguage();
+    applicationManager.setCurrentLanguage = await applicationManager.serviceManager.languagesService.currentLanguage();
     sayfaYuklendiMi = true;
 }
 

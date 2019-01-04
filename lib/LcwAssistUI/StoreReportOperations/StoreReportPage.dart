@@ -74,7 +74,7 @@ Future<void> executeAfterBuild() async {
 Future loaded(BuildContext context) async{
 
  //await new Future.delayed(const Duration(seconds: 2 ));
- applicationManager.setCurrentLanguage = await applicationManager.languagesService.currentLanguage();
+ applicationManager.setCurrentLanguage = await applicationManager.serviceManager.languagesService.currentLanguage();
 
 
  if(await applicationManager.utils.checkToTokenExpireRedirectToLogin(applicationManager.currentLanguage, context))

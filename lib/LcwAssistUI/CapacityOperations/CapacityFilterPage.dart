@@ -67,6 +67,7 @@ AksesuarUrunDTO listSelectedAksesuarUrunDTO;
 loadAksesuarUrunList(){
 
 List<String> buyerGrupTanimList = new List<String>();
+listAksesuarUrunDTO = new List<AksesuarUrunDTO>();
 
 aksesuarUrunList = storesResponse.merchHierarchiesList.map((f)=> f.aksesuarUrun.toString()).toList();
 
@@ -223,7 +224,7 @@ WidgetsBinding.instance
   }
 
 Future loaded(BuildContext context) async{
-applicationManager.setCurrentLanguage = await applicationManager.languagesService.currentLanguage();
+applicationManager.setCurrentLanguage = await applicationManager.serviceManager.languagesService.currentLanguage();
 sayfaYuklendimi = true;
 setState(() {
       
@@ -232,7 +233,7 @@ loadAllCombo();
 }
 
 Future<void> executeAfterBuild() async {
-  applicationManager.setCurrentLanguage = await applicationManager.languagesService.currentLanguage();
+  applicationManager.setCurrentLanguage = await applicationManager.serviceManager.languagesService.currentLanguage();
   sayfaYuklendimi = true;
   setState(() {
       

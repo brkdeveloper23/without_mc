@@ -25,7 +25,7 @@ StoreChooseResponeDTO userResponse ;
 LcwAssistApplicationManager applicationManager = new LcwAssistApplicationManager();
 CurrentLangugeDTO currentLanguage = new CurrentLangugeDTO();
 
-currentLanguage = await applicationManager.languagesService.currentLanguage();
+currentLanguage = await applicationManager.serviceManager.languagesService.currentLanguage();
 
 String token =  await TokenService.getAuthToken();
     var response = await http.post(
@@ -38,21 +38,18 @@ String token =  await TokenService.getAuthToken();
       }, body: json.encode("")
     );
 
-
-
     if (response.statusCode == 200) {
 
 //StoreChooseResponeDTO
  userResponse = StoreChooseResponeDTO.fromJson(json.decode(response.body));
-userResponse.stores.insert(0, 
-
+userResponse.stores.insert(0,
 Stores(countryRef: 48,depoRef: 0,depoYerlesimTip: "",isOutlet: 0,magazaMudur1: "",magazaMudur2: "",
 musteriProfil: "",operasyonelBolgeTanim: "",personelSayisi: 0,storeCode: "0",storeName: currentLanguage.gettumMagazalar,toplamM2: 0)
 );
  
-  } else {
-    // If that call was not successful, throw an error.
-    throw Exception('Failed to load post ' + response.statusCode.toString() + ' ' );
+  } else if (response.statusCode == 401){
+
+userResponse = new StoreChooseResponeDTO(stores: null,errorMessage: "",isAuthorized: false,isSuccess: false);
   }
 
     return userResponse;
@@ -67,7 +64,7 @@ List<StoreChooseListViewDTO> listResponse = new List<StoreChooseListViewDTO>();
 LcwAssistApplicationManager applicationManager = new LcwAssistApplicationManager();
 CurrentLangugeDTO currentLanguage = new CurrentLangugeDTO();
 
-currentLanguage = await applicationManager.languagesService.currentLanguage();
+currentLanguage = await applicationManager.serviceManager.languagesService.currentLanguage();
 
 String token =  await TokenService.getAuthToken();
     var response = await http.post(
@@ -155,17 +152,16 @@ Future<StoreReportResponseDTO> storeReport(StoreReportRequestDTO parameter) asyn
         "Authorization": "Bearer " +token,
         "Content-Type": "application/json"
       }, body: json.encode(body)
-    );
-
-    
+    );  
 
 if (response.statusCode == 200) {
     // If the call to the server was successful, parse the JSON
      responseDTO = StoreReportResponseDTO.fromJson(json.decode(response.body));
-    
-     return responseDTO;
-} 
+} else if(response.statusCode == 401){
+responseDTO = new StoreReportResponseDTO(errorMessage: "",isSuccess: false,isAuthorized: false);
+}
 
+return responseDTO;
   }
 
 Future saveCurrentStore(StoreChooseListViewDTO store) async{

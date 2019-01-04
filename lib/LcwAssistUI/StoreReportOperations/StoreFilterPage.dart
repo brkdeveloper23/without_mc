@@ -78,7 +78,7 @@ SystemChrome.setPreferredOrientations([
 
 Future loaded(BuildContext context) async{
   
-applicationManager.setCurrentLanguage = await applicationManager.languagesService.currentLanguage();
+applicationManager.setCurrentLanguage = await applicationManager.serviceManager.languagesService.currentLanguage();
 
 
  if(await applicationManager.utils.checkToTokenExpireRedirectToLogin(applicationManager.currentLanguage, context))
@@ -93,7 +93,7 @@ loadAllCombo();
 
 
 Future<void> executeAfterBuild() async {
-  applicationManager.setCurrentLanguage = await applicationManager.languagesService.currentLanguage();
+  applicationManager.setCurrentLanguage = await applicationManager.serviceManager.languagesService.currentLanguage();
   setState(() {
       
     });

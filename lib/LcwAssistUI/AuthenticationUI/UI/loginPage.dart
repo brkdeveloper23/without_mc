@@ -150,7 +150,7 @@ setState(() {});
 
 Future<void> executeAfterBuild() async {
 
-applicationManager.setCurrentLanguage = await applicationManager.languagesService.currentLanguage();
+applicationManager.setCurrentLanguage = await applicationManager.serviceManager.languagesService.currentLanguage();
 
 
 final prefs = await SharedPreferences.getInstance();
@@ -603,9 +603,9 @@ return result;
 
 changeLanguage(int dilId) async{
 
-await applicationManager.languagesService.setCurrentLanguage(dilId);
+await applicationManager.serviceManager.languagesService.setCurrentLanguage(dilId);
 
-applicationManager.setCurrentLanguage = await applicationManager.languagesService.currentLanguage();
+applicationManager.setCurrentLanguage = await applicationManager.serviceManager.languagesService.currentLanguage();
 
 setState(() {
 
