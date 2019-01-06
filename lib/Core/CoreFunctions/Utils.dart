@@ -2,9 +2,12 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:lcwassist/Core/BaseConst/LcwAssistEnumType.dart';
-import 'package:lcwassist/Core/CoreFunctions/LcwAssistMessageDialogs/LcwAssistAlertDialogInfo.dart';
+import 'package:lcwassist/Core/GlobalWidget/LcwAssistMessageDialogs/LcwAssistAlertDialogInfo.dart';
+
 import 'package:lcwassist/DataAccess/LanguageDTOs/CurrentLangugeDTO.dart';
+import 'package:lcwassist/DataAccess/ResponseBase.dart';
 import 'package:lcwassist/LcwAssistUI/AuthenticationUI/UI/loginPage.dart';
+import 'package:lcwassist/LcwAssistUI/Home/HomePageOperations/HomePage.dart';
 import 'package:lcwassist/Services/AuthenticationServiceOperations/TokenService.dart';
 import 'package:path/path.dart';
 import 'package:corsac_jwt/corsac_jwt.dart';
@@ -64,5 +67,48 @@ return result;
 
     Navigator.of(context).push(route);
 }
+
+ Future resultApiStatus(BuildContext context,int statusCode,CurrentLangugeDTO currentLanguage) async{
+ ResponseBase respone = new ResponseBase();
+
+if(statusCode == 401){
+
+respone.isSuccess = false;
+respone.errorMessage = "Oturumunuz sonlanmıştır.Tekrar giriş yapmalısınız.";
+respone.isAuthorized = false;
+
+await LcwAssistAlertDialogInfo(currentLanguage.gethata,currentLanguage.getoturumSonlanmistir,
+currentLanguage.gettamam,context,LcwAssistDialogType.error).show();
+
+navigateToLoginPage(context);
+
+}else {
+   
+await LcwAssistAlertDialogInfo(currentLanguage.gethata,currentLanguage.getmsg02,
+currentLanguage.gettamam,context,LcwAssistDialogType.error).show();
+   
+     Navigator.of(context).push(
+    new MaterialPageRoute(
+      builder: (context) => new HomePage()
+    )
+  );
+  
+// respone.isSuccess = false;
+// respone.errorMessage = "beklenmeyen hata";
+// respone.isAuthorized = false;
+
+
+// var route = new MaterialPageRoute(
+//             builder: (BuildContext context) => HomePage()
+//           );
+
+//    Navigator.of(context).pushReplacement(route);
+
+
+
+}
+ 
+return respone;
+ }
 
 }

@@ -3,6 +3,7 @@ import 'package:lcwassist/DataAccess/CapacityAnaliysisDTOs/CapacityAnaliysisRepo
 import 'package:lcwassist/DataAccess/CapacityAnaliysisDTOs/CapacityAnaliysisReportResponseDTO.dart';
 import 'package:lcwassist/DataAccess/CapacityAnaliysisDTOs/CapacityAnalysisMetricsFilterDTO.dart';
 import 'package:lcwassist/DataAccess/ProductPerformanceMetricsDTOs/ProductMetricsResponse.dart';
+import 'package:lcwassist/DataAccess/ResponseBase.dart';
 import 'package:lcwassist/Services/AuthenticationServiceOperations/TokenService.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -12,7 +13,7 @@ class CapacityAnaliysisService{
 
 CapacityAnaliysisService(){}
 
-Future<CapacityAnaliysisReportResponseDTO> capacityAnalysisMetrics(CapacityAnaliysisReportRequestDTO request) async {
+Future<ParsedResponse<CapacityAnaliysisReportResponseDTO>> capacityAnalysisMetrics(CapacityAnaliysisReportRequestDTO request) async {
  
 String token =  await TokenService.getAuthToken();
 request.setMagazaKod = request.getMagazaKod == "0" ? "" : request.getMagazaKod;
@@ -27,17 +28,20 @@ var response = await http.post(
 
 CapacityAnaliysisReportResponseDTO result;
 
-if (response.statusCode == 200) {
-    // If the call to the server was successful, parse the JSON
-     result = CapacityAnaliysisReportResponseDTO.fromJson(json.decode(response.body));
+// if (response.statusCode == 200) {
+//     // If the call to the server was successful, parse the JSON
+//      result = CapacityAnaliysisReportResponseDTO.fromJson(json.decode(response.body));
     
-     return result;
+//      return result;
+// }
+if(response.statusCode < 200 || response.statusCode >= 300) {
+      return new ParsedResponse(response.statusCode, null);
+    }
+
+return new ParsedResponse(response.statusCode, CapacityAnaliysisReportResponseDTO.fromJson(json.decode(response.body)));
 }
 
-}
-
-
-Future<CapacityAnalysisMetricsFilterDTO> capacityAnalysisMetricsFilters() async {
+Future<ParsedResponse<CapacityAnalysisMetricsFilterDTO>> capacityAnalysisMetricsFilters() async {
  
 String token =  await TokenService.getAuthToken();
 //Map<String, dynamic> body = request.toMap();
@@ -49,20 +53,13 @@ var response = await http.post(
       }, body: json.encode("{'AksesuarUrun':'','MerchMarkaYasGrupKod':'','MerchAltGrupKod':''}")
     );
 
-CapacityAnalysisMetricsFilterDTO result;
 
-if (response.statusCode == 200) {
-    // If the call to the server was successful, parse the JSON
-     result = CapacityAnalysisMetricsFilterDTO.fromJson(json.decode(response.body));
-     
-     return result;
-}
+if(response.statusCode < 200 || response.statusCode >= 300) {
+      return new ParsedResponse(response.statusCode, null);
+    }
+
+return new ParsedResponse(response.statusCode, CapacityAnalysisMetricsFilterDTO.fromJson(json.decode(response.body)));
 
 }
-
-
-
-
-
 
 }

@@ -5,11 +5,12 @@ import 'package:lcwassist/Core/BaseConst/LcwAssistEnumType.dart';
 import 'package:lcwassist/Core/BaseConst/SharedPreferencesConstant.dart';
 
 import 'package:lcwassist/Core/CoreFunctions/LcwAssistLoading.dart';
-import 'package:lcwassist/Core/CoreFunctions/LcwAssistMessageDialogs/LcwAssistAlertDialogInfo.dart';
-import 'package:lcwassist/Core/CoreFunctions/LcwAssistSnackBarDialogs/LcwAssistSnackBarDialogInfo.dart';
+import 'package:lcwassist/Core/GlobalWidget/LcwAssistSnackBarDialogs/LcwAssistSnackBarDialogInfo.dart';
+import 'package:lcwassist/Core/GlobalWidget/LcwAssistMessageDialogs/LcwAssistAlertDialogInfo.dart';
 import 'package:lcwassist/DataAccess/CapacityAnaliysisDTOs/CapacityAnaliysisReportRequestDTO.dart';
 import 'package:lcwassist/DataAccess/CapacityAnaliysisDTOs/CapacityAnaliysisReportResponseDTO.dart';
 import 'package:lcwassist/DataAccess/CapacityAnaliysisDTOs/CapacityAnalysisMetricsFilterDTO.dart';
+import 'package:lcwassist/DataAccess/ResponseBase.dart';
 import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreChooseListViewDTO.dart';
 import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreChooseResponeDTO.dart';
 import 'package:lcwassist/LcwAssistBase/LcwAssistApplicationManager.dart';
@@ -98,7 +99,6 @@ capacityParameter.setMerchYasGrupKod = "";
 
 await loadCapacityReport(capacityParameter);
 
-//await new Future.delayed(const Duration(seconds: 2 ));
 
 sayfaYuklendiMi = true;
  setState(() {
@@ -451,33 +451,33 @@ return PageView(
       ],
     );
 
-// return ListView
-// (
-//   children: <Widget>[
-//     LcwAssistCustomWidgets.tutarUcluCardAltAlta(LcwAssistColor.thirdColor,sayfaBirSatir1,false),
-//     LcwAssistCustomWidgets.tutarUcluCardAltAlta(LcwAssistColor.thirdColor,sayfaBirSatir3,false),
-
-// LcwAssistCustomWidgets.tutarCardYatay(LcwAssistColor.thirdColor,'Hedef Tutar',raporResult.bY_HedefTutar,false),
-// LcwAssistCustomWidgets.tutarCardYatay(LcwAssistColor.thirdColor,'Hedef Tut. Yüz',raporResult.magazaHedefTutturmaYuzdesi,false),
-// LcwAssistCustomWidgets.tutarCardYatay(LcwAssistColor.thirdColor,'Conversion Rate',raporResult.conversionRate,false),
-// LcwAssistCustomWidgets.tutarCardYatay(LcwAssistColor.thirdColor,'Müş. Ziy. Say',raporResult.magazaTrafik,false),
-// LcwAssistCustomWidgets.tutarCardYatay(LcwAssistColor.thirdColor,'Sep Büy.Adet',raporResult.sepetBuyukAdet,false),
-// LcwAssistCustomWidgets.tutarCardYatay(LcwAssistColor.thirdColor,'Sepet Büy. Tutar(KDVsiz)',raporResult.sepetBuyukTutarKDVsiz,false),
-// LcwAssistCustomWidgets.tutarCardYatay(LcwAssistColor.thirdColor,'Stok Devir Hızı',raporResult.stokDevirHizi,false),
-// LcwAssistCustomWidgets.tutarCardYatay(LcwAssistColor.thirdColor,'M2 Verimlilik',raporResult.m2Verimlilik,false),
-
-//   ],
-// );
-
-
 }
 
 Future loadCapacityReport(CapacityAnaliysisReportRequestDTO parameter) async{
 
-CapacityAnaliysisReportResponseDTO result = await applicationManager.serviceManager.capacityAnaliysisService.capacityAnalysisMetrics(parameter);
-raporResult = result;
+//CapacityAnaliysisReportResponseDTO result = await applicationManager.serviceManager.capacityAnaliysisService.capacityAnalysisMetrics(parameter);
 
-raporFilterList = await applicationManager.serviceManager.capacityAnaliysisService.capacityAnalysisMetricsFilters();
+ParsedResponse responseCapacityMetrics = await applicationManager.serviceManager.capacityAnaliysisService.capacityAnalysisMetrics(parameter);
+//raporResult = result;
+
+ParsedResponse responseCapacityFilterList = await applicationManager.serviceManager.capacityAnaliysisService.capacityAnalysisMetricsFilters();
+//raporFilterList = await applicationManager.serviceManager.capacityAnaliysisService.capacityAnalysisMetricsFilters();
+
+if(responseCapacityMetrics.statusCode == 200)
+raporResult = responseCapacityMetrics.body;
+else
+{
+  await applicationManager.utils.resultApiStatus(context, responseCapacityMetrics.statusCode, applicationManager.currentLanguage);
+  return;
+}
+
+if(responseCapacityFilterList.statusCode == 200)
+raporFilterList = responseCapacityFilterList.body;
+else
+{
+  await applicationManager.utils.resultApiStatus(context, responseCapacityFilterList.statusCode, applicationManager.currentLanguage);
+  return;
+}
 
 }
 

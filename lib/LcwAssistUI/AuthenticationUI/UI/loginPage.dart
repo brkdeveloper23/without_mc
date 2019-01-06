@@ -11,7 +11,8 @@ import 'package:lcwassist/Core/BaseConst/SharedPreferencesConstant.dart';
 
 import 'package:lcwassist/Core/CoreFunctions/LcwAssistLoading.dart';
 
-import 'package:lcwassist/Core/CoreFunctions/LcwAssistMessageDialogs/LcwAssistAlertDialogInfo.dart';
+import 'package:lcwassist/Core/GlobalWidget/LcwAssistSnackBarDialogs/LcwAssistSnackBarDialogInfo.dart';
+import 'package:lcwassist/Core/GlobalWidget/LcwAssistMessageDialogs/LcwAssistAlertDialogInfo.dart';
 
 import 'package:lcwassist/DataAccess/LanguageDTOs/CurrentLangugeDTO.dart';
 
@@ -257,7 +258,7 @@ Navigator.pop(context);
 
 //LcwAssistSnackBarDialogInfo('Yanlýþ kullanýcý adý yada þifre.',scaffoldState,LcwAssistSnagitType.warning).snackbarShow();
 
-LcwAssistAlertDialogInfo(applicationManager.currentLanguage.gethata,applicationManager.currentLanguage.getmsg01,applicationManager.currentLanguage.gettamam,context,LcwAssistDialogType.error).show();
+await LcwAssistAlertDialogInfo(applicationManager.currentLanguage.gethata,applicationManager.currentLanguage.getmsg01,applicationManager.currentLanguage.gettamam,context,LcwAssistDialogType.error).show();
 
 return;
 

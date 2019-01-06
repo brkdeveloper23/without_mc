@@ -7,19 +7,15 @@ import 'package:http/http.dart' as http;
 import 'package:lcwassist/Core/Abstracts/IsLcwAssistUIPage.dart';
 import 'package:lcwassist/Core/BaseConst/LcwAssistEnumType.dart';
 import 'package:lcwassist/Core/CoreFunctions/LcwAssistLoading.dart';
-import 'package:lcwassist/Core/CoreFunctions/LcwAssistMessageDialogs/LcwAssistAlertDialogInfo.dart';
-import 'package:lcwassist/Core/CoreFunctions/LcwAssistSnackBarDialogs/LcwAssistSnackBarDialogInfo.dart';
+import 'package:lcwassist/Core/GlobalWidget/LcwAssistSnackBarDialogs/LcwAssistSnackBarDialogInfo.dart';
+import 'package:lcwassist/Core/GlobalWidget/LcwAssistMessageDialogs/LcwAssistAlertDialogInfo.dart';
+import 'package:lcwassist/DataAccess/ResponseBase.dart';
 import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreChooseListViewDTO.dart';
 import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreChooseResponeDTO.dart';
 import 'package:lcwassist/LcwAssistUI/Home/HomePageOperations/HomePage.dart';
 import 'package:lcwassist/LcwAssistBase/LcwAssistApplicationManager.dart';
-import 'package:lcwassist/Services/LcwAssistUIServiceOperations/StoreReportOperations/StoreChooseService.dart';
 import 'package:lcwassist/Style/LcwAssistTextStyle.dart';
 
-void main() => runApp(new MaterialApp(
-  home: new StoreChoosePage(),
-  debugShowCheckedModeBanner: false,
-));
 
 class StoreChoosePage extends StatefulWidget {
 final LcwAssistApplicationManager applicationManager = new LcwAssistApplicationManager();
@@ -33,15 +29,6 @@ final LcwAssistApplicationManager applicationManager = new LcwAssistApplicationM
 }
 
 class _StoreChoosePageState extends State<StoreChoosePage> with WidgetsBindingObserver implements IsLcwAssistUIPage{
-
-// final StoreChooseResponeDTO storesResponse;
-//   _StoreChoosePageState({Key key, @required this.storesResponse});
-// _StoreChoosePageState()
-// {
-//    WidgetsBinding.instance
-//         .addPostFrameCallback((_) => executeAfterBuild());
-// }
-
 
 
 LcwAssistApplicationManager applicationManager = new LcwAssistApplicationManager();
@@ -70,21 +57,18 @@ storesResponseSearchResult = new List<StoreChooseListViewDTO>();
 
   }
 
-
-
 Future<void> executeAfterBuild() async {
-//applicationManager.setCurrentLanguage = await applicationManager.languagesService.currentLanguage();
+
 }
 
-
 Future loaded(BuildContext context) async{
-  applicationManager.setCurrentLanguage = await applicationManager.serviceManager.languagesService.currentLanguage();
 
+  applicationManager.setCurrentLanguage = await applicationManager.serviceManager.languagesService.currentLanguage();
 
  if(await applicationManager.utils.checkToTokenExpireRedirectToLogin(applicationManager.currentLanguage, context))
  {
    applicationManager.utils.navigateToLoginPage(context);
- return;
+   return;
  }
 
 
@@ -92,15 +76,21 @@ Future loaded(BuildContext context) async{
 LcwAssistLoading.showAlert(context,applicationManager.currentLanguage.getyukleniyor);
 });
 
-  //storesResponse = await applicationManager.serviceManager.storeChooseService.storeListRequest();
 
-  storesResponseListView = await applicationManager.serviceManager.storeChooseService.storeListForListViewRequest();
-
+ParsedResponse result = await applicationManager.serviceManager.storeChooseService.storeListForListViewRequest(context);
+if(result.statusCode == 200)
+storesResponseListView = result.body;
+else
+{
+  await applicationManager.utils.resultApiStatus(context, result.statusCode, applicationManager.currentLanguage);
+  return;
+}
 
 sayfaYuklendiMi = true;
  setState(() {
   Navigator.pop(context);
  });
+
 }
 
   @override
@@ -271,8 +261,7 @@ storesResponseListView.insert(1, fre);
     setState(() {});
   }
 
-
-saveFavoriteStore(String storeCode) async{
+  saveFavoriteStore(String storeCode) async{
 
 // if(storeCode == "0"){
 //   await LcwAssistAlertDialogInfo(applicationManager.currentLanguage.getuyari,"Tum mağazaları favorilerden kaldırmazsınız.",applicationManager.currentLanguage.gettamam,context,LcwAssistDialogType.error).show();

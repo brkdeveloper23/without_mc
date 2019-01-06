@@ -10,6 +10,7 @@ import 'package:lcwassist/DataAccess/CapacityAnaliysisDTOs/CapacityAnalysisMetri
 import 'package:lcwassist/DataAccess/LanguageDTOs/MultiLangComboDTO.dart';
 import 'package:lcwassist/DataAccess/ProductPerformanceMetricsDTOs/BestWorstOptionsDTOs/BestWorstOptionListResponseList.dart';
 import 'package:lcwassist/DataAccess/ProductPerformanceMetricsDTOs/BestWorstOptionsDTOs/BestWorstOptionsFilterRequestDTO.dart';
+import 'package:lcwassist/DataAccess/ResponseBase.dart';
 import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreChooseResponeDTO.dart';
 import 'package:lcwassist/LcwAssistBase/LcwAssistApplicationManager.dart';
 import 'package:lcwassist/LcwAssistUI/SalesOperations/ProductSalesPerformanceOperations/BestWorstOptions/BestWorstProductList.dart';
@@ -228,9 +229,16 @@ for(final i in buyerGrupTanimList)
 
 Future loadMerchHierarsiList() async{
 
-merchHierarsiList = await applicationManager.serviceManager.capacityAnaliysisService.capacityAnalysisMetricsFilters();
+ParsedResponse responseMerchHierarsiList = await applicationManager.serviceManager.capacityAnaliysisService.capacityAnalysisMetricsFilters();
+//merchHierarsiList = await applicationManager.serviceManager.capacityAnaliysisService.capacityAnalysisMetricsFilters();
+if(responseMerchHierarsiList.statusCode == 200)
+merchHierarsiList = responseMerchHierarsiList.body;
+else
+{
+  await applicationManager.utils.resultApiStatus(context, responseMerchHierarsiList.statusCode, applicationManager.currentLanguage);
+  return;
+}
 
-var aasa = merchHierarsiList.merchHierarchiesList;
 }
 
   @override

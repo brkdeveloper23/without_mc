@@ -7,7 +7,8 @@ import 'package:lcwassist/Core/Abstracts/IsLcwAssistUIPage.dart';
 import 'package:http/http.dart' as http;
 import 'package:lcwassist/Core/BaseConst/LcwAssistEnumType.dart';
 import 'package:lcwassist/Core/CoreFunctions/LcwAssistLoading.dart';
-import 'package:lcwassist/Core/CoreFunctions/LcwAssistMessageDialogs/LcwAssistAlertDialogInfo.dart';
+import 'package:lcwassist/Core/GlobalWidget/LcwAssistSnackBarDialogs/LcwAssistSnackBarDialogInfo.dart';
+import 'package:lcwassist/Core/GlobalWidget/LcwAssistMessageDialogs/LcwAssistAlertDialogInfo.dart';
 import 'package:lcwassist/DataAccess/LoginPageDTOs/LoginPageEntryResponseDTO.dart';
 import 'package:lcwassist/DataAccess/ProductPerformanceMetricsDTOs/SaveFeedbackRequestDTO.dart';
 import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreChooseListViewDTO.dart';
@@ -187,14 +188,16 @@ setState(() {});
       case 2:
         return new ProductPerformansQueryPage();
       case 3:
+        return new ProductPerformansQueryPage();
+      case 4:
         return new StoreReportPage();
-        case 4:
-        return new StoreChoosePage(storesResponse: storesResponse);
         case 5:
-        return new ChartPage();
+        return new StoreChoosePage(storesResponse: storesResponse);
         case 6:
-        return new ProductPerformansMetricFeedBackDialog(feedbackRequest:feedbackRequest());//LcvAssistTema();  ProductPerformansMetricFeedBackDialogState
+        return new ChartPage();
         case 7:
+        return new ProductPerformansMetricFeedBackDialog(feedbackRequest:feedbackRequest());//LcvAssistTema();  ProductPerformansMetricFeedBackDialogState
+        case 8:
         return new LcvAssistTema();//SpeechSayfa();
       default:
         return new Text("Error");
@@ -401,12 +404,6 @@ selectedStoreName = stores.storeName;
 return selectedStoreName;
     }
 
-Future getStoretoreList() async{
-StoreChooseService storeChooseService = new StoreChooseService();
-
-storesResponse = await storeChooseService.storeListRequest();
-return storesResponse;
-}
 
 void _openStoreCard() async{
 

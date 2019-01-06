@@ -1,8 +1,10 @@
 
 import 'dart:async';
+import 'package:flutter/widgets.dart';
 import 'package:lcwassist/Core/BaseConst/SharedPreferencesConstant.dart';
 import 'package:lcwassist/Core/BaseConst/UrlConst.dart';
 import 'package:lcwassist/DataAccess/LanguageDTOs/CurrentLangugeDTO.dart';
+import 'package:lcwassist/DataAccess/ResponseBase.dart';
 import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/FavoriteStoreListDto.dart';
 import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreChooseListViewDTO.dart';
 import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreChooseResponeDTO.dart';
@@ -19,7 +21,7 @@ class StoreChooseService{
 StoreChooseService(){
 }
  
-Future<StoreChooseResponeDTO> storeListRequest() async {
+Future<StoreChooseResponeDTO> storeListRequest(BuildContext context) async {
 
 StoreChooseResponeDTO userResponse ;
 LcwAssistApplicationManager applicationManager = new LcwAssistApplicationManager();
@@ -46,16 +48,23 @@ userResponse.stores.insert(0,
 Stores(countryRef: 48,depoRef: 0,depoYerlesimTip: "",isOutlet: 0,magazaMudur1: "",magazaMudur2: "",
 musteriProfil: "",operasyonelBolgeTanim: "",personelSayisi: 0,storeCode: "0",storeName: currentLanguage.gettumMagazalar,toplamM2: 0)
 );
- 
-  } else if (response.statusCode == 401){
 
-userResponse = new StoreChooseResponeDTO(stores: null,errorMessage: "",isAuthorized: false,isSuccess: false);
-  }
+    } 
+    
+    
+    
+    //if (response.statusCode == 401){
+// userResponse = new StoreChooseResponeDTO(stores: null);
+//   }
+
+
 
     return userResponse;
   }
 
-Future<List<StoreChooseListViewDTO>> storeListForListViewRequest() async {
+Future<ParsedResponse<List<StoreChooseListViewDTO>>> storeListForListViewRequest(BuildContext context) async {
+
+ParsedResponse responsePars;
 
 final prefs = await SharedPreferences.getInstance();
 StoreChooseResponeDTO userResponse ;
@@ -77,11 +86,10 @@ String token =  await TokenService.getAuthToken();
       }, body: json.encode("")
     );
 
- 
+    if(response.statusCode < 200 || response.statusCode >= 300) {
+      return new ParsedResponse(response.statusCode, []);
+    }
 
-    if (response.statusCode == 200) {
-
-//StoreChooseResponeDTO
  userResponse = StoreChooseResponeDTO.fromJson(json.decode(response.body));
 userResponse.stores.insert(0, 
 Stores(countryRef: 48,depoRef: 0,depoYerlesimTip: "",isOutlet: 0,magazaMudur1: "",magazaMudur2: "",
@@ -130,13 +138,8 @@ listResponse.insert(1, fre);
   }
 }
 
+return new ParsedResponse(response.statusCode, listResponse);
 
-  } else {
-    // If that call was not successful, throw an error.
-    throw Exception('Failed to load post ' + response.statusCode.toString() + ' ' );
-  }
-
-    return listResponse;
 }
 
 Future<StoreReportResponseDTO> storeReport(StoreReportRequestDTO parameter) async{

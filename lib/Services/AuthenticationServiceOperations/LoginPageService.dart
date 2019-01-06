@@ -47,7 +47,7 @@ LoginPageEntryResponseDTO userResponse ;
     if (response.statusCode == 200) {
 
      userResponse = LoginPageEntryResponseDTO.map(json.decode(response.body));
-
+      
   } else {
     // If that call was not successful, throw an error.
     throw Exception('Failed to load post ' + response.statusCode.toString() + ' ' );

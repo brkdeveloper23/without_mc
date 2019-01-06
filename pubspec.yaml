@@ -42,7 +42,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  json_serializable:
+  json_serializable: ^2.0.1
   json_annotation:
 
 

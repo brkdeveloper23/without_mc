@@ -1,7 +1,8 @@
 import 'package:lcwassist/Core/CoreFunctions/LcwAssistLoading.dart';
-import 'package:lcwassist/Core/CoreFunctions/LcwAssistMessageDialogs/LcwAssistAlertDialogInfo.dart';
-import 'package:lcwassist/Core/CoreFunctions/LcwAssistSnackBarDialogs/LcwAssistSnackBarDialogInfo.dart';
+
 import 'package:lcwassist/Core/CoreFunctions/Utils.dart';
+import 'package:lcwassist/Core/GlobalWidget/LcwAssistSnackBarDialogs/LcwAssistSnackBarDialogInfo.dart';
+import 'package:lcwassist/Core/GlobalWidget/LcwAssistMessageDialogs/LcwAssistAlertDialogInfo.dart';
 import 'package:lcwassist/DataAccess/LanguageDTOs/CurrentLangugeDTO.dart';
 import 'package:lcwassist/DataAccess/LanguageDTOs/MultiLangComboDTO.dart';
 import 'package:lcwassist/DataAccess/LoginPageDTOs/LoginPageEntryResponseDTO.dart';
@@ -24,8 +25,10 @@ LcwAssistApplicationManager() {
   //     setCurrentLanguage = await languagesService.currentLanguage();
   //   });
 }
-
-
+ static final LcwAssistApplicationManager _repo = new LcwAssistApplicationManager();
+ static LcwAssistApplicationManager get() {
+    return _repo;
+  }
 
 
 
