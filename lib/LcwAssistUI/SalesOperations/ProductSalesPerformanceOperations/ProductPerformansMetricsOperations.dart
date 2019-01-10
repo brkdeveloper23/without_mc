@@ -139,9 +139,11 @@ Column(children: <Widget>[
 new GestureDetector(
   onTap:() =>detayaGit(ProductPerformansDetailType.salesDetail),
   child:
-LcwAssistCustomWidgets.satir(Color.fromRGBO(54,163,247, 1.0),  applicationManager.currentLanguage.getkumulatifSatisTutar,productMetricsResponse.productPerformansResultDTO.kumulatifSatisTutar,true)),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(54,163,247, 1.0),
+applicationManager.currentLanguage.getkumulatifSatisTutar,productMetricsResponse.productPerformansResultDTO.kumulatifSatisTutar,true)),
 
-LcwAssistCustomWidgets.satir(Color.fromRGBO(0,116,198, 1.0),   applicationManager.currentLanguage.getortalamaPSF,productMetricsResponse.productPerformansResultDTO.ortalamaPSF,false),
+LcwAssistCustomWidgets.satir(Color.fromRGBO(0,116,198, 1.0),
+applicationManager.currentLanguage.getortalamaPSF,productMetricsResponse.productPerformansResultDTO.ortalamaPSF,false),
 new GestureDetector(
   onTap:() =>detayaGit(ProductPerformansDetailType.salesDetail),
   child:

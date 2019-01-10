@@ -1,85 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:lcwassist/DataAccess/LanguageDTOs/LcwAssistLanguagesDTO.dart';
-// @JsonSerializable()
-// class CurrentLangugeDTO{
-
-// @JsonKey(name: 'kullaniciGirisi')
-// String kullaniciGirisi;
-// @JsonKey(name: 'kullaniciAdi')
-// String kullaniciAdi;
-// @JsonKey(name: 'parola')
-// String parola;
-// @JsonKey(name: 'giris')
-// String giris;
-// @JsonKey(name: 'turkce')
-// String turkce;
-// @JsonKey(name: 'ingilizce')
-// String ingilizce;
-// @JsonKey(name: 'arapca')
-// String arapca;
-// @JsonKey(name: 'rusca')
-// String rusca;
-// @JsonKey(name: 'versiyon')
-// String versiyon;
-// @JsonKey(name: 'magaza')
-// String magaza;
-// @JsonKey(name: 'anasayfa')
-// String anasayfa;
-// @JsonKey(name: 'kapasite')
-// String kapasite;
-// @JsonKey(name: 'satis')
-// String satis;
-// @JsonKey(name: 'magazaKarne')
-// String magazaKarne;
-// @JsonKey(name: 'magazaSec')
-// String magazaSec;
-// @JsonKey(name: 'ayarlar')
-// String ayarlar;
-// @JsonKey(name: 'cikis')
-// String cikis;
-// @JsonKey(name: 'magazaSatisIstatistikleri')
-// String magazaSatisIstatistikleri;
-// @JsonKey(name: 'kumulatifSatis')
-// String kumulatifSatis;
-// @JsonKey(name: 'barkodIleSorgulama')
-// String barkodIleSorgulama;
-// @JsonKey(name: 'barkodNumarasiGirin')
-// String barkodNumarasiGirin;
-// @JsonKey(name: 'urunVerRenkKodIleSorgula')
-// String urunVerRenkKodIleSorgula;
-// @JsonKey(name: 'urunKodunuGirin')
-// String urunKodunuGirin;
-// @JsonKey(name: 'renkKodunuGirin')
-// String renkKodunuGirin;
-// @JsonKey(name: 'barkodTara')
-// String barkodTara;
-// @JsonKey(name: 'kameraIleTaratarakAramaYapabilirsiniz')
-// String kameraIleTaratarakAramaYapabilirsiniz;
-// @JsonKey(name: 'urun')
-// String urun;
-// @JsonKey(name: 'detaylar')
-// String detaylar;
-// @JsonKey(name: 'feedbackIslemleri')
-// String feedbackIslemleri;
-// @JsonKey(name: 'feedBackGirin')
-// String feedBackGirin;
-// @JsonKey(name: 'gonder')
-// String gonder;
-// @JsonKey(name: 'magazaIsimKoduGirin')
-// String magazaIsimKoduGirin;
-// @JsonKey(name: 'magazaKodu')
-// String magazaKodu;
-// @JsonKey(name: 'magazaAdi')
-// String magazaAdi;
-
-//  CurrentLangugeDTO(
-//       this.kullaniciGirisi,this.kullaniciAdi,this.arapca,this.ayarlar,this.anasayfa,this.barkodNumarasiGirin,this.barkodTara,this.cikis,this.kameraIleTaratarakAramaYapabilirsiniz,
-//       this.detaylar,this.barkodIleSorgulama,this.feedbackIslemleri,this.feedBackGirin,this.gonder,this.giris,this.kapasite,this.ingilizce,this.kumulatifSatis,
-//       this.magaza,this.magazaAdi,this.magazaIsimKoduGirin,this.magazaKarne,this.magazaKodu,this.magazaSatisIstatistikleri,this.magazaSec,this.parola,
-//       this.renkKodunuGirin,this.rusca,this.satis,this.turkce,this.urunKodunuGirin,this.urun,this.versiyon,this.urunVerRenkKodIleSorgula
-//       );
-
-// }
 
 class CurrentLangugeDTO {
   //int _dilId;
@@ -241,6 +161,20 @@ String _bestWorstListColumn3="";
 String _bestWorstListColumn4="";
 String _bestWorstListColumn5="";
 String _kapasitePerformans="";
+String _kapasitePerformansTarihFiltre0="";
+String _kapasitePerformansTarihFiltre1="";
+String _merchYasGrupSecin="";
+String _tarihSecin="";
+String _kapasitePerformansKolon0="";
+String _kapasitePerformansKolon1="";
+String _kapasitePerformansKolon2="";
+String _kapasitePerformansKolon3="";
+String _kapasitePerformansKolon4="";
+String _kapasitePerformansKolon5="";
+String _kapasitePerformansKolon6="";
+String _kapasitePerformansKolon7="";
+String _kapasitePerformansKolon8="";
+String _kapasitePerformansKolon9="";
 
   // CurrentLangugeDTO(
   //   this._dilId,
@@ -437,8 +371,20 @@ set setbestWorstListColumn3(String bestWorstListColumn3) {_bestWorstListColumn3 
 set setbestWorstListColumn4(String bestWorstListColumn4) {_bestWorstListColumn4 = bestWorstListColumn4;}
 set setbestWorstListColumn5(String bestWorstListColumn5) {_bestWorstListColumn5 = bestWorstListColumn5;}
 set setkapasitePerformans(String kapasitePerformans) {_kapasitePerformans = kapasitePerformans;}
-
-
+set setkapasitePerformansTarihFiltre0(String kapasitePerformansTarihFiltre0) {_kapasitePerformansTarihFiltre0 = kapasitePerformansTarihFiltre0;}
+set setkapasitePerformansTarihFiltre1(String kapasitePerformansTarihFiltre1) {_kapasitePerformansTarihFiltre1 = kapasitePerformansTarihFiltre1;}
+set setmerchYasGrupSecin(String merchYasGrupSecin) {_merchYasGrupSecin = merchYasGrupSecin;}
+set settarihSecin(String tarihSecin) {_tarihSecin = tarihSecin;}
+set setkapasitePerformansKolon0(String kapasitePerformansKolon0) {_kapasitePerformansKolon0 = kapasitePerformansKolon0;}
+set setkapasitePerformansKolon1(String kapasitePerformansKolon1) {_kapasitePerformansKolon1 = kapasitePerformansKolon1;}
+set setkapasitePerformansKolon2(String kapasitePerformansKolon2) {_kapasitePerformansKolon2 = kapasitePerformansKolon2;}
+set setkapasitePerformansKolon3(String kapasitePerformansKolon3) {_kapasitePerformansKolon3 = kapasitePerformansKolon3;}
+set setkapasitePerformansKolon4(String kapasitePerformansKolon4) {_kapasitePerformansKolon4 = kapasitePerformansKolon4;}
+set setkapasitePerformansKolon5(String kapasitePerformansKolon5) {_kapasitePerformansKolon5 = kapasitePerformansKolon5;}
+set setkapasitePerformansKolon6(String kapasitePerformansKolon6) {_kapasitePerformansKolon6 = kapasitePerformansKolon6;}
+set setkapasitePerformansKolon7(String kapasitePerformansKolon7) {_kapasitePerformansKolon7 = kapasitePerformansKolon7;}
+set setkapasitePerformansKolon8(String kapasitePerformansKolon8) {_kapasitePerformansKolon8 = kapasitePerformansKolon8;}
+set setkapasitePerformansKolon9(String kapasitePerformansKolon9) {_kapasitePerformansKolon9 = kapasitePerformansKolon9;}
 
   String get getkullaniciGirisi => _kullaniciGirisi;
   String get getkullaniciAdi => _kullaniciAdi;
@@ -598,48 +544,21 @@ set setkapasitePerformans(String kapasitePerformans) {_kapasitePerformans = kapa
   String get getbestWorstListColumn4 => _bestWorstListColumn4;
   String get getbestWorstListColumn5 => _bestWorstListColumn5;
     String get getkapasitePerformans => _kapasitePerformans;
-  //LcwAssistLanguagesDTO
+      String get getkapasitePerformansTarihFiltre0 => _kapasitePerformansTarihFiltre0;
+  String get getkapasitePerformansTarihFiltre1 => _kapasitePerformansTarihFiltre1;
+    String get getmerchYasGrupSecin => _merchYasGrupSecin;
+  String get gettarihSecin => _tarihSecin;
+    String get getkapasitePerformansKolon0 => _kapasitePerformansKolon0;
+  String get getkapasitePerformansKolon1 => _kapasitePerformansKolon1;
+  String get getkapasitePerformansKolon2 => _kapasitePerformansKolon2;
+  String get getkapasitePerformansKolon3 => _kapasitePerformansKolon3;
+  String get getkapasitePerformansKolon4 => _kapasitePerformansKolon4;
+  String get getkapasitePerformansKolon5 => _kapasitePerformansKolon5;
+  String get getkapasitePerformansKolon6 => _kapasitePerformansKolon6;
+  String get getkapasitePerformansKolon7 => _kapasitePerformansKolon7;
+  String get getkapasitePerformansKolon8 => _kapasitePerformansKolon8;
+  String get getkapasitePerformansKolon9 => _kapasitePerformansKolon9;
 
-//   CurrentLangugeDTO toFill(List<LcwAssistLanguagesDTO> currentLanguageRawData){
-  
-//   CurrentLangugeDTO currentLanguage;
-
-//   currentLanguage._anasayfa = currentLanguageRawData.firstWhere((i)=>i.kod == "kullaniciGirisi").deger;
-//   currentLanguage._anasayfa = currentLanguageRawData.firstWhere((i)=>i.kod == "kullaniciAdi").deger;
-//   currentLanguage._anasayfa = currentLanguageRawData.firstWhere((i)=>i.kod == "giris").deger;
-//   currentLanguage._anasayfa = currentLanguageRawData.firstWhere((i)=>i.kod == "turkce").deger;
-// currentLanguage._anasayfa = currentLanguageRawData.firstWhere((i)=>i.kod == "ingilizce").deger;
-//   currentLanguage._anasayfa = currentLanguageRawData.firstWhere((i)=>i.kod == "arapca").deger;
-//   currentLanguage._anasayfa = currentLanguageRawData.firstWhere((i)=>i.kod == "rusca").deger;
-//   currentLanguage._anasayfa = currentLanguageRawData.firstWhere((i)=>i.kod == "versiyon").deger;
-// currentLanguage._anasayfa = currentLanguageRawData.firstWhere((i)=>i.kod == "magaza").deger;
-//   currentLanguage._anasayfa = currentLanguageRawData.firstWhere((i)=>i.kod == "anasayfa").deger;
-//   currentLanguage._anasayfa = currentLanguageRawData.firstWhere((i)=>i.kod == "kapasite").deger;
-//   currentLanguage._anasayfa = currentLanguageRawData.firstWhere((i)=>i.kod == "satis").deger;
-// currentLanguage._anasayfa = currentLanguageRawData.firstWhere((i)=>i.kod == "magazaKarne").deger;
-//   currentLanguage._anasayfa = currentLanguageRawData.firstWhere((i)=>i.kod == "magazaSec").deger;
-//   currentLanguage._anasayfa = currentLanguageRawData.firstWhere((i)=>i.kod == "ayarlar").deger;
-//   currentLanguage._anasayfa = currentLanguageRawData.firstWhere((i)=>i.kod == "cikis").deger;
-// currentLanguage._anasayfa = currentLanguageRawData.firstWhere((i)=>i.kod == "magazaSatisIstatistikleri").deger;
-//   currentLanguage._anasayfa = currentLanguageRawData.firstWhere((i)=>i.kod == "kumulatifSatis").deger;
-//   currentLanguage._anasayfa = currentLanguageRawData.firstWhere((i)=>i.kod == "barkodIleSorgulama").deger;
-//   currentLanguage._anasayfa = currentLanguageRawData.firstWhere((i)=>i.kod == "barkodNumarasiGirin").deger;
-//   currentLanguage._anasayfa = currentLanguageRawData.firstWhere((i)=>i.kod == "urunVerRenkKodIleSorgula").deger;
-//   currentLanguage._anasayfa = currentLanguageRawData.firstWhere((i)=>i.kod == "urunKodunuGirin").deger;
-//   currentLanguage._anasayfa = currentLanguageRawData.firstWhere((i)=>i.kod == "renkKodunuGirin").deger;
-//   currentLanguage._anasayfa = currentLanguageRawData.firstWhere((i)=>i.kod == "barkodTara").deger;
-//   currentLanguage._anasayfa = currentLanguageRawData.firstWhere((i)=>i.kod == "kameraIleTaratarakAramaYapabilirsiniz").deger;
-//   currentLanguage._anasayfa = currentLanguageRawData.firstWhere((i)=>i.kod == "urun").deger;
-//   currentLanguage._anasayfa = currentLanguageRawData.firstWhere((i)=>i.kod == "detaylar").deger;
-//   currentLanguage._anasayfa = currentLanguageRawData.firstWhere((i)=>i.kod == "feedbackIslemleri").deger;
-//   currentLanguage._anasayfa = currentLanguageRawData.firstWhere((i)=>i.kod == "feedBackGirin").deger;
-//   currentLanguage._anasayfa = currentLanguageRawData.firstWhere((i)=>i.kod == "gonder").deger;
-//   currentLanguage._anasayfa = currentLanguageRawData.firstWhere((i)=>i.kod == "magazaIsimKoduGirin").deger;
-//   currentLanguage._anasayfa = currentLanguageRawData.firstWhere((i)=>i.kod == "magazaKodu").deger;
-//   currentLanguage._anasayfa = currentLanguageRawData.firstWhere((i)=>i.kod == "magazaAdi").deger;
-  
-
-//   }
 
   Map<String, dynamic> toMap() {
     var map = new Map<String, dynamic>();
@@ -801,6 +720,20 @@ map["bestWorstListColumn3"] = _bestWorstListColumn3;
 map["bestWorstListColumn4"] = _bestWorstListColumn4;
 map["bestWorstListColumn5"] = _bestWorstListColumn5;
 map["kapasitePerformans"] = _kapasitePerformans;
+map["kapasitePerformansTarihFiltre0"] = _kapasitePerformansTarihFiltre0;
+map["kapasitePerformansTarihFiltre1"] = _kapasitePerformansTarihFiltre1;
+map["merchYasGrupSecin"] = _merchYasGrupSecin;
+map["tarihSecin"] = _tarihSecin;
+map["kapasitePerformansKolon0"] = _kapasitePerformansKolon0;
+map["kapasitePerformansKolon1"] = _kapasitePerformansKolon1;
+map["kapasitePerformansKolon2"] = _kapasitePerformansKolon2;
+map["kapasitePerformansKolon3"] = _kapasitePerformansKolon3;
+map["kapasitePerformansKolon4"] = _kapasitePerformansKolon4;
+map["kapasitePerformansKolon5"] = _kapasitePerformansKolon5;
+map["kapasitePerformansKolon6"] = _kapasitePerformansKolon6;
+map["kapasitePerformansKolon7"] = _kapasitePerformansKolon7;
+map["kapasitePerformansKolon8"] = _kapasitePerformansKolon8;
+map["kapasitePerformansKolon9"] = _kapasitePerformansKolon9;
 
     return map;
   }

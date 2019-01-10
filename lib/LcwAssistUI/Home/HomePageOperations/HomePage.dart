@@ -17,6 +17,7 @@ import 'package:lcwassist/LcwAssistBase/LcwAssistApplicationManager.dart';
 import 'package:lcwassist/LcwAssistUI/AuthenticationUI/UI/loginPage.dart';
 import 'package:lcwassist/LcwAssistUI/AuthenticationUI/UI/ChartPage.dart';
 import 'package:lcwassist/LcwAssistUI/CapacityOperations/CapacityAnalysisPage.dart';
+import 'package:lcwassist/LcwAssistUI/CapacityOperations/CapacityPerformancePage.dart';
 import 'package:lcwassist/LcwAssistUI/Home/HomePageOperations/HomeFeedBack.dart';
 import 'package:lcwassist/LcwAssistUI/Home/HomePageOperations/speech_deneme.dart';
 import 'package:lcwassist/LcwAssistUI/SalesOperations/ProductSalesPerformanceOperations/ProductPerformanceDetailMetric.dart';
@@ -186,7 +187,7 @@ setState(() {});
       case 1:
         return new CapacityAnalysisPage();
       case 2:
-        return new ProductPerformansQueryPage();
+        return new CapacityPerformancePage();
       case 3:
         return new ProductPerformansQueryPage();
       case 4:
@@ -206,7 +207,7 @@ setState(() {});
   
   _onSelectItem(int index) {
 
-if(index == 3){
+if(index == 4 || index == 2 ){
   if(storeResponse.depoRef == 0){
   LcwAssistAlertDialogInfo(applicationManager.currentLanguage.getuyari,applicationManager.currentLanguage.getlutfenBirMagazaSecin,applicationManager.currentLanguage.gettamam,context,LcwAssistDialogType.error).show();
 return;

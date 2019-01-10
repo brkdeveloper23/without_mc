@@ -106,21 +106,6 @@ Expanded(child: chartPageView(),)
  );
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
 

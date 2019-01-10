@@ -295,6 +295,20 @@ currentLanguage.setbestWorstListColumn3 = currentLanguageRawData.firstWhere((i)=
 currentLanguage.setbestWorstListColumn4 = currentLanguageRawData.firstWhere((i)=>i.kod == "bestWorstListColumn4").deger;
 currentLanguage.setbestWorstListColumn5 = currentLanguageRawData.firstWhere((i)=>i.kod == "bestWorstListColumn5").deger;
 currentLanguage.setkapasitePerformans = currentLanguageRawData.firstWhere((i)=>i.kod == "kapasitePerformans").deger;
+currentLanguage.setkapasitePerformansTarihFiltre0 = currentLanguageRawData.firstWhere((i)=>i.kod == "kapasitePerformansTarihFiltre0").deger;
+currentLanguage.setkapasitePerformansTarihFiltre1 = currentLanguageRawData.firstWhere((i)=>i.kod == "kapasitePerformansTarihFiltre1").deger;
+currentLanguage.setmerchYasGrupSecin = currentLanguageRawData.firstWhere((i)=>i.kod == "merchYasGrupSecin").deger;
+currentLanguage.settarihSecin = currentLanguageRawData.firstWhere((i)=>i.kod == "tarihSecin").deger;
+currentLanguage.setkapasitePerformansKolon0 = currentLanguageRawData.firstWhere((i)=>i.kod == "kapasitePerformansKolon0").deger;
+currentLanguage.setkapasitePerformansKolon1 = currentLanguageRawData.firstWhere((i)=>i.kod == "kapasitePerformansKolon1").deger;
+currentLanguage.setkapasitePerformansKolon2 = currentLanguageRawData.firstWhere((i)=>i.kod == "kapasitePerformansKolon2").deger;
+currentLanguage.setkapasitePerformansKolon3 = currentLanguageRawData.firstWhere((i)=>i.kod == "kapasitePerformansKolon3").deger;
+currentLanguage.setkapasitePerformansKolon4 = currentLanguageRawData.firstWhere((i)=>i.kod == "kapasitePerformansKolon4").deger;
+currentLanguage.setkapasitePerformansKolon5 = currentLanguageRawData.firstWhere((i)=>i.kod == "kapasitePerformansKolon5").deger;
+currentLanguage.setkapasitePerformansKolon6 = currentLanguageRawData.firstWhere((i)=>i.kod == "kapasitePerformansKolon6").deger;
+currentLanguage.setkapasitePerformansKolon7 = currentLanguageRawData.firstWhere((i)=>i.kod == "kapasitePerformansKolon7").deger;
+currentLanguage.setkapasitePerformansKolon8 = currentLanguageRawData.firstWhere((i)=>i.kod == "kapasitePerformansKolon8").deger;
+currentLanguage.setkapasitePerformansKolon9 = currentLanguageRawData.firstWhere((i)=>i.kod == "kapasitePerformansKolon9").deger;
 
 return currentLanguage;
   }

@@ -163,7 +163,6 @@ Container(
     )),
   child: 
     Row(
-      
       children: <Widget>[
     Padding(padding: EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 0.0),
     child: Icon(Icons.account_balance,
@@ -233,6 +232,7 @@ Padding(padding: EdgeInsets.fromLTRB(6, 0, 6, 0),child: yeniHeader(),),
 Column(children: <Widget>[
 new GestureDetector(
   onTap:() =>detayaGit(),
+  //behavior: HitTestBehavior.opaque,
   child:
 LcwAssistCustomWidgets.satir(Color.fromRGBO(239,138,14, 1.0),
  applicationManager.currentLanguage.gettoplamFiiliDolulukBDHaric,raporResult.toplamFiiliDolulukLCM,false)),

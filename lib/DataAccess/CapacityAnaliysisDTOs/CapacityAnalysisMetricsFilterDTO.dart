@@ -145,3 +145,17 @@ String tanim;
 BestWorstOptionSiralamaTipi({this.kod,this.tanim});
 
 }
+
+class MerchYasGrupDTO{
+int kod;
+String tanim;
+
+MerchYasGrupDTO({this.kod,this.tanim});
+}
+
+class CapacityPerformanceDateFilter{
+int kod;
+String tanim;
+
+CapacityPerformanceDateFilter({this.kod,this.tanim});
+}

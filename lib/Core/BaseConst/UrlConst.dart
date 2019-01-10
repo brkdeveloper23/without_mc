@@ -12,5 +12,7 @@ static String allLanguagesDataUrl =  baseUrl + "/SmartStoreDataService/api/Metri
 static String getUsingLanguagesUrl =  baseUrl + "/SmartStoreDataService/api/Metrics/GetUsingLanguages";
 static String bestWorstOptionProductList =  baseUrl + "/SmartStoreDataService/api/Metrics/GetBestWorstOptionProductList";
 static String usingSaveFeedbackUrl =  baseUrl + "/SmartStoreDataService/api/Metrics/SaveFeedBackNew";
+static String capacityPerformanceMetricFilters =  baseUrl + "/SmartStoreDataService/api/Metrics/GetCapacityPerformanceMetricFilters";
+static String capacityPerformanceMetric =  baseUrl + "/SmartStoreDataService/api/Metrics/GetCapacityPerformanceResponseDTO";
 static String getLatestAppVersionInfo = "https://appstore.lcwaikiki.com/Mobile/GetLatestAppVersionInfo";
 }

@@ -108,7 +108,7 @@ Column(children:gridRows()
     ],));
 }
 
-
+//Kullanılmıyor
 Widget storeReportPageBody2(){
 return
 new Column(
@@ -201,7 +201,6 @@ children: [
   ]);
 
     }
-
 
 List<Widget> gridRows(){
 
@@ -368,5 +367,6 @@ Expanded(flex: 1,child:
 }
 return rows;
 }
+
 
 }
