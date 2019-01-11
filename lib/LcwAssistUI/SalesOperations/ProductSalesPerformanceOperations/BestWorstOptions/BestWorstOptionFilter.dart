@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lcwassist/Core/Abstracts/IsLcwAssistUIPage.dart';
+import 'package:lcwassist/Core/BaseConst/LcwAssistEnumType.dart';
 import 'package:lcwassist/Core/BaseConst/SharedPreferencesConstant.dart';
 
 import 'package:lcwassist/Core/CoreFunctions/LcwAssistLoading.dart';
+import 'package:lcwassist/Core/GlobalWidget/LcwAssistSnackBarDialogs/LcwAssistSnackBarDialogInfo.dart';
 import 'package:lcwassist/DataAccess/CapacityAnaliysisDTOs/CapacityAnaliysisReportRequestDTO.dart';
 import 'package:lcwassist/DataAccess/CapacityAnaliysisDTOs/CapacityAnaliysisReportResponseDTO.dart';
 import 'package:lcwassist/DataAccess/CapacityAnaliysisDTOs/CapacityAnalysisMetricsFilterDTO.dart';
@@ -72,6 +74,8 @@ BestWorstOptionDTO listSelectedBestWorstOptionDTO;
 List<BestWorstOptionSiralamaTipi> listBestWorstOptionSiralamaTipi = new List<BestWorstOptionSiralamaTipi>();
 BestWorstOptionSiralamaTipi listSelectedBestWorstOptionSiralamaTipi;
 
+final GlobalKey<ScaffoldState> scaffoldState = new GlobalKey<ScaffoldState>();
+
 loadBestWorstOption(){
   
 BestWorstOptionDTO data = new BestWorstOptionDTO();
@@ -123,11 +127,11 @@ merchHierarsiList.merchHierarchiesList
  int count = 0;
 
 merchGrupKodList.sort();
- listMerchGrupDTO.add(MerchGrupDTO(kod: count,tanim: applicationManager.currentLanguage.gettumu));
+// listMerchGrupDTO.add(MerchGrupDTO(kod: count,tanim: applicationManager.currentLanguage.gettumu));
 
 
 
- listSelectedMerchGrupDTO = listMerchGrupDTO[0];
+ 
  count++;
 for(final i in merchGrupKodList)
 {
@@ -138,6 +142,8 @@ for(final i in merchGrupKodList)
   count++;
   }
 }
+listSelectedMerchGrupDTO = listMerchGrupDTO[0];
+
 
 }
 
@@ -307,6 +313,7 @@ Widget build(BuildContext context) {
 //executeAfterBuild();
     return new Scaffold(
       backgroundColor: LcwAssistColor.backGroundColor,
+      key: scaffoldState,
       appBar: new AppBar(
         title: sayfaYuklendimi ? Text(applicationManager.currentLanguage.getbestWorstOptions) : Text(''),
      
@@ -660,7 +667,7 @@ void btnfilterClick() async{
 bestWorsParameter.setBuyerGrupTanim =listSelectedBuyerGrupTanimDTO.tanim == listBuyerGrupTanimDTO[0].tanim ? "" : listSelectedBuyerGrupTanimDTO.tanim;
 bestWorsParameter.setMerchAltGrupKod = listSelectedMerchAltGroupDTO.tanim == listMerchAltGroupDTO[0].tanim ? "" : listSelectedMerchAltGroupDTO.tanim;
 bestWorsParameter.setMerchMarkaYasGrupKod = listSelectedMerchMarkaYasGrupDTO.tanim == listMerchMarkaYasGrupDTO[0].tanim ? "" : listSelectedMerchMarkaYasGrupDTO.tanim;
-bestWorsParameter.setMerchGrupKod = listSelectedMerchGrupDTO.tanim == listMerchGrupDTO[0].tanim ? "" : listSelectedMerchGrupDTO.tanim;
+bestWorsParameter.setMerchGrupKod = listSelectedMerchGrupDTO.tanim;
 bestWorsParameter.setDepoRef = applicationManager.currentStore.depoRef;
 bestWorsParameter.setBestWorstSiralamaTipi = listSelectedBestWorstOptionSiralamaTipi.kod;
 bestWorsParameter.setBestWorstTipi = listSelectedBestWorstOptionDTO.kod;
@@ -676,6 +683,14 @@ result = await applicationManager.serviceManager.productSalesPerformanceService.
  setState(() {
   Navigator.pop(context);
  });
+
+if(result.length==0)
+  {
+    LcwAssistSnackBarDialogInfo(applicationManager.currentLanguage.getaradiginizKriterlerdeDataBulunamadi,scaffoldState,LcwAssistSnagitType.warning).snackbarShow();
+  return;
+  }
+
+
 
  var route = new MaterialPageRoute(
             builder: (BuildContext context) => BestWorstProductList(bestWorstOptionList: result,applicationManager: applicationManager)
