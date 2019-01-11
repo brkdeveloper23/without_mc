@@ -11,7 +11,7 @@ import 'package:lcwassist/Services/AuthenticationServiceOperations/TokenService.
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'dart:async';
-
+ 
 class CapacityAnaliysisService{
 
 CapacityAnaliysisService(){}
@@ -41,7 +41,16 @@ if(response.statusCode < 200 || response.statusCode >= 300) {
       return new ParsedResponse(response.statusCode, null);
     }
 
+if(json.decode(response.body)["toplamFiiliDolulukLCM"] == null)
+{
+return new ParsedResponse(response.statusCode, new CapacityAnaliysisReportResponseDTO());
+}else
+{
 return new ParsedResponse(response.statusCode, CapacityAnaliysisReportResponseDTO.fromJson(json.decode(response.body)));
+}
+
+
+
 }
 
 Future<ParsedResponse<CapacityAnalysisMetricsFilterDTO>> capacityAnalysisMetricsFilters() async {

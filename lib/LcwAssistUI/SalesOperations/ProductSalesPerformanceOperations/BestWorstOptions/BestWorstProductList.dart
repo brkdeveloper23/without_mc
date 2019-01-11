@@ -8,6 +8,7 @@ import 'package:lcwassist/Core/GlobalWidget/LcwAssistMessageDialogs/LcwAssistAle
 import 'package:lcwassist/DataAccess/ProductPerformanceMetricsDTOs/BestWorstOptionsDTOs/BestWorstOptionListResponseList.dart';
 import 'package:lcwassist/DataAccess/ProductPerformanceMetricsDTOs/ProductMetricsRequest.dart';
 import 'package:lcwassist/DataAccess/ProductPerformanceMetricsDTOs/UcluCardTextDTO.dart';
+import 'package:lcwassist/DataAccess/ResponseBase.dart';
 import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreChooseListViewDTO.dart';
 import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreChooseResponeDTO.dart';
 import 'package:lcwassist/LcwAssistUI/Home/HomePageOperations/HomePage.dart';
@@ -218,8 +219,17 @@ request.setStoreCode = applicationManager.currentStore.storeCode;
 request.setStoreRef = applicationManager.currentStore.depoRef.toString();//'671';
 request.setCountryRef = applicationManager.currentStore.countryRef.toString() == "0" ? "48" : applicationManager.currentStore.countryRef.toString();
 
+ProductMetricsResponse result;
+ParsedResponse responseResult = await this.applicationManager.serviceManager.productSalesPerformanceService.productSalesPerformanceMetrics(request);
 
-ProductMetricsResponse result = await this.applicationManager.serviceManager.productSalesPerformanceService.productSalesPerformanceMetrics(request);
+if(responseResult.statusCode == 200)
+result = responseResult.body;
+else
+{
+  await applicationManager.utils.resultApiStatus(context, responseResult.statusCode, applicationManager.currentLanguage);
+  return;
+}
+
 
  setState(() {
   Navigator.pop(context);

@@ -678,7 +678,18 @@ List<BestWorstOptionListResponseList> result = new List<BestWorstOptionListRespo
 LcwAssistLoading.showAlert(context,applicationManager.currentLanguage.getyukleniyor);
 });
 
-result = await applicationManager.serviceManager.productSalesPerformanceService.bestWorstOptionProductList(bestWorsParameter);
+ 
+ParsedResponse responseResult = await applicationManager.serviceManager.productSalesPerformanceService.bestWorstOptionProductList(bestWorsParameter);
+
+if(responseResult.statusCode == 200)
+result = responseResult.body;
+else
+{
+  await applicationManager.utils.resultApiStatus(context, responseResult.statusCode, applicationManager.currentLanguage);
+  return;
+}
+
+
 
  setState(() {
   Navigator.pop(context);

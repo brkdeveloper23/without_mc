@@ -531,7 +531,7 @@ btnClean(){
 loadAksesuarUrunList();
 loadTarihList();
 loadMYG(listSelectedAksesuarUrunDTO.tanim);
-
+ capacityPerformanceList = new List<CapacityPerformanceMetricResponseDTO>();
 setState(() {
 });
 }

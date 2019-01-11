@@ -12,6 +12,7 @@ import 'package:lcwassist/Core/GlobalWidget/LcwAssistSnackBarDialogs/LcwAssistSn
 import 'package:lcwassist/Core/GlobalWidget/LcwAssistMessageDialogs/LcwAssistAlertDialogInfo.dart';
 import 'package:lcwassist/DataAccess/ProductPerformanceMetricsDTOs/ProductMetricsRequest.dart';
 import 'package:lcwassist/DataAccess/ProductPerformanceMetricsDTOs/ProductMetricsResponse.dart';
+import 'package:lcwassist/DataAccess/ResponseBase.dart';
 import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreChooseListViewDTO.dart';
 import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreChooseResponeDTO.dart';
 import 'package:lcwassist/LcwAssistUI/AuthenticationUI/UI/loginPage.dart';
@@ -157,12 +158,22 @@ if(type == ProductMetricsResponseType.bestWorstOptions){
 }
 
  
-
+ 
   setState(() {
 LcwAssistLoading.showAlert(context,applicationManager.currentLanguage.getyukleniyor);
 });
 
-ProductMetricsResponse result = await this.applicationManager.serviceManager.productSalesPerformanceService.productSalesPerformanceMetrics(fillToModel(type));
+ProductMetricsResponse result;
+ParsedResponse responseResult = await this.applicationManager.serviceManager.productSalesPerformanceService.productSalesPerformanceMetrics(fillToModel(type));
+
+if(responseResult.statusCode == 200)
+result = responseResult.body;
+else
+{
+  await applicationManager.utils.resultApiStatus(context, responseResult.statusCode, applicationManager.currentLanguage);
+  return;
+}
+
 
  setState(() {
   Navigator.pop(context);
@@ -447,8 +458,6 @@ selectedStoreName = selectedStore.storeName;
 
 return selectedStore;
     }
-
-
 
 }
 

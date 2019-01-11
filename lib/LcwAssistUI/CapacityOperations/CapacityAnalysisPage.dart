@@ -15,6 +15,7 @@ import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/Store
 import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreChooseResponeDTO.dart';
 import 'package:lcwassist/LcwAssistBase/LcwAssistApplicationManager.dart';
 import 'package:lcwassist/LcwAssistUI/CapacityOperations/CapacityFilterPage.dart';
+import 'package:lcwassist/LcwAssistUI/Home/HomePageOperations/HomePage.dart';
 import 'package:lcwassist/LcwAssistUI/SalesOperations/ProductSalesPerformanceOperations/ProductPerformanceDetailMetric.dart';
 import 'package:lcwassist/Style/CoreWidgets/LcwAssistCustomWidgets.dart';
 import 'package:lcwassist/Style/LcwAssistColor.dart';
@@ -93,7 +94,7 @@ LcwAssistLoading.showAlert(context,applicationManager.currentLanguage.getyukleni
 capacityParameter.setAksesuarUrun = "";
 capacityParameter.setBuyerGrupTanim = "";
 capacityParameter.setMerchGrupKod = "";
-capacityParameter.setMagazaKod = currentStore.storeCode;
+capacityParameter.setMagazaKod = "234234";//currentStore.storeCode;
 capacityParameter.setMerchAltGrupKod = "";
 capacityParameter.setMerchYasGrupKod = "";
 
@@ -452,9 +453,10 @@ return PageView(
     );
 
 }
-
+  
 Future loadCapacityReport(CapacityAnaliysisReportRequestDTO parameter) async{
-
+  Navigator.pop(context);
+  applicationManager.utils.navigateToLoginPage(context);
 //CapacityAnaliysisReportResponseDTO result = await applicationManager.serviceManager.capacityAnaliysisService.capacityAnalysisMetrics(parameter);
 
 ParsedResponse responseCapacityMetrics = await applicationManager.serviceManager.capacityAnaliysisService.capacityAnalysisMetrics(parameter);
@@ -470,6 +472,15 @@ else
   await applicationManager.utils.resultApiStatus(context, responseCapacityMetrics.statusCode, applicationManager.currentLanguage);
   return;
 }
+
+if(raporResult.toplamFiiliDolulukLCM == "")
+{
+  Navigator.pop(context);
+  await LcwAssistAlertDialogInfo(applicationManager.currentLanguage.getuyari,applicationManager.currentLanguage.getaradiginizKriterlerdeDataBulunamadi,applicationManager.currentLanguage.gettamam,context,LcwAssistDialogType.warning).show();
+  applicationManager.utils.navigateToLoginPage(context);
+  return;
+}
+
 
 if(responseCapacityFilterList.statusCode == 200)
 raporFilterList = responseCapacityFilterList.body;

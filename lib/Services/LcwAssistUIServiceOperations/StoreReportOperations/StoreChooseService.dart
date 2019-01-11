@@ -21,7 +21,7 @@ class StoreChooseService{
 StoreChooseService(){
 }
  
-Future<StoreChooseResponeDTO> storeListRequest(BuildContext context) async {
+Future<ParsedResponse<StoreChooseResponeDTO>> storeListRequest(BuildContext context) async {
 
 StoreChooseResponeDTO userResponse ;
 LcwAssistApplicationManager applicationManager = new LcwAssistApplicationManager();
@@ -40,26 +40,20 @@ String token =  await TokenService.getAuthToken();
       }, body: json.encode("")
     );
 
-    if (response.statusCode == 200) {
 
-//StoreChooseResponeDTO
- userResponse = StoreChooseResponeDTO.fromJson(json.decode(response.body));
+    if(response.statusCode < 200 || response.statusCode >= 300) {
+      return new ParsedResponse(response.statusCode, null);
+    }else
+    {
+       userResponse = StoreChooseResponeDTO.fromJson(json.decode(response.body));
 userResponse.stores.insert(0,
 Stores(countryRef: 48,depoRef: 0,depoYerlesimTip: "",isOutlet: 0,magazaMudur1: "",magazaMudur2: "",
 musteriProfil: "",operasyonelBolgeTanim: "",personelSayisi: 0,storeCode: "0",storeName: currentLanguage.gettumMagazalar,toplamM2: 0)
 );
+    }
 
-    } 
-    
-    
-    
-    //if (response.statusCode == 401){
-// userResponse = new StoreChooseResponeDTO(stores: null);
-//   }
+return new ParsedResponse(response.statusCode, StoreChooseResponeDTO.fromJson(json.decode(response.body))); 
 
-
-
-    return userResponse;
   }
 
 Future<ParsedResponse<List<StoreChooseListViewDTO>>> storeListForListViewRequest(BuildContext context) async {
@@ -142,7 +136,7 @@ return new ParsedResponse(response.statusCode, listResponse);
 
 }
 
-Future<StoreReportResponseDTO> storeReport(StoreReportRequestDTO parameter) async{
+Future<ParsedResponse<StoreReportResponseDTO>> storeReport(StoreReportRequestDTO parameter) async{
   StoreReportResponseDTO responseDTO;
 
   String token =  await TokenService.getAuthToken();
@@ -157,14 +151,11 @@ Future<StoreReportResponseDTO> storeReport(StoreReportRequestDTO parameter) asyn
       }, body: json.encode(body)
     );  
 
-if (response.statusCode == 200) {
-    // If the call to the server was successful, parse the JSON
-     responseDTO = StoreReportResponseDTO.fromJson(json.decode(response.body));
-} else if(response.statusCode == 401){
-responseDTO = new StoreReportResponseDTO(errorMessage: "",isSuccess: false,isAuthorized: false);
-}
+if(response.statusCode < 200 || response.statusCode >= 300) {
+      return new ParsedResponse(response.statusCode, null);
+    }
 
-return responseDTO;
+return new ParsedResponse(response.statusCode, StoreReportResponseDTO.fromJson(json.decode(response.body)));
   }
 
 Future saveCurrentStore(StoreChooseListViewDTO store) async{

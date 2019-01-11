@@ -68,6 +68,16 @@ return result;
     Navigator.of(context).push(route);
 }
 
+ void navigateToHomePage(BuildContext context){
+  
+  var route = new MaterialPageRoute(
+            builder: (BuildContext context) => HomePage()
+          );
+
+    Navigator.of(context).push(route);
+}
+
+
  Future resultApiStatus(BuildContext context,int statusCode,CurrentLangugeDTO currentLanguage) async{
  ResponseBase respone = new ResponseBase();
 

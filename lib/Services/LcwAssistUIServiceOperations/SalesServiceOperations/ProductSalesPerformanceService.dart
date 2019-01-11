@@ -10,16 +10,17 @@ import 'package:lcwassist/DataAccess/ProductPerformanceMetricsDTOs/ProductMetric
 
 import 'package:lcwassist/DataAccess/ProductPerformanceMetricsDTOs/ProductMetricsResponse.dart';
 import 'package:lcwassist/DataAccess/ProductPerformanceMetricsDTOs/SaveFeedbackRequestDTO.dart';
+import 'package:lcwassist/DataAccess/ResponseBase.dart';
 import 'package:lcwassist/Services/AuthenticationServiceOperations/TokenService.dart';
 
 class ProductSalesPerformanceService{
 
   ProductSalesPerformanceService(){
 
-}
+} 
 
 
- Future<ProductMetricsResponse> productSalesPerformanceMetrics(ProductMetricsRequestDTO request) async {
+ Future<ParsedResponse<ProductMetricsResponse>> productSalesPerformanceMetrics(ProductMetricsRequestDTO request) async {
  
 String token =  await TokenService.getAuthToken();
 request.setStoreCode = request.getStoreCode == "0" ? "" : request.getStoreCode;
@@ -33,19 +34,29 @@ var response = await http.post(
       }, body: json.encode(body)
     );
 
-ProductMetricsResponse result;
+if(response.statusCode < 200 || response.statusCode >= 300) {
+      return new ParsedResponse(response.statusCode, null);
+    }
 
-//var bodyResult;
-Map<String, dynamic>  bodyResult;
-if (response.statusCode == 200) {
-    // If the call to the server was successful, parse the JSON
-     bodyResult = json.decode(response.body);
-
-      if(bodyResult["product"] != null )
-     result = ProductMetricsResponse.fromJson(json.decode(response.body));
-    
-     return result;
+if(json.decode(response.body)["product"] == null)
+{
+return new ParsedResponse(response.statusCode, null);
+}else
+{
+  return new ParsedResponse(response.statusCode, ProductMetricsResponse.fromJson(json.decode(response.body)));
 }
+
+// //var bodyResult;
+// Map<String, dynamic>  bodyResult;
+// if (response.statusCode == 200) {
+//     // If the call to the server was successful, parse the JSON
+//      bodyResult = json.decode(response.body);
+
+//       if(bodyResult["product"] != null )
+//      result = ProductMetricsResponse.fromJson(json.decode(response.body));
+    
+//      return result;
+// }
 
 }
 
@@ -72,7 +83,7 @@ if (response.statusCode == 200) {
 
 }
 
- Future<List<BestWorstOptionListResponseList>> bestWorstOptionProductList(BestWorstOptionsFilterRequestDTO request) async {
+ Future<ParsedResponse<List<BestWorstOptionListResponseList>>> bestWorstOptionProductList(BestWorstOptionsFilterRequestDTO request) async {
  
 String token =  await TokenService.getAuthToken();
 
@@ -89,27 +100,26 @@ var response = await http.post(
 
 List<BestWorstOptionListResponseList> result = new List<BestWorstOptionListResponseList>();
 
-//var bodyResult;
-List<Map<String, dynamic>>  bodyResult;
-List list = List();
-if (response.statusCode == 200) {
-    // If the call to the server was successful, parse the JSON
-    //bodyResult = json.decode(response.body) as List;
-     list = json.decode(response.body) as List;
 
-//Iterable l = json.decode(response.body);
-
- //Iterable l = json.decode(response.body);
- list.map((i)=> result.add(BestWorstOptionListResponseList.fromJson(i))).toList();
-
-int sss = result.length;
-
-//result = list.map((i) => BestWorstOptionListResponseList.fromJson(i)).toList();
+// List<Map<String, dynamic>>  bodyResult;
+// List list = List();
+// if (response.statusCode == 200) {
     
-     
-    
-     return result;
-}
+//      list = json.decode(response.body) as List;
+//  list.map((i)=> result.add(BestWorstOptionListResponseList.fromJson(i))).toList();
+
+// int sss = result.length;
+
+
+if(response.statusCode < 200 || response.statusCode >= 300) {
+      return new ParsedResponse(response.statusCode, null);
+    }
+
+Iterable l = json.decode(response.body);
+
+ result = l.map((i)=> BestWorstOptionListResponseList.fromJson(i)).toList();
+
+return new ParsedResponse(response.statusCode, result);
 
 }
  

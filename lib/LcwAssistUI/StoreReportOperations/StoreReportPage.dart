@@ -8,6 +8,7 @@ import 'package:lcwassist/Core/GlobalWidget/LcwAssistSnackBarDialogs/LcwAssistSn
 import 'package:lcwassist/Core/GlobalWidget/LcwAssistMessageDialogs/LcwAssistAlertDialogInfo.dart';
 import 'package:lcwassist/Core/GlobalWidget/ChartWidgets/ScatterPlotComboLineChart.dart';
 import 'package:lcwassist/Core/GlobalWidget/ChartWidgets/StackedAreaLineChart.dart';
+import 'package:lcwassist/DataAccess/ResponseBase.dart';
 import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreChooseListViewDTO.dart';
 import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreChooseResponeDTO.dart';
 import 'package:lcwassist/DataAccess/StoreReportOperations/StoreChooseDTOs/StoreReportRequestDTO.dart';
@@ -431,9 +432,15 @@ return PageView(
 
 Future loadStoreReport(StoreReportRequestDTO parameter) async{
 
-StoreReportResponseDTO result = await applicationManager.serviceManager.storeChooseService.storeReport(parameter);
-raporResult = result;
-String asd = result.conversionRate;
+ParsedResponse responseResult = await applicationManager.serviceManager.storeChooseService.storeReport(parameter);
+
+if(responseResult.statusCode == 200)
+raporResult = responseResult.body;
+else
+{
+  await applicationManager.utils.resultApiStatus(context, responseResult.statusCode, applicationManager.currentLanguage);
+  return;
+}
 
 }
 
