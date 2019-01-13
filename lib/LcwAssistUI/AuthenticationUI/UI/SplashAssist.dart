@@ -274,9 +274,8 @@ await applicationManager.serviceManager.languagesService.getUsingLanguages();
 
 await this.applicationManager.serviceManager.lcwStoreService.setCurrentServiceVersion(packageInfo.packageName);
 
-
-
-
+  
+   
 if(prefs.getString(SharedPreferencesConstant.currentLanguageId) == null)
 prefs.setString(SharedPreferencesConstant.currentLanguageId,"2");
 

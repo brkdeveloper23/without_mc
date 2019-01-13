@@ -40,17 +40,25 @@ import 'package:localstorage/localstorage.dart';
 import 'package:flutter/services.dart';
 import 'package:simple_permissions/simple_permissions.dart';
 import 'package:package_info/package_info.dart';
+import 'package:flutter/rendering.dart';
+
+// void main(){
+// runApp(new MaterialApp(
+
+// home:new LoginPage(),
+
+// )
+
+
+
+// );
+
+// }
+
 
 void main(){
 
-runApp(new MaterialApp(
-
-home:new LoginPage(),
-
-)
-
-);
-
+runApp(LoginPage());
 }
 
 class LoginPage extends StatefulWidget{
@@ -193,7 +201,7 @@ LcwAssistAlertDialogInfo(applicationManager.currentLanguage.getguncellemeUyarisi
 Widget build(BuildContext context) {
 
 executeAfterBuild();
-
+ //debugPaintSizeEnabled=false;
 return new Scaffold(
 
 resizeToAvoidBottomPadding: false,

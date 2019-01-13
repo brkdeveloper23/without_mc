@@ -83,6 +83,7 @@ storesResponseListView = result.body;
 else
 {
   await applicationManager.utils.resultApiStatus(context, result.statusCode, applicationManager.currentLanguage);
+  dispose();
   return;
 }
 

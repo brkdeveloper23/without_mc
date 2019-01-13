@@ -218,7 +218,7 @@ request.setColorCode = productInfo.getRenkKod;
 request.setStoreCode = applicationManager.currentStore.storeCode;
 request.setStoreRef = applicationManager.currentStore.depoRef.toString();//'671';
 request.setCountryRef = applicationManager.currentStore.countryRef.toString() == "0" ? "48" : applicationManager.currentStore.countryRef.toString();
-
+ 
 ProductMetricsResponse result;
 ParsedResponse responseResult = await this.applicationManager.serviceManager.productSalesPerformanceService.productSalesPerformanceMetrics(request);
 
@@ -227,6 +227,7 @@ result = responseResult.body;
 else
 {
   await applicationManager.utils.resultApiStatus(context, responseResult.statusCode, applicationManager.currentLanguage);
+  dispose();
   return;
 }
 
@@ -235,7 +236,7 @@ else
   Navigator.pop(context);
  });
 
-if(result == null){
+if(result.product == null){
 LcwAssistSnackBarDialogInfo(this.applicationManager.currentLanguage.geturunBulunamadi,scaffoldState,LcwAssistSnagitType.warning).snackbarShow();
  return;
  }

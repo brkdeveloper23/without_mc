@@ -242,6 +242,7 @@ merchHierarsiList = responseMerchHierarsiList.body;
 else
 {
   await applicationManager.utils.resultApiStatus(context, responseMerchHierarsiList.statusCode, applicationManager.currentLanguage);
+  dispose();
   return;
 }
 
@@ -686,6 +687,7 @@ result = responseResult.body;
 else
 {
   await applicationManager.utils.resultApiStatus(context, responseResult.statusCode, applicationManager.currentLanguage);
+  dispose();
   return;
 }
 

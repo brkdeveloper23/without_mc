@@ -19,7 +19,7 @@ class ProductSalesPerformanceService{
 
 } 
 
-
+ 
  Future<ParsedResponse<ProductMetricsResponse>> productSalesPerformanceMetrics(ProductMetricsRequestDTO request) async {
  
 String token =  await TokenService.getAuthToken();
@@ -40,7 +40,7 @@ if(response.statusCode < 200 || response.statusCode >= 300) {
 
 if(json.decode(response.body)["product"] == null)
 {
-return new ParsedResponse(response.statusCode, null);
+return new ParsedResponse(response.statusCode, new ProductMetricsResponse());
 }else
 {
   return new ParsedResponse(response.statusCode, ProductMetricsResponse.fromJson(json.decode(response.body)));
@@ -58,7 +58,7 @@ return new ParsedResponse(response.statusCode, null);
 //      return result;
 // }
 
-}
+} 
 
  Future saveFeedback(SaveFeedbackRequestDTO request) async{
 

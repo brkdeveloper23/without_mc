@@ -65,7 +65,9 @@ return result;
             builder: (BuildContext context) => LoginPage()
           );
 
-    Navigator.of(context).push(route);
+    //Navigator.of(context).push(route);
+    Navigator.of(context).pushReplacement(route);
+    //Navigator.of(context).pushAndRemoveUntil(route, (Route<dynamic> route) => false);
 }
 
  void navigateToHomePage(BuildContext context){
@@ -74,7 +76,10 @@ return result;
             builder: (BuildContext context) => HomePage()
           );
 
-    Navigator.of(context).push(route);
+    //Navigator.of(context).push(route);
+    Navigator.of(context).pushReplacement(route);
+    
+    //Navigator.of(context).pushAndRemoveUntil(route, (Route<dynamic> route) => false);
 }
 
 

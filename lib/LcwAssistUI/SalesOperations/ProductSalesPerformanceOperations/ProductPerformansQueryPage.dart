@@ -171,6 +171,7 @@ result = responseResult.body;
 else
 {
   await applicationManager.utils.resultApiStatus(context, responseResult.statusCode, applicationManager.currentLanguage);
+  dispose();
   return;
 }
 
@@ -179,7 +180,7 @@ else
   Navigator.pop(context);
  });
 
-if(result == null){
+if(result.product == null){
 LcwAssistSnackBarDialogInfo(this.applicationManager.currentLanguage.geturunBulunamadi,scaffoldState,LcwAssistSnagitType.warning).snackbarShow();
  return;
  }
@@ -188,7 +189,6 @@ LcwAssistSnackBarDialogInfo(this.applicationManager.currentLanguage.geturunBulun
             builder: (BuildContext context) => ProductPerformansMetricsOperations(productMetricsResponse: result,
             applicationManager: this.applicationManager)
           );
-
           Navigator.of(context).push(route);
 
 }

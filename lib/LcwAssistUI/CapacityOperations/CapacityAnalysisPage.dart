@@ -21,10 +21,12 @@ import 'package:lcwassist/Style/CoreWidgets/LcwAssistCustomWidgets.dart';
 import 'package:lcwassist/Style/LcwAssistColor.dart';
 import 'package:lcwassist/Style/LcwAssistTextStyle.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:lcwassist/LcwAssistUI/AuthenticationUI/UI/loginPage.dart';
 import 'dart:convert';
 
 
 void main(){
+  
   runApp(new MaterialApp(
     home:new CapacityAnalysisPage(),
   ));
@@ -78,7 +80,6 @@ Future<void> executeAfterBuild() async {
   
 }
 
-
 Future loaded(BuildContext context) async{
 applicationManager.setCurrentLanguage = await applicationManager.serviceManager.languagesService.currentLanguage();
 
@@ -89,12 +90,10 @@ LcwAssistLoading.showAlert(context,applicationManager.currentLanguage.getyukleni
 
  currentStore = await applicationManager.serviceManager.storeChooseService.getCurrentStore();
 
- 
-
 capacityParameter.setAksesuarUrun = "";
 capacityParameter.setBuyerGrupTanim = "";
 capacityParameter.setMerchGrupKod = "";
-capacityParameter.setMagazaKod = "234234";//currentStore.storeCode;
+capacityParameter.setMagazaKod = currentStore.storeCode;
 capacityParameter.setMerchAltGrupKod = "";
 capacityParameter.setMerchYasGrupKod = "";
 
@@ -138,8 +137,7 @@ Widget resimYukle(){
   );
 }
 
-
-    Widget yeniHeader(){
+Widget yeniHeader(){
   return 
    
   Column(
@@ -191,9 +189,6 @@ Expanded(child:
     ))    
     ],);
 }
-
-
-
 
 Widget storeReportPageBody(){
 
@@ -318,52 +313,6 @@ Container(
         ],
       ),
     
-
-
-
-
-
-           
-// Card(
-//       child: Column(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: <Widget>[
-//      Row(
-//         mainAxisSize: MainAxisSize.max,
-//         mainAxisAlignment: MainAxisAlignment.start,
-//        children: <Widget>[
-
-// Container(
-// height: 75.0,
-// width: 75.0,
-//   child:
-// Padding(child: Image.asset('assets/store_image.png',fit: BoxFit.cover,),padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),),),
-// Container(
-//   child: Column(
-//     crossAxisAlignment: CrossAxisAlignment.start,
-//     children: <Widget>[
-//     Row(
-//       mainAxisAlignment: MainAxisAlignment.start,
-//       children: <Widget>[
-//       Padding(padding: EdgeInsets.fromLTRB(5.0, 10.0, 5.0, 10.0),child: Text('Mağaza Kodu: ',style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 15.0,fontWeight: FontWeight.bold),),),
-//       Padding(padding: EdgeInsets.fromLTRB(0.0, 10.0, 10.0, 10.0),child: Text(currentStore.storeCode,style: TextStyle(color: LcwAssistColor.reportCardSubHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 15.0,fontWeight: FontWeight.bold),),)
-//     ],),
-//     Row(
-//       mainAxisAlignment: MainAxisAlignment.start,
-//       children: <Widget>[
-//       Padding(padding: EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 10.0),child: Text('Mağaza Adı: ',style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 15.0,fontWeight: FontWeight.bold),),),
-//       Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 10.0),child: Text(currentStore.storeName,style: TextStyle(color: LcwAssistColor.reportCardSubHeaderColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontSize: 15.0,fontWeight: FontWeight.bold),),)
-//     ],),
-
-//   ],),
-// )
-
-//      ],)
-
-//         ],
-//       ),
-//     )
- 
  Expanded(flex: 70,child: Container(color: Colors.grey[100],child: Padding(padding: EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 0.0),child: buildPageView(),),),),
  Expanded(flex: 1,child: Container(
         padding: EdgeInsets.fromLTRB(0.0, 0.0, 5.0, 0.0),
@@ -455,8 +404,9 @@ return PageView(
 }
   
 Future loadCapacityReport(CapacityAnaliysisReportRequestDTO parameter) async{
-  Navigator.pop(context);
-  applicationManager.utils.navigateToLoginPage(context);
+ 
+
+
 //CapacityAnaliysisReportResponseDTO result = await applicationManager.serviceManager.capacityAnaliysisService.capacityAnalysisMetrics(parameter);
 
 ParsedResponse responseCapacityMetrics = await applicationManager.serviceManager.capacityAnaliysisService.capacityAnalysisMetrics(parameter);
@@ -470,6 +420,7 @@ raporResult = responseCapacityMetrics.body;
 else
 {
   await applicationManager.utils.resultApiStatus(context, responseCapacityMetrics.statusCode, applicationManager.currentLanguage);
+  dispose();
   return;
 }
 
@@ -477,8 +428,23 @@ if(raporResult.toplamFiiliDolulukLCM == "")
 {
   Navigator.pop(context);
   await LcwAssistAlertDialogInfo(applicationManager.currentLanguage.getuyari,applicationManager.currentLanguage.getaradiginizKriterlerdeDataBulunamadi,applicationManager.currentLanguage.gettamam,context,LcwAssistDialogType.warning).show();
-  applicationManager.utils.navigateToLoginPage(context);
-  return;
+ 
+ // applicationManager.utils.navigateToLoginPage(context);
+ 
+    var route = new MaterialPageRoute(
+            builder: (BuildContext context) => HomePage()
+          );
+
+    //Navigator.of(context).push(route); 
+    Navigator.of(context).pushReplacement(route);
+    dispose();
+
+    
+    //Navigator.of(context).removeRoute(route2);
+    //Navigator.of(context).replace(route2,route)
+
+    //Navigator.of(context).pushAndRemoveUntil(route, (Route<dynamic> route2) => false);
+  //return;
 }
 
 
