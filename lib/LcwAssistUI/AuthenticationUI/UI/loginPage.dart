@@ -40,7 +40,7 @@ import 'package:localstorage/localstorage.dart';
 import 'package:flutter/services.dart';
 import 'package:simple_permissions/simple_permissions.dart';
 import 'package:package_info/package_info.dart';
-import 'package:flutter/rendering.dart';
+//import 'package:flutter/rendering.dart';
 
 // void main(){
 // runApp(new MaterialApp(

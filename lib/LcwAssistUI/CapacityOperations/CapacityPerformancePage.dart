@@ -15,6 +15,7 @@ import 'package:lcwassist/DataAccess/ResponseBase.dart';
 import 'package:lcwassist/LcwAssistBase/LcwAssistApplicationManager.dart';
 import 'package:lcwassist/Style/LcwAssistColor.dart';
 import 'package:lcwassist/Style/LcwAssistTextStyle.dart';
+import 'package:flutter/rendering.dart';
 
 class CapacityPerformancePage extends StatefulWidget {
   @override
@@ -45,6 +46,7 @@ List<MerchMarkaYasGrupDTO> listMerchMarkaYasGrupDTO = new List<MerchMarkaYasGrup
 MerchMarkaYasGrupDTO listSelectedMerchMarkaYasGrupDTO = new MerchMarkaYasGrupDTO();
 
 double colonSize = 100;
+double staticColumnSize = 60;
 
   @override
   void initState() {
@@ -195,6 +197,7 @@ if(responseCapacityFilterList.statusCode == 200)
 else
 {
   await applicationManager.utils.resultApiStatus(context, responseCapacityFilterList.statusCode, applicationManager.currentLanguage);
+  dispose();
   return;
 }
 
@@ -208,10 +211,12 @@ else
 
 @override
 Widget build(BuildContext context) { 
+  debugPaintSizeEnabled=false;
 executeAfterBuild();
     return new Scaffold(
       backgroundColor: LcwAssistColor.backGroundColor,
       key: scaffoldState,
+      
       //resizeToAvoidBottomPadding: false,
       body: sayfaYuklendimi ? 
         filterBody()
@@ -408,7 +413,7 @@ Padding(padding: EdgeInsets.all(4.0),child: Row(children: <Widget>[
  ),
 
 Expanded(child:
-  Card(child: Padding(padding: EdgeInsets.all(2),child: scroolSagaAlta(),),)
+  Card(child: Padding(padding: EdgeInsets.all(2),child: scroolSagaAltaVeSabit(),),)//scroolSagaAlta(),),)
 )
 //gridRowsSabitColumns
   ],);
@@ -441,8 +446,6 @@ SingleChildScrollView(
 
 }
 
-
-
 Widget scroolSagaAlta(){
 return 
 SingleChildScrollView(
@@ -472,6 +475,28 @@ SingleChildScrollView(
         
       ),
     );
+
+}
+
+Widget scroolSagaAltaVeSabit(){
+return 
+ListView(
+  scrollDirection: Axis.vertical
+  ,children: <Widget>[
+    Row(children: <Widget>[
+      gridRowsSabit(),
+      Expanded(child:       
+
+SingleChildScrollView(
+  scrollDirection: Axis.horizontal,
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+        ),
+        child:
+         gridRowsDinamik()        
+        ))
+  )])
+],); 
 
 }
 
@@ -536,80 +561,8 @@ setState(() {
 });
 }
 
-List<Widget> gridRowsSabit(){
 
-List<String> kolonlar = 
-[
-  this.applicationManager.currentLanguage.getbeden,
-  this.applicationManager.currentLanguage.getanasayfa,
-  
-  ];
-
-List<Widget> rows = [];
-
-//HEADER
-rows.add(
-    Container(
-  padding: EdgeInsets.all(5.0),
-  color: Color.fromRGBO(232,243,255,1.0)//(244,242,248, 1.0)
-  ,child:
-  Row(
-      children: <Widget>[
-Expanded(flex: 1,child: 
-        Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),child: 
-        Text(kolonlar[0],style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,
-        fontFamily: LcwAssistTextStyle.currentTextFontFamily),textAlign: TextAlign.center,),)
-      ,),
-Expanded(flex: 1,child: 
-        Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),child: 
-        Text(kolonlar[1],style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,
-        fontFamily: LcwAssistTextStyle.currentTextFontFamily),textAlign: TextAlign.center,),)
-      ,)
-    ])),
-  
-);
- 
-List<CapacityPerformanceMetricResponseDTO> aas = new List<CapacityPerformanceMetricResponseDTO>();
-
-for (var i in  capacityPerformanceList)
-aas.add(i);
-
-for (var i in  capacityPerformanceList)
-aas.add(i);
-
-int count = 0;
-for (var i in  aas) {
-  rows.add(
-
-  Container(
-  padding: EdgeInsets.all(5.0),
-  color: count % 2 == 0 ? Color.fromRGBO(255,255,255, 1.0) : Color.fromRGBO(240,249,255,1.0)//Color.fromRGBO(247,251,255,1.0)//(250,248,252, 1.0)
-  ,child:
-  Row(
-      children: <Widget>[
-Expanded(flex: 1,child: 
-        Padding(padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),child: 
-        Text(i.merchKod.toString(),style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,
-        fontFamily: LcwAssistTextStyle.currentTextFontFamily),textAlign: TextAlign.center),)
-      ,),
-Expanded(flex: 1,child: 
-        Padding(padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),child: 
-        Text(i.merchTanim.toString() ?? "",style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,
-        fontFamily: LcwAssistTextStyle.currentTextFontFamily),textAlign: TextAlign.center),)
-      ,),
-      
-    ]))
-
-  );
-  count++;
-}
-
-
-
-return rows;
-}
-
-List<Widget> gridRowsDinamik(){
+List<Widget> gridRowsDinamik_(){
 
 List<String> kolonlar = 
 [
@@ -944,13 +897,13 @@ Container(child:
 return rows;
 }
 
-List<Widget> gridRowsSabitColumns(){
+Widget gridRowsSabit(){
 
 List<String> kolonlar = 
 [
-  this.applicationManager.currentLanguage.getbeden,
-  this.applicationManager.currentLanguage.getanasayfa,
-  
+  applicationManager.currentLanguage.getkapasitePerformansKolon0,
+  applicationManager.currentLanguage.getkapasitePerformansKolon1,
+
   ];
 
 List<Widget> rows = [];
@@ -958,55 +911,215 @@ List<Widget> rows = [];
 //HEADER
 rows.add(
     Container(
+      height: 60,
+  padding: EdgeInsets.all(5.0),
+  color: Color.fromRGBO(206,234,255,1.0)//(244,242,248, 1.0)
+  ,child:
+  Row(
+      children: <Widget>[
+                SizedBox(width: staticColumnSize,child: 
+Container(child: 
+        Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),child: 
+        Text(kolonlar[0],style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,
+        fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontWeight: FontWeight.bold),textAlign: TextAlign.center,),)
+      ,),),
+              SizedBox(width: staticColumnSize,child: 
+Container(child: 
+        Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),child: 
+        Text(kolonlar[1],style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,
+        fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontWeight: FontWeight.bold),textAlign: TextAlign.center,),)
+      ,),),
+        
+
+    ])),
+  
+);
+ 
+int count = 0;
+for (var i in  capacityPerformanceList) {
+  rows.add(
+
+  Container(
+    height: 50,
+  padding: EdgeInsets.all(5.0),
+  color: count % 2 == 0 ? Color.fromRGBO(255,255,255, 1.0) : Color.fromRGBO(226,242,253,1.0)//Color.fromRGBO(247,251,255,1.0)//(250,248,252, 1.0)
+  ,child:
+  Row(
+      children: <Widget>[
+        SizedBox(width: staticColumnSize,child:  
+Container(child: 
+        Padding(padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),child: 
+        Text(i.merchKod.toString(),style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,
+        fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontWeight: FontWeight.bold),textAlign: TextAlign.center),)
+      ,),),
+              SizedBox(width: staticColumnSize,child:  
+Container(child: 
+        Padding(padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),child: 
+        Text(i.merchTanim.toString(),style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,
+        fontFamily: LcwAssistTextStyle.currentTextFontFamily,fontWeight: FontWeight.bold),textAlign: TextAlign.center),)
+      ,),),
+
+      
+    ]))
+
+  );
+  count++;
+}
+
+
+
+return Column(children: rows,);
+}
+
+Widget gridRowsDinamik(){
+
+List<String> kolonlar = 
+[
+
+  applicationManager.currentLanguage.getkapasitePerformansKolon2,
+  applicationManager.currentLanguage.getkapasitePerformansKolon3,
+  applicationManager.currentLanguage.getkapasitePerformansKolon4,
+  applicationManager.currentLanguage.getkapasitePerformansKolon5,
+  applicationManager.currentLanguage.getkapasitePerformansKolon6,
+  applicationManager.currentLanguage.getkapasitePerformansKolon7,
+  applicationManager.currentLanguage.getkapasitePerformansKolon8,
+  applicationManager.currentLanguage.getkapasitePerformansKolon9
+  // 'PeriyotReyonKapasiteLCMYuzde',
+  // //this.applicationManager.currentLanguage.getanasayfa,
+  // "BrutKar",
+  // "PerformansaGoreIdealKapasite",
+  // "ReyonLCMKapasite",
+  // "SatisTutar",
+  // "SatisAdet",
+  // "ReyonCoverMagaza",
+  // "ReyonCoverBolge",
+
+  ];
+
+List<Widget> rows = [];
+
+//HEADER
+rows.add(
+    Container(
+      height: 60,
   padding: EdgeInsets.all(5.0),
   color: Color.fromRGBO(232,243,255,1.0)//(244,242,248, 1.0)
   ,child:
   Row(
       children: <Widget>[
-          SizedBox(width: colonSize,child: 
+                SizedBox(width: colonSize,child: 
 Container(child: 
         Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),child: 
         Text(kolonlar[0],style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,
-        fontFamily: LcwAssistTextStyle.currentTextFontFamily),textAlign: TextAlign.center,),)
+        fontFamily: LcwAssistTextStyle.currentTextFontFamily,),textAlign: TextAlign.center,),)
+      ,),),
+              SizedBox(width: colonSize,child: 
+Container(child: 
+        Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),child: 
+        Text(kolonlar[1],style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,
+        fontFamily: LcwAssistTextStyle.currentTextFontFamily,),textAlign: TextAlign.center,),)
       ,),),
         SizedBox(width: colonSize,child: 
 Container(child: 
         Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),child: 
-        Text(kolonlar[1],style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,
+        Text(kolonlar[2],style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,
         fontFamily: LcwAssistTextStyle.currentTextFontFamily),textAlign: TextAlign.center,),)
-      ,),)
+      ,),),
+      SizedBox(width: colonSize,child: 
+Container(child: 
+        Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),child: 
+        Text(kolonlar[3],style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,
+        fontFamily: LcwAssistTextStyle.currentTextFontFamily),textAlign: TextAlign.center,),)
+      ,),),
+
+
+      SizedBox(width: colonSize,child: 
+      Container(child: 
+        Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),child: 
+        Text(kolonlar[4],style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,
+        fontFamily: LcwAssistTextStyle.currentTextFontFamily),textAlign: TextAlign.center,),)
+      ,),),
+      SizedBox(width: colonSize,child: 
+Container(child: 
+        Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),child: 
+        Text(kolonlar[5],style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,
+        fontFamily: LcwAssistTextStyle.currentTextFontFamily),textAlign: TextAlign.center,),)
+      ,),),
+      SizedBox(width: colonSize,child: 
+      Container(child: 
+        Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),child: 
+        Text(kolonlar[6],style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,
+        fontFamily: LcwAssistTextStyle.currentTextFontFamily),textAlign: TextAlign.center,),)
+      ,),),
+      SizedBox(width: colonSize,child: 
+Container(child: 
+        Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),child: 
+        Text(kolonlar[7],style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,
+        fontFamily: LcwAssistTextStyle.currentTextFontFamily),textAlign: TextAlign.center,),)
+      ,),),
+      
     ])),
   
 );
  
-List<CapacityPerformanceMetricResponseDTO> aas = new List<CapacityPerformanceMetricResponseDTO>();
-
-for (var i in  capacityPerformanceList)
-aas.add(i);
-
-for (var i in  capacityPerformanceList)
-aas.add(i);
-
 int count = 0;
-for (var i in  aas) {
+for (var i in  capacityPerformanceList) {
   rows.add(
 
   Container(
+    height: 50,
   padding: EdgeInsets.all(5.0),
   color: count % 2 == 0 ? Color.fromRGBO(255,255,255, 1.0) : Color.fromRGBO(240,249,255,1.0)//Color.fromRGBO(247,251,255,1.0)//(250,248,252, 1.0)
   ,child:
   Row(
       children: <Widget>[
-          SizedBox(width: colonSize,child: 
+       
+        SizedBox(width: colonSize,child:  
 Container(child: 
         Padding(padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),child: 
-        Text(i.merchKod.toString(),style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,
+        Text(i.periyotReyonKapasiteLCMYuzde.toString(),style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,
         fontFamily: LcwAssistTextStyle.currentTextFontFamily),textAlign: TextAlign.center),)
       ,),),
-        SizedBox(width: colonSize,child: 
+      SizedBox(width: colonSize,child: 
 Container(child: 
         Padding(padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),child: 
-        Text(i.merchTanim.toString() ?? "",style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,
+        Text(i.brutKar.toString() ?? "",style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,
+        fontFamily: LcwAssistTextStyle.currentTextFontFamily),textAlign: TextAlign.center),)
+      ,),),
+      SizedBox(width: colonSize,child: 
+      Container(child: 
+        Padding(padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),child: 
+        Text(i.performansaGoreIdealKapasite.toString(),style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,
+        fontFamily: LcwAssistTextStyle.currentTextFontFamily),textAlign: TextAlign.center),)
+      ,),),
+      SizedBox(width: colonSize,child: 
+Container(child: 
+        Padding(padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),child: 
+        Text(i.reyonLCMKapasite.toString() ?? "",style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,
+        fontFamily: LcwAssistTextStyle.currentTextFontFamily),textAlign: TextAlign.center),)
+      ,),),
+      SizedBox(width: colonSize,child: 
+      Container(child: 
+        Padding(padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),child: 
+        Text(i.satisTutar.toString(),style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,
+        fontFamily: LcwAssistTextStyle.currentTextFontFamily),textAlign: TextAlign.center),)
+      ,),),
+      SizedBox(width: colonSize,child: 
+Container(child: 
+        Padding(padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),child: 
+        Text(i.satisAdet.toString() ?? "",style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,
+        fontFamily: LcwAssistTextStyle.currentTextFontFamily),textAlign: TextAlign.center),)
+      ,),),
+      SizedBox(width: colonSize,child: 
+      Container(child: 
+        Padding(padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),child: 
+        Text(i.reyonCoverMagaza.toString(),style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,
+        fontFamily: LcwAssistTextStyle.currentTextFontFamily),textAlign: TextAlign.center),)
+      ,),),
+      SizedBox(width: colonSize,child: 
+Container(child: 
+        Padding(padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),child: 
+        Text(i.reyonCoverBolge.toString() ?? "",style: TextStyle(color: LcwAssistColor.reportCardHeaderColor,
         fontFamily: LcwAssistTextStyle.currentTextFontFamily),textAlign: TextAlign.center),)
       ,),)
       
@@ -1018,7 +1131,7 @@ Container(child:
 
 
 
-return rows;
+return Column(children: rows,);
 }
 
 }
