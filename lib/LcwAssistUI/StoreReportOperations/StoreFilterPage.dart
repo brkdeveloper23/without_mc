@@ -139,7 +139,7 @@ child:
 Column(
   crossAxisAlignment: CrossAxisAlignment.stretch,
   children: <Widget>[
-Padding(child: Text(applicationManager.currentLanguage.getAUTSecin,style: TextStyle(fontSize: 15.0,color: LcwAssistColor.primaryColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily)),padding: EdgeInsets.fromLTRB(3, 3, 3, 3),),
+Padding(child: Text(applicationManager.currentLanguage.getperiyodSecin,style: TextStyle(fontSize: 15.0,color: LcwAssistColor.primaryColor,fontFamily: LcwAssistTextStyle.currentTextFontFamily)),padding: EdgeInsets.fromLTRB(3, 3, 3, 3),),
 
 Card(child: 
 Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),child:

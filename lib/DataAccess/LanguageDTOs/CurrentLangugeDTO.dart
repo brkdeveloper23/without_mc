@@ -175,6 +175,9 @@ String _kapasitePerformansKolon6="";
 String _kapasitePerformansKolon7="";
 String _kapasitePerformansKolon8="";
 String _kapasitePerformansKolon9="";
+String _merchGrupSecin="";
+String _periyodSecin="";
+String _gridDetailColumnText="";
 
   // CurrentLangugeDTO(
   //   this._dilId,
@@ -385,6 +388,11 @@ set setkapasitePerformansKolon6(String kapasitePerformansKolon6) {_kapasitePerfo
 set setkapasitePerformansKolon7(String kapasitePerformansKolon7) {_kapasitePerformansKolon7 = kapasitePerformansKolon7;}
 set setkapasitePerformansKolon8(String kapasitePerformansKolon8) {_kapasitePerformansKolon8 = kapasitePerformansKolon8;}
 set setkapasitePerformansKolon9(String kapasitePerformansKolon9) {_kapasitePerformansKolon9 = kapasitePerformansKolon9;}
+set setmerchGrupSecin(String merchGrupSecin) {_merchGrupSecin = merchGrupSecin;}
+set setperiyodSecin(String periyodSecin) {_periyodSecin = periyodSecin;}
+set setgridDetailColumnText(String gridDetailColumnText) {_gridDetailColumnText = gridDetailColumnText;}
+
+
 
   String get getkullaniciGirisi => _kullaniciGirisi;
   String get getkullaniciAdi => _kullaniciAdi;
@@ -558,6 +566,9 @@ set setkapasitePerformansKolon9(String kapasitePerformansKolon9) {_kapasitePerfo
   String get getkapasitePerformansKolon7 => _kapasitePerformansKolon7;
   String get getkapasitePerformansKolon8 => _kapasitePerformansKolon8;
   String get getkapasitePerformansKolon9 => _kapasitePerformansKolon9;
+    String get getmerchGrupSecin => _merchGrupSecin;
+      String get getperiyodSecin => _periyodSecin;
+  String get getgridDetailColumnText => _gridDetailColumnText;
 
 
   Map<String, dynamic> toMap() {
@@ -734,6 +745,9 @@ map["kapasitePerformansKolon6"] = _kapasitePerformansKolon6;
 map["kapasitePerformansKolon7"] = _kapasitePerformansKolon7;
 map["kapasitePerformansKolon8"] = _kapasitePerformansKolon8;
 map["kapasitePerformansKolon9"] = _kapasitePerformansKolon9;
+map["merchGrupSecin"] = _merchGrupSecin;
+map["periyodSecin"] = _periyodSecin;
+map["gridDetailColumnText"] = _gridDetailColumnText;
 
     return map;
   }

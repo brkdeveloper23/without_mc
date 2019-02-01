@@ -116,6 +116,7 @@ final controllerPassword = TextEditingController();
       _platformVersion = platformVersion;
     });
 
+//Theme.of(context).platform == TargetPlatform.android
 if(Platform.isAndroid)
   checkPermission();
     

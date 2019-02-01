@@ -309,6 +309,9 @@ currentLanguage.setkapasitePerformansKolon6 = currentLanguageRawData.firstWhere(
 currentLanguage.setkapasitePerformansKolon7 = currentLanguageRawData.firstWhere((i)=>i.kod == "kapasitePerformansKolon7").deger;
 currentLanguage.setkapasitePerformansKolon8 = currentLanguageRawData.firstWhere((i)=>i.kod == "kapasitePerformansKolon8").deger;
 currentLanguage.setkapasitePerformansKolon9 = currentLanguageRawData.firstWhere((i)=>i.kod == "kapasitePerformansKolon9").deger;
+currentLanguage.setmerchGrupSecin = currentLanguageRawData.firstWhere((i)=>i.kod == "merchGrupSecin").deger;
+currentLanguage.setperiyodSecin = currentLanguageRawData.firstWhere((i)=>i.kod == "periyodSecin").deger;
+currentLanguage.setgridDetailColumnText = currentLanguageRawData.firstWhere((i)=>i.kod == "gridDetailColumnText").deger;
 
 return currentLanguage;
   }

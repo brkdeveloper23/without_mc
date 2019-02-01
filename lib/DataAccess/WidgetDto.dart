@@ -9,3 +9,19 @@ UcluCardTextDTO(String masterText,String subText)
   String masterText;
   String subText;
 }
+
+
+class AssitReportDataDTO{
+
+  AssitReportDataDTO(String header, String value, bool clickable)
+  {
+this.header = header;
+this.value = value;
+this.clickable = clickable;
+  }
+
+String header;
+String value; 
+bool clickable;
+
+}
