@@ -65,6 +65,18 @@ static Color linkColor =   Color.fromRGBO(1, 149, 197, 1.0);//Color.fromRGBO(1, 
 static Color floatingButtonColor = Color.fromRGBO(1,117,176, 1.0); //World
 //static Color floatingButtonColor = Color.fromRGBO(28,48,109,1.0); //DARKMOR
 
+
+  static List<Color> reportCardColorList = 
+  [Color.fromRGBO(239,138,14, 1.0),
+  Color.fromRGBO(0,116,198, 1.0,),
+  Color.fromRGBO(54,163,247, 1.0),
+  Color.fromRGBO(100,105,188, 1.0),
+  Color.fromRGBO(196,66,88, 1.0),
+  Color.fromRGBO(38,137,116, 1.0),
+  Color.fromRGBO(0,162,181, 1.0)
+  ];
+
+
 int asasasa; 
 
 int deneme(){

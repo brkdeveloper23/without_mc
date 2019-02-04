@@ -1,41 +1,54 @@
 import 'package:flutter/material.dart';
 import 'package:lcwassist/DataAccess/LanguageDTOs/CurrentLangugeDTO.dart';
+import 'package:lcwassist/DataAccess/WidgetDto.dart';
 import 'package:lcwassist/Style/LcwAssistColor.dart';
 import 'package:lcwassist/Style/LcwAssistTextStyle.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 
 class AssistReportTable extends StatelessWidget {
 
-final CurrentLangugeDTO currentLanguage;
+final List<AssitReportDataDTO> assitReportData;
+final Function onClick;
 
-const AssistReportTable({ Key key, this.currentLanguage}) : super(key: key);
+const AssistReportTable({ Key key, this.assitReportData, this.onClick}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-new Expanded(child: SingleChildScrollView(
-                child:
-Column(children: <Widget>[
-// satir(Color.fromRGBO(239,138,14, 1.0),  currentLanguage.getsatisTutarKDVsiz,raporResult.bY_SatisTutar_KDVsiz,false),
-// satir(Color.fromRGBO(0,116,198, 1.0),   currentLanguage.gettutarBuyume,raporResult.tutarBuyume,false),
-// satir(Color.fromRGBO(54,163,247, 1.0),  currentLanguage.getsatisTutarGY_KDVsiz,raporResult.gY_SatisTutar_KDVsiz,false),
-// satir(Color.fromRGBO(100,105,188, 1.0), currentLanguage.gethedefTutar,raporResult.bY_HedefTutar,false),
-// satir(Color.fromRGBO(196,66,88, 1.0),   currentLanguage.gethedefTutarYuzdesi,raporResult.magazaHedefTutturmaYuzdesi,false),
-// satir(Color.fromRGBO(38,137,116, 1.0),  currentLanguage.getsatisAdet,raporResult.bY_SatisAdet,false),
-// satir(Color.fromRGBO(0,162,181, 1.0),   currentLanguage.getadetBuyume,raporResult.adetBuyume,false),
-// satir(Color.fromRGBO(54,163,247, 1.0),  currentLanguage.getsatisAdetGY,raporResult.gY_SatisAdet,false),
-// satir(Color.fromRGBO(0,116,198, 1.0),   currentLanguage.getconversionRate,raporResult.conversionRate,false),
-// satir(Color.fromRGBO(239,138,14, 1.0),  currentLanguage.getmusteriZiyareySayisi,raporResult.magazaTrafik,false),
-// satir(Color.fromRGBO(100,105,188, 1.0), currentLanguage.getsepetBuyukluguAdet,raporResult.sepetBuyukAdet,false),
-// satir(Color.fromRGBO(196,66,88, 1.0),   currentLanguage.getsepetBuyukluguTutarKDVsiz,raporResult.sepetBuyukTutarKDVsiz,false),
-// satir(Color.fromRGBO(38,137,116, 1.0),  currentLanguage.getstokDevirHizi,raporResult.stokDevirHizi,false),
-// satir(Color.fromRGBO(0,162,181, 1.0),   currentLanguage.getM2Verimlilik,raporResult.m2Verimlilik,false),
+return new //Text('data');
+  SingleChildScrollView(
+                child: 
+getAllRow(this.assitReportData)
+  );
 
-],)
-
-  ),
-);
   }
 
+ 
+Widget getAllRow(List<AssitReportDataDTO> reportList)
+  {
+
+    List<Widget> list = new List<Widget>();
+
+  int count = 0;
+for (var item in reportList) {
+  if(count ==  LcwAssistColor.reportCardColorList.length)
+  count=0;
+
+  list.add(satir(LcwAssistColor.reportCardColorList[count],  item.header,item.value,item.clickable));
+count++;
+}
+    return new Column(children: list);
+  }
+
+
+  // List<Color> reportCardColorList = 
+  // [Color.fromRGBO(239,138,14, 1.0),
+  // Color.fromRGBO(0,116,198, 1.0,),
+  // Color.fromRGBO(54,163,247, 1.0),
+  // Color.fromRGBO(100,105,188, 1.0),
+  // Color.fromRGBO(196,66,88, 1.0),
+  // Color.fromRGBO(38,137,116, 1.0),
+  // Color.fromRGBO(0,162,181, 1.0)
+  // ];
 
 
   static Widget satir(Color lineColor,String masterText,String subText,bool hasDetail){

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 import 'package:lcwassist/LcwAssistUI/AuthenticationUI/UI/SplashAssist.dart';
+import 'package:lcwassist/LcwAssistUI/deneme.dart';
 import 'package:lcwassist/Style/LcwAssistColor.dart';
 
 //void main() => runApp(new MyApp());

@@ -146,7 +146,7 @@ SystemChrome.setPreferredOrientations([
 
 
 controllerUserName.text = "burak.bitkin";
-controllerPassword.text = "Cmb150832";
+controllerPassword.text = "Cmb150833";
 
 loadMultiLangCombo();
 

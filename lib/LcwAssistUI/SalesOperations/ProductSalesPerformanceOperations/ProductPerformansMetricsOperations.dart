@@ -131,7 +131,7 @@ new Column(
    
 yeniHeader(),
     currentPageStyle == true ?
-    Expanded(child: 
+Expanded(child: 
       SingleChildScrollView(
                 child:
 Column(children: <Widget>[
@@ -192,7 +192,10 @@ LcwAssistCustomWidgets.satir(Color.fromRGBO(38,137,116, 1.0), applicationManager
 
   ),)
 
-:Expanded(child: Container(color: LcwAssistColor.backGroundColor,child: Padding(padding: EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 0.0),child: buildPageView(),),),),
+:Expanded(child: 
+Container(color: LcwAssistColor.backGroundColor,
+child: Padding(padding: EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 0.0),
+child: verticalPageView(),),),),
 
 
 
@@ -495,7 +498,7 @@ Text(masterText,style: TextStyle(fontFamily: 'Ubuntu',
 
 
 
-Widget buildPageView() {
+Widget verticalPageView() {
 
 List<UcluCardTextDTO2> sayfaBirSatir1 = new List<UcluCardTextDTO2>();
 sayfaBirSatir1.add(new UcluCardTextDTO2(applicationManager.currentLanguage.getkumulatifSatisTutar,productMetricsResponse.productPerformansResultDTO.kumulatifSatisTutar,true));
@@ -557,7 +560,6 @@ return PageView(
         sayfa(sayfa3),
       ],
     );
-
 }
 
 Widget thisBottomNavigator() {

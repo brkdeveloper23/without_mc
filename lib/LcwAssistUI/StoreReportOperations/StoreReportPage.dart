@@ -21,7 +21,8 @@ import 'package:lcwassist/Style/CoreWidgets/LcwAssistCustomWidgets.dart';
 
 import 'package:lcwassist/Style/LcwAssistColor.dart';
 import 'package:lcwassist/Style/LcwAssistTextStyle.dart';
-
+import 'package:lcwassist/Style/LcwAssistWidgets/AssistReportTable.dart';
+ 
 
 void main(){
   runApp(new MaterialApp(
@@ -39,6 +40,7 @@ class StoreReportPageState extends State<StoreReportPage>  with TickerProviderSt
 
 LcwAssistApplicationManager applicationManager = new LcwAssistApplicationManager();
 StoreChooseListViewDTO currentStore;
+List<AssitReportDataDTO> assitReportDataDTO;
 bool sayfaYuklendiMi = false;
  final StoreReportRequestDTO parameter = new StoreReportRequestDTO();
 StoreReportResponseDTO raporResult;
@@ -188,30 +190,32 @@ new Column(
 
 Padding(padding: EdgeInsets.fromLTRB(6, 3, 6, 0),child: yeniHeader(),),
 
-Expanded(child: SingleChildScrollView(
-                child:
-Column(children: <Widget>[
-LcwAssistCustomWidgets.satir(Color.fromRGBO(239,138,14, 1.0),  applicationManager.currentLanguage.getsatisTutarKDVsiz,raporResult.bY_SatisTutar_KDVsiz,false),
-LcwAssistCustomWidgets.satir(Color.fromRGBO(0,116,198, 1.0),   applicationManager.currentLanguage.gettutarBuyume,raporResult.tutarBuyume,false),
-LcwAssistCustomWidgets.satir(Color.fromRGBO(54,163,247, 1.0),  applicationManager.currentLanguage.getsatisTutarGY_KDVsiz,raporResult.gY_SatisTutar_KDVsiz,false),
-LcwAssistCustomWidgets.satir(Color.fromRGBO(100,105,188, 1.0), applicationManager.currentLanguage.gethedefTutar,raporResult.bY_HedefTutar,false),
-LcwAssistCustomWidgets.satir(Color.fromRGBO(196,66,88, 1.0),   applicationManager.currentLanguage.gethedefTutarYuzdesi,raporResult.magazaHedefTutturmaYuzdesi,false),
-LcwAssistCustomWidgets.satir(Color.fromRGBO(38,137,116, 1.0),  applicationManager.currentLanguage.getsatisAdet,raporResult.bY_SatisAdet,false),
-LcwAssistCustomWidgets.satir(Color.fromRGBO(0,162,181, 1.0),   applicationManager.currentLanguage.getadetBuyume,raporResult.adetBuyume,false),
-LcwAssistCustomWidgets.satir(Color.fromRGBO(54,163,247, 1.0),  applicationManager.currentLanguage.getsatisAdetGY,raporResult.gY_SatisAdet,false),
-LcwAssistCustomWidgets.satir(Color.fromRGBO(0,116,198, 1.0),   applicationManager.currentLanguage.getconversionRate,raporResult.conversionRate,false),
-LcwAssistCustomWidgets.satir(Color.fromRGBO(239,138,14, 1.0),  applicationManager.currentLanguage.getmusteriZiyareySayisi,raporResult.magazaTrafik,false),
-LcwAssistCustomWidgets.satir(Color.fromRGBO(100,105,188, 1.0), applicationManager.currentLanguage.getsepetBuyukluguAdet,raporResult.sepetBuyukAdet,false),
-LcwAssistCustomWidgets.satir(Color.fromRGBO(196,66,88, 1.0),   applicationManager.currentLanguage.getsepetBuyukluguTutarKDVsiz,raporResult.sepetBuyukTutarKDVsiz,false),
-LcwAssistCustomWidgets.satir(Color.fromRGBO(38,137,116, 1.0),  applicationManager.currentLanguage.getstokDevirHizi,raporResult.stokDevirHizi,false),
-LcwAssistCustomWidgets.satir(Color.fromRGBO(0,162,181, 1.0),   applicationManager.currentLanguage.getM2Verimlilik,raporResult.m2Verimlilik,false),
+Expanded(child: AssistReportTable(assitReportData: this.assitReportDataDTO)),
 
-],)
+//SingleChildScrollView(
+                //child:
+// Column(children: <Widget>[
+// LcwAssistCustomWidgets.satir(Color.fromRGBO(239,138,14, 1.0),  applicationManager.currentLanguage.getsatisTutarKDVsiz,raporResult.bY_SatisTutar_KDVsiz,false),
+// LcwAssistCustomWidgets.satir(Color.fromRGBO(0,116,198, 1.0),   applicationManager.currentLanguage.gettutarBuyume,raporResult.tutarBuyume,false),
+// LcwAssistCustomWidgets.satir(Color.fromRGBO(54,163,247, 1.0),  applicationManager.currentLanguage.getsatisTutarGY_KDVsiz,raporResult.gY_SatisTutar_KDVsiz,false),
+// LcwAssistCustomWidgets.satir(Color.fromRGBO(100,105,188, 1.0), applicationManager.currentLanguage.gethedefTutar,raporResult.bY_HedefTutar,false),
+// LcwAssistCustomWidgets.satir(Color.fromRGBO(196,66,88, 1.0),   applicationManager.currentLanguage.gethedefTutarYuzdesi,raporResult.magazaHedefTutturmaYuzdesi,false),
+// LcwAssistCustomWidgets.satir(Color.fromRGBO(38,137,116, 1.0),  applicationManager.currentLanguage.getsatisAdet,raporResult.bY_SatisAdet,false),
+// LcwAssistCustomWidgets.satir(Color.fromRGBO(0,162,181, 1.0),   applicationManager.currentLanguage.getadetBuyume,raporResult.adetBuyume,false),
+// LcwAssistCustomWidgets.satir(Color.fromRGBO(54,163,247, 1.0),  applicationManager.currentLanguage.getsatisAdetGY,raporResult.gY_SatisAdet,false),
+// LcwAssistCustomWidgets.satir(Color.fromRGBO(0,116,198, 1.0),   applicationManager.currentLanguage.getconversionRate,raporResult.conversionRate,false),
+// LcwAssistCustomWidgets.satir(Color.fromRGBO(239,138,14, 1.0),  applicationManager.currentLanguage.getmusteriZiyareySayisi,raporResult.magazaTrafik,false),
+// LcwAssistCustomWidgets.satir(Color.fromRGBO(100,105,188, 1.0), applicationManager.currentLanguage.getsepetBuyukluguAdet,raporResult.sepetBuyukAdet,false),
+// LcwAssistCustomWidgets.satir(Color.fromRGBO(196,66,88, 1.0),   applicationManager.currentLanguage.getsepetBuyukluguTutarKDVsiz,raporResult.sepetBuyukTutarKDVsiz,false),
+// LcwAssistCustomWidgets.satir(Color.fromRGBO(38,137,116, 1.0),  applicationManager.currentLanguage.getstokDevirHizi,raporResult.stokDevirHizi,false),
+// LcwAssistCustomWidgets.satir(Color.fromRGBO(0,162,181, 1.0),   applicationManager.currentLanguage.getM2Verimlilik,raporResult.m2Verimlilik,false),
 
-  ),
-)
+// ],)
 
-  ],
+ // ),
+//)
+
+  ]
 );
 }
 
@@ -377,25 +381,6 @@ return PageView(
       ],
     );
 
-// return ListView
-// (
-//   children: <Widget>[
-//     LcwAssistCustomWidgets.tutarUcluCardAltAlta(LcwAssistColor.thirdColor,sayfaBirSatir1,false),
-//     LcwAssistCustomWidgets.tutarUcluCardAltAlta(LcwAssistColor.thirdColor,sayfaBirSatir3,false),
-    
-// LcwAssistCustomWidgets.tutarCardYatay(LcwAssistColor.thirdColor,'Hedef Tutar',raporResult.bY_HedefTutar,false),
-// LcwAssistCustomWidgets.tutarCardYatay(LcwAssistColor.thirdColor,'Hedef Tut. Yüz',raporResult.magazaHedefTutturmaYuzdesi,false),
-// LcwAssistCustomWidgets.tutarCardYatay(LcwAssistColor.thirdColor,'Conversion Rate',raporResult.conversionRate,false),
-// LcwAssistCustomWidgets.tutarCardYatay(LcwAssistColor.thirdColor,'Müş. Ziy. Say',raporResult.magazaTrafik,false),
-// LcwAssistCustomWidgets.tutarCardYatay(LcwAssistColor.thirdColor,'Sep Büy.Adet',raporResult.sepetBuyukAdet,false),
-// LcwAssistCustomWidgets.tutarCardYatay(LcwAssistColor.thirdColor,'Sepet Büy. Tutar(KDVsiz)',raporResult.sepetBuyukTutarKDVsiz,false),
-// LcwAssistCustomWidgets.tutarCardYatay(LcwAssistColor.thirdColor,'Stok Devir Hızı',raporResult.stokDevirHizi,false),
-// LcwAssistCustomWidgets.tutarCardYatay(LcwAssistColor.thirdColor,'M2 Verimlilik',raporResult.m2Verimlilik,false),
-  
-//   ],
-// );
-
-
 }
 
 Future loadStoreReport(StoreReportRequestDTO parameter) async{
@@ -405,38 +390,22 @@ ParsedResponse responseResult = await applicationManager.serviceManager.storeCho
 if(responseResult.statusCode == 200){
 raporResult = responseResult.body;
 
-List<AssitReportDataDTO> assitReportDataDTO = new List<AssitReportDataDTO>();
-
+assitReportDataDTO = new List<AssitReportDataDTO>();
 
 assitReportDataDTO.add(new AssitReportDataDTO(this.applicationManager.currentLanguage.getsatisTutarKDVsiz,raporResult.bY_SatisTutar_KDVsiz,false));
 assitReportDataDTO.add(new AssitReportDataDTO(this.applicationManager.currentLanguage.gettutarBuyume,raporResult.tutarBuyume,false));
-assitReportDataDTO.add(new AssitReportDataDTO(this.applicationManager.currentLanguage.gettutarBuyume,raporResult.tutarBuyume,false));
-assitReportDataDTO.add(new AssitReportDataDTO(this.applicationManager.currentLanguage.gettutarBuyume,raporResult.tutarBuyume,false));
-
-
-// this.applicationManager.currentLanguage.gettutarBuyume,raporResult.tutarBuyume,false),
-// this.applicationManager.currentLanguage.getsatisTutarGY_KDVsiz,raporResult.gY_SatisTutar
-// this.applicationManager.currentLanguage.gethedefTutar,raporResult.bY_HedefTutar,false),
-// this.applicationManager.currentLanguage.gethedefTutarYuzdesi,raporResult.magazaHedefTutt
-// this.applicationManager.currentLanguage.getsatisAdet,raporResult.bY_SatisAdet,false),
-// this.applicationManager.currentLanguage.getadetBuyume,raporResult.adetBuyume,false),
-// this.applicationManager.currentLanguage.getsatisAdetGY,raporResult.gY_SatisAdet,false),
-// this.applicationManager.currentLanguage.getconversionRate,raporResult.conversionRate,fal
-// this.applicationManager.currentLanguage.getmusteriZiyareySayisi,raporResult.magazaTrafik
-// this.applicationManager.currentLanguage.getsepetBuyukluguAdet,raporResult.sepetBuyukAdet
-// this.applicationManager.currentLanguage.getsepetBuyukluguTutarKDVsiz,raporResult.sepetBu
-// this.applicationManager.currentLanguage.getstokDevirHizi,raporResult.stokDevirHizi,false
-// this.applicationManager.currentLanguage.getM2Verimlilik,raporResult.m2Verimlilik,false),
-
-
-
-
-
-
-
-
-
-
+assitReportDataDTO.add(new AssitReportDataDTO( this.applicationManager.currentLanguage.getsatisTutarGY_KDVsiz,raporResult.gY_SatisTutar_KDVsiz,false));
+assitReportDataDTO.add(new AssitReportDataDTO(this.applicationManager.currentLanguage.gethedefTutar,raporResult.bY_HedefTutar,false));
+assitReportDataDTO.add(new AssitReportDataDTO(this.applicationManager.currentLanguage.gethedefTutarYuzdesi,raporResult.magazaHedefTutturmaYuzdesi,false));
+assitReportDataDTO.add(new AssitReportDataDTO(this.applicationManager.currentLanguage.getsatisAdet,raporResult.bY_SatisAdet,false));
+assitReportDataDTO.add(new AssitReportDataDTO(this.applicationManager.currentLanguage.getadetBuyume,raporResult.adetBuyume,false));
+assitReportDataDTO.add(new AssitReportDataDTO(this.applicationManager.currentLanguage.getsatisAdetGY,raporResult.gY_SatisAdet,false));
+assitReportDataDTO.add(new AssitReportDataDTO(this.applicationManager.currentLanguage.getconversionRate,raporResult.conversionRate,false));
+assitReportDataDTO.add(new AssitReportDataDTO(this.applicationManager.currentLanguage.getmusteriZiyareySayisi,raporResult.magazaTrafik,false));
+assitReportDataDTO.add(new AssitReportDataDTO(this.applicationManager.currentLanguage.getsepetBuyukluguAdet,raporResult.sepetBuyukAdet,false));
+assitReportDataDTO.add(new AssitReportDataDTO(this.applicationManager.currentLanguage.getsepetBuyukluguTutarKDVsiz,raporResult.sepetBuyukTutarKDVsiz,false));
+assitReportDataDTO.add(new AssitReportDataDTO(this.applicationManager.currentLanguage.getstokDevirHizi,raporResult.stokDevirHizi,false));
+assitReportDataDTO.add(new AssitReportDataDTO(this.applicationManager.currentLanguage.getM2Verimlilik,raporResult.m2Verimlilik,false));
 
 
 
@@ -465,7 +434,6 @@ Widget thisBottomNavigator() {
       ),
     );
 }
-
 
 Widget buildFloatingButtonHasSub() {
   return  new Column(
@@ -526,11 +494,9 @@ return FloatingActionButton(
       child: const Icon(Icons.filter_list), onPressed: () {_openFilterDialog();},);
     }
 
-
 void _openFilterDialog() async{
 
 var result = null;
-
 
 result = await Navigator.push(
     context,
