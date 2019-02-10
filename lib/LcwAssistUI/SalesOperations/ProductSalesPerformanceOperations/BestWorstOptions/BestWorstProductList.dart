@@ -59,6 +59,7 @@ sayfaYuklendiMi = false;
   Future loaded(BuildContext context) async{
   
     sayfaYuklendiMi = true;
+    
 }
 
   Future<void> executeAfterBuild() async {

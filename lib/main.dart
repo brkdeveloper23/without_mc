@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
         //primarySwatch: LcwAssistColor.secondaryColor,LCWAIKIKI\\BURAK.BITKIN Cmb150832
         primaryColor: LcwAssistColor.secondaryColor,
       ),
-      home: SplashAssist(), 
+      home: Deneme()//SplashAssist(), 
     );
   }
 }
